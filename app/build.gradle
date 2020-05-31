@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.cabbage"
-        minSdkVersion 17
+        minSdkVersion 22
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -21,6 +21,11 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
@@ -33,6 +38,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.lapism:search:2.1.1@aar'
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
-    implementation 'com.jakewharton:butterknife:7.0.1'
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 //    kapt 'com.jakewharton:butterknife:7.0.1'
 }

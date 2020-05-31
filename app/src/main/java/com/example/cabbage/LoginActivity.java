@@ -11,29 +11,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cabbage.view.PasswordEditText;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_title_tip)
+    @BindView(R.id.tv_title_tip)
     TextView tvTitleTip;
-    @Bind(R.id.space_top)
+    @BindView(R.id.space_top)
     Space spaceTop;
-    @Bind(R.id.et_account)
+    @BindView(R.id.et_account)
     EditText etAccount;
-    @Bind(R.id.et_password)
+    @BindView(R.id.et_password)
     PasswordEditText etPassword;
-    @Bind(R.id.space_bottom)
+    @BindView(R.id.space_bottom)
     Space spaceBottom;
-    @Bind(R.id.btn_login)
+    @BindView(R.id.btn_login)
     Button btnLogin;
-    @Bind(R.id.btn_fast_login)
+    @BindView(R.id.btn_fast_login)
     Button btnFastLogin;
-    @Bind(R.id.tv_register_account)
+    @BindView(R.id.tv_register_account)
     TextView tvRegisterAccount;
 
     @Override
