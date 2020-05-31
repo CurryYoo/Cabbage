@@ -1,4 +1,4 @@
-package com.example.cabbage;
+package com.example.cabbage.view;
 
 import android.content.Context;
 import android.text.Editable;
@@ -13,6 +13,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.example.cabbage.R;
 
 /**
  * Author: xiemugan
