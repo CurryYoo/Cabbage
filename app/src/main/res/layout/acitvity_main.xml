@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/main_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/color_grey" />
+
+    <com.chaychan.library.BottomBarLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:iconHeight="20dp"
+            app:iconNormal="@mipmap/ic_normal_home"
+            app:iconSelected="@mipmap/ic_selected_home"
+            app:iconWidth="20dp"
+            app:itemText="首页"
+            app:itemTextSize="8sp" />
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:iconHeight="20dp"
+            app:iconNormal="@mipmap/ic_normal_user"
+            app:iconSelected="@mipmap/ic_selected_user"
+            app:iconWidth="20dp"
+            app:itemText="个人中心"
+            app:itemTextSize="8sp" />
+    </com.chaychan.library.BottomBarLayout>
+</LinearLayout>

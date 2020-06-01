@@ -1,4 +1,4 @@
-package com.example.cabbage;
+package com.example.cabbage.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,12 +9,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.cabbage.R;
+import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.view.PasswordEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+@Route(path = ARouterPaths.LOGIN_ACTIVITY)
 public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.tv_title)
@@ -57,6 +62,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login() {
 
+        ARouter.getInstance().build(ARouterPaths.MAIN_ACTIVITY).navigation();
+        finish();
     }
 
     public void fastLogin() {

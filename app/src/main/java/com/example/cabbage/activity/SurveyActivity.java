@@ -1,20 +1,23 @@
-package com.example.cabbage;
+package com.example.cabbage.activity;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.cabbage.R;
+import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.view.InfoItemBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@Route(path= ARouterPaths.SURVEY_ACTIVITY)
 public class SurveyActivity extends AppCompatActivity {
 
 //    @BindView(R.id.left_one_button)

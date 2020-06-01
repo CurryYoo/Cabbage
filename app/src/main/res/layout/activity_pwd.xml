@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/tool_bar"
+        android:id="@+id/tool_bar"/>
+    <EditText
+        android:id="@+id/edt_old_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_10_light"
+        android:hint="原密码"
+        android:layout_margin="10dp"
+        android:padding="@dimen/dp_10"
+        android:textSize="12sp"/>
+    <EditText
+        android:id="@+id/edt_new_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_10_light"
+        android:layout_margin="10dp"
+        android:padding="@dimen/dp_10"
+        android:hint="新密码"
+        android:textSize="12sp"/>
+    <EditText
+        android:id="@+id/edt_new_pwd2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_10_light"
+        android:layout_margin="10dp"
+        android:padding="@dimen/dp_10"
+        android:hint="重复密码"
+        android:textSize="12sp"/>
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:text="@string/save_data"
+        style="@style/Button_Red"/>
+</LinearLayout>

@@ -3,15 +3,18 @@
     package="com.example.cabbage">
 
     <application
+        android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SurveyActivity"></activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.SurveyActivity"/>
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.HistoryActivity"/>
+        <activity android:name=".activity.PwdActivity"/>
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
