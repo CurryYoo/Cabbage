@@ -20,9 +20,9 @@ import butterknife.ButterKnife;
 
 @Route(path = ARouterPaths.PWD_ACTIVITY)
 public class PwdActivity extends AppCompatActivity implements View.OnClickListener {
-    @BindView(R.id.img_left_one)
+    @BindView(R.id.left_one_button)
     ImageView imgLeftOne;
-    @BindView(R.id.ll_left_one)
+    @BindView(R.id.left_one_layout)
     LinearLayout llLeftOne;
     @BindView(R.id.edt_old_pwd)
     EditText edtOldPwd;
@@ -32,7 +32,7 @@ public class PwdActivity extends AppCompatActivity implements View.OnClickListen
     EditText edtNewPwd2;
     @BindView(R.id.btn_confirm)
     Button btnConfirm;
-    @BindView(R.id.txt_title)
+    @BindView(R.id.title_text)
     TextView txtTitle;
 
     @Override
@@ -53,7 +53,7 @@ public class PwdActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_left_one:
+            case R.id.left_one_layout:
                 finish();
                 break;
             case R.id.btn_confirm:

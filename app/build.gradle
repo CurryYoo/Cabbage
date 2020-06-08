@@ -54,4 +54,9 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
     //圆形图片
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    //Gson converter
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
 }
