@@ -106,4 +106,104 @@
         <item>蓝紫</item>
         <item>红纹或紫纹</item>
     </string-array>
+
+
+    <string-array name="size">
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+    </string-array>
+
+    <string-array name="cotyledon_color">
+        <item>黄</item>
+        <item>黄绿</item>
+        <item>浅绿</item>
+        <item>中等绿</item>
+        <item>深绿</item>
+        <item>灰绿</item>
+    </string-array>
+
+    <string-array name="cotyledon_count">
+        <item>正常</item>
+        <item>异常</item>
+    </string-array>
+
+    <string-array name="cotyledon_shape">
+        <item>心形</item>
+        <item>圆形</item>
+    </string-array>
+
+    <string-array name="heart_leaf_color">
+        <item>白色</item>
+        <item>黄色</item>
+        <item>黄绿色</item>
+        <item>浅绿色</item>
+        <item>绿色</item>
+        <item>深绿色</item>
+        <item>灰绿色</item>
+        <item>紫色</item>
+    </string-array>
+
+    <string-array name="true_leaf_color">
+        <item>白色</item>
+        <item>黄色</item>
+        <item>黄绿色</item>
+        <item>浅绿色</item>
+        <item>绿色</item>
+        <item>深绿色</item>
+        <item>灰绿色</item>
+        <item>紫色</item>
+    </string-array>
+
+    <string-array name="true_leaf_length">
+        <item>短</item>
+        <item>长</item>
+    </string-array>
+
+    <string-array name="true_leaf_width">
+        <item>短</item>
+        <item>长</item>
+    </string-array>
+
+    <string-array name="plant_shape">
+        <item>直立</item>
+        <item>半直立</item>
+        <item>平展</item>
+    </string-array>
+
+    <string-array name="plant_height">
+        <item>极矮</item>
+        <item>矮</item>
+        <item>中</item>
+        <item>高</item>
+        <item>极高</item>
+    </string-array>
+
+    <string-array name="development_degree">
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+    </string-array>
+
+    <string-array name="leaf_length">
+        <item>短</item>
+        <item>中</item>
+        <item>长</item>
+    </string-array>
+
+    <string-array name="leaf_width">
+        <item>窄</item>
+        <item>中</item>
+        <item>宽</item>
+    </string-array>
+
+    <string-array name="leaf_shape">
+        <item>近圆</item>
+        <item>宽倒卵</item>
+        <item>倒卵</item>
+        <item>长倒卵</item>
+        <item>长圆</item>
+    </string-array>
+
+
 </resources>

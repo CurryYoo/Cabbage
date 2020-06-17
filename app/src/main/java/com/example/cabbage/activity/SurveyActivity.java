@@ -6,8 +6,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +26,7 @@ import com.example.cabbage.view.InfoItemBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 @Route(path = ARouterPaths.SURVEY_ACTIVITY)
 public class SurveyActivity extends AppCompatActivity {
@@ -52,6 +55,56 @@ public class SurveyActivity extends AppCompatActivity {
     ImageView rightOneButton;
     @BindView(R.id.right_one_layout)
     LinearLayout rightOneLayout;
+
+    //性状
+    @BindView(R.id.cotyledon_size)
+    Spinner cotyledonSize;
+    @BindView(R.id.edit_cotyledon_size)
+    EditText editCotyledonSize;
+    @BindView(R.id.btn_cotyledon_size)
+    Button btnCotyledonSize;
+    @BindView(R.id.cotyledon_color)
+    Spinner cotyledonColor;
+    @BindView(R.id.edit_cotyledon_color)
+    EditText editCotyledonColor;
+    @BindView(R.id.btn_cotyledon_color)
+    Button btnCotyledonColor;
+    @BindView(R.id.cotyledon_count)
+    Spinner cotyledonCount;
+    @BindView(R.id.edit_cotyledon_count)
+    EditText editCotyledonCount;
+    @BindView(R.id.btn_cotyledon_count)
+    Button btnCotyledonCount;
+    @BindView(R.id.cotyledon_shape)
+    Spinner cotyledonShape;
+    @BindView(R.id.edit_cotyledon_shape)
+    EditText editCotyledonShape;
+    @BindView(R.id.btn_cotyledon_shape)
+    Button btnCotyledonShape;
+    @BindView(R.id.heart_leaf_color)
+    Spinner heartLeafColor;
+    @BindView(R.id.edit_heart_leaf_color)
+    EditText editHeartLeafColor;
+    @BindView(R.id.btn_heart_leaf_color)
+    Button btnHeartLeafColor;
+    @BindView(R.id.true_leaf_color)
+    Spinner trueLeafColor;
+    @BindView(R.id.edit_true_leaf_color)
+    EditText editTrueLeafColor;
+    @BindView(R.id.btn_true_leaf_color)
+    Button btnTrueLeafColor;
+    @BindView(R.id.true_leaf_length)
+    Spinner trueLeafLength;
+    @BindView(R.id.edit_true_leaf_length)
+    EditText editTrueLeafLength;
+    @BindView(R.id.btn_true_leaf_length)
+    Button btnTrueLeafLength;
+    @BindView(R.id.true_leaf_width)
+    Spinner trueLeafWidth;
+    @BindView(R.id.edit_true_leaf_width)
+    EditText editTrueLeafWidth;
+    @BindView(R.id.btn_true_leaf_width)
+    Button btnTrueLeafWidth;
 
     private Context context = this;
 
@@ -99,6 +152,12 @@ public class SurveyActivity extends AppCompatActivity {
         itemBar.addView(view);
         itemBar.setShow(true);
         mainArea.addView(itemBar);
+
+        View seedlingPeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_seedling_period, null);
+        InfoItemBar seedlingPeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_seedling_period));
+        seedlingPeriodItemBar.addView(seedlingPeriodLayout);
+        seedlingPeriodItemBar.setShow(true);
+        mainArea.addView(seedlingPeriodItemBar);
     }
 
     private void initData() {
@@ -128,31 +187,42 @@ public class SurveyActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.right_two_layout:
-//                    final SweetAlertDialog saveDialog = new SweetAlertDialog(SaveDataActivity.this, SweetAlertDialog.NORMAL_TYPE)
-//                            .setContentText(getString(R.string.save_data_tip))
-//                            .setConfirmText("确定")
-//                            .setCancelText("取消")
-//                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                                @Override
-//                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                                    sweetAlertDialog.dismissWithAnimation();
+                    final SweetAlertDialog saveDialog = new SweetAlertDialog(context, SweetAlertDialog.NORMAL_TYPE)
+                            .setContentText(getString(R.string.save_data_tip))
+                            .setConfirmText("确定")
+                            .setCancelText("取消")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismissWithAnimation();
+                                    updateData();
 //                                    updateDataLocally();
 //                                    editor.putBoolean("update_pick_data", true);
 //                                    editor.apply();
-//                                }
-//                            });
-//                    saveDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                        @Override
-//                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                            sweetAlertDialog.dismissWithAnimation();
-//                        }
-//                    });
-//                    saveDialog.show();
+                                }
+                            });
+                    saveDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            sweetAlertDialog.dismissWithAnimation();
+                        }
+                    });
+                    saveDialog.show();
                     break;
                 default:
                     break;
             }
         }
     };
+
+    private boolean updateData() {
+
+
+        return false;
+    }
+
+    private void getData() {
+        cotyledonSize.getSelectedItem().toString();
+    }
 
 }

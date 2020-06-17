@@ -1,7 +1,9 @@
 package com.example.cabbage.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,8 +57,17 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initView() {
-        imgAvatar.setImageResource(R.mipmap.ic_user_avatar);
-        txtNickname.setText("测试账号");
+        SharedPreferences sp = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String nickname = sp.getString("nickname", "测试账号");
+        String headImgUrl = sp.getString("headImgUrl", ""); //暂时没有数据
+
+        if (!TextUtils.isEmpty(headImgUrl)) {
+            //加载网络图片
+
+        } else {
+            imgAvatar.setImageResource(R.mipmap.ic_user_avatar);
+        }
+        txtNickname.setText(nickname);
         txtRole.setText("实验员");
         txtHistory.setOnClickListener(this);
         txtPw.setOnClickListener(this);

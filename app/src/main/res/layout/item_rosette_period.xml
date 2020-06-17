@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_plant_shape" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/plant_shape"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/plant_shape" />
+
+        <EditText
+            android:id="@+id/edit_plant_shape"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_plant_shape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_plant_height" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/plant_height"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/plant_height" />
+
+        <EditText
+            android:id="@+id/edit_plant_height"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_plant_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_development_degree" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/development_degree"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/development_degree" />
+
+        <EditText
+            android:id="@+id/edit_development_degree"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_development_degree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_leaf_count" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <EditText
+            android:id="@+id/edt_leaf_count"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="100dp"
+            android:inputType="numberDecimal" />
+
+        <Button
+            android:id="@+id/btn_leaf_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_soft_leaf_thickness" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <EditText
+            android:id="@+id/edt_soft_leaf_thickness"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="100dp"
+            android:inputType="numberDecimal" />
+
+        <Button
+            android:id="@+id/btn_soft_leaf_thickness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_leaf_length" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/leaf_length"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/leaf_length" />
+
+        <EditText
+            android:id="@+id/edit_leaf_length"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_leaf_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_leaf_width" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/leaf_width"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/leaf_width" />
+
+        <EditText
+            android:id="@+id/edit_leaf_width"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_leaf_width"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_leaf_shape" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/leaf_shape"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/leaf_shape" />
+
+        <EditText
+            android:id="@+id/edit_leaf_shape"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_leaf_shape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+</LinearLayout>

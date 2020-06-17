@@ -51,7 +51,6 @@
                 android:id="@+id/et_account"
                 style="@style/EditText_Common"
                 android:hint="账号"
-                android:inputType="phone"
                 android:maxLength="11" />
 
             <View

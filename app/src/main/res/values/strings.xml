@@ -147,4 +147,105 @@
     <string name="network_normal">网络正常</string>
     <string name="network_wrong">网络异常</string>
     <string name="dialog_title_tip">提示</string>
+
+    <string name="title_seedling_period">幼苗期</string>
+    <string name="info_cotyledon_size">子叶大小</string>
+    <string name="info_cotyledon_color">子叶颜色</string>
+    <string name="info_cotyledon_count">子叶数目</string>
+    <string name="info_cotyledon_shape">子叶形状</string>
+    <string name="info_heart_leaf_color">心叶叶色</string>
+    <string name="info_true_leaf_color">真叶叶色</string>
+    <string name="info_true_leaf_length">真叶长度</string>
+    <string name="info_true_leaf_width">真叶宽度</string>
+
+    <string name="title_rosette_period">莲座期</string>
+    <string name="info_plant_shape">株型</string>
+    <string name="info_plant_height">株高</string>
+    <string name="info_development_degree">开展度</string>
+    <string name="info_leaf_count">叶片数目</string>
+    <string name="info_soft_leaf_thickness">叶片软叶厚度</string>
+    <string name="info_leaf_length">叶片长</string>
+    <string name="info_leaf_width">叶片宽</string>
+    <string name="info_leaf_shape">叶形</string>
+    <string name="info_leaf_color">叶色</string>
+    <string name="info_leaf_luster">叶片光泽</string>
+    <string name="info_leaf_fuzz">叶片茸毛</string>
+    <string name="info_leaf_margin_undulance">叶缘波状</string>
+    <string name="info_leaf_margin_sawtooth">叶缘锯齿（缺刻）</string>
+    <string name="info_leaf_smoothness">叶面平滑/皱缩</string>
+    <string name="info_leaf_protuberance">叶面泡状突起大小</string>
+    <string name="info_leaf_vein_livingness">叶脉鲜明度</string>
+    <string name="info_leaf_keel_livingness">中肋鲜明度</string>
+    <string name="info_leaf_curliness">叶卷曲</string>
+    <string name="info_leaf_curliness_part">叶卷曲部位</string>
+    <string name="info_leaf_texture">叶片质地</string>
+
+    <string name="title_harvest_period">结球及收获期</string>
+    <string name="info_isKnot">是否结球</string>
+    <string name="info_flower_bud">花蕾</string>
+    <string name="info_lateral_bud">侧芽</string>
+    <string name="info_outer_leaf_length">外叶长</string>
+    <string name="info_outer_leaf_width">外叶宽</string>
+    <string name="info_outer_leaf_shape">外叶叶形</string>
+    <string name="info_outer_leaf_keel_color">外叶中肋（叶柄）色</string>
+    <string name="info_outer_leaf_keel_thickness">外叶中肋（叶柄）厚</string>
+    <string name="info_outer_leaf_keel_length">外叶中肋（叶柄）长度</string>
+    <string name="info_outer_leaf_keel_width">外叶中肋（叶柄）宽度</string>
+    <string name="info_leaf_keel_shape">中肋（叶柄）形状</string>
+    <string name="info_outer_leaf_count">外叶数</string>
+    <string name="info_strobilus_head_closure_type">球顶部闭合类型</string>
+    <string name="info_strobilus_head_conjugation_type">球顶部抱合类型</string>
+    <string name="info_strobilus_head_shape">球顶部形状（仅闭合类型）</string>
+    <string name="info_strobilus_top_color">叶球上部颜色</string>
+    <string name="info_strobilus_top_green_degree">叶球上部绿色程度（仅绿色品种）</string>
+    <string name="info_strobilus_shape">叶球形状</string>
+    <string name="info_strobilus_height">叶球高度</string>
+    <string name="info_strobilus_width">叶球宽度</string>
+    <string name="info_strobilus_mid_width">叶球中部宽度</string>
+    <string name="info_strobilus_end_width">叶球端部宽度</string>
+    <string name="info_strobilus_compaction">叶球紧实度</string>
+    <string name="info_strobilus_inner_color">叶球内颜色</string>
+    <string name="info_strobilus_leaf_count">球叶数</string>
+    <string name="info_soft_leaf_rate">软叶率</string>
+    <string name="info_strobilus_mass">叶球质量</string>
+    <string name="info_clean_veg_rate">净菜率</string>
+    <string name="info_center_shape">中心柱形状</string>
+    <string name="info_center_length">中心柱长度</string>
+    <string name="info_harvest_type">熟性</string>
+    <string name="info_harvest_delay_time_early">收获延长期（早熟）</string>
+    <string name="info_harvest_delay_time_late">收获延长期（中晚熟）</string>
+
+    <string name="title_storage_period">贮藏期</string>
+    <string name="info_loss_rate">损耗率</string>
+
+    <string name="title_flowering_period">现蕾开花期</string>
+    <string name="info_50percent_plant_flower_bud">50%植株现蕾</string>
+    <string name="info_flower_bud_status">花蕾状态</string>
+    <string name="info_flower_bud_shape">花蕾形状</string>
+    <string name="info_flower_bud_size">花蕾大小</string>
+    <string name="info_petal_shape">花瓣形状</string>
+    <string name="info_petal_size">花瓣大小</string>
+    <string name="info_petal_color">花瓣颜色</string>
+    <string name="info_petal_count">花瓣数目</string>
+    <string name="info_plant_height0">植株高度</string>
+    <string name="info_branch_ability">分支能力</string>
+    <string name="info_single_flower_sterile_degree">单花不育度</string>
+    <string name="info_single_plant_sterile_degree">单株不育度</string>
+    <string name="info_group_sterile_degree">群体不育度</string>
+    <string name="info_group_sterile_rate">群体不育株率</string>
+    <string name="info_male_sterile">雄性不育</string>
+    
+    <string name="title_seed_harvest_period">结荚与种子收获期</string>
+    <string name="info_seed_pod_length">种荚长度</string>
+    <string name="info_seed_pod_beak_length">种荚喙长</string>
+    <string name="info_seed_size">种子大小</string>
+    <string name="info_seed_shape">种子形状</string>
+    <string name="info_seed_color">种子颜色</string>
+    <string name="info_seed_pod_rate">结荚率</string>
+    <string name="info_seed_rate">结籽率</string>
+    <string name="info_single_seed_pod_rate">单荚结籽率%</string>
+    <string name="info_self_compatible">自交亲和性</string>
+
+    <string name="survey_help">测量帮助</string>
+
 </resources>
