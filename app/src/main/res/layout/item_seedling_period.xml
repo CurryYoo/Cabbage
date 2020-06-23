@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_cotyledon_size" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/cotyledon_size"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/size" />
+
+        <EditText
+            android:id="@+id/edit_cotyledon_size"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_cotyledon_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_cotyledon_color" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/cotyledon_color"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/cotyledon_color" />
+
+        <EditText
+            android:id="@+id/edit_cotyledon_color"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_cotyledon_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_cotyledon_count" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/cotyledon_count"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/cotyledon_count" />
+
+        <EditText
+            android:id="@+id/edit_cotyledon_count"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_cotyledon_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_cotyledon_shape" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/cotyledon_shape"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/cotyledon_shape" />
+
+        <EditText
+            android:id="@+id/edit_cotyledon_shape"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_cotyledon_shape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_heart_leaf_color" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/heart_leaf_color"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/heart_leaf_color" />
+
+        <EditText
+            android:id="@+id/edit_heart_leaf_color"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_heart_leaf_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_true_leaf_color" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/true_leaf_color"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/true_leaf_color" />
+
+        <EditText
+            android:id="@+id/edit_true_leaf_color"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_true_leaf_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_true_leaf_length" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/true_leaf_length"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/true_leaf_length" />
+
+        <EditText
+            android:id="@+id/edit_true_leaf_length"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_true_leaf_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="@string/info_true_leaf_width" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <Spinner
+            android:id="@+id/true_leaf_width"
+            style="@style/style_basic_spinner2"
+            android:layout_width="100dp"
+            android:entries="@array/true_leaf_width" />
+
+        <EditText
+            android:id="@+id/edit_true_leaf_width"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:hint="自定义"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_true_leaf_width"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survey_help" />
+    </LinearLayout>
+
+</LinearLayout>
