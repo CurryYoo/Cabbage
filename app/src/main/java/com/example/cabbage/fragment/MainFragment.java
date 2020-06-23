@@ -88,10 +88,6 @@ public class MainFragment extends Fragment {
         });
 
         // 根据返回结果跳转页面
-        if (input.equals("1")) {
-            ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY).withString("speciesId", "").navigation();
-        } else {
-            ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY).navigation();
-        }
+        ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY).withString("speciesId", input).navigation();
     }
 }

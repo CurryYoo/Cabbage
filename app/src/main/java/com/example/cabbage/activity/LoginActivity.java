@@ -101,7 +101,10 @@ public class LoginActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void fastLogin() {
-        etAccount.setText("admin");
-        etPassword.setText("admin");
+//        etAccount.setText("admin");
+//        etPassword.setText("admin");
+        ARouter.getInstance().build(ARouterPaths.MAIN_ACTIVITY).navigation();
+        Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

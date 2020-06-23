@@ -35,33 +35,11 @@ public class HttpRequest {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
-    }
-
-    // 获取用户信息
-    public static void requestUserInfo(String userId, IUserInfoCallback callback) {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
         getApi = retrofit.create(GetApi.class);
-        getApi.getUserInfo(userId).enqueue(new Callback<UserInfo>() {
-            @Override
-            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
-                if (response != null && response.body() != null) {
-                    UserInfo userInfo = response.body();
-                    callback.onResponse(userInfo);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserInfo> call, Throwable t) {
-                callback.onFailure();
-            }
-        });
     }
 
+    //登录
     public static void requestLogin(String username, String password, IUserInfoCallback callback) {
-        getApi = retrofit.create(GetApi.class);
         getApi.login(username, password).enqueue(new Callback<UserInfo>() {
             @Override
             public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
@@ -89,11 +67,33 @@ public class HttpRequest {
 
     }
 
+    // 新增不同观测时期数据
+    public static void requestAddSurveyData(String token, String obsPeriod, String json, INormalCallback callback) {
+        getApi.addSurveyData(token, obsPeriod, json).enqueue(new Callback<NormalInfo>() {
+            @Override
+            public void onResponse(Call<NormalInfo> call, Response<NormalInfo> response) {
+                if (response != null && response.body() != null) {
+                    NormalInfo normalInfo = response.body();
+                    callback.onResponse(normalInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NormalInfo> call, Throwable t) {
+                t.printStackTrace();
+                callback.onFailure();
+            }
+        });
+    }
+
     public interface IUserInfoCallback {
         void onResponse(UserInfo userInfo);
-
         void onFailure();
     }
 
+    public interface INormalCallback {
+        void onResponse(NormalInfo normalInfo);
+        void onFailure();
+    }
 
 }

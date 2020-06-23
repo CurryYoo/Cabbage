@@ -1,0 +1,75 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:7533414300560338113",
+      "lastPropertyId": "11:1472144819099466390",
+      "name": "SurveyData",
+      "properties": [
+        {
+          "id": "3:7203769718003557650",
+          "name": "surveyId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "4:4923010901862110080",
+          "name": "cotyledonSize",
+          "type": 9
+        },
+        {
+          "id": "5:366436625263548153",
+          "name": "cotyledonColor",
+          "type": 9
+        },
+        {
+          "id": "6:2698425184807901482",
+          "name": "cotyledonCount",
+          "type": 9
+        },
+        {
+          "id": "7:9146524383917805369",
+          "name": "cotyledonShape",
+          "type": 9
+        },
+        {
+          "id": "8:7146524306759199066",
+          "name": "heartLeafColor",
+          "type": 9
+        },
+        {
+          "id": "9:1389860786088110124",
+          "name": "trueLeafColor",
+          "type": 9
+        },
+        {
+          "id": "10:3885512700373361159",
+          "name": "trueLeafLength",
+          "type": 9
+        },
+        {
+          "id": "11:1472144819099466390",
+          "name": "trueLeafWidth",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:7533414300560338113",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    3853740004538714585,
+    9193234042249105823
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

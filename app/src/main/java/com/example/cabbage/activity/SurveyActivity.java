@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.cabbage.R;
+import com.example.cabbage.data.ObjectBox;
+import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.UserInfo;
 import com.example.cabbage.utils.ARouterPaths;
@@ -27,6 +30,7 @@ import com.example.cabbage.view.InfoItemBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import io.objectbox.Box;
 
 @Route(path = ARouterPaths.SURVEY_ACTIVITY)
 public class SurveyActivity extends AppCompatActivity {
@@ -56,57 +60,38 @@ public class SurveyActivity extends AppCompatActivity {
     @BindView(R.id.right_one_layout)
     LinearLayout rightOneLayout;
 
+    //基本信息
+    EditText editSpeciesId;
+
     //性状
-    @BindView(R.id.cotyledon_size)
-    Spinner cotyledonSize;
-    @BindView(R.id.edit_cotyledon_size)
+    Spinner spnCotyledonSize;
     EditText editCotyledonSize;
-    @BindView(R.id.btn_cotyledon_size)
     Button btnCotyledonSize;
-    @BindView(R.id.cotyledon_color)
-    Spinner cotyledonColor;
-    @BindView(R.id.edit_cotyledon_color)
+    Spinner spnCotyledonColor;
     EditText editCotyledonColor;
-    @BindView(R.id.btn_cotyledon_color)
     Button btnCotyledonColor;
-    @BindView(R.id.cotyledon_count)
-    Spinner cotyledonCount;
-    @BindView(R.id.edit_cotyledon_count)
+    Spinner spnCotyledonCount;
     EditText editCotyledonCount;
-    @BindView(R.id.btn_cotyledon_count)
     Button btnCotyledonCount;
-    @BindView(R.id.cotyledon_shape)
-    Spinner cotyledonShape;
-    @BindView(R.id.edit_cotyledon_shape)
+    Spinner spnCotyledonShape;
     EditText editCotyledonShape;
-    @BindView(R.id.btn_cotyledon_shape)
     Button btnCotyledonShape;
-    @BindView(R.id.heart_leaf_color)
-    Spinner heartLeafColor;
-    @BindView(R.id.edit_heart_leaf_color)
+    Spinner spnHeartLeafColor;
     EditText editHeartLeafColor;
-    @BindView(R.id.btn_heart_leaf_color)
     Button btnHeartLeafColor;
-    @BindView(R.id.true_leaf_color)
-    Spinner trueLeafColor;
-    @BindView(R.id.edit_true_leaf_color)
+    Spinner spnTrueLeafColor;
     EditText editTrueLeafColor;
-    @BindView(R.id.btn_true_leaf_color)
     Button btnTrueLeafColor;
-    @BindView(R.id.true_leaf_length)
-    Spinner trueLeafLength;
-    @BindView(R.id.edit_true_leaf_length)
+    Spinner spnTrueLeafLength;
     EditText editTrueLeafLength;
-    @BindView(R.id.btn_true_leaf_length)
     Button btnTrueLeafLength;
-    @BindView(R.id.true_leaf_width)
-    Spinner trueLeafWidth;
-    @BindView(R.id.edit_true_leaf_width)
+    Spinner spnTrueLeafWidth;
     EditText editTrueLeafWidth;
-    @BindView(R.id.btn_true_leaf_width)
     Button btnTrueLeafWidth;
 
     private Context context = this;
+
+    Box<SurveyData> surveyDataBox;
 
     @Autowired
     public String speciesId = "";
@@ -119,8 +104,11 @@ public class SurveyActivity extends AppCompatActivity {
 
         ARouter.getInstance().inject(this);
 
+        surveyDataBox = ObjectBox.get().boxFor(SurveyData.class);
+
         initToolBar();
         initView();
+        initBasicInfo();
         initData();
 
     }
@@ -144,35 +132,6 @@ public class SurveyActivity extends AppCompatActivity {
             rightOneLayout.setTooltipText(getResources().getText(R.string.home_page));
             rightTwoLayout.setTooltipText(getResources().getText(R.string.save_data));
         }
-    }
-
-    private void initView() {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_basicinfo, null);
-        InfoItemBar itemBar = new InfoItemBar(context, getString(R.string.item_bar_basic));
-        itemBar.addView(view);
-        itemBar.setShow(true);
-        mainArea.addView(itemBar);
-
-        View seedlingPeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_seedling_period, null);
-        InfoItemBar seedlingPeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_seedling_period));
-        seedlingPeriodItemBar.addView(seedlingPeriodLayout);
-        seedlingPeriodItemBar.setShow(true);
-        mainArea.addView(seedlingPeriodItemBar);
-    }
-
-    private void initData() {
-        // 网络请求具体数据
-        HttpRequest.requestSpeciesData(speciesId, "", new HttpRequest.IUserInfoCallback() {
-            @Override
-            public void onResponse(UserInfo userInfo) {
-
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        });
     }
 
     View.OnClickListener toolBarOnClickListener = new View.OnClickListener() {
@@ -215,14 +174,174 @@ public class SurveyActivity extends AppCompatActivity {
         }
     };
 
+    private void initView() {
+        View basicInfoLayout = LayoutInflater.from(context).inflate(R.layout.item_basicinfo, null);
+        InfoItemBar itemBar = new InfoItemBar(context, getString(R.string.item_bar_basic));
+        itemBar.addView(basicInfoLayout);
+        itemBar.setShow(true);
+        mainArea.addView(itemBar);
+
+        editSpeciesId = basicInfoLayout.findViewById(R.id.edt_species_id);
+
+        View seedlingPeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_seedling_period, null);
+        InfoItemBar seedlingPeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_seedling_period));
+        seedlingPeriodItemBar.addView(seedlingPeriodLayout);
+        seedlingPeriodItemBar.setShow(true);
+        mainArea.addView(seedlingPeriodItemBar);
+
+        spnCotyledonSize = seedlingPeriodLayout.findViewById(R.id.cotyledon_size);
+        editCotyledonSize = seedlingPeriodLayout.findViewById(R.id.edit_cotyledon_size);
+        btnCotyledonSize = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_size);
+        spnCotyledonColor = seedlingPeriodLayout.findViewById(R.id.cotyledon_color);
+        editCotyledonColor = seedlingPeriodLayout.findViewById(R.id.edit_cotyledon_color);
+        btnCotyledonColor = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_color);
+        spnCotyledonCount = seedlingPeriodLayout.findViewById(R.id.cotyledon_count);
+        editCotyledonCount = seedlingPeriodLayout.findViewById(R.id.edit_cotyledon_count);
+        btnCotyledonCount = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_count);
+        spnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.cotyledon_shape);
+        editCotyledonShape = seedlingPeriodLayout.findViewById(R.id.edit_cotyledon_shape);
+        btnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_shape);
+        spnHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.heart_leaf_color);
+        editHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.edit_heart_leaf_color);
+        btnHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.btn_heart_leaf_color);
+        spnTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.true_leaf_color);
+        editTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.edit_true_leaf_color);
+        btnTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_color);
+        spnTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.true_leaf_length);
+        editTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.edit_true_leaf_length);
+        btnTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_length);
+        spnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.true_leaf_width);
+        editTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.edit_true_leaf_width);
+        btnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_width);
+    }
+
+    private void initBasicInfo() {
+        // 展示基本信息
+        editSpeciesId.setText(speciesId);
+    }
+
+    private void initData() {
+        // 查询本地数据
+        SurveyData initData = surveyDataBox.get(Long.parseLong(speciesId));
+        if (initData == null) {
+            return;
+        }
+        String cotyledonSize = initData.cotyledonSize;
+        SpinnerAdapter cotyledonSizeAdapter = spnCotyledonSize.getAdapter();
+        for (int j = 0; j < cotyledonSizeAdapter.getCount(); j++) {
+            if (cotyledonSize.equals(cotyledonSizeAdapter.getItem(j).toString())) {
+                spnCotyledonSize.setSelection(j, true);
+                break;
+            } else if (j == cotyledonSizeAdapter.getCount() - 1) {
+                editCotyledonSize.setText(cotyledonSize);
+            }
+        }
+        String cotyledonColor = initData.cotyledonColor;
+        SpinnerAdapter cotyledonColorAdapter = spnCotyledonColor.getAdapter();
+        for (int j = 0; j < cotyledonColorAdapter.getCount(); j++) {
+            if (cotyledonColor.equals(cotyledonColorAdapter.getItem(j).toString())) {
+                spnCotyledonColor.setSelection(j, true);
+                break;
+            } else if (j == cotyledonColorAdapter.getCount() - 1) {
+                editCotyledonColor.setText(cotyledonColor);
+            }
+        }
+        String cotyledonCount = initData.cotyledonCount;
+        SpinnerAdapter cotyledonCountAdapter = spnCotyledonCount.getAdapter();
+        for (int j = 0; j < cotyledonCountAdapter.getCount(); j++) {
+            if (cotyledonCount.equals(cotyledonCountAdapter.getItem(j).toString())) {
+                spnCotyledonCount.setSelection(j, true);
+                break;
+            } else if (j == cotyledonCountAdapter.getCount() - 1) {
+                editCotyledonCount.setText(cotyledonCount);
+            }
+        }
+        String cotyledonShape = initData.cotyledonShape;
+        SpinnerAdapter cotyledonShapeAdapter = spnCotyledonShape.getAdapter();
+        for (int j = 0; j < cotyledonShapeAdapter.getCount(); j++) {
+            if (cotyledonShape.equals(cotyledonShapeAdapter.getItem(j).toString())) {
+                spnCotyledonShape.setSelection(j, true);
+                break;
+            } else if (j == cotyledonShapeAdapter.getCount() - 1) {
+                editCotyledonShape.setText(cotyledonShape);
+            }
+        }
+        String heartLeafColor = initData.heartLeafColor;
+        SpinnerAdapter heartLeafColorAdapter = spnHeartLeafColor.getAdapter();
+        for (int j = 0; j < heartLeafColorAdapter.getCount(); j++) {
+            if (heartLeafColor.equals(heartLeafColorAdapter.getItem(j).toString())) {
+                spnHeartLeafColor.setSelection(j, true);
+                break;
+            } else if (j == heartLeafColorAdapter.getCount() - 1) {
+                editHeartLeafColor.setText(heartLeafColor);
+            }
+        }
+        String trueLeafColor = initData.trueLeafColor;
+        SpinnerAdapter trueLeafColorAdapter = spnTrueLeafColor.getAdapter();
+        for (int j = 0; j < trueLeafColorAdapter.getCount(); j++) {
+            if (trueLeafColor.equals(trueLeafColorAdapter.getItem(j).toString())) {
+                spnTrueLeafColor.setSelection(j, true);
+                break;
+            } else if (j == trueLeafColorAdapter.getCount() - 1) {
+                editTrueLeafColor.setText(trueLeafColor);
+            }
+        }
+        String trueLeafLength = initData.trueLeafLength;
+        SpinnerAdapter trueLeafLengthAdapter = spnTrueLeafLength.getAdapter();
+        for (int j = 0; j < trueLeafLengthAdapter.getCount(); j++) {
+            if (trueLeafLength.equals(trueLeafLengthAdapter.getItem(j).toString())) {
+                spnTrueLeafLength.setSelection(j, true);
+                break;
+            } else if (j == trueLeafLengthAdapter.getCount() - 1) {
+                editTrueLeafLength.setText(trueLeafLength);
+            }
+        }
+        String trueLeafWidth = initData.trueLeafWidth;
+        SpinnerAdapter trueLeafWidthAdapter = spnTrueLeafWidth.getAdapter();
+        for (int j = 0; j < trueLeafWidthAdapter.getCount(); j++) {
+            if (trueLeafWidth.equals(trueLeafWidthAdapter.getItem(j).toString())) {
+                spnTrueLeafWidth.setSelection(j, true);
+                break;
+            } else if (j == trueLeafWidthAdapter.getCount() - 1) {
+                editTrueLeafWidth.setText(trueLeafWidth);
+            }
+        }
+
+//        // 网络请求具体数据
+//        HttpRequest.requestSpeciesData(speciesId, "", new HttpRequest.IUserInfoCallback() {
+//            @Override
+//            public void onResponse(UserInfo userInfo) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure() {
+//
+//            }
+//        });
+    }
+
     private boolean updateData() {
-
-
-        return false;
+        try {
+            SurveyData surveyData = new SurveyData();
+            surveyData.surveyId = Long.parseLong(speciesId);
+            surveyData.cotyledonSize = spnCotyledonSize.getSelectedItem().toString();
+            surveyData.cotyledonColor = spnCotyledonColor.getSelectedItem().toString();
+            surveyData.cotyledonCount = spnCotyledonCount.getSelectedItem().toString();
+            surveyData.cotyledonShape = spnCotyledonShape.getSelectedItem().toString();
+            surveyData.heartLeafColor = spnHeartLeafColor.getSelectedItem().toString();
+            surveyData.trueLeafColor = spnTrueLeafColor.getSelectedItem().toString();
+            surveyData.trueLeafLength = spnTrueLeafLength.getSelectedItem().toString();
+            surveyData.trueLeafWidth = spnTrueLeafWidth.getSelectedItem().toString();
+            surveyDataBox.put(surveyData);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private void getData() {
-        cotyledonSize.getSelectedItem().toString();
+        spnCotyledonSize.getSelectedItem().toString();
     }
 
 }
