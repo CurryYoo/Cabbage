@@ -2,6 +2,8 @@ package com.example.cabbage.network;
 
 import android.util.Log;
 
+import com.example.cabbage.data.SurveyData;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -38,7 +40,7 @@ public class HttpRequest {
         getApi = retrofit.create(GetApi.class);
     }
 
-    //登录
+    // 登录
     public static void requestLogin(String username, String password, IUserInfoCallback callback) {
         getApi.login(username, password).enqueue(new Callback<UserInfo>() {
             @Override
@@ -57,9 +59,32 @@ public class HttpRequest {
         });
     }
 
+    // 修改密码
+    public static void requestChangePassword(String token, String oldPassword, String newPassword, String username, INormalCallback callback) {
+        getApi.changePassword(token, oldPassword, newPassword, username).enqueue(new Callback<NormalInfo>() {
+            @Override
+            public void onResponse(Call<NormalInfo> call, Response<NormalInfo> response) {
+                if (response != null && response.body() != null) {
+                    NormalInfo normalInfo = response.body();
+                    callback.onResponse(normalInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NormalInfo> call, Throwable t) {
+                t.printStackTrace();
+                callback.onFailure();
+            }
+        });
+    }
+
     // 查询材料
-    public static void requestSearch(String token, String materialId, IMaterialCallback callback) {
-        getApi.findMaterialBySearch(token, materialId).enqueue(new Callback<MaterialInfo>() {
+    public static void requestSearch(String token, String searchKeyword, IMaterialCallback callback) {
+        requestSearch(token, searchKeyword, 1, 5, callback);
+    }
+
+    public static void requestSearch(String token, String searchKeyword, int pageNum, int pageSize, IMaterialCallback callback) {
+        getApi.findMaterialBySearch(token, searchKeyword, pageNum, pageSize).enqueue(new Callback<MaterialInfo>() {
             @Override
             public void onResponse(Call<MaterialInfo> call, Response<MaterialInfo> response) {
                 if (response != null && response.body() != null) {
@@ -74,11 +99,6 @@ public class HttpRequest {
                 callback.onFailure();
             }
         });
-    }
-
-    // 获取品种具体数据
-    public static void requestSpeciesData(String speciesId, String userId, IUserInfoCallback callback) {
-
     }
 
     // 新增不同观测时期数据
@@ -100,6 +120,63 @@ public class HttpRequest {
         });
     }
 
+    // 获取个人历史数据
+    public static void getHistorySurveyData(String token, IHistoryCallback callback) {
+        getApi.getHistorySurveyData(token).enqueue(new Callback<HistoryInfo>() {
+            @Override
+            public void onResponse(Call<HistoryInfo> call, Response<HistoryInfo> response) {
+                if (response != null && response.body() != null) {
+                    HistoryInfo historyInfo = response.body();
+                    callback.onResponse(historyInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HistoryInfo> call, Throwable t) {
+                t.printStackTrace();
+                callback.onFailure();
+            }
+        });
+    }
+
+    // 获取品种具体数据
+    // 根据观测id和观测时期
+    public static void getSurveyDataDetailBySurveyId(String token, String surveyPeriod, String surveyId, ISurveyCallback callback) {
+        getApi.getSurveyDataDetailBySurveyId(token, surveyPeriod, surveyId).enqueue(new Callback<SurveyInfo>() {
+            @Override
+            public void onResponse(Call<SurveyInfo> call, Response<SurveyInfo> response) {
+                if (response != null && response.body() != null) {
+                    SurveyInfo surveyInfo = response.body();
+                    callback.onResponse(surveyInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SurveyInfo> call, Throwable t) {
+                t.printStackTrace();
+                callback.onFailure();
+            }
+        });
+    }
+    // 根据单株编号和观测时期
+    public static void getSurveyDataDetailByPlantNumber(String token, String surveyPeriod, String plantNumber, ISurveyCallback callback) {
+        getApi.getSurveyDataDetailByPlantNumber(token, surveyPeriod, plantNumber).enqueue(new Callback<SurveyInfo>() {
+            @Override
+            public void onResponse(Call<SurveyInfo> call, Response<SurveyInfo> response) {
+                if (response != null && response.body() != null) {
+                    SurveyInfo surveyInfo = response.body();
+                    callback.onResponse(surveyInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SurveyInfo> call, Throwable t) {
+                t.printStackTrace();
+                callback.onFailure();
+            }
+        });
+    }
+
     public interface IUserInfoCallback {
         void onResponse(UserInfo userInfo);
         void onFailure();
@@ -112,6 +189,16 @@ public class HttpRequest {
 
     public interface IMaterialCallback {
         void onResponse(MaterialInfo materialInfo);
+        void onFailure();
+    }
+
+    public interface IHistoryCallback {
+        void onResponse(HistoryInfo historyInfo);
+        void onFailure();
+    }
+
+    public interface ISurveyCallback {
+        void onResponse(SurveyInfo surveyInfo);
         void onFailure();
     }
 

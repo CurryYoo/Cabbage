@@ -25,7 +25,7 @@ public interface GetApi {
 
     // 查询材料
     @GET("material/findMaterialBySearch")
-    Call<MaterialInfo> findMaterialBySearch(@Header("token") String token, @Query("search_keyword") String searchKeyword);
+    Call<MaterialInfo> findMaterialBySearch(@Header("token") String token, @Query("search_keyword") String searchKeyword, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 
     // 添加材料数据
     @POST("characterAnalysis/addDifObsPeriodData")
@@ -38,10 +38,10 @@ public interface GetApi {
     // 获取材料数据详情
     // 根据观测id和观测时期
     @GET("characterAnalysis/showObsDataDetailByObsId")
-    Call<SurveyInfo> showSurveyDataDetailBySurveyId(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("observationId") String observationId);
+    Call<SurveyInfo> getSurveyDataDetailBySurveyId(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("observationId") String observationId);
     // 根据单株编号和观测时期
     @GET("characterAnalysis/showObsDataDetailByPlantNumber")
-    Call<SurveyInfo> showSurveyDataDetailByPlantNumber(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("plantNumber") String plantNumber);
+    Call<SurveyInfo> getSurveyDataDetailByPlantNumber(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("plantNumber") String plantNumber);
 
     // 上传图片信息
 

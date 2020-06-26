@@ -2,6 +2,7 @@ package com.example.cabbage.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.text.IDNA;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.example.cabbage.R;
 import com.example.cabbage.data.ObjectBox;
 import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HttpRequest;
+import com.example.cabbage.network.NormalInfo;
 import com.example.cabbage.network.UserInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.view.InfoItemBar;
@@ -94,6 +96,8 @@ public class SurveyActivity extends AppCompatActivity {
 
     Box<SurveyData> surveyDataBox;
 
+    private String token;
+
     // 页面的状态
     public static final int STATUS_NEW = 0;    // 新建
     public static final int STATUS_READ = 1;   // 只读
@@ -115,11 +119,16 @@ public class SurveyActivity extends AppCompatActivity {
 
         surveyDataBox = ObjectBox.get().boxFor(SurveyData.class);
 
+        SharedPreferences sp = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        token = sp.getString("token", "");
+
         initToolBar();
         initView();
         initBasicInfo();
+
         if (status != STATUS_NEW) {
-            initData();
+            initData("");
+            rightTwoLayout.setVisibility(View.GONE);
         }
 
     }
@@ -165,7 +174,7 @@ public class SurveyActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     sweetAlertDialog.dismissWithAnimation();
-                                    updateData();
+//                                    updateData();
 //                                    updateDataLocally();
 //                                    editor.putBoolean("update_pick_data", true);
 //                                    editor.apply();
@@ -234,11 +243,13 @@ public class SurveyActivity extends AppCompatActivity {
 
     }
 
+    // 初始化基本数据
     private void initBasicInfo() {
         // 展示基本信息
         editSpeciesId.setText(materialId);
     }
 
+    // 初始化本地数据库数据
     private void initLocalData() {
         // 查询本地数据
         SurveyData initData = surveyDataBox.get(Long.parseLong(materialId));
@@ -328,7 +339,8 @@ public class SurveyActivity extends AppCompatActivity {
 
     }
 
-    private void initData() {
+    // 初始化网络数据
+    private void initData(String surveyId) {
         // 网络请求具体数据
         HttpRequest.requestSpeciesData(materialId, "", new HttpRequest.IUserInfoCallback() {
             @Override
@@ -343,10 +355,11 @@ public class SurveyActivity extends AppCompatActivity {
         });
     }
 
-    private boolean updateData() {
+    // 更新本地数据库
+    private boolean updateLocalData(String surveyId) {
         try {
             SurveyData surveyData = new SurveyData();
-            surveyData.surveyId = Long.parseLong(materialId);
+            surveyData.surveyId = surveyId;
             surveyData.cotyledonSize = spnCotyledonSize.getSelectedItem().toString();
             surveyData.cotyledonColor = spnCotyledonColor.getSelectedItem().toString();
             surveyData.cotyledonCount = spnCotyledonCount.getSelectedItem().toString();
@@ -362,8 +375,35 @@ public class SurveyActivity extends AppCompatActivity {
         }
     }
 
+    // 更新服务器数据
+    private boolean updateData(String surveyId) {
+        try {
+            HttpRequest.requestAddSurveyData(token, "", "", new HttpRequest.INormalCallback() {
+                @Override
+                public void onResponse(NormalInfo normalInfo) {
+
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     private void getData() {
-        spnCotyledonSize.getSelectedItem().toString();
+        String cotyledonSize = spnCotyledonSize.getSelectedItem().toString();
+        String cotyledonColor = spnCotyledonColor.getSelectedItem().toString();
+        String cotyledonCount = spnCotyledonCount.getSelectedItem().toString();
+        String cotyledonShape = spnCotyledonShape.getSelectedItem().toString();
+        String heartLeafColor = spnHeartLeafColor.getSelectedItem().toString();
+        String trueLeafColor = spnTrueLeafColor.getSelectedItem().toString();
+        String trueLeafLength = spnTrueLeafLength.getSelectedItem().toString();
+        String trueLeafWidth = spnTrueLeafWidth.getSelectedItem().toString();
     }
 
 }
