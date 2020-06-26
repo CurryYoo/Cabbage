@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpRequest {
     private static Retrofit retrofit;
     private static GetApi getApi;
-    private static String url = "http://121.36.229.144:8021/";
+    private static String url = "http://47.93.117.9:8021/";
 
     static {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
@@ -57,9 +57,23 @@ public class HttpRequest {
         });
     }
 
-    // 搜索品种
-    public static void requestSearch(String speciesId, IUserInfoCallback callback) {
+    // 查询材料
+    public static void requestSearch(String token, String materialId, IMaterialCallback callback) {
+        getApi.findMaterialBySearch(token, materialId).enqueue(new Callback<MaterialInfo>() {
+            @Override
+            public void onResponse(Call<MaterialInfo> call, Response<MaterialInfo> response) {
+                if (response != null && response.body() != null) {
+                    MaterialInfo materialInfo = response.body();
+                    callback.onResponse(materialInfo);
+                }
+            }
 
+            @Override
+            public void onFailure(Call<MaterialInfo> call, Throwable t) {
+                t.printStackTrace();
+                callback.onFailure();
+            }
+        });
     }
 
     // 获取品种具体数据
@@ -93,6 +107,11 @@ public class HttpRequest {
 
     public interface INormalCallback {
         void onResponse(NormalInfo normalInfo);
+        void onFailure();
+    }
+
+    public interface IMaterialCallback {
+        void onResponse(MaterialInfo materialInfo);
         void onFailure();
     }
 

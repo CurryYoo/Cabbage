@@ -2,6 +2,7 @@ package com.example.cabbage.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.IDNA;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -93,8 +94,16 @@ public class SurveyActivity extends AppCompatActivity {
 
     Box<SurveyData> surveyDataBox;
 
+    // 页面的状态
+    public static final int STATUS_NEW = 0;    // 新建
+    public static final int STATUS_READ = 1;   // 只读
+    public static final int STATUS_WRITE = 2;  // 修改
+
     @Autowired
-    public String speciesId = "";
+    public String materialId = "";
+
+    @Autowired
+    public int status = STATUS_NEW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +118,9 @@ public class SurveyActivity extends AppCompatActivity {
         initToolBar();
         initView();
         initBasicInfo();
-        initData();
+        if (status != STATUS_NEW) {
+            initData();
+        }
 
     }
 
@@ -213,16 +224,24 @@ public class SurveyActivity extends AppCompatActivity {
         spnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.true_leaf_width);
         editTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.edit_true_leaf_width);
         btnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_width);
+
+        View rosettePeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_rosette_period, null);
+        InfoItemBar rosettePeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_rosette_period));
+        rosettePeriodItemBar.addView(rosettePeriodLayout);
+        rosettePeriodItemBar.setShow(true);
+        mainArea.addView(rosettePeriodItemBar);
+
+
     }
 
     private void initBasicInfo() {
         // 展示基本信息
-        editSpeciesId.setText(speciesId);
+        editSpeciesId.setText(materialId);
     }
 
-    private void initData() {
+    private void initLocalData() {
         // 查询本地数据
-        SurveyData initData = surveyDataBox.get(Long.parseLong(speciesId));
+        SurveyData initData = surveyDataBox.get(Long.parseLong(materialId));
         if (initData == null) {
             return;
         }
@@ -307,24 +326,27 @@ public class SurveyActivity extends AppCompatActivity {
             }
         }
 
-//        // 网络请求具体数据
-//        HttpRequest.requestSpeciesData(speciesId, "", new HttpRequest.IUserInfoCallback() {
-//            @Override
-//            public void onResponse(UserInfo userInfo) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure() {
-//
-//            }
-//        });
+    }
+
+    private void initData() {
+        // 网络请求具体数据
+        HttpRequest.requestSpeciesData(materialId, "", new HttpRequest.IUserInfoCallback() {
+            @Override
+            public void onResponse(UserInfo userInfo) {
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 
     private boolean updateData() {
         try {
             SurveyData surveyData = new SurveyData();
-            surveyData.surveyId = Long.parseLong(speciesId);
+            surveyData.surveyId = Long.parseLong(materialId);
             surveyData.cotyledonSize = spnCotyledonSize.getSelectedItem().toString();
             surveyData.cotyledonColor = spnCotyledonColor.getSelectedItem().toString();
             surveyData.cotyledonCount = spnCotyledonCount.getSelectedItem().toString();

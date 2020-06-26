@@ -6,6 +6,6 @@ package com.example.cabbage.network;
  * Description:
  **/
 public class NormalInfo {
-    private int code;
-    private String message;
+    public int code;
+    public String message;
 }

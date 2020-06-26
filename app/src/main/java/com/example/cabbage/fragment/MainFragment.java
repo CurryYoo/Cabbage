@@ -2,6 +2,7 @@ package com.example.cabbage.fragment;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,25 +17,37 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.example.cabbage.R;
+import com.example.cabbage.data.DataHelper;
+import com.example.cabbage.data.MaterialSuggestion;
 import com.example.cabbage.network.HttpRequest;
+import com.example.cabbage.network.MaterialInfo;
 import com.example.cabbage.network.UserInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.utils.NetworkUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.example.cabbage.activity.SurveyActivity.STATUS_NEW;
+
 public class MainFragment extends Fragment {
     @BindView(R.id.search_view)
     FloatingSearchView searchView;
+
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
         return fragment;
     }
+
     private View view;
     private Context self;
     private Unbinder unbinder;
+
+    private String token;
 
     @Nullable
     @Override
@@ -42,26 +55,58 @@ public class MainFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_main, container, false);
         self = getContext();
         unbinder = ButterKnife.bind(this, view);
+
+        SharedPreferences sp = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        token = sp.getString("token", "");
+
         initView();
         return view;
     }
 
     private void initView() {
+        searchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
+            @Override
+            public void onSearchTextChanged(String oldQuery, String newQuery) {
+                if (!oldQuery.equals("") && newQuery.equals("")) {
+                    searchView.clearSuggestions();
+                } else {
+                    // 网络请求数据
+                    if (NetworkUtils.isNetworkConnected(getContext())) {
+                        HttpRequest.requestSearch(token, newQuery, new HttpRequest.IMaterialCallback() {
+                            @Override
+                            public void onResponse(MaterialInfo materialInfo) {
+                                searchView.hideProgress();
+                                if (materialInfo.code == 200 && materialInfo.message.equals("操作成功")) {
+                                    List<MaterialSuggestion> newSuggestion = DataHelper.toSuggestionList(materialInfo.data.list);
+                                    searchView.swapSuggestions(newSuggestion);
+                                } else {
+                                    Toast.makeText(getContext(), "查询失败", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure() {
+                                Toast.makeText(getContext(), "查询失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(getContext(), getResources().getString(R.string.network_wrong), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
 
         searchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
                 // 选择搜索框下的建议项
+                String materialId = searchSuggestion.getBody();
+                ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY).withString("materialId", materialId).withInt("status", STATUS_NEW).navigation();
             }
 
             @Override
             public void onSearchAction(String currentQuery) {
-                // 点击搜索
-                if (NetworkUtils.isNetworkConnected(getContext())) {
-                    searchAction(currentQuery);
-                } else {
-                    Toast.makeText(getContext(), getResources().getString(R.string.network_wrong), Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
     }
@@ -73,12 +118,17 @@ public class MainFragment extends Fragment {
     }
 
     private void searchAction(String input) {
-        // 网络请求数据
-        String speciesId = "";
-        HttpRequest.requestSearch(speciesId, new HttpRequest.IUserInfoCallback() {
-            @Override
-            public void onResponse(UserInfo userInfo) {
 
+
+        // 网络请求数据
+        HttpRequest.requestSearch(token, input, new HttpRequest.IMaterialCallback() {
+            @Override
+            public void onResponse(MaterialInfo materialInfo) {
+                if (materialInfo.code == 200 && materialInfo.message.equals("操作成功")) {
+
+                } else {
+                    Toast.makeText(getContext(), "查询失败", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
