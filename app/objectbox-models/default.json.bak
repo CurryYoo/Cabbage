@@ -5,18 +5,53 @@
   "entities": [
     {
       "id": "1:7533414300560338113",
-      "lastPropertyId": "2:9193234042249105823",
+      "lastPropertyId": "11:1472144819099466390",
       "name": "SurveyData",
       "properties": [
         {
-          "id": "1:3853740004538714585",
-          "name": "id",
+          "id": "3:7203769718003557650",
+          "name": "surveyId",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:9193234042249105823",
-          "name": "name",
+          "id": "4:4923010901862110080",
+          "name": "cotyledonSize",
+          "type": 9
+        },
+        {
+          "id": "5:366436625263548153",
+          "name": "cotyledonColor",
+          "type": 9
+        },
+        {
+          "id": "6:2698425184807901482",
+          "name": "cotyledonCount",
+          "type": 9
+        },
+        {
+          "id": "7:9146524383917805369",
+          "name": "cotyledonShape",
+          "type": 9
+        },
+        {
+          "id": "8:7146524306759199066",
+          "name": "heartLeafColor",
+          "type": 9
+        },
+        {
+          "id": "9:1389860786088110124",
+          "name": "trueLeafColor",
+          "type": 9
+        },
+        {
+          "id": "10:3885512700373361159",
+          "name": "trueLeafLength",
+          "type": 9
+        },
+        {
+          "id": "11:1472144819099466390",
+          "name": "trueLeafWidth",
           "type": 9
         }
       ],
@@ -31,7 +66,10 @@
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    3853740004538714585,
+    9193234042249105823
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

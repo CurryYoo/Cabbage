@@ -11,7 +11,7 @@ import io.objectbox.annotation.Id;
 
 @Entity
 public class SurveyData {
-    @Id public String surveyId;
+    @Id public Long surveyId;
     public String cotyledonSize;
     public String cotyledonColor;
     public String cotyledonCount;

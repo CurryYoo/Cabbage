@@ -26,6 +26,7 @@ import com.example.cabbage.data.ObjectBox;
 import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.NormalInfo;
+import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.network.UserInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.view.InfoItemBar;
@@ -341,10 +342,11 @@ public class SurveyActivity extends AppCompatActivity {
 
     // 初始化网络数据
     private void initData(String surveyId) {
+        // TODO
         // 网络请求具体数据
-        HttpRequest.requestSpeciesData(materialId, "", new HttpRequest.IUserInfoCallback() {
+        HttpRequest.getSurveyDataDetailBySurveyId(token, "", "", new HttpRequest.ISurveyCallback() {
             @Override
-            public void onResponse(UserInfo userInfo) {
+            public void onResponse(SurveyInfo surveyInfo) {
 
             }
 
@@ -359,7 +361,7 @@ public class SurveyActivity extends AppCompatActivity {
     private boolean updateLocalData(String surveyId) {
         try {
             SurveyData surveyData = new SurveyData();
-            surveyData.surveyId = surveyId;
+            surveyData.surveyId = Long.parseLong(surveyId);
             surveyData.cotyledonSize = spnCotyledonSize.getSelectedItem().toString();
             surveyData.cotyledonColor = spnCotyledonColor.getSelectedItem().toString();
             surveyData.cotyledonCount = spnCotyledonCount.getSelectedItem().toString();
@@ -377,6 +379,7 @@ public class SurveyActivity extends AppCompatActivity {
 
     // 更新服务器数据
     private boolean updateData(String surveyId) {
+        // TODO
         try {
             HttpRequest.requestAddSurveyData(token, "", "", new HttpRequest.INormalCallback() {
                 @Override
