@@ -148,6 +148,13 @@
     <string name="network_wrong">网络异常</string>
     <string name="dialog_title_tip">提示</string>
 
+    <string name="info_material_id">材料编号</string>
+    <string name="info_material_type">材料类型</string>
+    <string name="info_plant_id">单株编号</string>
+
+    <string name="title_germination_period">发芽期</string>
+    <string name="info_germination_rate">出苗（发芽）率</string>
+
     <string name="title_seedling_period">幼苗期</string>
     <string name="info_cotyledon_size">子叶大小</string>
     <string name="info_cotyledon_color">子叶颜色</string>

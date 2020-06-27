@@ -88,13 +88,11 @@
             style="@style/Button_Red"
             android:text="立即登录" />
 
-
         <Button
             android:id="@+id/btn_fast_login"
             style="@style/Button_Red"
             android:text="一键填入测试账号"
             android:layout_marginTop="20dp"/>
-
 
         <Space
             android:layout_width="wrap_content"
@@ -114,6 +112,7 @@
             android:lineSpacingExtra="0dp"
             android:text="账号注册"
             android:textColor="#5b77be"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:visibility="gone"/>
     </LinearLayout>
 </FrameLayout>

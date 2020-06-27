@@ -50,7 +50,7 @@
 
                 <Button
                     android:id="@+id/btn_cotyledon_size"
-                    style="@style/style_basic_album_btn"
+                    style="@style/style_basic_help_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
@@ -106,7 +106,7 @@
 
                 <Button
                     android:id="@+id/btn_cotyledon_color"
-                    style="@style/style_basic_album_btn"
+                    style="@style/style_basic_help_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
@@ -161,7 +161,7 @@
 
                 <Button
                     android:id="@+id/btn_cotyledon_count"
-                    style="@style/style_basic_album_btn"
+                    style="@style/style_basic_help_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
@@ -216,7 +216,7 @@
 
                 <Button
                     android:id="@+id/btn_cotyledon_shape"
-                    style="@style/style_basic_album_btn"
+                    style="@style/style_basic_help_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
@@ -271,7 +271,7 @@
 
                 <Button
                     android:id="@+id/btn_heart_leaf_color"
-                    style="@style/style_basic_album_btn"
+                    style="@style/style_basic_help_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
@@ -326,7 +326,7 @@
 
                 <Button
                     android:id="@+id/btn_true_leaf_color"
-                    style="@style/style_basic_album_btn"
+                    style="@style/style_basic_help_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
@@ -381,7 +381,7 @@
 
                 <Button
                     android:id="@+id/btn_true_leaf_length"
-                    style="@style/style_basic_album_btn"
+                    style="@style/style_basic_help_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
@@ -436,7 +436,7 @@
 
                 <Button
                     android:id="@+id/btn_true_leaf_width"
-                    style="@style/style_basic_album_btn"
+                    style="@style/style_basic_help_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />

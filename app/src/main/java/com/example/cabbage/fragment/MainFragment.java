@@ -3,10 +3,14 @@ package com.example.cabbage.fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.example.cabbage.R;
 import com.example.cabbage.data.DataHelper;
@@ -96,12 +101,36 @@ public class MainFragment extends Fragment {
             }
         });
 
+        searchView.setOnBindSuggestionCallback(new SearchSuggestionsAdapter.OnBindSuggestionCallback() {
+            @Override
+            public void onBindSuggestion(View suggestionView, ImageView leftIcon, TextView textView, SearchSuggestion item, int itemPosition) {
+                if (item instanceof MaterialSuggestion) {
+                    MaterialSuggestion materialSuggestion = (MaterialSuggestion)item;
+                    String textColor = "#000000";
+                    String textLight = "#787878";
+                    textView.setTextColor(Color.parseColor(textColor));
+                    String text = materialSuggestion.getBody()
+                            .replaceFirst(searchView.getQuery(),
+                                    "<font color=\"" + textLight + "\">" + searchView.getQuery() + "</font>");
+                    textView.setText(Html.fromHtml(text));
+                }
+            }
+        });
+
         searchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
                 // 选择搜索框下的建议项
-                String materialId = searchSuggestion.getBody();
-                ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY).withString("materialId", materialId).withInt("status", STATUS_NEW).navigation();
+                if (searchSuggestion instanceof MaterialSuggestion) {
+                    MaterialSuggestion materialSuggestion = (MaterialSuggestion) searchSuggestion;
+                    String materialId = materialSuggestion.getMaterialId();
+                    String materialType = materialSuggestion.getMaterialType();
+                    ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
+                            .withString("materialId", materialId)
+                            .withString("materialType", materialType)
+                            .withInt("status", STATUS_NEW)
+                            .navigation();
+                }
             }
 
             @Override

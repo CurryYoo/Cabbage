@@ -11,10 +11,12 @@ import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
  **/
 public class MaterialSuggestion implements SearchSuggestion {
     private String mMaterialId;
+    private String mMaterialType;
     private boolean mIsHistory = false;
 
-    public MaterialSuggestion(String suggestion) {
-        this.mMaterialId = suggestion;
+    public MaterialSuggestion(String materialId, String materialType) {
+        this.mMaterialId = materialId;
+        this.mMaterialType = materialType;
     }
 
     public MaterialSuggestion(Parcel source) {
@@ -28,6 +30,14 @@ public class MaterialSuggestion implements SearchSuggestion {
 
     public boolean getIsHistory() {
         return this.mIsHistory;
+    }
+
+    public String getMaterialId() {
+        return mMaterialId;
+    }
+
+    public String getMaterialType() {
+        return mMaterialType;
     }
 
     @Override

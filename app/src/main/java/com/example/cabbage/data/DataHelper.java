@@ -19,7 +19,7 @@ public class DataHelper {
     public static List<MaterialSuggestion> toSuggestionList(List<MaterialInfo.Data.list> list) {
         List<MaterialSuggestion> materialSuggestionList = new ArrayList<>();
         for (MaterialInfo.Data.list materialData : list) {
-            MaterialSuggestion materialSuggestion = new MaterialSuggestion(materialData.materialNumber);
+            MaterialSuggestion materialSuggestion = new MaterialSuggestion(materialData.materialNumber, materialData.materialType);
             materialSuggestionList.add(materialSuggestion);
         }
         return materialSuggestionList;

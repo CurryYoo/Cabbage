@@ -205,5 +205,87 @@
         <item>长圆</item>
     </string-array>
 
+    <string-array name="leaf_color">
+        <item>白</item>
+        <item>黄</item>
+        <item>黄绿</item>
+        <item>浅绿</item>
+        <item>中等绿</item>
+        <item>灰绿</item>
+        <item>深绿</item>
+    </string-array>
+
+    <string-array name="leaf_luster">
+        <item>弱</item>
+        <item>中</item>
+        <item>强</item>
+    </string-array>
+
+    <string-array name="leaf_fuzz">
+        <item>无</item>
+        <item>疏</item>
+        <item>中</item>
+        <item>密</item>
+    </string-array>
+
+    <string-array name="leaf_margin_undulance">
+        <item>无</item>
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+    </string-array>
+
+    <string-array name="leaf_margin_sawtooth">
+        <item>全缘（无）</item>
+        <item>钝锯（圆齿）</item>
+        <item>单锯（锯齿）</item>
+        <item>复锯（重齿）</item>
+    </string-array>
+
+    <string-array name="leaf_smoothness">
+        <item>平</item>
+        <item>稍皱</item>
+        <item>多皱</item>
+        <item>泡皱</item>
+        <item>刺突</item>
+    </string-array>
+
+    <string-array name="leaf_protuberance">
+        <item>无或极小</item>
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+    </string-array>
+
+    <string-array name="leaf_vein_livingness">
+        <item>粗</item>
+        <item>中</item>
+        <item>细</item>
+    </string-array>
+
+    <string-array name="leaf_keel_livingness">
+        <item>不明显</item>
+        <item>明显</item>
+    </string-array>
+
+    <string-array name="leaf_curliness">
+        <item>内卷</item>
+        <item>外翻</item>
+        <item>拧生</item>
+        <item>叶缘内卷</item>
+    </string-array>
+
+    <string-array name="leaf_curliness_part">
+        <item>叶缘</item>
+        <item>叶上部</item>
+        <item>叶下部</item>
+        <item>叶柄</item>
+    </string-array>
+
+    <string-array name="leaf_texture">
+        <item>软</item>
+        <item>硬</item>
+        <item>蜡质或革质</item>
+    </string-array>
 
 </resources>
