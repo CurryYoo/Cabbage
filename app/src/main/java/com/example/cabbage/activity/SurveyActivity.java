@@ -124,6 +124,9 @@ public class SurveyActivity extends AppCompatActivity {
     @Autowired
     public int status = STATUS_NEW;
 
+    @Autowired(name="observationId")
+    public String observationId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
