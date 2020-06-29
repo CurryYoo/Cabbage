@@ -1,9 +1,9 @@
 package com.example.cabbage.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.text.IDNA;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,9 +27,12 @@ import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.NormalInfo;
 import com.example.cabbage.network.SurveyInfo;
-import com.example.cabbage.network.UserInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.view.InfoItemBar;
+import com.google.gson.JsonObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,10 +67,16 @@ public class SurveyActivity extends AppCompatActivity {
     @BindView(R.id.right_one_layout)
     LinearLayout rightOneLayout;
 
-    //基本信息
-    EditText editSpeciesId;
+    // 基本信息
+    EditText editMaterialId;
+    EditText editMaterialType;
+    EditText editPlantId;
 
-    //性状
+    // 性状
+    // 发芽期
+    EditText editGerminationRate;
+    Button btnGerminationRate;
+    // 幼苗期
     Spinner spnCotyledonSize;
     EditText editCotyledonSize;
     Button btnCotyledonSize;
@@ -98,6 +107,8 @@ public class SurveyActivity extends AppCompatActivity {
     Box<SurveyData> surveyDataBox;
 
     private String token;
+    private int userId;
+    private String nickname;
 
     // 页面的状态
     public static final int STATUS_NEW = 0;    // 新建
@@ -106,6 +117,9 @@ public class SurveyActivity extends AppCompatActivity {
 
     @Autowired
     public String materialId = "";
+
+    @Autowired
+    public String materialType = "";
 
     @Autowired
     public int status = STATUS_NEW;
@@ -125,6 +139,8 @@ public class SurveyActivity extends AppCompatActivity {
 
         SharedPreferences sp = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         token = sp.getString("token", "");
+        userId = sp.getInt("userId", 1);
+        nickname = sp.getString("nickname", "");
 
         initToolBar();
         initView();
@@ -205,7 +221,18 @@ public class SurveyActivity extends AppCompatActivity {
         itemBar.setShow(true);
         mainArea.addView(itemBar);
 
-        editSpeciesId = basicInfoLayout.findViewById(R.id.edt_species_id);
+        editMaterialId = basicInfoLayout.findViewById(R.id.edt_material_id);
+        editMaterialType = basicInfoLayout.findViewById(R.id.edt_material_type);
+        editPlantId = basicInfoLayout.findViewById(R.id.edt_plant_id);
+
+        View germinationPeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_germination_period, null);
+        InfoItemBar germinationPeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_germination_period));
+        germinationPeriodItemBar.addView(germinationPeriodLayout);
+        germinationPeriodItemBar.setShow(true);
+        mainArea.addView(germinationPeriodItemBar);
+
+        editGerminationRate = germinationPeriodLayout.findViewById(R.id.edt_germination_rate);
+        btnGerminationRate = germinationPeriodLayout.findViewById(R.id.btn_germination_rate);
 
         View seedlingPeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_seedling_period, null);
         InfoItemBar seedlingPeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_seedling_period));
@@ -250,7 +277,7 @@ public class SurveyActivity extends AppCompatActivity {
     // 初始化基本数据
     private void initBasicInfo() {
         // 展示基本信息
-        editSpeciesId.setText(materialId);
+        editMaterialId.setText(materialId);
     }
 
     // 初始化本地数据库数据
@@ -384,7 +411,8 @@ public class SurveyActivity extends AppCompatActivity {
     private boolean updateData(String surveyId) {
         // TODO
         try {
-            HttpRequest.requestAddSurveyData(token, "", "", new HttpRequest.INormalCallback() {
+            // 发芽期
+            HttpRequest.requestAddSurveyData(token, "发芽期", "", new HttpRequest.INormalCallback() {
                 @Override
                 public void onResponse(NormalInfo normalInfo) {
 
@@ -401,7 +429,8 @@ public class SurveyActivity extends AppCompatActivity {
         }
     }
 
-    private void getData() {
+    private String getSeedlingPeriodData() {
+        String plantId = editPlantId.getText().toString();
         String cotyledonSize = spnCotyledonSize.getSelectedItem().toString();
         String cotyledonColor = spnCotyledonColor.getSelectedItem().toString();
         String cotyledonCount = spnCotyledonCount.getSelectedItem().toString();
@@ -410,6 +439,32 @@ public class SurveyActivity extends AppCompatActivity {
         String trueLeafColor = spnTrueLeafColor.getSelectedItem().toString();
         String trueLeafLength = spnTrueLeafLength.getSelectedItem().toString();
         String trueLeafWidth = spnTrueLeafWidth.getSelectedItem().toString();
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("material_type", materialType);
+        jsonObject.addProperty("material_number", materialId);
+        jsonObject.addProperty("plant_number", plantId);
+        jsonObject.addProperty("investigating_time", getCurrentTime());
+        jsonObject.addProperty("investigator", nickname);
+        jsonObject.addProperty("cotyledon_size", cotyledonSize);
+        jsonObject.addProperty("cotyledon_color", cotyledonColor);
+        jsonObject.addProperty("cotyledon_number", cotyledonCount);
+        jsonObject.addProperty("cotyledon_shape", cotyledonShape);
+        jsonObject.addProperty("color_of_heart_leaf", heartLeafColor);
+        jsonObject.addProperty("true_leaf_color", trueLeafColor);
+        jsonObject.addProperty("true_leaf_length", trueLeafLength);
+        jsonObject.addProperty("true_leaf_width", trueLeafWidth);
+        jsonObject.addProperty("user_id", userId);
+
+        return jsonObject.toString();
+    }
+
+    private String getCurrentTime() {
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
+        //获取当前时间
+        Date date = new Date(System.currentTimeMillis());
+        return simpleDateFormat.format(date);
     }
 
 }

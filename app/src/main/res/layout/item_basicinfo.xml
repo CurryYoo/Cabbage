@@ -12,12 +12,12 @@
 
         <TextView
             style="@style/style_item_basicinfo_textview"
-            android:text="@string/info_species_id" />
+            android:text="@string/info_material_id" />
 
         <View style="@style/view_vertical_divider_style" />
 
         <EditText
-            android:id="@+id/edt_species_id"
+            android:id="@+id/edt_material_id"
             style="@style/style_item_basicinfo_edittext"
             android:layout_width="match_parent"
             android:focusable="false"
@@ -36,12 +36,12 @@
 
         <TextView
             style="@style/style_item_basicinfo_textview"
-            android:text="@string/info_experiment_type" />
+            android:text="@string/info_material_type" />
 
         <View style="@style/view_vertical_divider_style" />
 
         <EditText
-            android:id="@+id/edt_experiment_type"
+            android:id="@+id/edt_material_type"
             style="@style/style_item_basicinfo_edittext"
             android:layout_width="match_parent"
             android:focusable="false"
@@ -59,59 +59,12 @@
 
         <TextView
             style="@style/style_item_basicinfo_textview"
-            android:text="@string/info_sowing_period_input" />
-
-        <View style="@style/view_vertical_divider_style" />
-
-        <TextView
-            android:id="@+id/sowing_period_input"
-            style="@style/style_item_basicinfo_calendar"
-            android:layout_width="match_parent"
-            android:hint="@string/click_edit_hint"
-            android:inputType="none" />
-    </LinearLayout>
-
-    <View style="@style/view_divider_style" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_marginTop="4dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/style_item_basicinfo_textview"
-            android:text="@string/info_emergence_period" />
-
-        <View style="@style/view_vertical_divider_style" />
-
-        <TextView
-            android:id="@+id/emergence_period"
-            style="@style/style_item_basicinfo_calendar"
-            android:layout_width="match_parent"
-            android:hint="@string/click_edit_hint"
-            android:inputType="none" />
-    </LinearLayout>
-
-    <View style="@style/view_divider_style" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/style_item_basicinfo_textview"
-            android:text="@string/info_rate_of_emergence" />
+            android:text="@string/info_plant_id" />
 
         <View style="@style/view_vertical_divider_style" />
 
         <EditText
-            android:id="@+id/edt_rate_of_emergence"
+            android:id="@+id/edt_plant_id"
             style="@style/style_item_basicinfo_edittext"
             android:layout_width="match_parent"
             android:inputType="numberDecimal" />
