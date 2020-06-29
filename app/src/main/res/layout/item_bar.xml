@@ -17,7 +17,6 @@
         android:layout_marginEnd="@dimen/dp_10"
         android:elevation="2dp">
 
-
         <TextView
             android:id="@+id/itemBar_title"
             android:layout_width="0dip"
@@ -28,6 +27,13 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white"
             android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/item_btn_submit"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/no_save"/>
 
         <ImageView
             android:id="@+id/item_img_title"

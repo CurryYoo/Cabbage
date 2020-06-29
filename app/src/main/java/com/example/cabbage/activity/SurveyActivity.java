@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -143,12 +145,14 @@ public class SurveyActivity extends AppCompatActivity {
         nickname = sp.getString("nickname", "");
 
         initToolBar();
-        initView();
-        initBasicInfo();
 
         if (status != STATUS_NEW) {
+            initView(false);
+            initBasicInfo();
             initData("");
-            rightTwoLayout.setVisibility(View.GONE);
+        } else {
+            initView(true);
+            initBasicInfo();
         }
 
     }
@@ -172,6 +176,8 @@ public class SurveyActivity extends AppCompatActivity {
             rightOneLayout.setTooltipText(getResources().getText(R.string.home_page));
             rightTwoLayout.setTooltipText(getResources().getText(R.string.save_data));
         }
+
+        rightTwoLayout.setVisibility(View.GONE);
     }
 
     View.OnClickListener toolBarOnClickListener = new View.OnClickListener() {
@@ -214,11 +220,12 @@ public class SurveyActivity extends AppCompatActivity {
         }
     };
 
-    private void initView() {
+    private void initView(boolean isEditable) {
         View basicInfoLayout = LayoutInflater.from(context).inflate(R.layout.item_basicinfo, null);
         InfoItemBar itemBar = new InfoItemBar(context, getString(R.string.item_bar_basic));
         itemBar.addView(basicInfoLayout);
         itemBar.setShow(true);
+        itemBar.setVisibilitySubmit(false);
         mainArea.addView(itemBar);
 
         editMaterialId = basicInfoLayout.findViewById(R.id.edt_material_id);
@@ -229,15 +236,24 @@ public class SurveyActivity extends AppCompatActivity {
         InfoItemBar germinationPeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_germination_period));
         germinationPeriodItemBar.addView(germinationPeriodLayout);
         germinationPeriodItemBar.setShow(true);
+        germinationPeriodItemBar.setVisibilitySubmit(isEditable);
         mainArea.addView(germinationPeriodItemBar);
 
         editGerminationRate = germinationPeriodLayout.findViewById(R.id.edt_germination_rate);
         btnGerminationRate = germinationPeriodLayout.findViewById(R.id.btn_germination_rate);
 
+        germinationPeriodItemBar.setSubmitListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateGerminationPeriodData();
+            }
+        });
+
         View seedlingPeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_seedling_period, null);
         InfoItemBar seedlingPeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_seedling_period));
         seedlingPeriodItemBar.addView(seedlingPeriodLayout);
         seedlingPeriodItemBar.setShow(true);
+        seedlingPeriodItemBar.setVisibilitySubmit(isEditable);
         mainArea.addView(seedlingPeriodItemBar);
 
         spnCotyledonSize = seedlingPeriodLayout.findViewById(R.id.cotyledon_size);
@@ -265,10 +281,18 @@ public class SurveyActivity extends AppCompatActivity {
         editTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.edit_true_leaf_width);
         btnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_width);
 
+        seedlingPeriodItemBar.setSubmitListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateSeedlingPeriodData();
+            }
+        });
+
         View rosettePeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_rosette_period, null);
         InfoItemBar rosettePeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_rosette_period));
         rosettePeriodItemBar.addView(rosettePeriodLayout);
         rosettePeriodItemBar.setShow(true);
+        rosettePeriodItemBar.setVisibilitySubmit(isEditable);
         mainArea.addView(rosettePeriodItemBar);
 
 
@@ -408,11 +432,35 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     // 更新服务器数据
-    private boolean updateData(String surveyId) {
-        // TODO
+    // 更新发芽期数据
+    private void updateGerminationPeriodData() {
         try {
-            // 发芽期
-            HttpRequest.requestAddSurveyData(token, "发芽期", "", new HttpRequest.INormalCallback() {
+            String germinationPeriodData = getGerminationPeriodData();
+            HttpRequest.requestAddSurveyData(token, "发芽期", germinationPeriodData, new HttpRequest.INormalCallback() {
+                @Override
+                public void onResponse(NormalInfo normalInfo) {
+                    if (normalInfo.code == 200 && normalInfo.message.equals("操作成功")) {
+                        Log.d("thread:" + context.toString(), "" + (Looper.getMainLooper() == Looper.myLooper()));
+                    } else {
+
+                    }
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 更新幼苗期数据
+    private boolean updateSeedlingPeriodData() {
+        try {
+            String seedlingPeriodData = getSeedlingPeriodData();
+            HttpRequest.requestAddSurveyData(token, "幼苗期", seedlingPeriodData, new HttpRequest.INormalCallback() {
                 @Override
                 public void onResponse(NormalInfo normalInfo) {
 
@@ -425,8 +473,24 @@ public class SurveyActivity extends AppCompatActivity {
             });
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
+    }
+
+    private String getGerminationPeriodData() {
+        String plantId = editPlantId.getText().toString();
+        String germinationRate = editGerminationRate.getText().toString();
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("material_type", materialType);
+        jsonObject.addProperty("material_number", materialId);
+        jsonObject.addProperty("plant_number", plantId);
+        jsonObject.addProperty("investigating_time", getCurrentTime());
+        jsonObject.addProperty("investigator", nickname);
+        jsonObject.addProperty("germination_rate", germinationRate);
+
+        return jsonObject.toString();
     }
 
     private String getSeedlingPeriodData() {

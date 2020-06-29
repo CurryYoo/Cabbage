@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(UserInfo userInfo) {
                 if (userInfo.getCode() == 200 && userInfo.getMessage().equals("操作成功")) {
                     editor = sp.edit();
-                    editor.putInt("userId", userInfo.getUserId());
+                    editor.putInt("userId", userInfo.getId());
                     editor.putString("nickname", userInfo.getNickname());
                     editor.putString("headImgUrl", userInfo.getHeadImgUrl());
                     editor.putString("token", userInfo.getToken());

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.example.cabbage.R;
 public class InfoItemBar extends LinearLayout {
     private LinearLayout mLinearLayout, mItemBar;
     private ImageView Image;
+    private Button mSubmit;
 
     public InfoItemBar(Context mContext, String title)
     {
@@ -26,6 +28,7 @@ public class InfoItemBar extends LinearLayout {
         this.mLinearLayout = view.findViewById(R.id.itemBar_content);
         this.mItemBar = view.findViewById(R.id.itembar);
         this.Image =  view.findViewById(R.id.item_img_title);
+        this.mSubmit = view.findViewById(R.id.item_btn_submit);
         TextView titleTextView =  view.findViewById(R.id.itemBar_title);
         titleTextView.setText(title);
 
@@ -43,6 +46,7 @@ public class InfoItemBar extends LinearLayout {
 
         });
     }
+
     /**
      * 设置 项目集 是否展开
      *
@@ -57,15 +61,14 @@ public class InfoItemBar extends LinearLayout {
             Image.setImageResource(R.drawable.item_unpressed);
         }
     }
+
     /**
      * 添加 infoItem项目
      *
      * @param item
      */
     public void addView(View item) {
-
         mLinearLayout.addView(item);
-
     }
 
     /**
@@ -74,8 +77,28 @@ public class InfoItemBar extends LinearLayout {
      * @param drawable
      */
     public void setColor(Drawable drawable) {
-
         mItemBar.setBackground(drawable);
+    }
 
+    /**
+     * 是否显示提交按钮
+     *
+     * @param isShow
+     */
+    public void setVisibilitySubmit(boolean isShow) {
+        if (isShow) {
+            mSubmit.setVisibility(View.VISIBLE);
+        } else {
+            mSubmit.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 设置submit按钮点击事件
+     *
+     * @param onClickListener
+     */
+    public void setSubmitListener(OnClickListener onClickListener) {
+        mSubmit.setOnClickListener(onClickListener);
     }
 }

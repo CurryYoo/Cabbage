@@ -16,7 +16,6 @@ public class UserInfo {
         private Token token;
         private class User {
             private int id;
-            private int userId;
             private String username;
             private String password;
             private String nickname;
@@ -44,10 +43,6 @@ public class UserInfo {
 
     public int getId() {
         return data.user.id;
-    }
-
-    public int getUserId() {
-        return data.user.userId;
     }
 
     public String getUsername() {
