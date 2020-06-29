@@ -1,5 +1,7 @@
 package com.example.cabbage.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,9 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.HistoryAdapter;
 import com.example.cabbage.entity.HistoryEntity;
+import com.example.cabbage.network.HistoryInfo;
+import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.utils.ARouterPaths;
 
 import java.util.ArrayList;
@@ -37,33 +43,54 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
     RecyclerView recyclerViewHistory;
 
     private HistoryAdapter historyAdapter;
-    private List<HistoryEntity> data;
+    private List<HistoryInfo.data> data;
+
+    private String token;
+    private Context context = this;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         ButterKnife.bind(this);
+
+        SharedPreferences sp = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        token = sp.getString("token", "");
+
+        initData();
         initView();
+    }
+
+    private void initData() {
+
+        HttpRequest.getHistorySurveyData(token, new HttpRequest.IHistoryCallback() {
+            @Override
+            public void onResponse(HistoryInfo historyInfo) {
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerViewHistory.setLayoutManager(linearLayoutManager);
+
+                historyAdapter = new HistoryAdapter(R.layout.item_history, historyInfo.data);
+                historyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY).withString("observationId",historyInfo.data.get(position).getObservationId()).navigation();
+                    }
+                });
+                recyclerViewHistory.setAdapter(historyAdapter);
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 
     private void initView() {
         leftOneButton.setImageResource(R.mipmap.ic_back);
         titleText.setText("采集历史");
-
-        data = new ArrayList<>();
-        HistoryEntity historyEntity;
-        for (int i = 0; i < 20; i++) {
-            historyEntity = new HistoryEntity();
-            historyEntity.setID("test_" + i);
-            data.add(historyEntity);
-        }
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerViewHistory.setLayoutManager(linearLayoutManager);
-
-        historyAdapter = new HistoryAdapter(R.layout.item_history, data);
-        recyclerViewHistory.setAdapter(historyAdapter);
 
         leftOneLayout.setOnClickListener(this);
     }
