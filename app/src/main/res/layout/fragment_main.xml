@@ -13,6 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        app:floatingSearch_leftActionMode="showSearch" />
+        app:floatingSearch_leftActionMode="showSearch"
+        
+        app:floatingSearch_searchHint="Search..."
+        app:floatingSearch_showOverFlowMenu="true"
+        app:floatingSearch_hideOverflowMenuWhenFocused="true"
+        app:floatingSearch_showSearchKey="false"
+        app:floatingSearch_dismissOnOutsideTouch="true" />
 
 </LinearLayout>

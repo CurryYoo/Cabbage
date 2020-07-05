@@ -75,7 +75,14 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
                 historyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY).withString("observationId",historyInfo.data.get(position).getObservationId()).navigation();
+                        ARouter.getInstance()
+                                .build(ARouterPaths.SURVEY_ACTIVITY)
+                                .withString("surveyId",historyInfo.data.get(position).getObservationId())
+                                .withString("materialId",historyInfo.data.get(position).getMaterialNumber())
+                                .withString("materialType",historyInfo.data.get(position).getMaterialType())
+                                .withString("plantId",historyInfo.data.get(position).getPlantNumber())
+                                .withString("surveyPeriod",historyInfo.data.get(position).getObsPeriod())
+                                .navigation();
                     }
                 });
                 recyclerViewHistory.setAdapter(historyAdapter);

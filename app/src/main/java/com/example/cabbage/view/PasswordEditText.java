@@ -123,11 +123,11 @@ public class PasswordEditText extends LinearLayout {
         if (!isShowPwd) {
             // 可视密码输入
             mContentEditText.setInputType(EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-            mShowPasswordImageView.setImageResource(R.drawable.icon_show_password);
+            mShowPasswordImageView.setImageResource(R.mipmap.ic_show_password);
         } else {
             // 非可视密码状态
             mContentEditText.setInputType(EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
-            mShowPasswordImageView.setImageResource(R.drawable.icon_hide_password);
+            mShowPasswordImageView.setImageResource(R.mipmap.ic_hide_password);
         }
         mShowPasswordImageView.setTag(!isShowPwd);
 

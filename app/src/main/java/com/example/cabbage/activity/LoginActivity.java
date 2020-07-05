@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login() {
         String username = etAccount.getText().toString();
-        String password = etPassword.getText().toString();
+        String password = etPassword.getText();
         HttpRequest.requestLogin(username, password, new HttpRequest.IUserInfoCallback() {
             @Override
             public void onResponse(UserInfo userInfo) {
@@ -82,6 +82,10 @@ public class LoginActivity extends AppCompatActivity {
                     editor = sp.edit();
                     editor.putInt("userId", userInfo.getId());
                     editor.putString("nickname", userInfo.getNickname());
+//                    editor.putString("username",etAccount.getText().toString());
+//                    editor.putString("password",etPassword.getText());
+                    editor.putString("username",userInfo.getUsername());
+                    editor.putString("password",userInfo.getPassword());
                     editor.putString("headImgUrl", userInfo.getHeadImgUrl());
                     editor.putString("token", userInfo.getToken());
                     editor.apply();
