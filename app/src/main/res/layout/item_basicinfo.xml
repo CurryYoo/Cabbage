@@ -89,7 +89,6 @@
             android:id="@+id/squaring_period"
             style="@style/style_item_basicinfo_calendar"
             android:layout_width="match_parent"
-            android:hint="@string/click_edit_hint"
             android:inputType="none" />
     </LinearLayout>
 

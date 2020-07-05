@@ -96,13 +96,47 @@
                     android:layout_width="100dp"
                     android:entries="@array/cotyledon_color" />
 
-                <EditText
-                    android:id="@+id/edit_cotyledon_color"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <ImageButton
+                    android:id="@+id/ib_cotyledon_color"
+                    style="@style/style_basic_camera_btn"
+                    android:src="@android:drawable/ic_menu_camera" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <Button
+                    android:id="@+id/btn_select_from_album_cotyledon_color"
+                    style="@style/style_basic_album_btn"
+                    android:text="@string/album" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <ImageView
+                    android:id="@+id/iv_cotyledon_color"
+                    style="@style/style_basic_info_image" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_cotyledon_color"
@@ -110,6 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
+
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -151,13 +186,47 @@
                     android:layout_width="100dp"
                     android:entries="@array/cotyledon_count" />
 
-                <EditText
-                    android:id="@+id/edit_cotyledon_count"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <ImageButton
+                    android:id="@+id/ib_cotyledon_count"
+                    style="@style/style_basic_camera_btn"
+                    android:src="@android:drawable/ic_menu_camera" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <Button
+                    android:id="@+id/btn_select_from_album_cotyledon_count"
+                    style="@style/style_basic_album_btn"
+                    android:text="@string/album" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <ImageView
+                    android:id="@+id/iv_cotyledon_count"
+                    style="@style/style_basic_info_image" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_cotyledon_count"
@@ -206,13 +275,47 @@
                     android:layout_width="100dp"
                     android:entries="@array/cotyledon_shape" />
 
-                <EditText
-                    android:id="@+id/edit_cotyledon_shape"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <ImageButton
+                    android:id="@+id/ib_cotyledon_shape"
+                    style="@style/style_basic_camera_btn"
+                    android:src="@android:drawable/ic_menu_camera" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <Button
+                    android:id="@+id/btn_select_from_album_cotyledon_shape"
+                    style="@style/style_basic_album_btn"
+                    android:text="@string/album" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <ImageView
+                    android:id="@+id/iv_cotyledon_shape"
+                    style="@style/style_basic_info_image" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_cotyledon_shape"

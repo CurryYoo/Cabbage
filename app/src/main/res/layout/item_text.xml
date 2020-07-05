@@ -13,13 +13,11 @@
     <View style="@style/view_vertical_divider_style" />
 
     <Spinner
-        android:id="@+id/cotyledon_count"
         style="@style/style_basic_spinner2"
         android:layout_width="100dp"
         android:entries="@array/cotyledon_count" />
 
     <EditText
-        android:id="@+id/edit_cotyledon_count"
         style="@style/style_item_basicinfo_edittext"
         android:layout_width="50dp"
         android:layout_height="match_parent"
@@ -27,7 +25,6 @@
         android:textSize="14sp" />
 
     <Button
-        android:id="@+id/btn_cotyledon_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/survey_help" />

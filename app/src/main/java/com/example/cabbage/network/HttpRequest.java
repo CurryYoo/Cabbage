@@ -177,6 +177,12 @@ public class HttpRequest {
         });
     }
 
+    // 获取图片
+
+
+    // 上传图片
+
+
     public interface IUserInfoCallback {
         void onResponse(UserInfo userInfo);
         void onFailure();
