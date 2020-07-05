@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -285,10 +286,6 @@ public class SurveyActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     sweetAlertDialog.dismissWithAnimation();
-//                                    updateData();
-//                                    updateDataLocally();
-//                                    editor.putBoolean("update_pick_data", true);
-//                                    editor.apply();
                                 }
                             });
                     saveDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -330,7 +327,11 @@ public class SurveyActivity extends AppCompatActivity {
         germinationPeriodItemBar.setSubmitListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadPeriodData(SURVEY_PERIOD_GERMINATION);
+                if (!checkIsValid()) {
+                    Toast.makeText(context, "请检查必填项！", Toast.LENGTH_SHORT).show();
+                } else {
+                    showDialog(SURVEY_PERIOD_GERMINATION);
+                }
             }
         });
 
@@ -372,7 +373,11 @@ public class SurveyActivity extends AppCompatActivity {
         seedlingPeriodItemBar.setSubmitListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadPeriodData(SURVEY_PERIOD_SEEDLING);
+                if (!checkIsValid()) {
+                    Toast.makeText(context, "请检查必填项！", Toast.LENGTH_SHORT).show();
+                } else {
+                    showDialog(SURVEY_PERIOD_SEEDLING);
+                }
             }
         });
 
@@ -445,7 +450,11 @@ public class SurveyActivity extends AppCompatActivity {
         rosettePeriodItemBar.setSubmitListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadPeriodData(SURVEY_PERIOD_ROSETTE);
+                if (!checkIsValid()) {
+                    Toast.makeText(context, "请检查必填项！", Toast.LENGTH_SHORT).show();
+                } else {
+                    showDialog(SURVEY_PERIOD_ROSETTE);
+                }
             }
         });
     }
@@ -483,6 +492,36 @@ public class SurveyActivity extends AppCompatActivity {
             }
         }
     };
+
+    // 校验已有数据是否合法
+    private boolean checkIsValid() {
+        if (TextUtils.isEmpty(editPlantId.getText())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void showDialog(String surveyPeriod) {
+        final SweetAlertDialog saveDialog = new SweetAlertDialog(context, SweetAlertDialog.NORMAL_TYPE)
+                .setContentText(getString(R.string.upload_data_tip))
+                .setConfirmText("确定")
+                .setCancelText("取消")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        uploadPeriodData(surveyPeriod);
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                });
+        saveDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+            }
+        });
+        saveDialog.show();
+    }
 
     // 初始化基本数据
     private void initBasicInfo(String plantId) {
@@ -625,10 +664,10 @@ public class SurveyActivity extends AppCompatActivity {
             String mPeriodData = getPeriodData(surveyPeriod);
             Log.d("surveyPeriod", surveyPeriod);
             Log.d("mPeriodData", mPeriodData);
-            HttpRequest.requestAddSurveyData(token, surveyPeriod, mPeriodData, new HttpRequest.INormalCallback() {
+            HttpRequest.requestAddSurveyData(token, surveyPeriod, mPeriodData, new HttpRequest.ISurveyCallback() {
                 @Override
-                public void onResponse(NormalInfo normalInfo) {
-                    if (normalInfo.code == 200 && normalInfo.message.equals("操作成功")) {
+                public void onResponse(SurveyInfo surveyInfo) {
+                    if (surveyInfo.code == 200 && surveyInfo.message.equals("操作成功")) {
                         Log.d("thread:" + context.toString(), "" + (Looper.getMainLooper() == Looper.myLooper()));
                         Toast.makeText(context, "更新成功", Toast.LENGTH_SHORT).show();
                     } else {

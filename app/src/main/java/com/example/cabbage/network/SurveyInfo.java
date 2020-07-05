@@ -16,6 +16,7 @@ public class SurveyInfo extends NormalInfo {
         public String location;
         public String investigatingTime;
         public String investigator;
+        public int userId;
 
         // 发芽期
         public String germinationRate;
@@ -29,7 +30,6 @@ public class SurveyInfo extends NormalInfo {
         public String trueLeafColor;
         public String trueLeafLength;
         public String trueLeafWidth;
-        public int userId;
 
         // 莲座期
 

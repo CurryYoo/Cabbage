@@ -29,7 +29,7 @@ public interface GetApi {
 
     // 添加材料数据
     @POST("characterAnalysis/addDifObsPeriodData")
-    Call<NormalInfo> addSurveyData(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("json") String json);
+    Call<SurveyInfo> addSurveyData(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("json") String json);
 
     // 获取个人历史数据
     @GET("characterAnalysis/historyObsData")

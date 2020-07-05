@@ -102,18 +102,18 @@ public class HttpRequest {
     }
 
     // 新增不同观测时期数据
-    public static void requestAddSurveyData(String token, String obsPeriod, String json, INormalCallback callback) {
-        getApi.addSurveyData(token, obsPeriod, json).enqueue(new Callback<NormalInfo>() {
+    public static void requestAddSurveyData(String token, String obsPeriod, String json, ISurveyCallback callback) {
+        getApi.addSurveyData(token, obsPeriod, json).enqueue(new Callback<SurveyInfo>() {
             @Override
-            public void onResponse(Call<NormalInfo> call, Response<NormalInfo> response) {
+            public void onResponse(Call<SurveyInfo> call, Response<SurveyInfo> response) {
                 if (response != null && response.body() != null) {
-                    NormalInfo normalInfo = response.body();
-                    callback.onResponse(normalInfo);
+                    SurveyInfo surveyInfo = response.body();
+                    callback.onResponse(surveyInfo);
                 }
             }
 
             @Override
-            public void onFailure(Call<NormalInfo> call, Throwable t) {
+            public void onFailure(Call<SurveyInfo> call, Throwable t) {
                 t.printStackTrace();
                 callback.onFailure();
             }
