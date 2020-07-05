@@ -37,10 +37,10 @@ public class InfoItemBar extends LinearLayout {
             public void onClick(View v) {
                 if (mLinearLayout.getVisibility() == View.GONE) {
                     mLinearLayout.setVisibility(View.VISIBLE);
-                    Image.setImageResource(R.drawable.item_pressed);
+                    Image.setImageResource(R.mipmap.ic_item_pressed);
                 } else {
                     mLinearLayout.setVisibility(View.GONE);
-                    Image.setImageResource(R.drawable.item_unpressed);
+                    Image.setImageResource(R.mipmap.ic_item_unpressed);
                 }
             }
 
@@ -55,10 +55,10 @@ public class InfoItemBar extends LinearLayout {
     public void setShow(boolean isShow) {
         if (isShow) {
             mLinearLayout.setVisibility(View.VISIBLE);
-            Image.setImageResource(R.drawable.item_pressed);
+            Image.setImageResource(R.mipmap.ic_item_pressed);
         } else {
             mLinearLayout.setVisibility(View.GONE);
-            Image.setImageResource(R.drawable.item_unpressed);
+            Image.setImageResource(R.mipmap.ic_item_unpressed);
         }
     }
 

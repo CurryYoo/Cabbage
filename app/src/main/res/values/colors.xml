@@ -19,7 +19,7 @@
 
     <color name="primary_background">#e5edf7</color>
     <color name="secondary_background">#a2b2c9</color>
-    <color name="light_background">#fffff9</color>
+    <color name="light_background">#ffffff</color>
 
     <color name="primary_text">#070707</color>
     <color name="secondary_text">#484845</color>

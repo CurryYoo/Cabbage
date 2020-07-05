@@ -60,8 +60,8 @@ public class HttpRequest {
     }
 
     // 修改密码
-    public static void requestChangePassword(String token, String oldPassword, String newPassword, String username, INormalCallback callback) {
-        getApi.changePassword(token, oldPassword, newPassword, username).enqueue(new Callback<NormalInfo>() {
+    public static void requestChangePassword(String token,String username, String oldPassword, String newPassword, INormalCallback callback) {
+        getApi.changePassword(token,username, oldPassword, newPassword ).enqueue(new Callback<NormalInfo>() {
             @Override
             public void onResponse(Call<NormalInfo> call, Response<NormalInfo> response) {
                 if (response != null && response.body() != null) {

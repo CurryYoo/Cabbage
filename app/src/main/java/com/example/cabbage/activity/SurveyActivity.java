@@ -197,22 +197,22 @@ public class SurveyActivity extends AppCompatActivity {
     private String pathColor;
     private Uri imageUriColor;
 
-    @Autowired
+    @Autowired(name = "materialId")
     public String materialId = "";
 
-    @Autowired
+    @Autowired(name = "materialType")
     public String materialType = "";
 
-    @Autowired
+    @Autowired(name = "plantId")
     public String plantId;
 
     @Autowired
     public int status = STATUS_NEW;
 
-    @Autowired(name="observationId")
+    @Autowired(name="surveyId")
     public String surveyId;
 
-    @Autowired
+    @Autowired(name = "surveyPeriod")
     public String surveyPeriod = SURVEY_PERIOD_GERMINATION;
 
     @Override
@@ -245,9 +245,9 @@ public class SurveyActivity extends AppCompatActivity {
 
     private void initToolBar() {
         titleText.setText(getText(R.string.species_data_pick));
-        leftOneButton.setBackgroundResource(R.drawable.left_back);
-        rightOneButton.setBackgroundResource(R.drawable.homepage);
-        rightTwoButton.setBackgroundResource(R.drawable.no_save);
+        leftOneButton.setBackgroundResource(R.mipmap.ic_back);
+        rightOneButton.setBackgroundResource(R.mipmap.ic_homepage);
+        rightTwoButton.setBackgroundResource(R.mipmap.ic_no_save);
 
         leftOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
         rightOneLayout.setBackgroundResource(R.drawable.selector_trans_button);

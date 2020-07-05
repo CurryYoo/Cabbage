@@ -33,14 +33,14 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/no_save"/>
+            android:background="@mipmap/ic_no_save"/>
 
         <ImageView
             android:id="@+id/item_img_title"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center|right"
-            android:src="@drawable/item_pressed" />
+            android:src="@mipmap/ic_item_pressed" />
 
     </LinearLayout>
     <View

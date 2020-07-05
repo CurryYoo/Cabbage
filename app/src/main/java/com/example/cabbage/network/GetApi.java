@@ -1,7 +1,6 @@
 package com.example.cabbage.network;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -21,7 +20,7 @@ public interface GetApi {
 
     // 修改密码
     @PUT("users/{username}")
-    Call<NormalInfo> changePassword(@Header("token") String token, @Query("oldPassword") String oldPassword, @Query("newPassword") String newPassword, @Path("username") String username);
+    Call<NormalInfo> changePassword(@Header("token") String token, @Path("username") String username, @Query("oldPassword") String oldPassword, @Query("newPassword") String newPassword);
 
     // 查询材料
     @GET("material/findMaterialBySearch")
@@ -39,6 +38,7 @@ public interface GetApi {
     // 根据观测id和观测时期
     @GET("characterAnalysis/showObsDataDetailByObsId")
     Call<SurveyInfo> getSurveyDataDetailBySurveyId(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("observationId") String observationId);
+
     // 根据单株编号和观测时期
     @GET("characterAnalysis/showObsDataDetailByPlantNumber")
     Call<SurveyInfo> getSurveyDataDetailByPlantNumber(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("plantNumber") String plantNumber);
