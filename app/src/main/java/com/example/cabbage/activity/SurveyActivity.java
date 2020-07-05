@@ -189,9 +189,9 @@ public class SurveyActivity extends AppCompatActivity {
 
     private static final int TAKE_PHOTO_COTYLEDON_COLOR = 10;
 
-    private static final String SURVEY_PERIOD_GERMINATION = "发芽期";
-    private static final String SURVEY_PERIOD_SEEDLING = "幼苗期";
-    private static final String SURVEY_PERIOD_ROSETTE = "莲座期";
+    public static final String SURVEY_PERIOD_GERMINATION = "发芽期";
+    public static final String SURVEY_PERIOD_SEEDLING = "幼苗期";
+    public static final String SURVEY_PERIOD_ROSETTE = "莲座期";
 
     private String pathColor;
     private Uri imageUriColor;
@@ -203,10 +203,16 @@ public class SurveyActivity extends AppCompatActivity {
     public String materialType = "";
 
     @Autowired
+    public String plantId;
+
+    @Autowired
     public int status = STATUS_NEW;
 
     @Autowired(name="observationId")
     public String surveyId;
+
+    @Autowired
+    public String surveyPeriod = SURVEY_PERIOD_GERMINATION;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,11 +233,11 @@ public class SurveyActivity extends AppCompatActivity {
 
         if (status != STATUS_NEW) {
             initView(false);
-            initBasicInfo();
-            initData("");
+            initBasicInfo(plantId);
+            initData(surveyPeriod);
         } else {
             initView(true);
-            initBasicInfo();
+            initBasicInfo("");
         }
 
     }
@@ -479,12 +485,12 @@ public class SurveyActivity extends AppCompatActivity {
     };
 
     // 初始化基本数据
-    private void initBasicInfo() {
+    private void initBasicInfo(String plantId) {
         // TODO
         // 展示基本信息
         editMaterialId.setText(materialId);
         editMaterialType.setText(materialType);
-
+        editPlantId.setText(plantId);
     }
 
     // 初始化本地数据库数据
