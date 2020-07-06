@@ -19,12 +19,10 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.HistoryAdapter;
-import com.example.cabbage.entity.HistoryEntity;
 import com.example.cabbage.network.HistoryInfo;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.utils.ARouterPaths;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -77,11 +75,11 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         ARouter.getInstance()
                                 .build(ARouterPaths.SURVEY_ACTIVITY)
-                                .withString("surveyId",historyInfo.data.get(position).getObservationId())
-                                .withString("materialId",historyInfo.data.get(position).getMaterialNumber())
-                                .withString("materialType",historyInfo.data.get(position).getMaterialType())
-                                .withString("plantId",historyInfo.data.get(position).getPlantNumber())
-                                .withString("surveyPeriod",historyInfo.data.get(position).getObsPeriod())
+                                .withString("surveyId", historyInfo.data.get(position).getObservationId())
+                                .withString("materialId", historyInfo.data.get(position).getMaterialNumber())
+                                .withString("materialType", historyInfo.data.get(position).getMaterialType())
+                                .withString("plantId", historyInfo.data.get(position).getPlantNumber())
+                                .withString("surveyPeriod", historyInfo.data.get(position).getObsPeriod())
                                 .navigation();
                     }
                 });
