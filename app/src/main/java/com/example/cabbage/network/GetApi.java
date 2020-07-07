@@ -51,12 +51,12 @@ public interface GetApi {
 
     // 获取测量帮助
     @GET("/characterAnalysis/findMeasurementBySpecificCharacter")
-    Call<NormalInfo> getMeasurementBySpecificCharacter(@Header("token") String token, @Query("specificCharacter") String specificCharacter);
+    Call<HelpInfo> getMeasurementBySpecificCharacter(@Header("token") String token, @Query("specificCharacter") String specificCharacter);
 
     // 上传图片信息
     @Multipart
     @POST("/qiNiuContent")
-    Call<NormalInfo> uploadPicture(@QueryMap Map<String, String> params, @Part MultipartBody.Part file);
+    Call<NormalInfo> uploadPicture(@Header("token") String token, @QueryMap Map<String, String> params, @Part MultipartBody.Part file);
 
     // 获取图片信息
     @GET("/qiNiuContent/photoList")

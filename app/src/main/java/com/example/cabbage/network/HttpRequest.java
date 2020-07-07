@@ -4,7 +4,14 @@ import android.util.Log;
 
 import com.example.cabbage.data.SurveyData;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -179,14 +186,53 @@ public class HttpRequest {
     }
 
     // 获取测量帮助
-    public static void getMeasurementBySpecificCharacter(String token, String specificCharacter) {
+    public static void getMeasurementBySpecificCharacter(String token, String specificCharacter, IHelpCallback callback) {
+        getApi.getMeasurementBySpecificCharacter(token, specificCharacter).enqueue(new Callback<HelpInfo>() {
+            @Override
+            public void onResponse(Call<HelpInfo> call, Response<HelpInfo> response) {
+                if (response != null && response.body() != null) {
+                    HelpInfo helpInfo = response.body();
+                    callback.onResponse(helpInfo);
+                }
+            }
 
+            @Override
+            public void onFailure(Call<HelpInfo> call, Throwable t) {
+                t.printStackTrace();
+                callback.onFailure();
+            }
+        });
     }
 
     // 获取图片
 
 
     // 上传图片
+    public static void uploadPicture(String token, String surveyPeriod, String surveyId, String specCharacter, String imgPath, INormalCallback callback) {
+        Map<String, String> params = new HashMap<>();
+        params.put("obsPeriod", surveyPeriod);
+        params.put("observationId", surveyId);
+        params.put("specCharacter", specCharacter);
+        String fileName = specCharacter + ".jpg";
+        File file = new File(imgPath);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("app_user_header", fileName, requestFile);
+        getApi.uploadPicture(token, params, body).enqueue(new Callback<NormalInfo>() {
+            @Override
+            public void onResponse(Call<NormalInfo> call, Response<NormalInfo> response) {
+                if (response != null && response.body() != null) {
+                    NormalInfo normalInfo = response.body();
+                    callback.onResponse(normalInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NormalInfo> call, Throwable t) {
+                t.printStackTrace();
+                callback.onFailure();
+            }
+        });
+    }
 
 
     public interface IUserInfoCallback {
@@ -215,6 +261,18 @@ public class HttpRequest {
 
     public interface ISurveyCallback {
         void onResponse(SurveyInfo surveyInfo);
+
+        void onFailure();
+    }
+
+    public interface IHelpCallback {
+        void onResponse(HelpInfo helpInfo);
+
+        void onFailure();
+    }
+
+    public interface IPhotoCallback {
+        void onResponse(PhotoInfo photoInfo);
 
         void onFailure();
     }
