@@ -93,44 +93,17 @@
 
 <!--    item bar string-->
     <string name="item_bar_basic">基本信息</string>
-    <string name="item_bar_height">十株株高</string>
-    <string name="item_bar_branch">十株分支数</string>
-    <string name="item_bar_big">大薯十株测产</string>
-    <string name="item_bar_small">小薯十株测产</string>
 
 <!--    item basic info string-->
-    <string name="info_species_id">1-品种ID</string>
-    <string name="info_experiment_type">2-实验类型</string>
-    <string name="info_sowing_period_input">3-播种期</string>
-    <string name="info_emergence_period">4-出苗期</string>
-    <string name="info_rate_of_emergence">5-出苗率(%)</string>
-    <string name="info_squaring_period">6-现蕾期</string>
-    <string name="info_flowering_period">7-开花期</string>
-    <string name="info_colors">8-叶颜色</string>
-    <string name="info_corolla_colors">9-花冠色</string>
-    <string name="info_plant_flourish">10-花繁茂性</string>
-    <string name="info_stem_color">11-茎色</string>
-    <string name="info_natural_fecundity">12-天然结实性</string>
-    <string name="info_mature_period">13-成熟期</string>
-    <string name="info_growing_days">14-生育日数</string>
-    <string name="info_tuber_uniformity">15-块茎整齐度</string>
-    <string name="info_tuber_shape">16-薯型</string>
-    <string name="info_potato_skin_smoothness">17-薯皮光滑度</string>
-    <string name="info_eye">18-芽眼深浅</string>
-    <string name="info_skin_color">19-皮色</string>
-    <string name="info_flesh_color">20-肉色</string>
-    <string name="info_whether_to_be_included">21-是否入选</string>
-    <string name="info_remark">22-备注</string>
-    <string name="info_num_of_harvested_plants">23-收获株数</string>
-    <string name="info_num_of_large_and_medium_potatoes">24-大中薯数</string>
-    <string name="info_weight_of_large_and_medium_potatoes">25-大中薯重(0.00kg)</string>
-    <string name="info_num_of_small_potatoes">26-小薯数</string>
-    <string name="info_weight_of_small_potatoes">27-小薯重(0.00kg)</string>
-    <string name="info_rate_of_economic_potato">28-商品薯率(%)</string>
-    <string name="info_small_section_yield1">29-小区产量1(0.00kg)</string>
-    <string name="info_small_section_yield2">30-小区产量2(0.00kg)</string>
-    <string name="info_small_section_yield3">31-小区产量3(0.00kg)</string>
-    <string name="info_per_mu_yield">32-亩产量(0.00kg)</string>
+    <string name="info_squaring_period">现蕾期</string>
+    <string name="info_colors">叶颜色</string>
+    <string name="info_growing_days">生育日数</string>
+    <string name="info_tuber_uniformity">块茎整齐度</string>
+    <string name="info_whether_to_be_included">是否入选</string>
+    <string name="info_remark">备注</string>
+    <string name="info_num_of_harvested_plants">收获株数</string>
+    <string name="info_num_of_large_and_medium_potatoes">大中薯数</string>
+
 
 <!--    app string-->
     <string name="home_page">主页</string>
