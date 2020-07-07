@@ -40,13 +40,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/plant_shape" />
 
-                <EditText
-                    android:id="@+id/edit_plant_shape"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_plant_shape"
@@ -95,13 +94,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/plant_height" />
 
-                <EditText
-                    android:id="@+id/edit_plant_height"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_plant_height"
@@ -150,13 +148,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/development_degree" />
 
-                <EditText
-                    android:id="@+id/edit_development_degree"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_development_degree"
@@ -205,6 +202,13 @@
                     android:layout_width="100dp"
                     android:inputType="numberDecimal" />
 
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
                 <Button
                     android:id="@+id/btn_leaf_count"
                     style="@style/style_basic_help_btn"
@@ -251,6 +255,13 @@
                     style="@style/style_item_basicinfo_edittext"
                     android:layout_width="100dp"
                     android:inputType="numberDecimal" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_soft_leaf_thickness"
@@ -299,13 +310,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_length" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_length"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_length"
@@ -354,13 +364,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_width" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_width"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_width"
@@ -409,13 +418,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_shape" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_shape"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_shape"
@@ -464,13 +472,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_color" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_color"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_color"
@@ -519,13 +526,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_luster" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_luster"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_luster"
@@ -574,13 +580,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_fuzz" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_fuzz"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_fuzz"
@@ -629,13 +634,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_margin_undulance" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_margin_undulance"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_margin_undulance"
@@ -684,13 +688,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_margin_sawtooth" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_margin_sawtooth"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_margin_sawtooth"
@@ -739,13 +742,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_smoothness" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_smoothness"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_smoothness"
@@ -794,13 +796,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_protuberance" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_protuberance"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_protuberance"
@@ -849,13 +850,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_vein_livingness" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_vein_livingness"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_vein_livingness"
@@ -904,13 +904,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_keel_livingness" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_keel_livingness"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_keel_livingness"
@@ -959,13 +958,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_curliness" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_curliness"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_curliness"
@@ -1014,13 +1012,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_curliness_part" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_curliness_part"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_curliness_part"
@@ -1069,13 +1066,12 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_texture" />
 
-                <EditText
-                    android:id="@+id/edit_leaf_texture"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="50dp"
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
                     android:layout_height="match_parent"
-                    android:hint="自定义"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <Button
                     android:id="@+id/btn_leaf_texture"

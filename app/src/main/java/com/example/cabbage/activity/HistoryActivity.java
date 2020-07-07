@@ -30,6 +30,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.cabbage.activity.SurveyActivity.STATUS_READ;
+
 @Route(path = ARouterPaths.HISTORY_ACTIVITY)
 public class HistoryActivity extends AppCompatActivity implements OnClickListener {
 
@@ -82,6 +84,7 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
                                 .withString("materialType",historyInfo.data.get(position).getMaterialType())
                                 .withString("plantId",historyInfo.data.get(position).getPlantNumber())
                                 .withString("surveyPeriod",historyInfo.data.get(position).getObsPeriod())
+                                .withInt("status", STATUS_READ)
                                 .navigation();
                     }
                 });

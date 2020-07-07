@@ -1,12 +1,18 @@
 package com.example.cabbage.network;
 
+import java.util.Map;
+
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Author: xiemugan
@@ -43,9 +49,17 @@ public interface GetApi {
     @GET("characterAnalysis/showObsDataDetailByPlantNumber")
     Call<SurveyInfo> getSurveyDataDetailByPlantNumber(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("plantNumber") String plantNumber);
 
-    // 上传图片信息
+    // 获取测量帮助
+    @GET("/characterAnalysis/findMeasurementBySpecificCharacter")
+    Call<NormalInfo> getMeasurementBySpecificCharacter(@Header("token") String token, @Query("specificCharacter") String specificCharacter);
 
+    // 上传图片信息
+    @Multipart
+    @POST("/qiNiuContent")
+    Call<NormalInfo> uploadPicture(@QueryMap Map<String, String> params, @Part MultipartBody.Part file);
 
     // 获取图片信息
+    @GET("/qiNiuContent/photoList")
+    Call<PhotoInfo> getPhotoList(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("specCharacter") String specCharacter, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 
 }
