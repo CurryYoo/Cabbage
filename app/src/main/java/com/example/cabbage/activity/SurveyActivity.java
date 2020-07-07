@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,6 @@ import com.example.cabbage.R;
 import com.example.cabbage.data.ObjectBox;
 import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HttpRequest;
-import com.example.cabbage.network.NormalInfo;
 import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.view.InfoItemBar;
@@ -91,7 +91,6 @@ public class SurveyActivity extends AppCompatActivity {
     Button btnGerminationRate;
     // 幼苗期
     Spinner spnCotyledonSize;
-    EditText editCotyledonSize;
     Button btnCotyledonSize;
     Spinner spnCotyledonColor;
     private ImageButton ibCotyledonColor;
@@ -103,16 +102,12 @@ public class SurveyActivity extends AppCompatActivity {
     Spinner spnCotyledonShape;
     Button btnCotyledonShape;
     Spinner spnHeartLeafColor;
-    EditText editHeartLeafColor;
     Button btnHeartLeafColor;
     Spinner spnTrueLeafColor;
-    EditText editTrueLeafColor;
     Button btnTrueLeafColor;
     Spinner spnTrueLeafLength;
-    EditText editTrueLeafLength;
     Button btnTrueLeafLength;
     Spinner spnTrueLeafWidth;
-    EditText editTrueLeafWidth;
     Button btnTrueLeafWidth;
     // 莲座期
     private Spinner spnPlantShape;
@@ -262,7 +257,7 @@ public class SurveyActivity extends AppCompatActivity {
             rightTwoLayout.setTooltipText(getResources().getText(R.string.save_data));
         }
 
-        rightTwoLayout.setVisibility(View.GONE);
+        rightTwoLayout.setVisibility(View.INVISIBLE);
     }
 
     View.OnClickListener toolBarOnClickListener = new View.OnClickListener() {
@@ -276,29 +271,25 @@ public class SurveyActivity extends AppCompatActivity {
                     Intent intent = new Intent(context, MainActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.right_two_layout:
-                    final SweetAlertDialog saveDialog = new SweetAlertDialog(context, SweetAlertDialog.NORMAL_TYPE)
-                            .setContentText(getString(R.string.save_data_tip))
-                            .setConfirmText("确定")
-                            .setCancelText("取消")
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.dismissWithAnimation();
-//                                    updateData();
-//                                    updateDataLocally();
-//                                    editor.putBoolean("update_pick_data", true);
-//                                    editor.apply();
-                                }
-                            });
-                    saveDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                            sweetAlertDialog.dismissWithAnimation();
-                        }
-                    });
-                    saveDialog.show();
-                    break;
+//                case R.id.right_two_layout:
+//                    final SweetAlertDialog saveDialog = new SweetAlertDialog(context, SweetAlertDialog.NORMAL_TYPE)
+//                            .setContentText(getString(R.string.save_data_tip))
+//                            .setConfirmText("确定")
+//                            .setCancelText("取消")
+//                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                                @Override
+//                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+//                                    sweetAlertDialog.dismissWithAnimation();
+//                                }
+//                            });
+//                    saveDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                        @Override
+//                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+//                            sweetAlertDialog.dismissWithAnimation();
+//                        }
+//                    });
+//                    saveDialog.show();
+//                    break;
                 default:
                     break;
             }
@@ -326,11 +317,16 @@ public class SurveyActivity extends AppCompatActivity {
 
         editGerminationRate = germinationPeriodLayout.findViewById(R.id.edt_germination_rate);
         btnGerminationRate = germinationPeriodLayout.findViewById(R.id.btn_germination_rate);
+        btnGerminationRate.setOnClickListener(helpClickListener);
 
         germinationPeriodItemBar.setSubmitListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadPeriodData(SURVEY_PERIOD_GERMINATION);
+                if (!checkIsValid()) {
+                    Toast.makeText(context, "请检查必填项！", Toast.LENGTH_SHORT).show();
+                } else {
+                    showDialog(SURVEY_PERIOD_GERMINATION);
+                }
             }
         });
 
@@ -342,7 +338,6 @@ public class SurveyActivity extends AppCompatActivity {
         mainArea.addView(seedlingPeriodItemBar);
 
         spnCotyledonSize = seedlingPeriodLayout.findViewById(R.id.cotyledon_size);
-        editCotyledonSize = seedlingPeriodLayout.findViewById(R.id.edit_cotyledon_size);
         btnCotyledonSize = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_size);
 
         spnCotyledonColor = seedlingPeriodLayout.findViewById(R.id.cotyledon_color);
@@ -357,22 +352,22 @@ public class SurveyActivity extends AppCompatActivity {
         spnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.cotyledon_shape);
         btnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_shape);
         spnHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.heart_leaf_color);
-        editHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.edit_heart_leaf_color);
         btnHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.btn_heart_leaf_color);
         spnTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.true_leaf_color);
-        editTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.edit_true_leaf_color);
         btnTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_color);
         spnTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.true_leaf_length);
-        editTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.edit_true_leaf_length);
         btnTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_length);
         spnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.true_leaf_width);
-        editTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.edit_true_leaf_width);
         btnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_width);
 
         seedlingPeriodItemBar.setSubmitListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadPeriodData(SURVEY_PERIOD_SEEDLING);
+                if (!checkIsValid()) {
+                    Toast.makeText(context, "请检查必填项！", Toast.LENGTH_SHORT).show();
+                } else {
+                    showDialog(SURVEY_PERIOD_SEEDLING);
+                }
             }
         });
 
@@ -384,70 +379,75 @@ public class SurveyActivity extends AppCompatActivity {
         mainArea.addView(rosettePeriodItemBar);
 
         spnPlantShape = rosettePeriodLayout.findViewById(R.id.plant_shape);
-        editPlantShape = rosettePeriodLayout.findViewById(R.id.edit_plant_shape);
         btnPlantShape = rosettePeriodLayout.findViewById(R.id.btn_plant_shape);
         spnPlantHeight = rosettePeriodLayout.findViewById(R.id.plant_height);
-        editPlantHeight = rosettePeriodLayout.findViewById(R.id.edit_plant_height);
         btnPlantHeight = rosettePeriodLayout.findViewById(R.id.btn_plant_height);
         spnDevelopmentDegree = rosettePeriodLayout.findViewById(R.id.development_degree);
-        editDevelopmentDegree = rosettePeriodLayout.findViewById(R.id.edit_development_degree);
         btnDevelopmentDegree = rosettePeriodLayout.findViewById(R.id.btn_development_degree);
         edtLeafCount = rosettePeriodLayout.findViewById(R.id.edt_leaf_count);
         btnLeafCount = rosettePeriodLayout.findViewById(R.id.btn_leaf_count);
         edtSoftLeafThickness = rosettePeriodLayout.findViewById(R.id.edt_soft_leaf_thickness);
         btnSoftLeafThickness = rosettePeriodLayout.findViewById(R.id.btn_soft_leaf_thickness);
         spnLeafLength = rosettePeriodLayout.findViewById(R.id.leaf_length);
-        editLeafLength = rosettePeriodLayout.findViewById(R.id.edit_leaf_length);
         btnLeafLength = rosettePeriodLayout.findViewById(R.id.btn_leaf_length);
         spnLeafWidth = rosettePeriodLayout.findViewById(R.id.leaf_width);
-        editLeafWidth = rosettePeriodLayout.findViewById(R.id.edit_leaf_width);
         btnLeafWidth = rosettePeriodLayout.findViewById(R.id.btn_leaf_width);
         spnLeafShape = rosettePeriodLayout.findViewById(R.id.leaf_shape);
-        editLeafShape = rosettePeriodLayout.findViewById(R.id.edit_leaf_shape);
         btnLeafShape = rosettePeriodLayout.findViewById(R.id.btn_leaf_shape);
         spnLeafColor = rosettePeriodLayout.findViewById(R.id.leaf_color);
-        editLeafColor = rosettePeriodLayout.findViewById(R.id.edit_leaf_color);
         btnLeafColor = rosettePeriodLayout.findViewById(R.id.btn_leaf_color);
         spnLeafLuster = rosettePeriodLayout.findViewById(R.id.leaf_luster);
-        editLeafLuster = rosettePeriodLayout.findViewById(R.id.edit_leaf_luster);
         btnLeafLuster = rosettePeriodLayout.findViewById(R.id.btn_leaf_luster);
         spnLeafFuzz = rosettePeriodLayout.findViewById(R.id.leaf_fuzz);
-        editLeafFuzz = rosettePeriodLayout.findViewById(R.id.edit_leaf_fuzz);
         btnLeafFuzz = rosettePeriodLayout.findViewById(R.id.btn_leaf_fuzz);
         spnLeafMarginUndulance = rosettePeriodLayout.findViewById(R.id.leaf_margin_undulance);
-        editLeafMarginUndulance = rosettePeriodLayout.findViewById(R.id.edit_leaf_margin_undulance);
         btnLeafMarginUndulance = rosettePeriodLayout.findViewById(R.id.btn_leaf_margin_undulance);
         spnLeafMarginSawtooth = rosettePeriodLayout.findViewById(R.id.leaf_margin_sawtooth);
-        editLeafMarginSawtooth = rosettePeriodLayout.findViewById(R.id.edit_leaf_margin_sawtooth);
         btnLeafMarginSawtooth = rosettePeriodLayout.findViewById(R.id.btn_leaf_margin_sawtooth);
         spnLeafSmoothness = rosettePeriodLayout.findViewById(R.id.leaf_smoothness);
-        editLeafSmoothness = rosettePeriodLayout.findViewById(R.id.edit_leaf_smoothness);
         btnLeafSmoothness = rosettePeriodLayout.findViewById(R.id.btn_leaf_smoothness);
         spnLeafProtuberance = rosettePeriodLayout.findViewById(R.id.leaf_protuberance);
-        editLeafProtuberance = rosettePeriodLayout.findViewById(R.id.edit_leaf_protuberance);
         btnLeafProtuberance = rosettePeriodLayout.findViewById(R.id.btn_leaf_protuberance);
         spnLeafVeinLivingness = rosettePeriodLayout.findViewById(R.id.leaf_vein_livingness);
-        editLeafVeinLivingness = rosettePeriodLayout.findViewById(R.id.edit_leaf_vein_livingness);
         btnLeafVeinLivingness = rosettePeriodLayout.findViewById(R.id.btn_leaf_vein_livingness);
         spnLeafKeelLivingness = rosettePeriodLayout.findViewById(R.id.leaf_keel_livingness);
-        editLeafKeelLivingness = rosettePeriodLayout.findViewById(R.id.edit_leaf_keel_livingness);
         btnLeafKeelLivingness = rosettePeriodLayout.findViewById(R.id.btn_leaf_keel_livingness);
         spnLeafCurliness = rosettePeriodLayout.findViewById(R.id.leaf_curliness);
-        editLeafCurliness = rosettePeriodLayout.findViewById(R.id.edit_leaf_curliness);
         btnLeafCurliness = rosettePeriodLayout.findViewById(R.id.btn_leaf_curliness);
         spnLeafCurlinessPart = rosettePeriodLayout.findViewById(R.id.leaf_curliness_part);
-        editLeafCurlinessPart = rosettePeriodLayout.findViewById(R.id.edit_leaf_curliness_part);
         btnLeafCurlinessPart = rosettePeriodLayout.findViewById(R.id.btn_leaf_curliness_part);
         spnLeafTexture = rosettePeriodLayout.findViewById(R.id.leaf_texture);
-        editLeafTexture = rosettePeriodLayout.findViewById(R.id.edit_leaf_texture);
         btnLeafTexture = rosettePeriodLayout.findViewById(R.id.btn_leaf_texture);
 
         rosettePeriodItemBar.setSubmitListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadPeriodData(SURVEY_PERIOD_ROSETTE);
+                if (!checkIsValid()) {
+                    Toast.makeText(context, "请检查必填项！", Toast.LENGTH_SHORT).show();
+                } else {
+                    showDialog(SURVEY_PERIOD_ROSETTE);
+                }
             }
         });
+    }
+
+    View.OnClickListener helpClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_germination_rate:
+                    showHelpDialog();
+                    break;
+            }
+        }
+    };
+
+    // 展示帮助对话框
+    private void showHelpDialog() {
+        // 获取数据
+
+        // 展示对话框
+
     }
 
     View.OnClickListener photosClickListener = new View.OnClickListener() {
@@ -484,6 +484,36 @@ public class SurveyActivity extends AppCompatActivity {
         }
     };
 
+    // 校验已有数据是否合法
+    private boolean checkIsValid() {
+        if (TextUtils.isEmpty(editPlantId.getText())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void showDialog(String surveyPeriod) {
+        final SweetAlertDialog saveDialog = new SweetAlertDialog(context, SweetAlertDialog.NORMAL_TYPE)
+                .setContentText(getString(R.string.upload_data_tip))
+                .setConfirmText("确定")
+                .setCancelText("取消")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        uploadPeriodData(surveyPeriod);
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                });
+        saveDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+            }
+        });
+        saveDialog.show();
+    }
+
     // 初始化基本数据
     private void initBasicInfo(String plantId) {
         // TODO
@@ -518,6 +548,7 @@ public class SurveyActivity extends AppCompatActivity {
         HttpRequest.getSurveyDataDetailBySurveyId(token, surveyPeriod, surveyId, new HttpRequest.ISurveyCallback() {
             @Override
             public void onResponse(SurveyInfo surveyInfo) {
+                Log.d("thread:" + context.toString(), "" + (Looper.getMainLooper() == Looper.myLooper()));
                 updateUI(surveyPeriod, surveyInfo);
             }
 
@@ -574,9 +605,12 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     private void setSelection(Spinner spinner, String data) {
+        if (TextUtils.isEmpty(data)) {
+            return;
+        }
         SpinnerAdapter spinnerAdapter = spinner.getAdapter();
         for (int j = 0; j < spinnerAdapter.getCount(); j++) {
-            if (data.equals(spinnerAdapter.getItem(j).toString())) {
+            if (spinnerAdapter.getItem(j).toString().equals(data)) {
                 spinner.setSelection(j, true);
             } else if (j == spinnerAdapter.getCount() - 1) {
 
@@ -625,10 +659,10 @@ public class SurveyActivity extends AppCompatActivity {
             String mPeriodData = getPeriodData(surveyPeriod);
             Log.d("surveyPeriod", surveyPeriod);
             Log.d("mPeriodData", mPeriodData);
-            HttpRequest.requestAddSurveyData(token, surveyPeriod, mPeriodData, new HttpRequest.INormalCallback() {
+            HttpRequest.requestAddSurveyData(token, surveyPeriod, mPeriodData, new HttpRequest.ISurveyCallback() {
                 @Override
-                public void onResponse(NormalInfo normalInfo) {
-                    if (normalInfo.code == 200 && normalInfo.message.equals("操作成功")) {
+                public void onResponse(SurveyInfo surveyInfo) {
+                    if (surveyInfo.code == 200 && surveyInfo.message.equals("操作成功")) {
                         Log.d("thread:" + context.toString(), "" + (Looper.getMainLooper() == Looper.myLooper()));
                         Toast.makeText(context, "更新成功", Toast.LENGTH_SHORT).show();
                     } else {

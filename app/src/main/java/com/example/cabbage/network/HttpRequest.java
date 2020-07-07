@@ -60,8 +60,8 @@ public class HttpRequest {
     }
 
     // 修改密码
-    public static void requestChangePassword(String token,String username, String oldPassword, String newPassword, INormalCallback callback) {
-        getApi.changePassword(token,username, oldPassword, newPassword ).enqueue(new Callback<NormalInfo>() {
+    public static void requestChangePassword(String token, String username, String oldPassword, String newPassword, INormalCallback callback) {
+        getApi.changePassword(token, username, oldPassword, newPassword).enqueue(new Callback<NormalInfo>() {
             @Override
             public void onResponse(Call<NormalInfo> call, Response<NormalInfo> response) {
                 if (response != null && response.body() != null) {
@@ -102,18 +102,18 @@ public class HttpRequest {
     }
 
     // 新增不同观测时期数据
-    public static void requestAddSurveyData(String token, String obsPeriod, String json, INormalCallback callback) {
-        getApi.addSurveyData(token, obsPeriod, json).enqueue(new Callback<NormalInfo>() {
+    public static void requestAddSurveyData(String token, String obsPeriod, String json, ISurveyCallback callback) {
+        getApi.addSurveyData(token, obsPeriod, json).enqueue(new Callback<SurveyInfo>() {
             @Override
-            public void onResponse(Call<NormalInfo> call, Response<NormalInfo> response) {
+            public void onResponse(Call<SurveyInfo> call, Response<SurveyInfo> response) {
                 if (response != null && response.body() != null) {
-                    NormalInfo normalInfo = response.body();
-                    callback.onResponse(normalInfo);
+                    SurveyInfo surveyInfo = response.body();
+                    callback.onResponse(surveyInfo);
                 }
             }
 
             @Override
-            public void onFailure(Call<NormalInfo> call, Throwable t) {
+            public void onFailure(Call<SurveyInfo> call, Throwable t) {
                 t.printStackTrace();
                 callback.onFailure();
             }
@@ -158,6 +158,7 @@ public class HttpRequest {
             }
         });
     }
+
     // 根据单株编号和观测时期
     public static void getSurveyDataDetailByPlantNumber(String token, String surveyPeriod, String plantNumber, ISurveyCallback callback) {
         getApi.getSurveyDataDetailByPlantNumber(token, surveyPeriod, plantNumber).enqueue(new Callback<SurveyInfo>() {
@@ -177,6 +178,11 @@ public class HttpRequest {
         });
     }
 
+    // 获取测量帮助
+    public static void getMeasurementBySpecificCharacter(String token, String specificCharacter) {
+
+    }
+
     // 获取图片
 
 
@@ -185,26 +191,31 @@ public class HttpRequest {
 
     public interface IUserInfoCallback {
         void onResponse(UserInfo userInfo);
+
         void onFailure();
     }
 
     public interface INormalCallback {
         void onResponse(NormalInfo normalInfo);
+
         void onFailure();
     }
 
     public interface IMaterialCallback {
         void onResponse(MaterialInfo materialInfo);
+
         void onFailure();
     }
 
     public interface IHistoryCallback {
         void onResponse(HistoryInfo historyInfo);
+
         void onFailure();
     }
 
     public interface ISurveyCallback {
         void onResponse(SurveyInfo surveyInfo);
+
         void onFailure();
     }
 
