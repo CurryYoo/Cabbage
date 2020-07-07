@@ -6,15 +6,9 @@
 
     <include layout="@layout/tool_bar" />
 
-    <HorizontalScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_history"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbarSize="2dp">
+        android:layout_height="match_parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_history"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </HorizontalScrollView>
 </LinearLayout>

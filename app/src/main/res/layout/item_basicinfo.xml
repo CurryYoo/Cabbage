@@ -124,6 +124,7 @@
             android:id="@+id/btn_compute_growing_days"
             style="@style/style_basic_calculate"
             android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginBottom="3dp"
             android:text="@string/calculate" />
     </LinearLayout>
 
