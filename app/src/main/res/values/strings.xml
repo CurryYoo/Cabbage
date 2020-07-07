@@ -122,6 +122,7 @@
     <string name="network_wrong">网络异常</string>
     <string name="dialog_title_tip">提示</string>
 
+    <string name="info_nickname">调查人员：</string>
     <string name="info_material_id">材料编号</string>
     <string name="info_material_type">材料类型</string>
     <string name="info_plant_id">单株编号</string>

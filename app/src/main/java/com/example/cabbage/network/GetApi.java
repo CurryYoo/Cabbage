@@ -53,13 +53,13 @@ public interface GetApi {
     @GET("/characterAnalysis/findMeasurementBySpecificCharacter")
     Call<HelpInfo> getMeasurementBySpecificCharacter(@Header("token") String token, @Query("specificCharacter") String specificCharacter);
 
+    // 获取图片信息
+    @GET("/qiNiuContent/photoList")
+    Call<PhotoInfo> getPhotoList(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("specCharacter") String specCharacter, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+
     // 上传图片信息
     @Multipart
     @POST("/qiNiuContent")
     Call<NormalInfo> uploadPicture(@Header("token") String token, @QueryMap Map<String, String> params, @Part MultipartBody.Part file);
-
-    // 获取图片信息
-    @GET("/qiNiuContent/photoList")
-    Call<PhotoInfo> getPhotoList(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("specCharacter") String specCharacter, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 
 }

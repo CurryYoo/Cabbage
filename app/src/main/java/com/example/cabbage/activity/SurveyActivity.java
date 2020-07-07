@@ -1,9 +1,11 @@
 package com.example.cabbage.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -26,6 +28,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -37,9 +41,11 @@ import com.example.cabbage.data.ObjectBox;
 import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HelpInfo;
 import com.example.cabbage.network.HttpRequest;
+import com.example.cabbage.network.PhotoInfo;
 import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.view.InfoItemBar;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.JsonObject;
 
 import java.io.File;
@@ -51,6 +57,8 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.objectbox.Box;
 
+import static com.example.cabbage.utils.BasicUtil.getRealPathFromUri;
+import static com.example.cabbage.utils.BasicUtil.watchOnlineLargePhoto;
 import static com.example.cabbage.utils.ImageUtils.getImageThumbnail;
 
 @Route(path = ARouterPaths.SURVEY_ACTIVITY)
@@ -183,14 +191,20 @@ public class SurveyActivity extends AppCompatActivity {
     public static final int STATUS_READ = 1;   // 只读
     public static final int STATUS_WRITE = 2;  // 修改
 
-    private static final int TAKE_PHOTO_COTYLEDON_COLOR = 10;
-
+    // 观测时期
     public static final String SURVEY_PERIOD_GERMINATION = "发芽期";
     public static final String SURVEY_PERIOD_SEEDLING = "幼苗期";
     public static final String SURVEY_PERIOD_ROSETTE = "莲座期";
 
+    // 拍照
+    private static final int TAKE_PHOTO_COTYLEDON_COLOR = 10;
+
+    // 相册
+    private static final int SELECT_PHOTO_COTYLEDON_COLOR = 100;
+
+    // 图片路径
     private String pathColor;
-    private Uri imageUriColor;
+    private Uri imageUriCotyledonColor;
 
     @Autowired(name = "materialId")
     public String materialId = "";
@@ -212,6 +226,7 @@ public class SurveyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Fresco.initialize(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
         ButterKnife.bind(this);
@@ -346,7 +361,9 @@ public class SurveyActivity extends AppCompatActivity {
         ibCotyledonColor = seedlingPeriodLayout.findViewById(R.id.ib_cotyledon_color);
         ibCotyledonColor.setOnClickListener(photosClickListener);
         btnSelectFromAlbumCotyledonColor = seedlingPeriodLayout.findViewById(R.id.btn_select_from_album_cotyledon_color);
+        btnSelectFromAlbumCotyledonColor.setOnClickListener(photosClickListener);
         ivCotyledonColor = seedlingPeriodLayout.findViewById(R.id.iv_cotyledon_color);
+        ivCotyledonColor.setOnClickListener(photosClickListener);
         btnCotyledonColor = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_color);
         btnCotyledonColor.setOnClickListener(helpClickListener);
 
@@ -587,7 +604,7 @@ public class SurveyActivity extends AppCompatActivity {
             public void onResponse(HelpInfo helpInfo) {
                 String measurementBasis = helpInfo.data.measurementBasis;
                 String observationMethod = helpInfo.data.observationMethod;
-                String helpText = "测量标准:\n" + measurementBasis + "\n" + "观测方法:\n" + observationMethod;
+                String helpText = "测量标准：" + measurementBasis + "\n\n" + "观测方法：" + observationMethod;
                 // 展示对话框
                 final SweetAlertDialog sDialog = new SweetAlertDialog(context)
                         .setTitleText(context.getResources().getString(R.string.survey_help))
@@ -622,17 +639,23 @@ public class SurveyActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     if (Build.VERSION.SDK_INT >= 24) {
-                        imageUriColor = FileProvider.getUriForFile(context,
+                        imageUriCotyledonColor = FileProvider.getUriForFile(context,
                                 "com.example.cabbage.fileprovider", outputImage);
-                        Log.d("context", "onClick: img" + imageUriColor);
+                        Log.d("context", "onClick: img" + imageUriCotyledonColor);
                     } else {
-                        imageUriColor = Uri.fromFile(outputImage);
+                        imageUriCotyledonColor = Uri.fromFile(outputImage);
                     }
 //                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
                     //启动相机程序
                     Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUriColor);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonColor);
                     startActivityForResult(intent, TAKE_PHOTO_COTYLEDON_COLOR);
+                    break;
+                case R.id.btn_select_from_album_cotyledon_color:
+                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_COLOR);
+                    break;
+                case R.id.iv_cotyledon_color:
+                    watchOnlineLargePhoto(context, imageUriCotyledonColor, "子叶颜色");
                     break;
             }
         }
@@ -672,6 +695,7 @@ public class SurveyActivity extends AppCompatActivity {
     private void initBasicInfo(String plantId) {
         // TODO
         // 展示基本信息
+        commitInfo.setText(context.getResources().getString(R.string.info_nickname) + nickname);
         editMaterialId.setText(materialId);
         editMaterialType.setText(materialType);
         editPlantId.setText(plantId);
@@ -731,27 +755,26 @@ public class SurveyActivity extends AppCompatActivity {
                 setSelection(spnTrueLeafWidth, surveyInfo.data.trueLeafWidth);
                 break;
             case SURVEY_PERIOD_ROSETTE:
-                // TODO
-                setSelection(spnPlantShape, "");
-                setSelection(spnPlantHeight, "");
-                setSelection(spnDevelopmentDegree, "");
-                edtLeafCount.setText("");
-                edtSoftLeafThickness.setText("");
-                setSelection(spnLeafLength, "");
-                setSelection(spnLeafWidth, "");
-                setSelection(spnLeafShape, "");
-                setSelection(spnLeafColor, "");
-                setSelection(spnLeafLuster, "");
-                setSelection(spnLeafFuzz, "");
-                setSelection(spnLeafMarginUndulance, "");
-                setSelection(spnLeafMarginSawtooth, "");
-                setSelection(spnLeafSmoothness, "");
-                setSelection(spnLeafProtuberance, "");
-                setSelection(spnLeafVeinLivingness, "");
-                setSelection(spnLeafKeelLivingness, "");
-                setSelection(spnLeafCurliness, "");
-                setSelection(spnLeafCurlinessPart, "");
-                setSelection(spnLeafTexture, "");
+                setSelection(spnPlantShape, surveyInfo.data.plantType);
+                setSelection(spnPlantHeight, surveyInfo.data.plantHeight);
+                setSelection(spnDevelopmentDegree, surveyInfo.data.developmentDegree);
+                edtLeafCount.setText(surveyInfo.data.numberOfLeaves);
+                edtSoftLeafThickness.setText(surveyInfo.data.thicknessOfSoftLeaf);
+                setSelection(spnLeafLength, surveyInfo.data.bladeLength);
+                setSelection(spnLeafWidth, surveyInfo.data.bladeWidth);
+                setSelection(spnLeafShape, surveyInfo.data.leafShape);
+                setSelection(spnLeafColor, surveyInfo.data.leafColor);
+                setSelection(spnLeafLuster, surveyInfo.data.leafLuster);
+                setSelection(spnLeafFuzz, surveyInfo.data.leafFluff);
+                setSelection(spnLeafMarginUndulance, surveyInfo.data.leafMarginWavy);
+                setSelection(spnLeafMarginSawtooth, surveyInfo.data.leafMarginSerrate);
+                setSelection(spnLeafSmoothness, surveyInfo.data.bladeSmooth);
+                setSelection(spnLeafProtuberance, surveyInfo.data.sizeOfVesicles);
+                setSelection(spnLeafVeinLivingness, surveyInfo.data.freshnessOfLeafVein);
+                setSelection(spnLeafKeelLivingness, surveyInfo.data.brightnessOfMiddleRib);
+                setSelection(spnLeafCurliness, surveyInfo.data.leafCurl);
+                setSelection(spnLeafCurlinessPart, surveyInfo.data.leafCurlPart);
+                setSelection(spnLeafTexture, surveyInfo.data.leafTexture);
                 break;
             default:
                 break;
@@ -773,9 +796,27 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     // 初始化图片
-    private void initPictures() {
+    private void initPictures(String surveyPeriod) {
         // TODO
         // 获取图片url
+        String specCharacter = "";
+        HttpRequest.getPhotoList(token, surveyPeriod, specCharacter, new HttpRequest.IPhotoCallback() {
+            @Override
+            public void onResponse(PhotoInfo photoInfo) {
+                int total = photoInfo.data.total;
+                for (int i = 0; i < total; i++) {
+                    if (surveyId.equals(photoInfo.data.list.get(i).observationId)) {
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+
         String url = "";
 
         // 加载图片
@@ -963,12 +1004,37 @@ public class SurveyActivity extends AppCompatActivity {
 
     }
 
+    private void selectPhotoFromAlbum(int selectType) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        } else {
+            Intent intent = new Intent("android.intent.action.GET_CONTENT");
+            intent.setType("image/*");
+            startActivityForResult(intent, selectType);
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case TAKE_PHOTO_COTYLEDON_COLOR:
                 onResultOfPhoto(resultCode, pathColor, ivCotyledonColor);
+                break;
+            case SELECT_PHOTO_COTYLEDON_COLOR:
+                if (data != null) {
+                    imageUriCotyledonColor = data.getData();
+                    pathColor = getRealPathFromUri(context, imageUriCotyledonColor);
+                    //Log.d("Uriiiii2", imageUriColor + " || " + pathColor);
+                    if (imageUriCotyledonColor != null) {
+                        Bitmap bit = null;
+
+                        bit = getImageThumbnail(pathColor, 50, 50);
+
+                        ivCotyledonColor.setImageBitmap(bit);
+                    }
+                }
                 break;
         }
     }

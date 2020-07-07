@@ -32,6 +32,26 @@ public class SurveyInfo extends NormalInfo {
         public String trueLeafWidth;
 
         // 莲座期
+        public String plantType;
+        public String plantHeight;
+        public String developmentDegree;
+        public String numberOfLeaves;
+        public String thicknessOfSoftLeaf;
+        public String bladeLength;
+        public String bladeWidth;
+        public String leafShape;
+        public String leafColor;
+        public String leafLuster;
+        public String leafFluff;
+        public String leafMarginWavy;
+        public String leafMarginSerrate;
+        public String bladeSmooth;
+        public String sizeOfVesicles;
+        public String freshnessOfLeafVein;
+        public String brightnessOfMiddleRib;
+        public String leafCurl;
+        public String leafCurlPart;
+        public String leafTexture;
 
     }
 }

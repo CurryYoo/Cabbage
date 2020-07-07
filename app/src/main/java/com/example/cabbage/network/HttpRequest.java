@@ -205,7 +205,27 @@ public class HttpRequest {
     }
 
     // 获取图片
+    public static void getPhotoList(String token, String surveyPeriod, String specCharacter, IPhotoCallback callback) {
+        getPhotoList(token, surveyPeriod, specCharacter, 1, 5, callback);
+    }
 
+    public static void getPhotoList(String token, String surveyPeriod, String specCharacter, int pageNum, int pageSize, IPhotoCallback callback) {
+        getApi.getPhotoList(token, surveyPeriod, specCharacter, pageNum, pageSize).enqueue(new Callback<PhotoInfo>() {
+            @Override
+            public void onResponse(Call<PhotoInfo> call, Response<PhotoInfo> response) {
+                if (response != null && response.body() != null) {
+                    PhotoInfo photoInfo = response.body();
+                    callback.onResponse(photoInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PhotoInfo> call, Throwable t) {
+                t.printStackTrace();
+                callback.onFailure();
+            }
+        });
+    }
 
     // 上传图片
     public static void uploadPicture(String token, String surveyPeriod, String surveyId, String specCharacter, String imgPath, INormalCallback callback) {
