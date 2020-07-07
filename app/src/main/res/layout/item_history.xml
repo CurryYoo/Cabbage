@@ -32,28 +32,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:background="@drawable/bg_10_dark"/>
 
         <TextView
             android:id="@+id/txt_materialNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:background="@drawable/bg_10_dark"/>
 
         <TextView
             android:id="@+id/txt_plantNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:background="@drawable/bg_10_dark"/>
 
         <TextView
             android:id="@+id/txt_obsPeriod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:background="@drawable/bg_10_dark"/>
 
         <TextView
             android:id="@+id/txt_investigatingTime"
@@ -62,14 +66,16 @@
             android:layout_margin="5dp"
             android:padding="5dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_materialType" />
+            app:layout_constraintTop_toBottomOf="@id/txt_materialType"
+            android:background="@drawable/bg_10_dark"/>
 
         <TextView
             android:id="@+id/txt_investigator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:background="@drawable/bg_10_dark"/>
 
         <!--        <TextView-->
         <!--            android:id="@+id/txt_location"-->
