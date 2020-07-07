@@ -15,7 +15,7 @@
         android:layout_margin="10dp"
         app:floatingSearch_leftActionMode="showSearch"
         
-        app:floatingSearch_searchHint="Search..."
+        app:floatingSearch_searchHint="材料搜索..."
         app:floatingSearch_showOverFlowMenu="true"
         app:floatingSearch_hideOverflowMenuWhenFocused="true"
         app:floatingSearch_showSearchKey="false"

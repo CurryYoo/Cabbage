@@ -35,6 +35,7 @@ import com.bumptech.glide.Glide;
 import com.example.cabbage.R;
 import com.example.cabbage.data.ObjectBox;
 import com.example.cabbage.data.SurveyData;
+import com.example.cabbage.network.HelpInfo;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.utils.ARouterPaths;
@@ -339,26 +340,39 @@ public class SurveyActivity extends AppCompatActivity {
 
         spnCotyledonSize = seedlingPeriodLayout.findViewById(R.id.cotyledon_size);
         btnCotyledonSize = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_size);
+        btnCotyledonSize.setOnClickListener(helpClickListener);
 
         spnCotyledonColor = seedlingPeriodLayout.findViewById(R.id.cotyledon_color);
         ibCotyledonColor = seedlingPeriodLayout.findViewById(R.id.ib_cotyledon_color);
         ibCotyledonColor.setOnClickListener(photosClickListener);
         btnSelectFromAlbumCotyledonColor = seedlingPeriodLayout.findViewById(R.id.btn_select_from_album_cotyledon_color);
         ivCotyledonColor = seedlingPeriodLayout.findViewById(R.id.iv_cotyledon_color);
-
         btnCotyledonColor = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_color);
+        btnCotyledonColor.setOnClickListener(helpClickListener);
+
         spnCotyledonCount = seedlingPeriodLayout.findViewById(R.id.cotyledon_count);
         btnCotyledonCount = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_count);
+        btnCotyledonCount.setOnClickListener(helpClickListener);
+
         spnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.cotyledon_shape);
         btnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_shape);
+        btnCotyledonShape.setOnClickListener(helpClickListener);
+
         spnHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.heart_leaf_color);
         btnHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.btn_heart_leaf_color);
+        btnHeartLeafColor.setOnClickListener(helpClickListener);
+
         spnTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.true_leaf_color);
         btnTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_color);
+        btnTrueLeafColor.setOnClickListener(helpClickListener);
+
         spnTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.true_leaf_length);
         btnTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_length);
+        btnTrueLeafLength.setOnClickListener(helpClickListener);
+
         spnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.true_leaf_width);
         btnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_width);
+        btnTrueLeafWidth.setOnClickListener(helpClickListener);
 
         seedlingPeriodItemBar.setSubmitListener(new View.OnClickListener() {
             @Override
@@ -380,44 +394,83 @@ public class SurveyActivity extends AppCompatActivity {
 
         spnPlantShape = rosettePeriodLayout.findViewById(R.id.plant_shape);
         btnPlantShape = rosettePeriodLayout.findViewById(R.id.btn_plant_shape);
+        btnPlantShape.setOnClickListener(helpClickListener);
+
         spnPlantHeight = rosettePeriodLayout.findViewById(R.id.plant_height);
         btnPlantHeight = rosettePeriodLayout.findViewById(R.id.btn_plant_height);
+        btnPlantHeight.setOnClickListener(helpClickListener);
+
         spnDevelopmentDegree = rosettePeriodLayout.findViewById(R.id.development_degree);
         btnDevelopmentDegree = rosettePeriodLayout.findViewById(R.id.btn_development_degree);
+        btnDevelopmentDegree.setOnClickListener(helpClickListener);
+
         edtLeafCount = rosettePeriodLayout.findViewById(R.id.edt_leaf_count);
         btnLeafCount = rosettePeriodLayout.findViewById(R.id.btn_leaf_count);
+        btnLeafCount.setOnClickListener(helpClickListener);
+
         edtSoftLeafThickness = rosettePeriodLayout.findViewById(R.id.edt_soft_leaf_thickness);
         btnSoftLeafThickness = rosettePeriodLayout.findViewById(R.id.btn_soft_leaf_thickness);
+        btnSoftLeafThickness.setOnClickListener(helpClickListener);
+
         spnLeafLength = rosettePeriodLayout.findViewById(R.id.leaf_length);
         btnLeafLength = rosettePeriodLayout.findViewById(R.id.btn_leaf_length);
+        btnLeafLength.setOnClickListener(helpClickListener);
+
         spnLeafWidth = rosettePeriodLayout.findViewById(R.id.leaf_width);
         btnLeafWidth = rosettePeriodLayout.findViewById(R.id.btn_leaf_width);
+        btnLeafWidth.setOnClickListener(helpClickListener);
+
         spnLeafShape = rosettePeriodLayout.findViewById(R.id.leaf_shape);
         btnLeafShape = rosettePeriodLayout.findViewById(R.id.btn_leaf_shape);
+        btnLeafShape.setOnClickListener(helpClickListener);
+
         spnLeafColor = rosettePeriodLayout.findViewById(R.id.leaf_color);
         btnLeafColor = rosettePeriodLayout.findViewById(R.id.btn_leaf_color);
+        btnLeafColor.setOnClickListener(helpClickListener);
+
         spnLeafLuster = rosettePeriodLayout.findViewById(R.id.leaf_luster);
         btnLeafLuster = rosettePeriodLayout.findViewById(R.id.btn_leaf_luster);
+        btnLeafLuster.setOnClickListener(helpClickListener);
+
         spnLeafFuzz = rosettePeriodLayout.findViewById(R.id.leaf_fuzz);
         btnLeafFuzz = rosettePeriodLayout.findViewById(R.id.btn_leaf_fuzz);
+        btnLeafFuzz.setOnClickListener(helpClickListener);
+
         spnLeafMarginUndulance = rosettePeriodLayout.findViewById(R.id.leaf_margin_undulance);
         btnLeafMarginUndulance = rosettePeriodLayout.findViewById(R.id.btn_leaf_margin_undulance);
+        btnLeafMarginUndulance.setOnClickListener(helpClickListener);
+
         spnLeafMarginSawtooth = rosettePeriodLayout.findViewById(R.id.leaf_margin_sawtooth);
         btnLeafMarginSawtooth = rosettePeriodLayout.findViewById(R.id.btn_leaf_margin_sawtooth);
+        btnLeafMarginSawtooth.setOnClickListener(helpClickListener);
+
         spnLeafSmoothness = rosettePeriodLayout.findViewById(R.id.leaf_smoothness);
         btnLeafSmoothness = rosettePeriodLayout.findViewById(R.id.btn_leaf_smoothness);
+        btnLeafSmoothness.setOnClickListener(helpClickListener);
+
         spnLeafProtuberance = rosettePeriodLayout.findViewById(R.id.leaf_protuberance);
         btnLeafProtuberance = rosettePeriodLayout.findViewById(R.id.btn_leaf_protuberance);
+        btnLeafProtuberance.setOnClickListener(helpClickListener);
+
         spnLeafVeinLivingness = rosettePeriodLayout.findViewById(R.id.leaf_vein_livingness);
         btnLeafVeinLivingness = rosettePeriodLayout.findViewById(R.id.btn_leaf_vein_livingness);
+        btnLeafVeinLivingness.setOnClickListener(helpClickListener);
+
         spnLeafKeelLivingness = rosettePeriodLayout.findViewById(R.id.leaf_keel_livingness);
         btnLeafKeelLivingness = rosettePeriodLayout.findViewById(R.id.btn_leaf_keel_livingness);
+        btnLeafKeelLivingness.setOnClickListener(helpClickListener);
+
         spnLeafCurliness = rosettePeriodLayout.findViewById(R.id.leaf_curliness);
         btnLeafCurliness = rosettePeriodLayout.findViewById(R.id.btn_leaf_curliness);
+        btnLeafCurliness.setOnClickListener(helpClickListener);
+
         spnLeafCurlinessPart = rosettePeriodLayout.findViewById(R.id.leaf_curliness_part);
         btnLeafCurlinessPart = rosettePeriodLayout.findViewById(R.id.btn_leaf_curliness_part);
+        btnLeafCurlinessPart.setOnClickListener(helpClickListener);
+
         spnLeafTexture = rosettePeriodLayout.findViewById(R.id.leaf_texture);
         btnLeafTexture = rosettePeriodLayout.findViewById(R.id.btn_leaf_texture);
+        btnLeafTexture.setOnClickListener(helpClickListener);
 
         rosettePeriodItemBar.setSubmitListener(new View.OnClickListener() {
             @Override
@@ -436,18 +489,119 @@ public class SurveyActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_germination_rate:
-                    showHelpDialog();
+                    showHelpDialog(context.getResources().getString(R.string.info_germination_rate));
+                    break;
+                case R.id.btn_cotyledon_size:
+                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_size));
+                    break;
+                case R.id.btn_cotyledon_color:
+                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_color));
+                    break;
+                case R.id.btn_cotyledon_count:
+                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_count));
+                    break;
+                case R.id.btn_cotyledon_shape:
+                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_shape));
+                    break;
+                case R.id.btn_heart_leaf_color:
+                    showHelpDialog(context.getResources().getString(R.string.info_heart_leaf_color));
+                    break;
+                case R.id.btn_true_leaf_color:
+                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_color));
+                    break;
+                case R.id.btn_true_leaf_length:
+                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_length));
+                    break;
+                case R.id.btn_true_leaf_width:
+                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_width));
+                    break;
+                case R.id.btn_plant_shape:
+                    showHelpDialog(context.getResources().getString(R.string.info_plant_shape));
+                    break;
+                case R.id.btn_plant_height:
+                    showHelpDialog(context.getResources().getString(R.string.info_plant_height));
+                    break;
+                case R.id.btn_development_degree:
+                    showHelpDialog(context.getResources().getString(R.string.info_development_degree));
+                    break;
+                case R.id.btn_leaf_count:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_count));
+                    break;
+                case R.id.btn_soft_leaf_thickness:
+                    showHelpDialog(context.getResources().getString(R.string.info_soft_leaf_thickness));
+                    break;
+                case R.id.btn_leaf_length:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_length));
+                    break;
+                case R.id.btn_leaf_width:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_width));
+                    break;
+                case R.id.btn_leaf_shape:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_shape));
+                    break;
+                case R.id.btn_leaf_color:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_color));
+                    break;
+                case R.id.btn_leaf_luster:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_luster));
+                    break;
+                case R.id.btn_leaf_fuzz:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_fuzz));
+                    break;
+                case R.id.btn_leaf_margin_undulance:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_margin_undulance));
+                    break;
+                case R.id.btn_leaf_margin_sawtooth:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_margin_sawtooth));
+                    break;
+                case R.id.btn_leaf_smoothness:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_smoothness));
+                    break;
+                case R.id.btn_leaf_protuberance:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_protuberance));
+                    break;
+                case R.id.btn_leaf_vein_livingness:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_vein_livingness));
+                    break;
+                case R.id.btn_leaf_keel_livingness:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_keel_livingness));
+                    break;
+                case R.id.btn_leaf_curliness:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_curliness));
+                    break;
+                case R.id.btn_leaf_curliness_part:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_curliness_part));
+                    break;
+                case R.id.btn_leaf_texture:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_texture));
                     break;
             }
         }
     };
 
     // 展示帮助对话框
-    private void showHelpDialog() {
+    private void showHelpDialog(String specificCharacter) {
         // 获取数据
+        HttpRequest.getMeasurementBySpecificCharacter(token, specificCharacter, new HttpRequest.IHelpCallback() {
+            @Override
+            public void onResponse(HelpInfo helpInfo) {
+                String measurementBasis = helpInfo.data.measurementBasis;
+                String observationMethod = helpInfo.data.observationMethod;
+                String helpText = "测量标准:\n" + measurementBasis + "\n" + "观测方法:\n" + observationMethod;
+                // 展示对话框
+                final SweetAlertDialog sDialog = new SweetAlertDialog(context)
+                        .setTitleText(context.getResources().getString(R.string.survey_help))
+                        .setContentText(helpText);
+                sDialog.show();
+                TextView tv = sDialog.findViewById(R.id.content_text);
+                tv.setTextSize(13f);
+            }
 
-        // 展示对话框
+            @Override
+            public void onFailure() {
 
+            }
+        });
     }
 
     View.OnClickListener photosClickListener = new View.OnClickListener() {
