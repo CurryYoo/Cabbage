@@ -1,12 +1,13 @@
 package com.example.cabbage.network;
 
+import android.text.TextUtils;
 import android.util.Log;
-
-import com.example.cabbage.data.SurveyData;
+import android.widget.TextView;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -38,7 +39,11 @@ public class HttpRequest {
             }
         });
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
+                .build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -109,18 +114,18 @@ public class HttpRequest {
     }
 
     // 新增不同观测时期数据
-    public static void requestAddSurveyData(String token, String obsPeriod, String json, ISurveyCallback callback) {
-        getApi.addSurveyData(token, obsPeriod, json).enqueue(new Callback<SurveyInfo>() {
+    public static void requestAddSurveyData(String token, String obsPeriod, String json, IResultCallback callback) {
+        getApi.addSurveyData(token, obsPeriod, json).enqueue(new Callback<ResultInfo>() {
             @Override
-            public void onResponse(Call<SurveyInfo> call, Response<SurveyInfo> response) {
+            public void onResponse(Call<ResultInfo> call, Response<ResultInfo> response) {
                 if (response != null && response.body() != null) {
-                    SurveyInfo surveyInfo = response.body();
-                    callback.onResponse(surveyInfo);
+                    ResultInfo resultInfo = response.body();
+                    callback.onResponse(resultInfo);
                 }
             }
 
             @Override
-            public void onFailure(Call<SurveyInfo> call, Throwable t) {
+            public void onFailure(Call<ResultInfo> call, Throwable t) {
                 t.printStackTrace();
                 callback.onFailure();
             }
@@ -205,12 +210,30 @@ public class HttpRequest {
     }
 
     // 获取图片
-    public static void getPhotoList(String token, String surveyPeriod, String specCharacter, IPhotoCallback callback) {
+    public static void getPhotoList(String token, String surveyPeriod, String specCharacter, IPhotoListCallback callback) {
         getPhotoList(token, surveyPeriod, specCharacter, 1, 5, callback);
     }
 
-    public static void getPhotoList(String token, String surveyPeriod, String specCharacter, int pageNum, int pageSize, IPhotoCallback callback) {
-        getApi.getPhotoList(token, surveyPeriod, specCharacter, pageNum, pageSize).enqueue(new Callback<PhotoInfo>() {
+    public static void getPhotoList(String token, String surveyPeriod, String specCharacter, int pageNum, int pageSize, IPhotoListCallback callback) {
+        getApi.getPhotoList(token, surveyPeriod, specCharacter, pageNum, pageSize).enqueue(new Callback<PhotoListInfo>() {
+            @Override
+            public void onResponse(Call<PhotoListInfo> call, Response<PhotoListInfo> response) {
+                if (response != null && response.body() != null) {
+                    PhotoListInfo photoListInfo = response.body();
+                    callback.onResponse(photoListInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PhotoListInfo> call, Throwable t) {
+                t.printStackTrace();
+                callback.onFailure();
+            }
+        });
+    }
+
+    public static void getPhoto(String token, String surveyId, String specCharacter, IPhotoCallback callback) {
+        getApi.getPhoto(token, surveyId, specCharacter).enqueue(new Callback<PhotoInfo>() {
             @Override
             public void onResponse(Call<PhotoInfo> call, Response<PhotoInfo> response) {
                 if (response != null && response.body() != null) {
@@ -233,10 +256,10 @@ public class HttpRequest {
         params.put("obsPeriod", surveyPeriod);
         params.put("observationId", surveyId);
         params.put("specCharacter", specCharacter);
-        String fileName = specCharacter + ".jpg";
+        String fileName = System.currentTimeMillis() + ".jpg";
         File file = new File(imgPath);
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("app_user_header", fileName, requestFile);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileName, requestFile);
         getApi.uploadPicture(token, params, body).enqueue(new Callback<NormalInfo>() {
             @Override
             public void onResponse(Call<NormalInfo> call, Response<NormalInfo> response) {
@@ -254,7 +277,6 @@ public class HttpRequest {
         });
     }
 
-
     public interface IUserInfoCallback {
         void onResponse(UserInfo userInfo);
 
@@ -263,6 +285,12 @@ public class HttpRequest {
 
     public interface INormalCallback {
         void onResponse(NormalInfo normalInfo);
+
+        void onFailure();
+    }
+
+    public interface IResultCallback {
+        void onResponse(ResultInfo resultInfo);
 
         void onFailure();
     }
@@ -287,6 +315,12 @@ public class HttpRequest {
 
     public interface IHelpCallback {
         void onResponse(HelpInfo helpInfo);
+
+        void onFailure();
+    }
+
+    public interface IPhotoListCallback {
+        void onResponse(PhotoListInfo photoListInfo);
 
         void onFailure();
     }

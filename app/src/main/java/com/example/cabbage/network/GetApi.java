@@ -34,7 +34,7 @@ public interface GetApi {
 
     // 添加材料数据
     @POST("characterAnalysis/addDifObsPeriodData")
-    Call<SurveyInfo> addSurveyData(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("json") String json);
+    Call<ResultInfo> addSurveyData(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("json") String json);
 
     // 获取个人历史数据
     @GET("characterAnalysis/historyObsData")
@@ -55,7 +55,10 @@ public interface GetApi {
 
     // 获取图片信息
     @GET("/qiNiuContent/photoList")
-    Call<PhotoInfo> getPhotoList(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("specCharacter") String specCharacter, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+    Call<PhotoListInfo> getPhotoList(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("specCharacter") String specCharacter, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+
+    @GET("/qiNiuContent/specCharacterPhoto")
+    Call<PhotoInfo> getPhoto(@Header("token") String token, @Query("observationId") String observationId, @Query("specCharacter") String specCharacter);
 
     // 上传图片信息
     @Multipart

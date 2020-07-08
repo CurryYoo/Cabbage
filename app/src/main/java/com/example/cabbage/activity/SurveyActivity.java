@@ -41,7 +41,9 @@ import com.example.cabbage.data.ObjectBox;
 import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HelpInfo;
 import com.example.cabbage.network.HttpRequest;
+import com.example.cabbage.network.NormalInfo;
 import com.example.cabbage.network.PhotoInfo;
+import com.example.cabbage.network.ResultInfo;
 import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.view.InfoItemBar;
@@ -51,6 +53,8 @@ import com.google.gson.JsonObject;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,8 +111,14 @@ public class SurveyActivity extends AppCompatActivity {
     private ImageView ivCotyledonColor;
     Button btnCotyledonColor;
     Spinner spnCotyledonCount;
+    private ImageButton ibCotyledonCount;
+    private Button btnSelectFromAlbumCotyledonCount;
+    private ImageView ivCotyledonCount;
     Button btnCotyledonCount;
     Spinner spnCotyledonShape;
+    private ImageButton ibCotyledonShape;
+    private Button btnSelectFromAlbumCotyledonShape;
+    private ImageView ivCotyledonShape;
     Button btnCotyledonShape;
     Spinner spnHeartLeafColor;
     Button btnHeartLeafColor;
@@ -198,13 +208,28 @@ public class SurveyActivity extends AppCompatActivity {
 
     // 拍照
     private static final int TAKE_PHOTO_COTYLEDON_COLOR = 10;
+    private static final int TAKE_PHOTO_COTYLEDON_COUNT = 11;
+    private static final int TAKE_PHOTO_COTYLEDON_SHAPE = 12;
 
     // 相册
     private static final int SELECT_PHOTO_COTYLEDON_COLOR = 100;
+    private static final int SELECT_PHOTO_COTYLEDON_COUNT = 101;
+    private static final int SELECT_PHOTO_COTYLEDON_SHAPE = 102;
 
     // 图片路径
-    private String pathColor;
+    private String pathCotyledonColor;
     private Uri imageUriCotyledonColor;
+
+    private String pathCotyledonCount;
+    private Uri imageUriCotyledonCount;
+
+    private String pathCotyledonShape;
+    private Uri imageUriCotyledonShape;
+
+    private Map<String, Map<String, String>> map;
+    private Map<String, String> imgPathMap1 = new HashMap<>();
+    private Map<String, String> imgPathMap2 = new HashMap<>();
+    private Map<String, String> imgPathMap3 = new HashMap<>();
 
     @Autowired(name = "materialId")
     public String materialId = "";
@@ -218,7 +243,7 @@ public class SurveyActivity extends AppCompatActivity {
     @Autowired
     public int status = STATUS_NEW;
 
-    @Autowired(name="surveyId")
+    @Autowired(name = "surveyId")
     public String surveyId;
 
     @Autowired(name = "surveyPeriod")
@@ -246,6 +271,7 @@ public class SurveyActivity extends AppCompatActivity {
             initView(false);
             initBasicInfo(plantId);
             initData(surveyPeriod);
+            initPictures(surveyPeriod);
         } else {
             initView(true);
             initBasicInfo("");
@@ -327,7 +353,11 @@ public class SurveyActivity extends AppCompatActivity {
         View germinationPeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_germination_period, null);
         InfoItemBar germinationPeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_germination_period));
         germinationPeriodItemBar.addView(germinationPeriodLayout);
-        germinationPeriodItemBar.setShow(true);
+        if (!TextUtils.isEmpty(surveyPeriod)) {
+            germinationPeriodItemBar.setShow(surveyPeriod.equals(SURVEY_PERIOD_GERMINATION));
+        } else {
+            germinationPeriodItemBar.setShow(true);
+        }
         germinationPeriodItemBar.setVisibilitySubmit(isEditable);
         mainArea.addView(germinationPeriodItemBar);
 
@@ -349,7 +379,11 @@ public class SurveyActivity extends AppCompatActivity {
         View seedlingPeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_seedling_period, null);
         InfoItemBar seedlingPeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_seedling_period));
         seedlingPeriodItemBar.addView(seedlingPeriodLayout);
-        seedlingPeriodItemBar.setShow(true);
+        if (!TextUtils.isEmpty(surveyPeriod)) {
+            seedlingPeriodItemBar.setShow(surveyPeriod.equals(SURVEY_PERIOD_SEEDLING));
+        } else {
+            seedlingPeriodItemBar.setShow(true);
+        }
         seedlingPeriodItemBar.setVisibilitySubmit(isEditable);
         mainArea.addView(seedlingPeriodItemBar);
 
@@ -368,10 +402,22 @@ public class SurveyActivity extends AppCompatActivity {
         btnCotyledonColor.setOnClickListener(helpClickListener);
 
         spnCotyledonCount = seedlingPeriodLayout.findViewById(R.id.cotyledon_count);
+        ibCotyledonCount = seedlingPeriodLayout.findViewById(R.id.ib_cotyledon_count);
+        ibCotyledonCount.setOnClickListener(photosClickListener);
+        btnSelectFromAlbumCotyledonCount = seedlingPeriodLayout.findViewById(R.id.btn_select_from_album_cotyledon_count);
+        btnSelectFromAlbumCotyledonCount.setOnClickListener(photosClickListener);
+        ivCotyledonCount = seedlingPeriodLayout.findViewById(R.id.iv_cotyledon_count);
+        ivCotyledonCount.setOnClickListener(photosClickListener);
         btnCotyledonCount = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_count);
         btnCotyledonCount.setOnClickListener(helpClickListener);
 
         spnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.cotyledon_shape);
+        ibCotyledonShape = seedlingPeriodLayout.findViewById(R.id.ib_cotyledon_shape);
+        ibCotyledonShape.setOnClickListener(photosClickListener);
+        btnSelectFromAlbumCotyledonShape = seedlingPeriodLayout.findViewById(R.id.btn_select_from_album_cotyledon_shape);
+        btnSelectFromAlbumCotyledonShape.setOnClickListener(photosClickListener);
+        ivCotyledonShape = seedlingPeriodLayout.findViewById(R.id.iv_cotyledon_shape);
+        ivCotyledonShape.setOnClickListener(photosClickListener);
         btnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_shape);
         btnCotyledonShape.setOnClickListener(helpClickListener);
 
@@ -405,7 +451,11 @@ public class SurveyActivity extends AppCompatActivity {
         View rosettePeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_rosette_period, null);
         InfoItemBar rosettePeriodItemBar = new InfoItemBar(context, getResources().getString(R.string.title_rosette_period));
         rosettePeriodItemBar.addView(rosettePeriodLayout);
-        rosettePeriodItemBar.setShow(true);
+        if (!TextUtils.isEmpty(surveyPeriod)) {
+            rosettePeriodItemBar.setShow(surveyPeriod.equals(SURVEY_PERIOD_ROSETTE));
+        } else {
+            rosettePeriodItemBar.setShow(true);
+        }
         rosettePeriodItemBar.setVisibilitySubmit(isEditable);
         mainArea.addView(rosettePeriodItemBar);
 
@@ -625,11 +675,14 @@ public class SurveyActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+                // 子叶颜色
                 case R.id.ib_cotyledon_color:
                     String fileNameString = System.currentTimeMillis() + ".jpg";
                     File outputImage = null;
                     outputImage = new File(getExternalCacheDir(), fileNameString);
-                    pathColor = outputImage.getAbsolutePath();
+                    pathCotyledonColor = outputImage.getAbsolutePath();
+                    String imgPath = outputImage.getAbsolutePath();
+                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_color), imgPath);
                     try {
                         if (outputImage.exists()) {
                             outputImage.delete();
@@ -641,7 +694,7 @@ public class SurveyActivity extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= 24) {
                         imageUriCotyledonColor = FileProvider.getUriForFile(context,
                                 "com.example.cabbage.fileprovider", outputImage);
-                        Log.d("context", "onClick: img" + imageUriCotyledonColor);
+                        Log.d("ib_cotyledon_color", "onClick: img" + imageUriCotyledonColor);
                     } else {
                         imageUriCotyledonColor = Uri.fromFile(outputImage);
                     }
@@ -656,6 +709,70 @@ public class SurveyActivity extends AppCompatActivity {
                     break;
                 case R.id.iv_cotyledon_color:
                     watchOnlineLargePhoto(context, imageUriCotyledonColor, "子叶颜色");
+                    break;
+                // 子叶数目
+                case R.id.ib_cotyledon_count:
+                    File outputImageCotyledonCount = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
+                    pathCotyledonCount = outputImageCotyledonCount.getAbsolutePath();
+                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_count), outputImageCotyledonCount.getAbsolutePath());
+                    try {
+                        if (outputImageCotyledonCount.exists()) {
+                            outputImageCotyledonCount.delete();
+                        }
+                        outputImageCotyledonCount.createNewFile();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        imageUriCotyledonCount = FileProvider.getUriForFile(context,
+                                "com.example.cabbage.fileprovider", outputImageCotyledonCount);
+                        Log.d("ib_cotyledon_count", "onClick: img" + imageUriCotyledonCount);
+                    } else {
+                        imageUriCotyledonCount = Uri.fromFile(outputImageCotyledonCount);
+                    }
+//                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
+                    //启动相机程序
+                    Intent intentCotyledonCount = new Intent("android.media.action.IMAGE_CAPTURE");
+                    intentCotyledonCount.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonCount);
+                    startActivityForResult(intentCotyledonCount, TAKE_PHOTO_COTYLEDON_COUNT);
+                    break;
+                case R.id.btn_select_from_album_cotyledon_count:
+                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_COUNT);
+                    break;
+                case R.id.iv_cotyledon_count:
+                    watchOnlineLargePhoto(context, imageUriCotyledonCount, "子叶数目");
+                    break;
+                // 子叶形状
+                case R.id.ib_cotyledon_shape:
+                    File outputImageCotyledonShape = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
+                    pathCotyledonShape = outputImageCotyledonShape.getAbsolutePath();
+                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_shape), outputImageCotyledonShape.getAbsolutePath());
+                    try {
+                        if (outputImageCotyledonShape.exists()) {
+                            outputImageCotyledonShape.delete();
+                        }
+                        outputImageCotyledonShape.createNewFile();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        imageUriCotyledonShape = FileProvider.getUriForFile(context,
+                                "com.example.cabbage.fileprovider", outputImageCotyledonShape);
+                        Log.d("ib_cotyledon_shape", "onClick: img" + imageUriCotyledonShape);
+                    } else {
+                        imageUriCotyledonShape = Uri.fromFile(outputImageCotyledonShape);
+                    }
+//                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
+                    //启动相机程序
+                    Intent intentCotyledonShape = new Intent("android.media.action.IMAGE_CAPTURE");
+                    intentCotyledonShape.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonShape);
+                    startActivityForResult(intentCotyledonShape, TAKE_PHOTO_COTYLEDON_SHAPE);
+                    break;
+                case R.id.btn_select_from_album_cotyledon_shape:
+                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_SHAPE);
+                    break;
+                case R.id.iv_cotyledon_shape:
+                    watchOnlineLargePhoto(context, imageUriCotyledonShape, "子叶数目");
                     break;
             }
         }
@@ -726,7 +843,6 @@ public class SurveyActivity extends AppCompatActivity {
         HttpRequest.getSurveyDataDetailBySurveyId(token, surveyPeriod, surveyId, new HttpRequest.ISurveyCallback() {
             @Override
             public void onResponse(SurveyInfo surveyInfo) {
-                Log.d("thread:" + context.toString(), "" + (Looper.getMainLooper() == Looper.myLooper()));
                 updateUI(surveyPeriod, surveyInfo);
             }
 
@@ -799,33 +915,49 @@ public class SurveyActivity extends AppCompatActivity {
     private void initPictures(String surveyPeriod) {
         // TODO
         // 获取图片url
-        String specCharacter = "";
-        HttpRequest.getPhotoList(token, surveyPeriod, specCharacter, new HttpRequest.IPhotoCallback() {
-            @Override
-            public void onResponse(PhotoInfo photoInfo) {
-                int total = photoInfo.data.total;
-                for (int i = 0; i < total; i++) {
-                    if (surveyId.equals(photoInfo.data.list.get(i).observationId)) {
+        Map<String, ImageView> imageMap = initImageMap(surveyPeriod);
 
+        for (String specCharacter : imageMap.keySet()) {
+            HttpRequest.getPhoto(token, surveyId, specCharacter, new HttpRequest.IPhotoCallback() {
+                @Override
+                public void onResponse(PhotoInfo photoInfo) {
+                    String url = photoInfo.data.url;
+                    ImageView iv = imageMap.get(specCharacter);
+                    if (iv != null) {
+                        Glide.with(context).load(url).thumbnail(0.1f).into(iv);
+                        iv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                watchOnlineLargePhoto(context, Uri.parse(url), specCharacter);
+                            }
+                        });
                     }
                 }
-            }
 
-            @Override
-            public void onFailure() {
-
-            }
-        });
-
-        String url = "";
-
-        // 加载图片
-        ImageView imageView = null;
-        Glide.with(context).load(url).into(ivCotyledonColor);
+                @Override
+                public void onFailure() {
+                    Toast.makeText(context, "图片加载失败", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
-    private void loadImage(ImageView imageView, String url) {
-
+    private Map<String, ImageView> initImageMap(String surveyPeriod) {
+        Map<String, ImageView> map = new HashMap<>();
+        switch (surveyPeriod) {
+            case SURVEY_PERIOD_GERMINATION:
+                break;
+            case SURVEY_PERIOD_SEEDLING:
+                map.put(getResources().getString(R.string.info_cotyledon_color), ivCotyledonColor);
+                map.put(getResources().getString(R.string.info_cotyledon_count), ivCotyledonCount);
+                map.put(getResources().getString(R.string.info_cotyledon_shape), ivCotyledonShape);
+                break;
+            case SURVEY_PERIOD_ROSETTE:
+                break;
+            default:
+                break;
+        }
+        return map;
     }
 
     // 更新本地数据库
@@ -849,16 +981,17 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     // 根据时期，更新服务器数据
-    private boolean uploadPeriodData(String surveyPeriod) {
+    private void uploadPeriodData(String surveyPeriod) {
         try {
             String mPeriodData = getPeriodData(surveyPeriod);
             Log.d("surveyPeriod", surveyPeriod);
             Log.d("mPeriodData", mPeriodData);
-            HttpRequest.requestAddSurveyData(token, surveyPeriod, mPeriodData, new HttpRequest.ISurveyCallback() {
+            HttpRequest.requestAddSurveyData(token, surveyPeriod, mPeriodData, new HttpRequest.IResultCallback() {
                 @Override
-                public void onResponse(SurveyInfo surveyInfo) {
-                    if (surveyInfo.code == 200 && surveyInfo.message.equals("操作成功")) {
-                        Log.d("thread:" + context.toString(), "" + (Looper.getMainLooper() == Looper.myLooper()));
+                public void onResponse(ResultInfo resultInfo) {
+                    if (resultInfo.code == 200 && resultInfo.message.equals("操作成功")) {
+                        String surveyId = resultInfo.data.observationId;
+                        uploadPics(surveyPeriod, surveyId);
                         Toast.makeText(context, "更新成功", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(context, "更新失败", Toast.LENGTH_SHORT).show();
@@ -870,10 +1003,8 @@ public class SurveyActivity extends AppCompatActivity {
                     Toast.makeText(context, "更新失败", Toast.LENGTH_SHORT).show();
                 }
             });
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
 
@@ -1000,7 +1131,40 @@ public class SurveyActivity extends AppCompatActivity {
         return simpleDateFormat.format(date);
     }
 
-    private void uploadPics() {
+    // 更新上传图片
+    private void uploadPics(String surveyPeriod, String surveyId) {
+        Map<String, String> imgPathMap;
+        switch (surveyPeriod) {
+            case SURVEY_PERIOD_GERMINATION:
+                imgPathMap = imgPathMap1;
+                break;
+            case SURVEY_PERIOD_SEEDLING:
+                imgPathMap = imgPathMap2;
+                break;
+            case SURVEY_PERIOD_ROSETTE:
+                imgPathMap = imgPathMap3;
+                break;
+            default:
+                imgPathMap = new HashMap<>();
+                break;
+        }
+        for (String specCharacter : imgPathMap.keySet()) {
+            String imgPath = imgPathMap.get(specCharacter);
+            if (TextUtils.isEmpty(imgPath)) {
+                continue;
+            }
+            HttpRequest.uploadPicture(token, surveyPeriod, surveyId, specCharacter, imgPath, new HttpRequest.INormalCallback() {
+                @Override
+                public void onResponse(NormalInfo normalInfo) {
+
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
+        }
 
     }
 
@@ -1020,19 +1184,59 @@ public class SurveyActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case TAKE_PHOTO_COTYLEDON_COLOR:
-                onResultOfPhoto(resultCode, pathColor, ivCotyledonColor);
+                onResultOfPhoto(resultCode, pathCotyledonColor, ivCotyledonColor);
                 break;
             case SELECT_PHOTO_COTYLEDON_COLOR:
                 if (data != null) {
                     imageUriCotyledonColor = data.getData();
-                    pathColor = getRealPathFromUri(context, imageUriCotyledonColor);
+                    pathCotyledonColor = getRealPathFromUri(context, imageUriCotyledonColor);
+                    String imgPath = getRealPathFromUri(context, imageUriCotyledonColor);
+                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_color), imgPath);
                     //Log.d("Uriiiii2", imageUriColor + " || " + pathColor);
                     if (imageUriCotyledonColor != null) {
                         Bitmap bit = null;
 
-                        bit = getImageThumbnail(pathColor, 50, 50);
+                        bit = getImageThumbnail(pathCotyledonColor, 50, 50);
 
                         ivCotyledonColor.setImageBitmap(bit);
+                    }
+                }
+                break;
+            case TAKE_PHOTO_COTYLEDON_COUNT:
+                onResultOfPhoto(resultCode, pathCotyledonCount, ivCotyledonCount);
+                break;
+            case SELECT_PHOTO_COTYLEDON_COUNT:
+                if (data != null) {
+                    imageUriCotyledonCount = data.getData();
+                    pathCotyledonCount = getRealPathFromUri(context, imageUriCotyledonCount);
+                    String imgPath = getRealPathFromUri(context, imageUriCotyledonCount);
+                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_count), imgPath);
+                    //Log.d("Uriiiii2", imageUriColor + " || " + pathColor);
+                    if (imageUriCotyledonCount != null) {
+                        Bitmap bit = null;
+
+                        bit = getImageThumbnail(pathCotyledonCount, 50, 50);
+
+                        ivCotyledonCount.setImageBitmap(bit);
+                    }
+                }
+                break;
+            case TAKE_PHOTO_COTYLEDON_SHAPE:
+                onResultOfPhoto(resultCode, pathCotyledonShape, ivCotyledonShape);
+                break;
+            case SELECT_PHOTO_COTYLEDON_SHAPE:
+                if (data != null) {
+                    imageUriCotyledonShape = data.getData();
+                    pathCotyledonShape = getRealPathFromUri(context, imageUriCotyledonShape);
+                    String imgPath = getRealPathFromUri(context, imageUriCotyledonShape);
+                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_shape), imgPath);
+                    //Log.d("Uriiiii2", imageUriColor + " || " + pathColor);
+                    if (imageUriCotyledonShape != null) {
+                        Bitmap bit = null;
+
+                        bit = getImageThumbnail(pathCotyledonShape, 50, 50);
+
+                        ivCotyledonShape.setImageBitmap(bit);
                     }
                 }
                 break;
