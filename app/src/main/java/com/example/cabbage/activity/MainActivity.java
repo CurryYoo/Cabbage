@@ -94,34 +94,10 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
     private void showFragment(int currentPosition) {
-
-
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_frame, mFragmentList.get(currentPosition));
         transaction.commit();
 
-//        FragmentTransaction transaction= getSupportFragmentManager().beginTransaction();
-//        if (homeFragment!= null&& homeFragment.isAdded()){
-//            transaction.hide(homeFragment);
-//        }
-//        if (momentFragment!= null&& momentFragment.isAdded()){
-//            transaction.hide(momentFragment);
-//        }
-//        if (messageFragment!= null&& messageFragment.isAdded()){
-//            transaction.hide(messageFragment);
-//        }
-//        if (meFragment!= null&& meFragment.isAdded()){
-//            transaction.hide(meFragment);
-//        }
-//        transaction.add(R.id.main_frame, mFragmentList.get(currentPosition));
-//        transaction.commit();
-
-//        transaction.replace(R.id.main_frame, mFragmentList.get(currentPosition));
-//        transaction.commitAllowingStateLoss();
-//        homeFragment= null;
-//        momentFragment= null;
-//        messageFragment= null;
-//        meFragment= null;
     }
 
 }

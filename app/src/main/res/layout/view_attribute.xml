@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="5dp"
+        android:background="@mipmap/ic_delete_small" />
+
+    <EditText
+        android:id="@+id/edt_attribute"
+        style="@style/style_item_basicinfo_edittext"
+        android:layout_width="wrap_content"
+        android:paddingEnd="@dimen/dp_5"
+        android:text="预设" />
+
+    <View style="@style/view_vertical_divider_style" />
+
+    <EditText
+        android:id="@+id/txt_attribute"
+        style="@style/style_item_basicinfo_edittext"
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_10_light" />
+
+</LinearLayout>
