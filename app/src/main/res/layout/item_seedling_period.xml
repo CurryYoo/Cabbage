@@ -192,6 +192,19 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp" />
 
+                <EditText
+                    android:id="@+id/edt_cotyledon_count"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    style="@style/style_item_basicinfo_edittext" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
                 <ImageButton
                     android:id="@+id/ib_cotyledon_count"
                     style="@style/style_basic_camera_btn"
@@ -470,7 +483,18 @@
                     style="@style/style_basic_spinner1"
                     android:layout_width="100dp"
                     android:entries="@array/true_leaf_length" />
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
+                <EditText
+                    android:id="@+id/edt_true_leaf_length"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    style="@style/style_item_basicinfo_edittext" />
                 <View
                     style="@style/divider_color"
                     android:layout_width="0.1dp"
@@ -524,7 +548,18 @@
                     style="@style/style_basic_spinner1"
                     android:layout_width="100dp"
                     android:entries="@array/true_leaf_width" />
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
+                <EditText
+                    android:id="@+id/edt_true_leaf_width"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    style="@style/style_item_basicinfo_edittext" />
                 <View
                     style="@style/divider_color"
                     android:layout_width="0.1dp"
@@ -542,5 +577,39 @@
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_custom_attribute3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:orientation="vertical" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2">
+
+        <Button
+            android:id="@+id/btn_add_attribute3"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/bg_button_red"
+            android:text="添加性状"
+            android:textColor="@color/white"
+            android:layout_columnWeight="1" />
+
+        <Button
+            android:id="@+id/btn_add_remark3"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/bg_button_red"
+            android:text="添加备注"
+            android:textColor="@color/white"
+            android:layout_columnWeight="1" />
+    </GridLayout>
 
 </LinearLayout>

@@ -19,8 +19,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,6 +42,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.example.cabbage.R;
+import com.example.cabbage.adapter.ImageAdapter;
 import com.example.cabbage.data.ObjectBox;
 import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HelpInfo;
@@ -49,15 +52,23 @@ import com.example.cabbage.network.PhotoInfo;
 import com.example.cabbage.network.ResultInfo;
 import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.utils.ARouterPaths;
+import com.example.cabbage.utils.MainConstant;
+import com.example.cabbage.utils.PictureSelectorConfig;
+import com.example.cabbage.view.CustomAttributeView;
 import com.example.cabbage.view.InfoItemBar;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.JsonObject;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMedia;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -73,6 +84,34 @@ import static com.example.cabbage.utils.ImageUtils.getImageThumbnail;
 public class SurveyActivity extends AppCompatActivity {
     private Context context = this;
 
+    // 页面的状态
+    public static final int STATUS_NEW = 0;    // 新建
+    public static final int STATUS_READ = 1;   // 只读
+    public static final int STATUS_WRITE = 2;  // 修改
+    // 观测时期
+    public static final String SURVEY_PERIOD_GERMINATION = "发芽期";
+    public static final String SURVEY_PERIOD_SEEDLING = "幼苗期";
+    public static final String SURVEY_PERIOD_ROSETTE = "莲座期";
+    // 拍照
+    private static final int TAKE_PHOTO_COTYLEDON_COLOR = 10;
+    private static final int TAKE_PHOTO_COTYLEDON_COUNT = 11;
+    private static final int TAKE_PHOTO_COTYLEDON_SHAPE = 12;
+    // 相册
+    private static final int SELECT_PHOTO_COTYLEDON_COLOR = 100;
+    private static final int SELECT_PHOTO_COTYLEDON_COUNT = 101;
+    private static final int SELECT_PHOTO_COTYLEDON_SHAPE = 102;
+    @Autowired(name = "materialId")
+    public String materialId = "";
+    @Autowired(name = "materialType")
+    public String materialType = "";
+    @Autowired(name = "plantId")
+    public String plantId;
+    @Autowired
+    public int status = STATUS_NEW;
+    @Autowired(name = "surveyId")
+    public String surveyId;
+    @Autowired(name = "surveyPeriod")
+    public String surveyPeriod = SURVEY_PERIOD_GERMINATION;
     @BindView(R.id.tool_bar)
     LinearLayout toolBar;
     @BindView(R.id.commit_info)
@@ -97,12 +136,22 @@ public class SurveyActivity extends AppCompatActivity {
     ImageView rightOneButton;
     @BindView(R.id.right_one_layout)
     LinearLayout rightOneLayout;
-
     // 基本信息
     EditText editMaterialId;
     EditText editMaterialType;
     EditText editPlantId;
-
+    LinearLayout layoutCustomAttribute1;
+    Button btnAddAttribute1;
+    Button btnAddRemark1;
+    LinearLayout layoutCustomAttribute2;
+    Button btnAddAttribute2;
+    Button btnAddRemark2;
+    LinearLayout layoutCustomAttribute3;
+    Button btnAddAttribute3;
+    Button btnAddRemark3;
+    LinearLayout layoutCustomAttribute4;
+    Button btnAddAttribute4;
+    Button btnAddRemark4;
     // 性状
     // 发芽期
     EditText editGerminationRate;
@@ -111,19 +160,10 @@ public class SurveyActivity extends AppCompatActivity {
     Spinner spnCotyledonSize;
     Button btnCotyledonSize;
     Spinner spnCotyledonColor;
-    private ImageButton ibCotyledonColor;
-    private Button btnSelectFromAlbumCotyledonColor;
-    private ImageView ivCotyledonColor;
     Button btnCotyledonColor;
     Spinner spnCotyledonCount;
-    private ImageButton ibCotyledonCount;
-    private Button btnSelectFromAlbumCotyledonCount;
-    private ImageView ivCotyledonCount;
     Button btnCotyledonCount;
     Spinner spnCotyledonShape;
-    private ImageButton ibCotyledonShape;
-    private Button btnSelectFromAlbumCotyledonShape;
-    private ImageView ivCotyledonShape;
     Button btnCotyledonShape;
     Spinner spnHeartLeafColor;
     Button btnHeartLeafColor;
@@ -133,6 +173,16 @@ public class SurveyActivity extends AppCompatActivity {
     Button btnTrueLeafLength;
     Spinner spnTrueLeafWidth;
     Button btnTrueLeafWidth;
+    Box<SurveyData> surveyDataBox;
+    private ImageButton ibCotyledonColor;
+    private Button btnSelectFromAlbumCotyledonColor;
+    private ImageView ivCotyledonColor;
+    private ImageButton ibCotyledonCount;
+    private Button btnSelectFromAlbumCotyledonCount;
+    private ImageView ivCotyledonCount;
+    private ImageButton ibCotyledonShape;
+    private Button btnSelectFromAlbumCotyledonShape;
+    private ImageView ivCotyledonShape;
     // 莲座期
     private Spinner spnPlantShape;
     private EditText editPlantShape;
@@ -195,64 +245,259 @@ public class SurveyActivity extends AppCompatActivity {
 
     SweetAlertDialog uploadDialog;
 
-    Box<SurveyData> surveyDataBox;
+    private GridView imgRosettePeriod;
+    private ImageAdapter imageAdapter;
+    private ArrayList<String> mRosettePeriodImgList = new ArrayList<>();
+    View.OnClickListener toolBarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.left_one_layout:
+                    finish();
+                    break;
+                case R.id.right_one_layout:
+                    Intent intent = new Intent(context, MainActivity.class);
+                    startActivity(intent);
+                    break;
+//                case R.id.right_two_layout:
+//                    final SweetAlertDialog saveDialog = new SweetAlertDialog(context, SweetAlertDialog.NORMAL_TYPE)
+//                            .setContentText(getString(R.string.save_data_tip))
+//                            .setConfirmText("确定")
+//                            .setCancelText("取消")
+//                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                                @Override
+//                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+//                                    sweetAlertDialog.dismissWithAnimation();
+//                                }
+//                            });
+//                    saveDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                        @Override
+//                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+//                            sweetAlertDialog.dismissWithAnimation();
+//                        }
+//                    });
+//                    saveDialog.show();
+//                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     private String token;
+    View.OnClickListener helpClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_germination_rate:
+                    showHelpDialog(context.getResources().getString(R.string.info_germination_rate));
+                    break;
+                case R.id.btn_cotyledon_size:
+                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_size));
+                    break;
+                case R.id.btn_cotyledon_color:
+                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_color));
+                    break;
+                case R.id.btn_cotyledon_count:
+                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_count));
+                    break;
+                case R.id.btn_cotyledon_shape:
+                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_shape));
+                    break;
+                case R.id.btn_heart_leaf_color:
+                    showHelpDialog(context.getResources().getString(R.string.info_heart_leaf_color));
+                    break;
+                case R.id.btn_true_leaf_color:
+                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_color));
+                    break;
+                case R.id.btn_true_leaf_length:
+                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_length));
+                    break;
+                case R.id.btn_true_leaf_width:
+                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_width));
+                    break;
+                case R.id.btn_plant_shape:
+                    showHelpDialog(context.getResources().getString(R.string.info_plant_shape));
+                    break;
+                case R.id.btn_plant_height:
+                    showHelpDialog(context.getResources().getString(R.string.info_plant_height));
+                    break;
+                case R.id.btn_development_degree:
+                    showHelpDialog(context.getResources().getString(R.string.info_development_degree));
+                    break;
+                case R.id.btn_leaf_count:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_count));
+                    break;
+                case R.id.btn_soft_leaf_thickness:
+                    showHelpDialog(context.getResources().getString(R.string.info_soft_leaf_thickness));
+                    break;
+                case R.id.btn_leaf_length:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_length));
+                    break;
+                case R.id.btn_leaf_width:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_width));
+                    break;
+                case R.id.btn_leaf_shape:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_shape));
+                    break;
+                case R.id.btn_leaf_color:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_color));
+                    break;
+                case R.id.btn_leaf_luster:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_luster));
+                    break;
+                case R.id.btn_leaf_fuzz:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_fuzz));
+                    break;
+                case R.id.btn_leaf_margin_undulance:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_margin_undulance));
+                    break;
+                case R.id.btn_leaf_margin_sawtooth:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_margin_sawtooth));
+                    break;
+                case R.id.btn_leaf_smoothness:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_smoothness));
+                    break;
+                case R.id.btn_leaf_protuberance:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_protuberance));
+                    break;
+                case R.id.btn_leaf_vein_livingness:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_vein_livingness));
+                    break;
+                case R.id.btn_leaf_keel_livingness:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_keel_livingness));
+                    break;
+                case R.id.btn_leaf_curliness:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_curliness));
+                    break;
+                case R.id.btn_leaf_curliness_part:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_curliness_part));
+                    break;
+                case R.id.btn_leaf_texture:
+                    showHelpDialog(context.getResources().getString(R.string.info_leaf_texture));
+                    break;
+            }
+        }
+    };
     private int userId;
     private String nickname;
-
-    // 页面的状态
-    public static final int STATUS_NEW = 0;    // 新建
-    public static final int STATUS_READ = 1;   // 只读
-    public static final int STATUS_WRITE = 2;  // 修改
-
-    // 观测时期
-    public static final String SURVEY_PERIOD_GERMINATION = "发芽期";
-    public static final String SURVEY_PERIOD_SEEDLING = "幼苗期";
-    public static final String SURVEY_PERIOD_ROSETTE = "莲座期";
-
-    // 拍照
-    private static final int TAKE_PHOTO_COTYLEDON_COLOR = 10;
-    private static final int TAKE_PHOTO_COTYLEDON_COUNT = 11;
-    private static final int TAKE_PHOTO_COTYLEDON_SHAPE = 12;
-
-    // 相册
-    private static final int SELECT_PHOTO_COTYLEDON_COLOR = 100;
-    private static final int SELECT_PHOTO_COTYLEDON_COUNT = 101;
-    private static final int SELECT_PHOTO_COTYLEDON_SHAPE = 102;
-
     // 图片路径
     private String pathCotyledonColor;
     private Uri imageUriCotyledonColor;
-
     private String pathCotyledonCount;
     private Uri imageUriCotyledonCount;
-
     private String pathCotyledonShape;
     private Uri imageUriCotyledonShape;
-
     private Map<String, Map<String, String>> map;
     private Map<String, String> imgPathMap1 = new HashMap<>();
     private Map<String, String> imgPathMap2 = new HashMap<>();
+    View.OnClickListener photosClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                // 子叶颜色
+                case R.id.ib_cotyledon_color:
+                    String fileNameString = System.currentTimeMillis() + ".jpg";
+                    File outputImage = null;
+                    outputImage = new File(getExternalCacheDir(), fileNameString);
+                    pathCotyledonColor = outputImage.getAbsolutePath();
+                    String imgPath = outputImage.getAbsolutePath();
+                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_color), imgPath);
+                    try {
+                        if (outputImage.exists()) {
+                            outputImage.delete();
+                        }
+                        outputImage.createNewFile();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        imageUriCotyledonColor = FileProvider.getUriForFile(context,
+                                "com.example.cabbage.fileprovider", outputImage);
+                        Log.d("ib_cotyledon_color", "onClick: img" + imageUriCotyledonColor);
+                    } else {
+                        imageUriCotyledonColor = Uri.fromFile(outputImage);
+                    }
+//                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
+                    //启动相机程序
+                    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonColor);
+                    startActivityForResult(intent, TAKE_PHOTO_COTYLEDON_COLOR);
+                    break;
+                case R.id.btn_select_from_album_cotyledon_color:
+                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_COLOR);
+                    break;
+                case R.id.iv_cotyledon_color:
+                    watchOnlineLargePhoto(context, imageUriCotyledonColor, "子叶颜色");
+                    break;
+                // 子叶数目
+                case R.id.ib_cotyledon_count:
+                    File outputImageCotyledonCount = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
+                    pathCotyledonCount = outputImageCotyledonCount.getAbsolutePath();
+                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_count), outputImageCotyledonCount.getAbsolutePath());
+                    try {
+                        if (outputImageCotyledonCount.exists()) {
+                            outputImageCotyledonCount.delete();
+                        }
+                        outputImageCotyledonCount.createNewFile();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        imageUriCotyledonCount = FileProvider.getUriForFile(context,
+                                "com.example.cabbage.fileprovider", outputImageCotyledonCount);
+                        Log.d("ib_cotyledon_count", "onClick: img" + imageUriCotyledonCount);
+                    } else {
+                        imageUriCotyledonCount = Uri.fromFile(outputImageCotyledonCount);
+                    }
+//                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
+                    //启动相机程序
+                    Intent intentCotyledonCount = new Intent("android.media.action.IMAGE_CAPTURE");
+                    intentCotyledonCount.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonCount);
+                    startActivityForResult(intentCotyledonCount, TAKE_PHOTO_COTYLEDON_COUNT);
+                    break;
+                case R.id.btn_select_from_album_cotyledon_count:
+                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_COUNT);
+                    break;
+                case R.id.iv_cotyledon_count:
+                    watchOnlineLargePhoto(context, imageUriCotyledonCount, "子叶数目");
+                    break;
+                // 子叶形状
+                case R.id.ib_cotyledon_shape:
+                    File outputImageCotyledonShape = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
+                    pathCotyledonShape = outputImageCotyledonShape.getAbsolutePath();
+                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_shape), outputImageCotyledonShape.getAbsolutePath());
+                    try {
+                        if (outputImageCotyledonShape.exists()) {
+                            outputImageCotyledonShape.delete();
+                        }
+                        outputImageCotyledonShape.createNewFile();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        imageUriCotyledonShape = FileProvider.getUriForFile(context,
+                                "com.example.cabbage.fileprovider", outputImageCotyledonShape);
+                        Log.d("ib_cotyledon_shape", "onClick: img" + imageUriCotyledonShape);
+                    } else {
+                        imageUriCotyledonShape = Uri.fromFile(outputImageCotyledonShape);
+                    }
+//                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
+                    //启动相机程序
+                    Intent intentCotyledonShape = new Intent("android.media.action.IMAGE_CAPTURE");
+                    intentCotyledonShape.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonShape);
+                    startActivityForResult(intentCotyledonShape, TAKE_PHOTO_COTYLEDON_SHAPE);
+                    break;
+                case R.id.btn_select_from_album_cotyledon_shape:
+                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_SHAPE);
+                    break;
+                case R.id.iv_cotyledon_shape:
+                    watchOnlineLargePhoto(context, imageUriCotyledonShape, "子叶数目");
+                    break;
+            }
+        }
+    };
     private Map<String, String> imgPathMap3 = new HashMap<>();
-
-    @Autowired(name = "materialId")
-    public String materialId = "";
-
-    @Autowired(name = "materialType")
-    public String materialType = "";
-
-    @Autowired(name = "plantId")
-    public String plantId;
-
-    @Autowired
-    public int status = STATUS_NEW;
-
-    @Autowired(name = "surveyId")
-    public String surveyId;
-
-    @Autowired(name = "surveyPeriod")
-    public String surveyPeriod = SURVEY_PERIOD_GERMINATION;
 
     private static final int UPLOAD_PIC_SUCCESS = 1000;
     private static final int UPLOAD_PIC_FAILED = 1001;
@@ -346,42 +591,6 @@ public class SurveyActivity extends AppCompatActivity {
 
         rightTwoLayout.setVisibility(View.INVISIBLE);
     }
-
-    View.OnClickListener toolBarOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.left_one_layout:
-                    finish();
-                    break;
-                case R.id.right_one_layout:
-                    Intent intent = new Intent(context, MainActivity.class);
-                    startActivity(intent);
-                    break;
-//                case R.id.right_two_layout:
-//                    final SweetAlertDialog saveDialog = new SweetAlertDialog(context, SweetAlertDialog.NORMAL_TYPE)
-//                            .setContentText(getString(R.string.save_data_tip))
-//                            .setConfirmText("确定")
-//                            .setCancelText("取消")
-//                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                                @Override
-//                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                                    sweetAlertDialog.dismissWithAnimation();
-//                                }
-//                            });
-//                    saveDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                        @Override
-//                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                            sweetAlertDialog.dismissWithAnimation();
-//                        }
-//                    });
-//                    saveDialog.show();
-//                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     private void initView(boolean isEditable) {
         Drawable primaryColor = getResources().getDrawable(R.drawable.bg_item_bar_basic_info);
@@ -599,102 +808,145 @@ public class SurveyActivity extends AppCompatActivity {
                 }
             }
         });
+
+        imgRosettePeriod = findViewById(R.id.img_rosette_period);
+        imageAdapter = new ImageAdapter(context, mRosettePeriodImgList);
+        imgRosettePeriod.setAdapter(imageAdapter);
+        imgRosettePeriod.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == parent.getChildCount() - 1) {
+                    //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过MainConstant.MAX_SELECT_PIC_NUM张，才能点击
+                    if (mRosettePeriodImgList.size() == MainConstant.MAX_SELECT_PIC_NUM) {
+                        //最多添加MainConstant.MAX_SELECT_PIC_NUM张图片
+                        viewPluImg(position);
+                    } else {
+                        //添加凭证图片
+                        selectPic(MainConstant.MAX_SELECT_PIC_NUM - mRosettePeriodImgList.size());
+                    }
+                } else {
+                    viewPluImg(position);
+                }
+            }
+        });
+
+        layoutCustomAttribute1 =findViewById(R.id.layout_custom_attribute1);
+        btnAddRemark1 =findViewById(R.id.btn_add_remark1);
+        btnAddAttribute1 = findViewById(R.id.btn_add_attribute1);
+        btnAddAttribute1.setOnClickListener(v->{
+            CustomAttributeView customAttributeView=new CustomAttributeView(context,1);
+            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            btnDelete.setOnClickListener(v1 -> {
+                customAttributeView.removeAllViews();
+            });
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            layoutCustomAttribute1.addView(customAttributeView);
+        });
+        btnAddRemark1.setOnClickListener(v -> {
+            CustomAttributeView customAttributeView = new CustomAttributeView(context,0);
+            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            btnDelete.setOnClickListener(v1 -> {
+                customAttributeView.removeAllViews();
+            });
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            layoutCustomAttribute1.addView(customAttributeView);
+        });
+
+        layoutCustomAttribute2 =findViewById(R.id.layout_custom_attribute2);
+        btnAddRemark2 =findViewById(R.id.btn_add_remark2);
+        btnAddAttribute2 = findViewById(R.id.btn_add_attribute2);
+        btnAddAttribute2.setOnClickListener(v->{
+            CustomAttributeView customAttributeView=new CustomAttributeView(context,1);
+            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            btnDelete.setOnClickListener(v1 -> {
+                customAttributeView.removeAllViews();
+            });
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            layoutCustomAttribute2.addView(customAttributeView);
+        });
+        btnAddRemark2.setOnClickListener(v -> {
+            CustomAttributeView customAttributeView = new CustomAttributeView(context,0);
+            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            btnDelete.setOnClickListener(v1 -> {
+                customAttributeView.removeAllViews();
+            });
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            layoutCustomAttribute2.addView(customAttributeView);
+        });
+
+        layoutCustomAttribute3 =findViewById(R.id.layout_custom_attribute3);
+        btnAddRemark3=findViewById(R.id.btn_add_remark3);
+        btnAddAttribute3 = findViewById(R.id.btn_add_attribute3);
+        btnAddAttribute3.setOnClickListener(v->{
+            CustomAttributeView customAttributeView=new CustomAttributeView(context,1);
+            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            btnDelete.setOnClickListener(v1 -> {
+                customAttributeView.removeAllViews();
+            });
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            layoutCustomAttribute3.addView(customAttributeView);
+        });
+        btnAddRemark3.setOnClickListener(v -> {
+            CustomAttributeView customAttributeView = new CustomAttributeView(context,0);
+            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            btnDelete.setOnClickListener(v1 -> {
+                customAttributeView.removeAllViews();
+            });
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            layoutCustomAttribute3.addView(customAttributeView);
+        });
+
+        layoutCustomAttribute4 =findViewById(R.id.layout_custom_attribute4);
+        btnAddRemark4 =findViewById(R.id.btn_add_remark4);
+        btnAddAttribute4 = findViewById(R.id.btn_add_attribute4);
+        btnAddAttribute4.setOnClickListener(v->{
+            CustomAttributeView customAttributeView=new CustomAttributeView(context,1);
+            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            btnDelete.setOnClickListener(v1 -> {
+                customAttributeView.removeAllViews();
+            });
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            layoutCustomAttribute4.addView(customAttributeView);
+        });
+        btnAddRemark4.setOnClickListener(v -> {
+            CustomAttributeView customAttributeView = new CustomAttributeView(context,0);
+            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            btnDelete.setOnClickListener(v1 -> {
+                customAttributeView.removeAllViews();
+            });
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            layoutCustomAttribute4.addView(customAttributeView);
+        });
     }
 
-    View.OnClickListener helpClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_germination_rate:
-                    showHelpDialog(context.getResources().getString(R.string.info_germination_rate));
-                    break;
-                case R.id.btn_cotyledon_size:
-                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_size));
-                    break;
-                case R.id.btn_cotyledon_color:
-                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_color));
-                    break;
-                case R.id.btn_cotyledon_count:
-                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_count));
-                    break;
-                case R.id.btn_cotyledon_shape:
-                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_shape));
-                    break;
-                case R.id.btn_heart_leaf_color:
-                    showHelpDialog(context.getResources().getString(R.string.info_heart_leaf_color));
-                    break;
-                case R.id.btn_true_leaf_color:
-                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_color));
-                    break;
-                case R.id.btn_true_leaf_length:
-                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_length));
-                    break;
-                case R.id.btn_true_leaf_width:
-                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_width));
-                    break;
-                case R.id.btn_plant_shape:
-                    showHelpDialog(context.getResources().getString(R.string.info_plant_shape));
-                    break;
-                case R.id.btn_plant_height:
-                    showHelpDialog(context.getResources().getString(R.string.info_plant_height));
-                    break;
-                case R.id.btn_development_degree:
-                    showHelpDialog(context.getResources().getString(R.string.info_development_degree));
-                    break;
-                case R.id.btn_leaf_count:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_count));
-                    break;
-                case R.id.btn_soft_leaf_thickness:
-                    showHelpDialog(context.getResources().getString(R.string.info_soft_leaf_thickness));
-                    break;
-                case R.id.btn_leaf_length:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_length));
-                    break;
-                case R.id.btn_leaf_width:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_width));
-                    break;
-                case R.id.btn_leaf_shape:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_shape));
-                    break;
-                case R.id.btn_leaf_color:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_color));
-                    break;
-                case R.id.btn_leaf_luster:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_luster));
-                    break;
-                case R.id.btn_leaf_fuzz:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_fuzz));
-                    break;
-                case R.id.btn_leaf_margin_undulance:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_margin_undulance));
-                    break;
-                case R.id.btn_leaf_margin_sawtooth:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_margin_sawtooth));
-                    break;
-                case R.id.btn_leaf_smoothness:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_smoothness));
-                    break;
-                case R.id.btn_leaf_protuberance:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_protuberance));
-                    break;
-                case R.id.btn_leaf_vein_livingness:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_vein_livingness));
-                    break;
-                case R.id.btn_leaf_keel_livingness:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_keel_livingness));
-                    break;
-                case R.id.btn_leaf_curliness:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_curliness));
-                    break;
-                case R.id.btn_leaf_curliness_part:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_curliness_part));
-                    break;
-                case R.id.btn_leaf_texture:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_texture));
-                    break;
+    //查看大图
+    private void viewPluImg(int position) {
+        //TODO
+    }
+
+    private void selectPic(int maxTotal) {
+        PictureSelectorConfig.initMultiConfig(this, maxTotal);
+    }
+
+    // 处理选择的照片的地址
+    private void refreshAdapter(List<LocalMedia> picList) {
+        for (LocalMedia localMedia : picList) {
+            //被压缩后的图片路径
+            if (localMedia.isCompressed()) {
+                String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
+                mRosettePeriodImgList.add(compressPath); //把图片添加到将要上传的图片数组中
+                imageAdapter.notifyDataSetChanged();
             }
         }
-    };
+    }
 
     // 展示帮助对话框
     private void showHelpDialog(String specificCharacter) {
@@ -720,113 +972,6 @@ public class SurveyActivity extends AppCompatActivity {
             }
         });
     }
-
-    View.OnClickListener photosClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                // 子叶颜色
-                case R.id.ib_cotyledon_color:
-                    String fileNameString = System.currentTimeMillis() + ".jpg";
-                    File outputImage = null;
-                    outputImage = new File(getExternalCacheDir(), fileNameString);
-                    pathCotyledonColor = outputImage.getAbsolutePath();
-                    String imgPath = outputImage.getAbsolutePath();
-                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_color), imgPath);
-                    try {
-                        if (outputImage.exists()) {
-                            outputImage.delete();
-                        }
-                        outputImage.createNewFile();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (Build.VERSION.SDK_INT >= 24) {
-                        imageUriCotyledonColor = FileProvider.getUriForFile(context,
-                                "com.example.cabbage.fileprovider", outputImage);
-                        Log.d("ib_cotyledon_color", "onClick: img" + imageUriCotyledonColor);
-                    } else {
-                        imageUriCotyledonColor = Uri.fromFile(outputImage);
-                    }
-//                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
-                    //启动相机程序
-                    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonColor);
-                    startActivityForResult(intent, TAKE_PHOTO_COTYLEDON_COLOR);
-                    break;
-                case R.id.btn_select_from_album_cotyledon_color:
-                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_COLOR);
-                    break;
-                case R.id.iv_cotyledon_color:
-                    watchOnlineLargePhoto(context, imageUriCotyledonColor, "子叶颜色");
-                    break;
-                // 子叶数目
-                case R.id.ib_cotyledon_count:
-                    File outputImageCotyledonCount = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
-                    pathCotyledonCount = outputImageCotyledonCount.getAbsolutePath();
-                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_count), outputImageCotyledonCount.getAbsolutePath());
-                    try {
-                        if (outputImageCotyledonCount.exists()) {
-                            outputImageCotyledonCount.delete();
-                        }
-                        outputImageCotyledonCount.createNewFile();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (Build.VERSION.SDK_INT >= 24) {
-                        imageUriCotyledonCount = FileProvider.getUriForFile(context,
-                                "com.example.cabbage.fileprovider", outputImageCotyledonCount);
-                        Log.d("ib_cotyledon_count", "onClick: img" + imageUriCotyledonCount);
-                    } else {
-                        imageUriCotyledonCount = Uri.fromFile(outputImageCotyledonCount);
-                    }
-//                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
-                    //启动相机程序
-                    Intent intentCotyledonCount = new Intent("android.media.action.IMAGE_CAPTURE");
-                    intentCotyledonCount.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonCount);
-                    startActivityForResult(intentCotyledonCount, TAKE_PHOTO_COTYLEDON_COUNT);
-                    break;
-                case R.id.btn_select_from_album_cotyledon_count:
-                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_COUNT);
-                    break;
-                case R.id.iv_cotyledon_count:
-                    watchOnlineLargePhoto(context, imageUriCotyledonCount, "子叶数目");
-                    break;
-                // 子叶形状
-                case R.id.ib_cotyledon_shape:
-                    File outputImageCotyledonShape = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
-                    pathCotyledonShape = outputImageCotyledonShape.getAbsolutePath();
-                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_shape), outputImageCotyledonShape.getAbsolutePath());
-                    try {
-                        if (outputImageCotyledonShape.exists()) {
-                            outputImageCotyledonShape.delete();
-                        }
-                        outputImageCotyledonShape.createNewFile();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (Build.VERSION.SDK_INT >= 24) {
-                        imageUriCotyledonShape = FileProvider.getUriForFile(context,
-                                "com.example.cabbage.fileprovider", outputImageCotyledonShape);
-                        Log.d("ib_cotyledon_shape", "onClick: img" + imageUriCotyledonShape);
-                    } else {
-                        imageUriCotyledonShape = Uri.fromFile(outputImageCotyledonShape);
-                    }
-//                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
-                    //启动相机程序
-                    Intent intentCotyledonShape = new Intent("android.media.action.IMAGE_CAPTURE");
-                    intentCotyledonShape.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonShape);
-                    startActivityForResult(intentCotyledonShape, TAKE_PHOTO_COTYLEDON_SHAPE);
-                    break;
-                case R.id.btn_select_from_album_cotyledon_shape:
-                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_SHAPE);
-                    break;
-                case R.id.iv_cotyledon_shape:
-                    watchOnlineLargePhoto(context, imageUriCotyledonShape, "子叶数目");
-                    break;
-            }
-        }
-    };
 
     // 校验已有数据是否合法
     private boolean checkIsValid() {
@@ -1317,6 +1462,15 @@ public class SurveyActivity extends AppCompatActivity {
                         ivCotyledonShape.setImageBitmap(bit);
                     }
                 }
+                break;
+            case PictureConfig.CHOOSE_REQUEST:
+                // 图片选择结果回调
+                refreshAdapter(PictureSelector.obtainMultipleResult(data));
+                // 例如 LocalMedia 里面返回三种path
+                // 1.media.getPath(); 为原图path
+                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
+                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
+                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                 break;
         }
     }

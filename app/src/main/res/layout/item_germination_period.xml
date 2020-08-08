@@ -50,5 +50,38 @@
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_custom_attribute2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:orientation="vertical" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2">
+
+        <Button
+            android:id="@+id/btn_add_attribute2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/bg_button_red"
+            android:text="添加性状"
+            android:textColor="@color/white"
+            android:layout_columnWeight="1"/>
+
+        <Button
+            android:id="@+id/btn_add_remark2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/bg_button_red"
+            android:text="添加备注"
+            android:textColor="@color/white"
+            android:layout_columnWeight="1"/>
+    </GridLayout>
 
 </LinearLayout>
