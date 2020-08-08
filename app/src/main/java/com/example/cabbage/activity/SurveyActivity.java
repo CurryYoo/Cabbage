@@ -2,15 +2,18 @@ package com.example.cabbage.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -51,6 +54,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.JsonObject;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -67,6 +71,7 @@ import static com.example.cabbage.utils.ImageUtils.getImageThumbnail;
 
 @Route(path = ARouterPaths.SURVEY_ACTIVITY)
 public class SurveyActivity extends AppCompatActivity {
+    private Context context = this;
 
     @BindView(R.id.tool_bar)
     LinearLayout toolBar;
@@ -188,7 +193,7 @@ public class SurveyActivity extends AppCompatActivity {
     private EditText editLeafTexture;
     private Button btnLeafTexture;
 
-    private Context context = this;
+    SweetAlertDialog uploadDialog;
 
     Box<SurveyData> surveyDataBox;
 
@@ -248,6 +253,46 @@ public class SurveyActivity extends AppCompatActivity {
 
     @Autowired(name = "surveyPeriod")
     public String surveyPeriod = SURVEY_PERIOD_GERMINATION;
+
+    private static final int UPLOAD_PIC_SUCCESS = 1000;
+    private static final int UPLOAD_PIC_FAILED = 1001;
+
+    private static int[] requestNum = {3, 0, 0};
+
+    private static class MyHandler extends Handler {
+        private final WeakReference<SurveyActivity> mActivty;
+
+        public MyHandler(SurveyActivity activity) {
+            mActivty = new WeakReference<SurveyActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            SurveyActivity activity = mActivty.get();
+            super.handleMessage(msg);
+            if (activity != null) {
+                switch (msg.what) {
+                    case UPLOAD_PIC_SUCCESS:
+                        requestNum[1]++;
+                        break;
+                    case UPLOAD_PIC_FAILED:
+                        requestNum[2]++;
+                        break;
+                }
+                Log.d("handleMessage", requestNum[0] + "," + requestNum[1] + "," + requestNum[2]);
+//                if (requestNum[0] == (requestNum[1] + requestNum[2])) {
+//                    activity.uploadDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+//                    activity.uploadDialog.setCancelable(true);
+//                    activity.uploadDialog.setTitleText(activity.getResources().getString(R.string.download_complete));
+//                    activity.uploadDialog.setContentText(null);
+//                }
+                activity.uploadDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                activity.uploadDialog.setCancelable(true);
+                activity.uploadDialog.setTitleText(activity.getResources().getString(R.string.download_complete));
+                activity.uploadDialog.setContentText(null);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -339,11 +384,13 @@ public class SurveyActivity extends AppCompatActivity {
     };
 
     private void initView(boolean isEditable) {
+        Drawable primaryColor = getResources().getDrawable(R.drawable.bg_item_bar_basic_info);
         View basicInfoLayout = LayoutInflater.from(context).inflate(R.layout.item_basicinfo, null);
         InfoItemBar itemBar = new InfoItemBar(context, getString(R.string.item_bar_basic));
         itemBar.addView(basicInfoLayout);
         itemBar.setShow(true);
         itemBar.setVisibilitySubmit(false);
+        itemBar.setColor(primaryColor);
         mainArea.addView(itemBar);
 
         editMaterialId = basicInfoLayout.findViewById(R.id.edt_material_id);
@@ -359,6 +406,7 @@ public class SurveyActivity extends AppCompatActivity {
             germinationPeriodItemBar.setShow(true);
         }
         germinationPeriodItemBar.setVisibilitySubmit(isEditable);
+        germinationPeriodItemBar.setColor(primaryColor);
         mainArea.addView(germinationPeriodItemBar);
 
         editGerminationRate = germinationPeriodLayout.findViewById(R.id.edt_germination_rate);
@@ -385,6 +433,7 @@ public class SurveyActivity extends AppCompatActivity {
             seedlingPeriodItemBar.setShow(true);
         }
         seedlingPeriodItemBar.setVisibilitySubmit(isEditable);
+        seedlingPeriodItemBar.setColor(primaryColor);
         mainArea.addView(seedlingPeriodItemBar);
 
         spnCotyledonSize = seedlingPeriodLayout.findViewById(R.id.cotyledon_size);
@@ -457,6 +506,7 @@ public class SurveyActivity extends AppCompatActivity {
             rosettePeriodItemBar.setShow(true);
         }
         rosettePeriodItemBar.setVisibilitySubmit(isEditable);
+        rosettePeriodItemBar.setColor(primaryColor);
         mainArea.addView(rosettePeriodItemBar);
 
         spnPlantShape = rosettePeriodLayout.findViewById(R.id.plant_shape);
@@ -795,6 +845,11 @@ public class SurveyActivity extends AppCompatActivity {
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        uploadDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE)
+                                .setTitleText(getString(R.string.upload_data))
+                                .setContentText(getString(R.string.upload_data_content));
+                        uploadDialog.setCancelable(false);
+                        uploadDialog.show();
                         uploadPeriodData(surveyPeriod);
                         sweetAlertDialog.dismissWithAnimation();
                     }
@@ -990,16 +1045,25 @@ public class SurveyActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(ResultInfo resultInfo) {
                     if (resultInfo.code == 200 && resultInfo.message.equals("操作成功")) {
+                        uploadDialog.setTitleText("调查数据上传成功");
                         String surveyId = resultInfo.data.observationId;
                         uploadPics(surveyPeriod, surveyId);
                         Toast.makeText(context, "更新成功", Toast.LENGTH_SHORT).show();
                     } else {
+                        uploadDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                        uploadDialog.setTitleText("调查数据上传失败");
+                        uploadDialog.setContentText("");
+                        uploadDialog.setCancelable(true);
                         Toast.makeText(context, "更新失败", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure() {
+                    uploadDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                    uploadDialog.setTitleText("调查数据上传失败");
+                    uploadDialog.setContentText("");
+                    uploadDialog.setCancelable(true);
                     Toast.makeText(context, "更新失败", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -1030,7 +1094,7 @@ public class SurveyActivity extends AppCompatActivity {
         jsonObject.addProperty("materialNumber", materialId);
         jsonObject.addProperty("plantNumber", plantId);
 //        jsonObject.addProperty("investigating_time", getCurrentTime());
-//        jsonObject.addProperty("investigator", nickname);
+        jsonObject.addProperty("investigator", nickname);
         jsonObject.addProperty("userId", userId);
 
         return jsonObject;
@@ -1151,17 +1215,31 @@ public class SurveyActivity extends AppCompatActivity {
         for (String specCharacter : imgPathMap.keySet()) {
             String imgPath = imgPathMap.get(specCharacter);
             if (TextUtils.isEmpty(imgPath)) {
+                requestNum[0]--;
                 continue;
             }
             HttpRequest.uploadPicture(token, surveyPeriod, surveyId, specCharacter, imgPath, new HttpRequest.INormalCallback() {
                 @Override
                 public void onResponse(NormalInfo normalInfo) {
-
+                    if (normalInfo.code == 200 && normalInfo.message.equals("操作成功")) {
+                        MyHandler handler = new MyHandler(SurveyActivity.this);
+                        Message message = new Message();
+                        message.what = UPLOAD_PIC_SUCCESS;
+                        handler.sendMessage(message);
+                    } else {
+                        MyHandler handler = new MyHandler(SurveyActivity.this);
+                        Message message = new Message();
+                        message.what = UPLOAD_PIC_FAILED;
+                        handler.sendMessage(message);
+                    }
                 }
 
                 @Override
                 public void onFailure() {
-
+                    MyHandler handler = new MyHandler(SurveyActivity.this);
+                    Message message = new Message();
+                    message.what = UPLOAD_PIC_FAILED;
+                    handler.sendMessage(message);
                 }
             });
         }
