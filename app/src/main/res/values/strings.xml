@@ -232,5 +232,6 @@
     <string name="info_self_compatible">自交亲和性</string>
 
     <string name="survey_help">测量帮助</string>
+    <string name="number_value">数值</string>
 
 </resources>
