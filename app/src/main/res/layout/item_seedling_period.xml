@@ -87,7 +87,8 @@
                 android:layout_marginBottom="@dimen/dp_2"
                 android:background="@drawable/bg_10_light"
                 android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/cotyledon_color"
@@ -102,33 +103,10 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp" />
 
-                <ImageButton
-                    android:id="@+id/ib_cotyledon_color"
-                    style="@style/style_basic_camera_btn"
-                    android:src="@android:drawable/ic_menu_camera" />
-
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
-
-                <Button
-                    android:id="@+id/btn_select_from_album_cotyledon_color"
-                    style="@style/style_basic_album_btn"
-                    android:text="@string/album" />
-
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
-
-                <ImageView
-                    android:id="@+id/iv_cotyledon_color"
-                    style="@style/style_basic_info_image" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/img_cotyledon_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <View
                     style="@style/divider_color"
@@ -177,7 +155,8 @@
                 android:layout_marginBottom="@dimen/dp_2"
                 android:background="@drawable/bg_10_light"
                 android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/cotyledon_count"
@@ -194,9 +173,10 @@
 
                 <EditText
                     android:id="@+id/edt_cotyledon_count"
+                    style="@style/style_item_basicinfo_edittext"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    style="@style/style_item_basicinfo_edittext" />
+                    android:hint="数值"/>
 
                 <View
                     style="@style/divider_color"
@@ -205,33 +185,10 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp" />
 
-                <ImageButton
-                    android:id="@+id/ib_cotyledon_count"
-                    style="@style/style_basic_camera_btn"
-                    android:src="@android:drawable/ic_menu_camera" />
-
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
-
-                <Button
-                    android:id="@+id/btn_select_from_album_cotyledon_count"
-                    style="@style/style_basic_album_btn"
-                    android:text="@string/album" />
-
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
-
-                <ImageView
-                    android:id="@+id/iv_cotyledon_count"
-                    style="@style/style_basic_info_image" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/img_cotyledon_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <View
                     style="@style/divider_color"
@@ -279,7 +236,8 @@
                 android:layout_marginBottom="@dimen/dp_2"
                 android:background="@drawable/bg_10_light"
                 android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/cotyledon_shape"
@@ -294,33 +252,10 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp" />
 
-                <ImageButton
-                    android:id="@+id/ib_cotyledon_shape"
-                    style="@style/style_basic_camera_btn"
-                    android:src="@android:drawable/ic_menu_camera" />
-
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
-
-                <Button
-                    android:id="@+id/btn_select_from_album_cotyledon_shape"
-                    style="@style/style_basic_album_btn"
-                    android:text="@string/album" />
-
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
-
-                <ImageView
-                    android:id="@+id/iv_cotyledon_shape"
-                    style="@style/style_basic_info_image" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/img_cotyledon_shape"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <View
                     style="@style/divider_color"
@@ -483,6 +418,7 @@
                     style="@style/style_basic_spinner1"
                     android:layout_width="100dp"
                     android:entries="@array/true_leaf_length" />
+
                 <View
                     style="@style/divider_color"
                     android:layout_width="0.1dp"
@@ -492,9 +428,11 @@
 
                 <EditText
                     android:id="@+id/edt_true_leaf_length"
+                    style="@style/style_item_basicinfo_edittext"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    style="@style/style_item_basicinfo_edittext" />
+                    android:hint="数值"/>
+
                 <View
                     style="@style/divider_color"
                     android:layout_width="0.1dp"
@@ -548,6 +486,7 @@
                     style="@style/style_basic_spinner1"
                     android:layout_width="100dp"
                     android:entries="@array/true_leaf_width" />
+
                 <View
                     style="@style/divider_color"
                     android:layout_width="0.1dp"
@@ -557,9 +496,11 @@
 
                 <EditText
                     android:id="@+id/edt_true_leaf_width"
+                    style="@style/style_item_basicinfo_edittext"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    style="@style/style_item_basicinfo_edittext" />
+                    android:hint="数值" />
+
                 <View
                     style="@style/divider_color"
                     android:layout_width="0.1dp"
@@ -595,21 +536,21 @@
             android:id="@+id/btn_add_attribute3"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_columnWeight="1"
             android:layout_margin="@dimen/dp_10"
             android:background="@drawable/bg_button_red"
             android:text="添加性状"
-            android:textColor="@color/white"
-            android:layout_columnWeight="1" />
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btn_add_remark3"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_columnWeight="1"
             android:layout_margin="@dimen/dp_10"
             android:background="@drawable/bg_button_red"
             android:text="添加备注"
-            android:textColor="@color/white"
-            android:layout_columnWeight="1" />
+            android:textColor="@color/white" />
     </GridLayout>
 
 </LinearLayout>

@@ -22,6 +22,7 @@
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.HistoryActivity"/>
         <activity android:name=".activity.PwdActivity"/>
+        <activity android:name=".activity.PlusImageActivity"/>
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

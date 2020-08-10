@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -31,7 +29,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -39,6 +38,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.ImageAdapter;
+import com.example.cabbage.adapter.SingleImageAdapter;
 import com.example.cabbage.data.ObjectBox;
 import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HelpInfo;
@@ -49,16 +49,15 @@ import com.example.cabbage.network.ResultInfo;
 import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.utils.MainConstant;
+import com.example.cabbage.utils.PictureResultCode;
 import com.example.cabbage.utils.PictureSelectorConfig;
 import com.example.cabbage.view.CustomAttributeView;
 import com.example.cabbage.view.InfoItemBar;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.JsonObject;
 import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,7 +70,6 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.objectbox.Box;
 
-import static com.example.cabbage.utils.BasicUtil.getRealPathFromUri;
 import static com.example.cabbage.utils.BasicUtil.watchOnlineLargePhoto;
 import static com.example.cabbage.utils.ImageUtils.getImageThumbnail;
 
@@ -168,15 +166,86 @@ public class SurveyActivity extends AppCompatActivity {
     Spinner spnTrueLeafWidth;
     Button btnTrueLeafWidth;
     Box<SurveyData> surveyDataBox;
-    private ImageButton ibCotyledonColor;
-    private Button btnSelectFromAlbumCotyledonColor;
-    private ImageView ivCotyledonColor;
-    private ImageButton ibCotyledonCount;
-    private Button btnSelectFromAlbumCotyledonCount;
-    private ImageView ivCotyledonCount;
-    private ImageButton ibCotyledonShape;
-    private Button btnSelectFromAlbumCotyledonShape;
-    private ImageView ivCotyledonShape;
+    View.OnClickListener photosClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+//                // 子叶数目
+//                case R.id.ib_cotyledon_count:
+//                    File outputImageCotyledonCount = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
+//                    pathCotyledonCount = outputImageCotyledonCount.getAbsolutePath();
+//                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_count), outputImageCotyledonCount.getAbsolutePath());
+//                    try {
+//                        if (outputImageCotyledonCount.exists()) {
+//                            outputImageCotyledonCount.delete();
+//                        }
+//                        outputImageCotyledonCount.createNewFile();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    if (Build.VERSION.SDK_INT >= 24) {
+//                        imageUriCotyledonCount = FileProvider.getUriForFile(context,
+//                                "com.example.cabbage.fileprovider", outputImageCotyledonCount);
+//                        Log.d("ib_cotyledon_count", "onClick: img" + imageUriCotyledonCount);
+//                    } else {
+//                        imageUriCotyledonCount = Uri.fromFile(outputImageCotyledonCount);
+//                    }
+////                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
+//                    //启动相机程序
+//                    Intent intentCotyledonCount = new Intent("android.media.action.IMAGE_CAPTURE");
+//                    intentCotyledonCount.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonCount);
+//                    startActivityForResult(intentCotyledonCount, TAKE_PHOTO_COTYLEDON_COUNT);
+//                    break;
+//                case R.id.btn_select_from_album_cotyledon_count:
+//                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_COUNT);
+//                    break;
+//                case R.id.iv_cotyledon_count:
+//                    watchOnlineLargePhoto(context, imageUriCotyledonCount, "子叶数目");
+//                    break;
+//                // 子叶形状
+//                case R.id.ib_cotyledon_shape:
+//                    File outputImageCotyledonShape = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
+//                    pathCotyledonShape = outputImageCotyledonShape.getAbsolutePath();
+//                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_shape), outputImageCotyledonShape.getAbsolutePath());
+//                    try {
+//                        if (outputImageCotyledonShape.exists()) {
+//                            outputImageCotyledonShape.delete();
+//                        }
+//                        outputImageCotyledonShape.createNewFile();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    if (Build.VERSION.SDK_INT >= 24) {
+//                        imageUriCotyledonShape = FileProvider.getUriForFile(context,
+//                                "com.example.cabbage.fileprovider", outputImageCotyledonShape);
+//                        Log.d("ib_cotyledon_shape", "onClick: img" + imageUriCotyledonShape);
+//                    } else {
+//                        imageUriCotyledonShape = Uri.fromFile(outputImageCotyledonShape);
+//                    }
+////                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
+//                    //启动相机程序
+//                    Intent intentCotyledonShape = new Intent("android.media.action.IMAGE_CAPTURE");
+//                    intentCotyledonShape.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonShape);
+//                    startActivityForResult(intentCotyledonShape, TAKE_PHOTO_COTYLEDON_SHAPE);
+//                    break;
+//                case R.id.btn_select_from_album_cotyledon_shape:
+//                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_SHAPE);
+//                    break;
+//                case R.id.iv_cotyledon_shape:
+//                    watchOnlineLargePhoto(context, imageUriCotyledonShape, "子叶数目");
+//                    break;
+            }
+        }
+    };
+    private RecyclerView imgCotyledonColor;
+    private SingleImageAdapter mCotyledonColorAdapter;
+    private ArrayList<String> mCotyledonColorImgList = new ArrayList<>();
+    private RecyclerView imgCotyledonCount;
+    private SingleImageAdapter mCotyledonCountAdapter;
+    private ArrayList<String> mCotyledonCountImgList = new ArrayList<>();
+    private RecyclerView imgCotyledonShape;
+    private SingleImageAdapter mCotyledonShapeAdapter;
+    private ArrayList<String> mCotyledonShapeImgList = new ArrayList<>();
     // 莲座期
     private Spinner spnPlantShape;
     private EditText editPlantShape;
@@ -237,7 +306,7 @@ public class SurveyActivity extends AppCompatActivity {
     private EditText editLeafTexture;
     private Button btnLeafTexture;
     private GridView imgRosettePeriod;
-    private ImageAdapter imageAdapter;
+    private ImageAdapter mRosettePeriodAdapter;
     private ArrayList<String> mRosettePeriodImgList = new ArrayList<>();
     private Context context = this;
     View.OnClickListener toolBarOnClickListener = new View.OnClickListener() {
@@ -382,112 +451,6 @@ public class SurveyActivity extends AppCompatActivity {
     private Map<String, Map<String, String>> map;
     private Map<String, String> imgPathMap1 = new HashMap<>();
     private Map<String, String> imgPathMap2 = new HashMap<>();
-    View.OnClickListener photosClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                // 子叶颜色
-                case R.id.ib_cotyledon_color:
-                    String fileNameString = System.currentTimeMillis() + ".jpg";
-                    File outputImage = null;
-                    outputImage = new File(getExternalCacheDir(), fileNameString);
-                    pathCotyledonColor = outputImage.getAbsolutePath();
-                    String imgPath = outputImage.getAbsolutePath();
-                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_color), imgPath);
-                    try {
-                        if (outputImage.exists()) {
-                            outputImage.delete();
-                        }
-                        outputImage.createNewFile();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (Build.VERSION.SDK_INT >= 24) {
-                        imageUriCotyledonColor = FileProvider.getUriForFile(context,
-                                "com.example.cabbage.fileprovider", outputImage);
-                        Log.d("ib_cotyledon_color", "onClick: img" + imageUriCotyledonColor);
-                    } else {
-                        imageUriCotyledonColor = Uri.fromFile(outputImage);
-                    }
-//                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
-                    //启动相机程序
-                    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonColor);
-                    startActivityForResult(intent, TAKE_PHOTO_COTYLEDON_COLOR);
-                    break;
-                case R.id.btn_select_from_album_cotyledon_color:
-                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_COLOR);
-                    break;
-                case R.id.iv_cotyledon_color:
-                    watchOnlineLargePhoto(context, imageUriCotyledonColor, "子叶颜色");
-                    break;
-                // 子叶数目
-                case R.id.ib_cotyledon_count:
-                    File outputImageCotyledonCount = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
-                    pathCotyledonCount = outputImageCotyledonCount.getAbsolutePath();
-                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_count), outputImageCotyledonCount.getAbsolutePath());
-                    try {
-                        if (outputImageCotyledonCount.exists()) {
-                            outputImageCotyledonCount.delete();
-                        }
-                        outputImageCotyledonCount.createNewFile();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (Build.VERSION.SDK_INT >= 24) {
-                        imageUriCotyledonCount = FileProvider.getUriForFile(context,
-                                "com.example.cabbage.fileprovider", outputImageCotyledonCount);
-                        Log.d("ib_cotyledon_count", "onClick: img" + imageUriCotyledonCount);
-                    } else {
-                        imageUriCotyledonCount = Uri.fromFile(outputImageCotyledonCount);
-                    }
-//                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
-                    //启动相机程序
-                    Intent intentCotyledonCount = new Intent("android.media.action.IMAGE_CAPTURE");
-                    intentCotyledonCount.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonCount);
-                    startActivityForResult(intentCotyledonCount, TAKE_PHOTO_COTYLEDON_COUNT);
-                    break;
-                case R.id.btn_select_from_album_cotyledon_count:
-                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_COUNT);
-                    break;
-                case R.id.iv_cotyledon_count:
-                    watchOnlineLargePhoto(context, imageUriCotyledonCount, "子叶数目");
-                    break;
-                // 子叶形状
-                case R.id.ib_cotyledon_shape:
-                    File outputImageCotyledonShape = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
-                    pathCotyledonShape = outputImageCotyledonShape.getAbsolutePath();
-                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_shape), outputImageCotyledonShape.getAbsolutePath());
-                    try {
-                        if (outputImageCotyledonShape.exists()) {
-                            outputImageCotyledonShape.delete();
-                        }
-                        outputImageCotyledonShape.createNewFile();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (Build.VERSION.SDK_INT >= 24) {
-                        imageUriCotyledonShape = FileProvider.getUriForFile(context,
-                                "com.example.cabbage.fileprovider", outputImageCotyledonShape);
-                        Log.d("ib_cotyledon_shape", "onClick: img" + imageUriCotyledonShape);
-                    } else {
-                        imageUriCotyledonShape = Uri.fromFile(outputImageCotyledonShape);
-                    }
-//                    Log.d("Uriiiiiii", pathColor + " || " + imageUriColor);
-                    //启动相机程序
-                    Intent intentCotyledonShape = new Intent("android.media.action.IMAGE_CAPTURE");
-                    intentCotyledonShape.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCotyledonShape);
-                    startActivityForResult(intentCotyledonShape, TAKE_PHOTO_COTYLEDON_SHAPE);
-                    break;
-                case R.id.btn_select_from_album_cotyledon_shape:
-                    selectPhotoFromAlbum(SELECT_PHOTO_COTYLEDON_SHAPE);
-                    break;
-                case R.id.iv_cotyledon_shape:
-                    watchOnlineLargePhoto(context, imageUriCotyledonShape, "子叶数目");
-                    break;
-            }
-        }
-    };
     private Map<String, String> imgPathMap3 = new HashMap<>();
 
     @Override
@@ -597,32 +560,14 @@ public class SurveyActivity extends AppCompatActivity {
         btnCotyledonSize.setOnClickListener(helpClickListener);
 
         spnCotyledonColor = seedlingPeriodLayout.findViewById(R.id.cotyledon_color);
-        ibCotyledonColor = seedlingPeriodLayout.findViewById(R.id.ib_cotyledon_color);
-        ibCotyledonColor.setOnClickListener(photosClickListener);
-        btnSelectFromAlbumCotyledonColor = seedlingPeriodLayout.findViewById(R.id.btn_select_from_album_cotyledon_color);
-        btnSelectFromAlbumCotyledonColor.setOnClickListener(photosClickListener);
-        ivCotyledonColor = seedlingPeriodLayout.findViewById(R.id.iv_cotyledon_color);
-        ivCotyledonColor.setOnClickListener(photosClickListener);
         btnCotyledonColor = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_color);
         btnCotyledonColor.setOnClickListener(helpClickListener);
 
         spnCotyledonCount = seedlingPeriodLayout.findViewById(R.id.cotyledon_count);
-        ibCotyledonCount = seedlingPeriodLayout.findViewById(R.id.ib_cotyledon_count);
-        ibCotyledonCount.setOnClickListener(photosClickListener);
-        btnSelectFromAlbumCotyledonCount = seedlingPeriodLayout.findViewById(R.id.btn_select_from_album_cotyledon_count);
-        btnSelectFromAlbumCotyledonCount.setOnClickListener(photosClickListener);
-        ivCotyledonCount = seedlingPeriodLayout.findViewById(R.id.iv_cotyledon_count);
-        ivCotyledonCount.setOnClickListener(photosClickListener);
         btnCotyledonCount = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_count);
         btnCotyledonCount.setOnClickListener(helpClickListener);
 
         spnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.cotyledon_shape);
-        ibCotyledonShape = seedlingPeriodLayout.findViewById(R.id.ib_cotyledon_shape);
-        ibCotyledonShape.setOnClickListener(photosClickListener);
-        btnSelectFromAlbumCotyledonShape = seedlingPeriodLayout.findViewById(R.id.btn_select_from_album_cotyledon_shape);
-        btnSelectFromAlbumCotyledonShape.setOnClickListener(photosClickListener);
-        ivCotyledonShape = seedlingPeriodLayout.findViewById(R.id.iv_cotyledon_shape);
-        ivCotyledonShape.setOnClickListener(photosClickListener);
         btnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_shape);
         btnCotyledonShape.setOnClickListener(helpClickListener);
 
@@ -641,6 +586,84 @@ public class SurveyActivity extends AppCompatActivity {
         spnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.true_leaf_width);
         btnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_width);
         btnTrueLeafWidth.setOnClickListener(helpClickListener);
+
+
+        //添加子叶颜色图片
+        imgCotyledonColor = findViewById(R.id.img_cotyledon_color);
+        LinearLayoutManager mCotyledonColorManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
+        imgCotyledonColor.setLayoutManager(mCotyledonColorManager);
+        mCotyledonColorAdapter = new SingleImageAdapter(context, mCotyledonColorImgList);
+        mCotyledonColorAdapter.setOnItemClickListener(new SingleImageAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if (position == mCotyledonColorAdapter.getItemCount() - 1) {
+                    //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过MainConstant.MAX_SELECT_PIC_NUM张，才能点击
+                    if (mCotyledonColorImgList.size() == MainConstant.MAX_SINGLE_PIC_NUM) {
+                        //最多添加MainConstant.MAX_SELECT_PIC_NUM张图片
+                        viewPluImg(position, PictureResultCode.COTYLEDON_COLOR);
+                    } else {
+                        //添加凭证图片
+                        selectPic(MainConstant.MAX_SINGLE_PIC_NUM - mCotyledonColorImgList.size(), PictureResultCode.COTYLEDON_COLOR);
+                    }
+                } else {
+                    viewPluImg(position, PictureResultCode.COTYLEDON_COLOR);
+                }
+            }
+        });
+        imgCotyledonColor.setAdapter(mCotyledonColorAdapter);
+
+        //添加子叶数目图片
+        imgCotyledonCount = findViewById(R.id.img_cotyledon_count);
+        LinearLayoutManager mCotyledonCountManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
+        imgCotyledonCount.setLayoutManager(mCotyledonCountManager);
+        mCotyledonCountAdapter = new SingleImageAdapter(context, mCotyledonCountImgList);
+        mCotyledonCountAdapter.setOnItemClickListener(new SingleImageAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if (position == mCotyledonCountAdapter.getItemCount() - 1) {
+                    //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过MainConstant.MAX_SELECT_PIC_NUM张，才能点击
+                    if (mCotyledonCountImgList.size() == MainConstant.MAX_SINGLE_PIC_NUM) {
+                        //最多添加MainConstant.MAX_SELECT_PIC_NUM张图片
+                        viewPluImg(position, PictureResultCode.COTYLEDON_COUNT);
+                    } else {
+                        //添加凭证图片
+                        selectPic(MainConstant.MAX_SINGLE_PIC_NUM - mCotyledonCountImgList.size(), PictureResultCode.COTYLEDON_COUNT);
+                    }
+                } else {
+                    viewPluImg(position, PictureResultCode.COTYLEDON_COUNT);
+                }
+            }
+        });
+        imgCotyledonCount.setAdapter(mCotyledonCountAdapter);
+
+        //添加子叶形状图片
+        imgCotyledonShape = findViewById(R.id.img_cotyledon_shape);
+        LinearLayoutManager mCotyledonShapeManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
+        imgCotyledonColor.setLayoutManager(mCotyledonColorManager);
+        imgCotyledonShape.setLayoutManager(mCotyledonShapeManager);
+        mCotyledonShapeAdapter = new SingleImageAdapter(context, mCotyledonShapeImgList);
+        mCotyledonShapeAdapter.setOnItemClickListener(new SingleImageAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if (position == mCotyledonShapeAdapter.getItemCount() - 1) {
+                    //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过MainConstant.MAX_SELECT_PIC_NUM张，才能点击
+                    if (mCotyledonShapeImgList.size() == MainConstant.MAX_SINGLE_PIC_NUM) {
+                        //最多添加MainConstant.MAX_SELECT_PIC_NUM张图片
+                        viewPluImg(position, PictureResultCode.COTYLEDON_SHAPE);
+                    } else {
+                        //添加凭证图片
+                        selectPic(MainConstant.MAX_SINGLE_PIC_NUM - mCotyledonShapeImgList.size(), PictureResultCode.COTYLEDON_SHAPE);
+                    }
+                } else {
+                    viewPluImg(position, PictureResultCode.COTYLEDON_SHAPE);
+                }
+            }
+        });
+        imgCotyledonShape.setAdapter(mCotyledonShapeAdapter);
+
 
         seedlingPeriodItemBar.setSubmitListener(new View.OnClickListener() {
             @Override
@@ -755,9 +778,10 @@ public class SurveyActivity extends AppCompatActivity {
             }
         });
 
+        //添加莲座期总图片
         imgRosettePeriod = findViewById(R.id.img_rosette_period);
-        imageAdapter = new ImageAdapter(context, mRosettePeriodImgList);
-        imgRosettePeriod.setAdapter(imageAdapter);
+        mRosettePeriodAdapter = new ImageAdapter(context, mRosettePeriodImgList);
+        imgRosettePeriod.setAdapter(mRosettePeriodAdapter);
         imgRosettePeriod.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -765,133 +789,186 @@ public class SurveyActivity extends AppCompatActivity {
                     //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过MainConstant.MAX_SELECT_PIC_NUM张，才能点击
                     if (mRosettePeriodImgList.size() == MainConstant.MAX_SELECT_PIC_NUM) {
                         //最多添加MainConstant.MAX_SELECT_PIC_NUM张图片
-                        viewPluImg(position);
+                        viewPluImg(position, PictureResultCode.ROSETTE_PERIOD);
                     } else {
                         //添加凭证图片
-                        selectPic(MainConstant.MAX_SELECT_PIC_NUM - mRosettePeriodImgList.size());
+                        selectPic(MainConstant.MAX_SELECT_PIC_NUM - mRosettePeriodImgList.size(), PictureResultCode.ROSETTE_PERIOD);
                     }
                 } else {
-                    viewPluImg(position);
+                    viewPluImg(position, PictureResultCode.ROSETTE_PERIOD);
                 }
             }
         });
 
-        layoutCustomAttribute1 =findViewById(R.id.layout_custom_attribute1);
-        btnAddRemark1 =findViewById(R.id.btn_add_remark1);
+        //添加备注和自定义属性
+        layoutCustomAttribute1 = findViewById(R.id.layout_custom_attribute1);
+        btnAddRemark1 = findViewById(R.id.btn_add_remark1);
         btnAddAttribute1 = findViewById(R.id.btn_add_attribute1);
-        btnAddAttribute1.setOnClickListener(v->{
-            CustomAttributeView customAttributeView=new CustomAttributeView(context,1);
-            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+        btnAddAttribute1.setOnClickListener(v -> {
+            CustomAttributeView customAttributeView = new CustomAttributeView(context, 1);
+            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
             });
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             layoutCustomAttribute1.addView(customAttributeView);
         });
         btnAddRemark1.setOnClickListener(v -> {
-            CustomAttributeView customAttributeView = new CustomAttributeView(context,0);
-            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            CustomAttributeView customAttributeView = new CustomAttributeView(context, 0);
+            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
             });
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             layoutCustomAttribute1.addView(customAttributeView);
         });
 
-        layoutCustomAttribute2 =findViewById(R.id.layout_custom_attribute2);
-        btnAddRemark2 =findViewById(R.id.btn_add_remark2);
+        layoutCustomAttribute2 = findViewById(R.id.layout_custom_attribute2);
+        btnAddRemark2 = findViewById(R.id.btn_add_remark2);
         btnAddAttribute2 = findViewById(R.id.btn_add_attribute2);
-        btnAddAttribute2.setOnClickListener(v->{
-            CustomAttributeView customAttributeView=new CustomAttributeView(context,1);
-            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+        btnAddAttribute2.setOnClickListener(v -> {
+            CustomAttributeView customAttributeView = new CustomAttributeView(context, 1);
+            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
             });
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             layoutCustomAttribute2.addView(customAttributeView);
         });
         btnAddRemark2.setOnClickListener(v -> {
-            CustomAttributeView customAttributeView = new CustomAttributeView(context,0);
-            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            CustomAttributeView customAttributeView = new CustomAttributeView(context, 0);
+            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
             });
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             layoutCustomAttribute2.addView(customAttributeView);
         });
 
-        layoutCustomAttribute3 =findViewById(R.id.layout_custom_attribute3);
-        btnAddRemark3=findViewById(R.id.btn_add_remark3);
+        layoutCustomAttribute3 = findViewById(R.id.layout_custom_attribute3);
+        btnAddRemark3 = findViewById(R.id.btn_add_remark3);
         btnAddAttribute3 = findViewById(R.id.btn_add_attribute3);
-        btnAddAttribute3.setOnClickListener(v->{
-            CustomAttributeView customAttributeView=new CustomAttributeView(context,1);
-            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+        btnAddAttribute3.setOnClickListener(v -> {
+            CustomAttributeView customAttributeView = new CustomAttributeView(context, 1);
+            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
             });
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             layoutCustomAttribute3.addView(customAttributeView);
         });
         btnAddRemark3.setOnClickListener(v -> {
-            CustomAttributeView customAttributeView = new CustomAttributeView(context,0);
-            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            CustomAttributeView customAttributeView = new CustomAttributeView(context, 0);
+            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
             });
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             layoutCustomAttribute3.addView(customAttributeView);
         });
 
-        layoutCustomAttribute4 =findViewById(R.id.layout_custom_attribute4);
-        btnAddRemark4 =findViewById(R.id.btn_add_remark4);
+        layoutCustomAttribute4 = findViewById(R.id.layout_custom_attribute4);
+        btnAddRemark4 = findViewById(R.id.btn_add_remark4);
         btnAddAttribute4 = findViewById(R.id.btn_add_attribute4);
-        btnAddAttribute4.setOnClickListener(v->{
-            CustomAttributeView customAttributeView=new CustomAttributeView(context,1);
-            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+        btnAddAttribute4.setOnClickListener(v -> {
+            CustomAttributeView customAttributeView = new CustomAttributeView(context, 1);
+            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
             });
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             layoutCustomAttribute4.addView(customAttributeView);
         });
         btnAddRemark4.setOnClickListener(v -> {
-            CustomAttributeView customAttributeView = new CustomAttributeView(context,0);
-            Button btnDelete=customAttributeView.findViewById(R.id.btn_delete);
+            CustomAttributeView customAttributeView = new CustomAttributeView(context, 0);
+            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
             });
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             layoutCustomAttribute4.addView(customAttributeView);
         });
     }
 
     //查看大图
-    private void viewPluImg(int position) {
-        //TODO
+    private void viewPluImg(int position, int resultCode) {
+
+        Intent intent = new Intent(this, PlusImageActivity.class);
+        switch (resultCode) {
+            case PictureResultCode.COTYLEDON_COLOR:
+                intent.putStringArrayListExtra(MainConstant.IMG_LIST, mCotyledonColorImgList);
+                break;
+            case PictureResultCode.COTYLEDON_COUNT:
+                intent.putStringArrayListExtra(MainConstant.IMG_LIST, mCotyledonCountImgList);
+                break;
+            case PictureResultCode.COTYLEDON_SHAPE:
+                intent.putStringArrayListExtra(MainConstant.IMG_LIST, mCotyledonShapeImgList);
+                break;
+            case PictureResultCode.ROSETTE_PERIOD:
+                intent.putStringArrayListExtra(MainConstant.IMG_LIST, mRosettePeriodImgList);
+                break;
+        }
+        intent.putExtra(MainConstant.POSITION, position);
+        startActivityForResult(intent, resultCode);
     }
 
-    private void selectPic(int maxTotal) {
-        PictureSelectorConfig.initMultiConfig(this, maxTotal);
+    private void selectPic(int maxTotal, int resultCode) {
+        PictureSelectorConfig.initMultiConfig(this, maxTotal, resultCode);
     }
 
     // 处理选择的照片的地址
-    private void refreshAdapter(List<LocalMedia> picList) {
-        for (LocalMedia localMedia : picList) {
-            //被压缩后的图片路径
-            if (localMedia.isCompressed()) {
-                String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
-                mRosettePeriodImgList.add(compressPath); //把图片添加到将要上传的图片数组中
-                imageAdapter.notifyDataSetChanged();
-            }
+    private void refreshAdapter(List<LocalMedia> picList, int requestCode) {
+        switch (requestCode) {
+            case PictureResultCode.COTYLEDON_COLOR:
+                for (LocalMedia localMedia : picList) {
+                    //被压缩后的图片路径
+                    if (localMedia.isCompressed()) {
+                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
+                        mCotyledonColorImgList.add(compressPath);
+                        mCotyledonColorAdapter.notifyDataSetChanged();
+                    }
+                }
+                break;
+            case PictureResultCode.COTYLEDON_COUNT:
+                for (LocalMedia localMedia : picList) {
+                    //被压缩后的图片路径
+                    if (localMedia.isCompressed()) {
+                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
+                        mCotyledonCountImgList.add(compressPath);
+                        mCotyledonCountAdapter.notifyDataSetChanged();
+                    }
+                }
+                break;
+            case PictureResultCode.COTYLEDON_SHAPE:
+                for (LocalMedia localMedia : picList) {
+                    //被压缩后的图片路径
+                    if (localMedia.isCompressed()) {
+                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
+                        mCotyledonShapeImgList.add(compressPath);
+                        mCotyledonShapeAdapter.notifyDataSetChanged();
+                    }
+                }
+                break;
+            case PictureResultCode.ROSETTE_PERIOD:
+                for (LocalMedia localMedia : picList) {
+                    //被压缩后的图片路径
+                    if (localMedia.isCompressed()) {
+                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
+                        mRosettePeriodImgList.add(compressPath);
+                        mRosettePeriodAdapter.notifyDataSetChanged();
+                    }
+                }
+                break;
         }
+
     }
 
     // 展示帮助对话框
@@ -1089,9 +1166,10 @@ public class SurveyActivity extends AppCompatActivity {
             case SURVEY_PERIOD_GERMINATION:
                 break;
             case SURVEY_PERIOD_SEEDLING:
-                map.put(getResources().getString(R.string.info_cotyledon_color), ivCotyledonColor);
-                map.put(getResources().getString(R.string.info_cotyledon_count), ivCotyledonCount);
-                map.put(getResources().getString(R.string.info_cotyledon_shape), ivCotyledonShape);
+                //TODO联网加载数据库内已调查图片
+//                map.put(getResources().getString(R.string.info_cotyledon_color), ivCotyledonColor);
+//                map.put(getResources().getString(R.string.info_cotyledon_count), ivCotyledonCount);
+//                map.put(getResources().getString(R.string.info_cotyledon_shape), ivCotyledonShape);
                 break;
             case SURVEY_PERIOD_ROSETTE:
                 break;
@@ -1324,72 +1402,114 @@ public class SurveyActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case TAKE_PHOTO_COTYLEDON_COLOR:
-                onResultOfPhoto(resultCode, pathCotyledonColor, ivCotyledonColor);
-                break;
-            case SELECT_PHOTO_COTYLEDON_COLOR:
-                if (data != null) {
-                    imageUriCotyledonColor = data.getData();
-                    pathCotyledonColor = getRealPathFromUri(context, imageUriCotyledonColor);
-                    String imgPath = getRealPathFromUri(context, imageUriCotyledonColor);
-                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_color), imgPath);
-                    //Log.d("Uriiiii2", imageUriColor + " || " + pathColor);
-                    if (imageUriCotyledonColor != null) {
-                        Bitmap bit = null;
-
-                        bit = getImageThumbnail(pathCotyledonColor, 50, 50);
-
-                        ivCotyledonColor.setImageBitmap(bit);
-                    }
+//            case TAKE_PHOTO_COTYLEDON_COLOR:
+//                onResultOfPhoto(resultCode, pathCotyledonColor, ivCotyledonColor);
+//                break;
+//            case SELECT_PHOTO_COTYLEDON_COLOR:
+//                if (data != null) {
+//                    imageUriCotyledonColor = data.getData();
+//                    pathCotyledonColor = getRealPathFromUri(context, imageUriCotyledonColor);
+//                    String imgPath = getRealPathFromUri(context, imageUriCotyledonColor);
+//                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_color), imgPath);
+//                    //Log.d("Uriiiii2", imageUriColor + " || " + pathColor);
+//                    if (imageUriCotyledonColor != null) {
+//                        Bitmap bit = null;
+//
+//                        bit = getImageThumbnail(pathCotyledonColor, 50, 50);
+//
+//                        ivCotyledonColor.setImageBitmap(bit);
+//                    }
+//                }
+//                break;
+//            case TAKE_PHOTO_COTYLEDON_COUNT:
+//                onResultOfPhoto(resultCode, pathCotyledonCount, ivCotyledonCount);
+//                break;
+//            case SELECT_PHOTO_COTYLEDON_COUNT:
+//                if (data != null) {
+//                    imageUriCotyledonCount = data.getData();
+//                    pathCotyledonCount = getRealPathFromUri(context, imageUriCotyledonCount);
+//                    String imgPath = getRealPathFromUri(context, imageUriCotyledonCount);
+//                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_count), imgPath);
+//                    //Log.d("Uriiiii2", imageUriColor + " || " + pathColor);
+//                    if (imageUriCotyledonCount != null) {
+//                        Bitmap bit = null;
+//
+//                        bit = getImageThumbnail(pathCotyledonCount, 50, 50);
+//
+//                        ivCotyledonCount.setImageBitmap(bit);
+//                    }
+//                }
+//                break;
+//            case TAKE_PHOTO_COTYLEDON_SHAPE:
+//                onResultOfPhoto(resultCode, pathCotyledonShape, ivCotyledonShape);
+//                break;
+//            case SELECT_PHOTO_COTYLEDON_SHAPE:
+//                if (data != null) {
+//                    imageUriCotyledonShape = data.getData();
+//                    pathCotyledonShape = getRealPathFromUri(context, imageUriCotyledonShape);
+//                    String imgPath = getRealPathFromUri(context, imageUriCotyledonShape);
+//                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_shape), imgPath);
+//                    //Log.d("Uriiiii2", imageUriColor + " || " + pathColor);
+//                    if (imageUriCotyledonShape != null) {
+//                        Bitmap bit = null;
+//
+//                        bit = getImageThumbnail(pathCotyledonShape, 50, 50);
+//
+//                        ivCotyledonShape.setImageBitmap(bit);
+//                    }
+//                }
+//                break;
+            case PictureResultCode.COTYLEDON_COLOR:
+                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
+                    //查看大图页面删除了图片
+                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
+                    mCotyledonColorImgList.clear();
+                    mCotyledonColorImgList.addAll(toDeletePicList);
+                    mCotyledonColorAdapter.notifyDataSetChanged();
+                } else {
+                    // 图片选择结果回调
+                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.COTYLEDON_COLOR);
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
+                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                 }
                 break;
-            case TAKE_PHOTO_COTYLEDON_COUNT:
-                onResultOfPhoto(resultCode, pathCotyledonCount, ivCotyledonCount);
-                break;
-            case SELECT_PHOTO_COTYLEDON_COUNT:
-                if (data != null) {
-                    imageUriCotyledonCount = data.getData();
-                    pathCotyledonCount = getRealPathFromUri(context, imageUriCotyledonCount);
-                    String imgPath = getRealPathFromUri(context, imageUriCotyledonCount);
-                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_count), imgPath);
-                    //Log.d("Uriiiii2", imageUriColor + " || " + pathColor);
-                    if (imageUriCotyledonCount != null) {
-                        Bitmap bit = null;
-
-                        bit = getImageThumbnail(pathCotyledonCount, 50, 50);
-
-                        ivCotyledonCount.setImageBitmap(bit);
-                    }
+            case PictureResultCode.COTYLEDON_COUNT:
+                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
+                    //查看大图页面删除了图片
+                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
+                    mCotyledonCountImgList.clear();
+                    mCotyledonCountImgList.addAll(toDeletePicList);
+                    mCotyledonCountAdapter.notifyDataSetChanged();
+                } else {
+                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.COTYLEDON_COUNT);
                 }
                 break;
-            case TAKE_PHOTO_COTYLEDON_SHAPE:
-                onResultOfPhoto(resultCode, pathCotyledonShape, ivCotyledonShape);
-                break;
-            case SELECT_PHOTO_COTYLEDON_SHAPE:
-                if (data != null) {
-                    imageUriCotyledonShape = data.getData();
-                    pathCotyledonShape = getRealPathFromUri(context, imageUriCotyledonShape);
-                    String imgPath = getRealPathFromUri(context, imageUriCotyledonShape);
-                    imgPathMap2.put(getResources().getString(R.string.info_cotyledon_shape), imgPath);
-                    //Log.d("Uriiiii2", imageUriColor + " || " + pathColor);
-                    if (imageUriCotyledonShape != null) {
-                        Bitmap bit = null;
-
-                        bit = getImageThumbnail(pathCotyledonShape, 50, 50);
-
-                        ivCotyledonShape.setImageBitmap(bit);
-                    }
+            case PictureResultCode.COTYLEDON_SHAPE:
+                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
+                    //查看大图页面删除了图片
+                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
+                    mCotyledonShapeImgList.clear();
+                    mCotyledonShapeImgList.addAll(toDeletePicList);
+                    mCotyledonShapeAdapter.notifyDataSetChanged();
+                } else {
+                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.COTYLEDON_SHAPE);
                 }
                 break;
-            case PictureConfig.CHOOSE_REQUEST:
-                // 图片选择结果回调
-                refreshAdapter(PictureSelector.obtainMultipleResult(data));
-                // 例如 LocalMedia 里面返回三种path
-                // 1.media.getPath(); 为原图path
-                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
-                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
-                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+            case PictureResultCode.ROSETTE_PERIOD:
+                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
+                    //查看大图页面删除了图片
+                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
+                    mRosettePeriodImgList.clear();
+                    mRosettePeriodImgList.addAll(toDeletePicList);
+                    mRosettePeriodAdapter.notifyDataSetChanged();
+                } else {
+                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.ROSETTE_PERIOD);
+                }
                 break;
+
         }
     }
 
