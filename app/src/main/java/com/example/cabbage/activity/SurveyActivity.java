@@ -162,6 +162,7 @@ public class SurveyActivity extends AppCompatActivity {
     Spinner spnCotyledonColor;
     Button btnCotyledonColor;
     Spinner spnCotyledonCount;
+    EditText edtCotyledonCount;
     Button btnCotyledonCount;
     Spinner spnCotyledonShape;
     Button btnCotyledonShape;
@@ -170,8 +171,10 @@ public class SurveyActivity extends AppCompatActivity {
     Spinner spnTrueLeafColor;
     Button btnTrueLeafColor;
     Spinner spnTrueLeafLength;
+    EditText EdtTrueLeafLength;
     Button btnTrueLeafLength;
     Spinner spnTrueLeafWidth;
+    EditText EdtTrueLeafWidth;
     Button btnTrueLeafWidth;
     Box<SurveyData> surveyDataBox;
     private ImageButton ibCotyledonColor;
