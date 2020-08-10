@@ -121,6 +121,8 @@
     <string name="network_normal">网络正常</string>
     <string name="network_wrong">网络异常</string>
     <string name="dialog_title_tip">提示</string>
+    <string name="upload_data">正在上传数据…</string>
+    <string name="upload_data_content">上传数据耗时较长，请勿中途退出</string>
 
     <string name="info_nickname">调查人员：</string>
     <string name="info_material_id">材料编号</string>

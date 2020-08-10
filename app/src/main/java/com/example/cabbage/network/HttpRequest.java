@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -41,6 +42,11 @@ public class HttpRequest {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
+//                .addInterceptor(chain -> {
+//                    Request.Builder builder = chain.request().newBuilder()
+//                            .addHeader("Connection", "close");
+//                    return chain.proceed(builder.build());
+//                })
                 .connectTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(100, TimeUnit.SECONDS)
                 .build();
