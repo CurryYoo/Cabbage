@@ -112,7 +112,7 @@
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     style="@style/style_item_basicinfo_edittext"
-                    android:hint="数值"/>
+                    android:hint="@string/number_value"/>
                 <View
                     style="@style/divider_color"
                     android:layout_width="0.1dp"
@@ -178,7 +178,7 @@
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     style="@style/style_item_basicinfo_edittext"
-                    android:hint="数值"/>
+                    android:hint="@string/number_value"/>
                 <View
                     style="@style/divider_color"
                     android:layout_width="0.1dp"
@@ -352,7 +352,7 @@
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     style="@style/style_item_basicinfo_edittext"
-                    android:hint="数值" />
+                    android:hint="@string/number_value" />
                 <View
                     style="@style/divider_color"
                     android:layout_width="0.1dp"
@@ -417,7 +417,8 @@
                     android:id="@+id/edt_leaf_width"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    style="@style/style_item_basicinfo_edittext" />
+                    style="@style/style_item_basicinfo_edittext"
+                    android:hint="@string/number_value" />
                 <View
                     style="@style/divider_color"
                     android:layout_width="0.1dp"

@@ -164,19 +164,6 @@
                     android:layout_width="100dp"
                     android:entries="@array/cotyledon_count" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
-
-                <EditText
-                    android:id="@+id/edt_cotyledon_count"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:hint="数值"/>
 
                 <View
                     style="@style/divider_color"
@@ -189,6 +176,20 @@
                     android:id="@+id/img_cotyledon_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <EditText
+                    android:id="@+id/edt_cotyledon_count"
+                    style="@style/style_item_basicinfo_edittext"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:hint="@string/number_value" />
 
                 <View
                     style="@style/divider_color"
@@ -431,7 +432,7 @@
                     style="@style/style_item_basicinfo_edittext"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:hint="数值"/>
+                    android:hint="@string/number_value" />
 
                 <View
                     style="@style/divider_color"
@@ -499,7 +500,7 @@
                     style="@style/style_item_basicinfo_edittext"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:hint="数值" />
+                    android:hint="@string/number_value" />
 
                 <View
                     style="@style/divider_color"
