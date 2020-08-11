@@ -283,6 +283,32 @@ public class HttpRequest {
         });
     }
 
+    public static void uploadPictureOverall(String token, String surveyPeriod, String surveyId, String imgPath, INormalCallback callback) {
+        Map<String, String> params = new HashMap<>();
+        params.put("obsPeriod", surveyPeriod);
+        params.put("observationId", surveyId);
+        params.put("specCharacter", "overall");
+        String fileName = System.currentTimeMillis() + ".jpg";
+        File file = new File(imgPath);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileName, requestFile);
+        getApi.uploadPicture(token, params, body).enqueue(new Callback<NormalInfo>() {
+            @Override
+            public void onResponse(Call<NormalInfo> call, Response<NormalInfo> response) {
+                if (response != null && response.body() != null) {
+                    NormalInfo normalInfo = response.body();
+                    callback.onResponse(normalInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NormalInfo> call, Throwable t) {
+                t.printStackTrace();
+                callback.onFailure();
+            }
+        });
+    }
+
     public interface IUserInfoCallback {
         void onResponse(UserInfo userInfo);
 

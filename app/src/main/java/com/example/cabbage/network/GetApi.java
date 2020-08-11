@@ -37,7 +37,7 @@ public interface GetApi {
     Call<ResultInfo> addSurveyData(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("json") String json);
 
     // 获取个人历史数据
-    @GET("characterAnalysis/historyObsData")
+    @GET("characterAnalysis/findHistoryDataByUserAndSearchCriteria")
     Call<HistoryInfo> getHistorySurveyData(@Header("token") String token);
 
     // 获取材料数据详情
@@ -64,5 +64,11 @@ public interface GetApi {
     @Multipart
     @POST("/qiNiuContent")
     Call<NormalInfo> uploadPicture(@Header("token") String token, @QueryMap Map<String, String> params, @Part MultipartBody.Part file);
+
+    // 时期下图片上传
+
+
+    // 批量上传图片
+
 
 }

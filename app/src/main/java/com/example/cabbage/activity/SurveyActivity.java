@@ -148,6 +148,7 @@ public class SurveyActivity extends AppCompatActivity {
     // 发芽期
     EditText editGerminationRate;
     Button btnGerminationRate;
+    private HashMap<String, ArrayList<String>> photosInGermination = new HashMap<>();
     // 幼苗期
     Spinner spnCotyledonSize;
     Button btnCotyledonSize;
@@ -163,10 +164,10 @@ public class SurveyActivity extends AppCompatActivity {
     Spinner spnTrueLeafColor;
     Button btnTrueLeafColor;
     Spinner spnTrueLeafLength;
-    EditText EdtTrueLeafLength;
+    EditText edtTrueLeafLength;
     Button btnTrueLeafLength;
     Spinner spnTrueLeafWidth;
-    EditText EdtTrueLeafWidth;
+    EditText edtTrueLeafWidth;
     Button btnTrueLeafWidth;
     Box<SurveyData> surveyDataBox;
     View.OnClickListener photosClickListener = new View.OnClickListener() {
@@ -240,6 +241,7 @@ public class SurveyActivity extends AppCompatActivity {
             }
         }
     };
+    private HashMap<String, ArrayList<String>> photosInSeedling = new HashMap<>();
     private RecyclerView imgCotyledonColor;
     private SingleImageAdapter mCotyledonColorAdapter;
     private ArrayList<String> mCotyledonColorImgList = new ArrayList<>();
@@ -308,6 +310,7 @@ public class SurveyActivity extends AppCompatActivity {
     private Spinner spnLeafTexture;
     private EditText editLeafTexture;
     private Button btnLeafTexture;
+    private HashMap<String, ArrayList<String>> photosInRosette = new HashMap<>();
     private GridView imgRosettePeriod;
     private ImageAdapter mRosettePeriodAdapter;
     private ArrayList<String> mRosettePeriodImgList = new ArrayList<>();
@@ -347,7 +350,6 @@ public class SurveyActivity extends AppCompatActivity {
             }
         }
     };
-    private String token;
     View.OnClickListener helpClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -442,6 +444,7 @@ public class SurveyActivity extends AppCompatActivity {
             }
         }
     };
+    private String token;
     private int userId;
     private String nickname;
     // 图片路径
@@ -455,6 +458,8 @@ public class SurveyActivity extends AppCompatActivity {
     private Map<String, String> imgPathMap1 = new HashMap<>();
     private Map<String, String> imgPathMap2 = new HashMap<>();
     private Map<String, String> imgPathMap3 = new HashMap<>();
+
+    private static final String separator = "/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -567,6 +572,7 @@ public class SurveyActivity extends AppCompatActivity {
         btnCotyledonColor.setOnClickListener(helpClickListener);
 
         spnCotyledonCount = seedlingPeriodLayout.findViewById(R.id.cotyledon_count);
+        edtCotyledonCount = seedlingPeriodLayout.findViewById(R.id.edt_cotyledon_count);
         btnCotyledonCount = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_count);
         btnCotyledonCount.setOnClickListener(helpClickListener);
 
@@ -583,10 +589,12 @@ public class SurveyActivity extends AppCompatActivity {
         btnTrueLeafColor.setOnClickListener(helpClickListener);
 
         spnTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.true_leaf_length);
+        edtTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.edt_true_leaf_length);
         btnTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_length);
         btnTrueLeafLength.setOnClickListener(helpClickListener);
 
         spnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.true_leaf_width);
+        edtTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.edt_true_leaf_width);
         btnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_width);
         btnTrueLeafWidth.setOnClickListener(helpClickListener);
 
@@ -1076,6 +1084,7 @@ public class SurveyActivity extends AppCompatActivity {
         });
     }
 
+    // 更新页面中特定时期的数据
     private void updateUI(String surveyPeriod, SurveyInfo surveyInfo) {
         switch (surveyPeriod) {
             case SURVEY_PERIOD_GERMINATION:
@@ -1084,12 +1093,18 @@ public class SurveyActivity extends AppCompatActivity {
             case SURVEY_PERIOD_SEEDLING:
                 setSelection(spnCotyledonSize, surveyInfo.data.cotyledonSize);
                 setSelection(spnCotyledonColor, surveyInfo.data.cotyledonColor);
-                setSelection(spnCotyledonCount, surveyInfo.data.cotyledonNumber);
+                String[] dataCotyledonCount = surveyInfo.data.cotyledonNumber.split(separator);
+                setSelection(spnCotyledonCount, dataCotyledonCount[0]);
+                edtCotyledonCount.setText(dataCotyledonCount[1]);
                 setSelection(spnCotyledonShape, surveyInfo.data.cotyledonShape);
                 setSelection(spnHeartLeafColor, surveyInfo.data.colorOfHeartLeaf);
                 setSelection(spnTrueLeafColor, surveyInfo.data.trueLeafColor);
-                setSelection(spnTrueLeafLength, surveyInfo.data.trueLeafLength);
-                setSelection(spnTrueLeafWidth, surveyInfo.data.trueLeafWidth);
+                String[] dataTrueLeafLength = surveyInfo.data.trueLeafLength.split(separator);
+                setSelection(spnTrueLeafLength, dataTrueLeafLength[0]);
+                edtTrueLeafLength.setText(dataTrueLeafLength[1]);
+                String[] dataTrueLeafWidth = surveyInfo.data.trueLeafWidth.split(separator);
+                setSelection(spnTrueLeafWidth, dataTrueLeafWidth[0]);
+                edtTrueLeafWidth.setText(dataTrueLeafWidth[1]);
                 break;
             case SURVEY_PERIOD_ROSETTE:
                 setSelection(spnPlantShape, surveyInfo.data.plantType);
@@ -1272,12 +1287,12 @@ public class SurveyActivity extends AppCompatActivity {
 
         String cotyledonSize = spnCotyledonSize.getSelectedItem().toString();
         String cotyledonColor = spnCotyledonColor.getSelectedItem().toString();
-        String cotyledonCount = spnCotyledonCount.getSelectedItem().toString();
+        String cotyledonCount = spnCotyledonCount.getSelectedItem().toString() + separator + edtCotyledonCount.getText();
         String cotyledonShape = spnCotyledonShape.getSelectedItem().toString();
         String heartLeafColor = spnHeartLeafColor.getSelectedItem().toString();
         String trueLeafColor = spnTrueLeafColor.getSelectedItem().toString();
-        String trueLeafLength = spnTrueLeafLength.getSelectedItem().toString();
-        String trueLeafWidth = spnTrueLeafWidth.getSelectedItem().toString();
+        String trueLeafLength = spnTrueLeafLength.getSelectedItem().toString() + separator + edtTrueLeafLength.getText();
+        String trueLeafWidth = spnTrueLeafWidth.getSelectedItem().toString() + separator + edtTrueLeafWidth.getText();
 
         jsonObject.addProperty("cotyledonSize", cotyledonSize);
         jsonObject.addProperty("cotyledonColor", cotyledonColor);
@@ -1355,38 +1370,72 @@ public class SurveyActivity extends AppCompatActivity {
 
     // 更新上传图片
     private void uploadPics(String surveyPeriod, String surveyId) {
-        Map<String, String> imgPathMap;
+        Map<String, ArrayList<String>> imageMap;
         switch (surveyPeriod) {
             case SURVEY_PERIOD_GERMINATION:
-                imgPathMap = imgPathMap1;
+                imageMap = photosInGermination;
                 break;
             case SURVEY_PERIOD_SEEDLING:
-                imgPathMap = imgPathMap2;
+                imageMap = photosInSeedling;
                 break;
             case SURVEY_PERIOD_ROSETTE:
-                imgPathMap = imgPathMap3;
+                imageMap = photosInRosette;
                 break;
             default:
-                imgPathMap = new HashMap<>();
+                imageMap = new HashMap<>();
                 break;
         }
-        for (String specCharacter : imgPathMap.keySet()) {
-            String imgPath = imgPathMap.get(specCharacter);
-            if (TextUtils.isEmpty(imgPath)) {
+        for (String specCharacter : imageMap.keySet()) {
+            ArrayList<String> images = imageMap.get(specCharacter);
+            if (images.isEmpty()) {
                 continue;
             }
-            HttpRequest.uploadPicture(token, surveyPeriod, surveyId, specCharacter, imgPath, new HttpRequest.INormalCallback() {
-                @Override
-                public void onResponse(NormalInfo normalInfo) {
+            for (String imgPath : images) {
+                HttpRequest.uploadPicture(token, surveyPeriod, surveyId, specCharacter, imgPath, new HttpRequest.INormalCallback() {
+                    @Override
+                    public void onResponse(NormalInfo normalInfo) {
 
-                }
+                    }
 
-                @Override
-                public void onFailure() {
+                    @Override
+                    public void onFailure() {
 
-                }
-            });
+                    }
+                });
+            }
         }
+//        Map<String, String> imgPathMap;
+//        switch (surveyPeriod) {
+//            case SURVEY_PERIOD_GERMINATION:
+//                imgPathMap = imgPathMap1;
+//                break;
+//            case SURVEY_PERIOD_SEEDLING:
+//                imgPathMap = imgPathMap2;
+//                break;
+//            case SURVEY_PERIOD_ROSETTE:
+//                imgPathMap = imgPathMap3;
+//                break;
+//            default:
+//                imgPathMap = new HashMap<>();
+//                break;
+//        }
+//        for (String specCharacter : imgPathMap.keySet()) {
+//            String imgPath = imgPathMap.get(specCharacter);
+//            if (TextUtils.isEmpty(imgPath)) {
+//                continue;
+//            }
+//            HttpRequest.uploadPicture(token, surveyPeriod, surveyId, specCharacter, imgPath, new HttpRequest.INormalCallback() {
+//                @Override
+//                public void onResponse(NormalInfo normalInfo) {
+//
+//                }
+//
+//                @Override
+//                public void onFailure() {
+//
+//                }
+//            });
+//        }
 
     }
 
@@ -1478,6 +1527,7 @@ public class SurveyActivity extends AppCompatActivity {
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                 }
+                photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_color), mCotyledonColorImgList);
                 break;
             case PictureResultCode.COTYLEDON_COUNT:
                 if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
@@ -1489,6 +1539,7 @@ public class SurveyActivity extends AppCompatActivity {
                 } else {
                     refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.COTYLEDON_COUNT);
                 }
+                photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_count), mCotyledonCountImgList);
                 break;
             case PictureResultCode.COTYLEDON_SHAPE:
                 if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
@@ -1500,6 +1551,7 @@ public class SurveyActivity extends AppCompatActivity {
                 } else {
                     refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.COTYLEDON_SHAPE);
                 }
+                photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_shape), mCotyledonShapeImgList);
                 break;
             case PictureResultCode.ROSETTE_PERIOD:
                 if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
@@ -1511,6 +1563,7 @@ public class SurveyActivity extends AppCompatActivity {
                 } else {
                     refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.ROSETTE_PERIOD);
                 }
+                photosInRosette.put("common", mRosettePeriodImgList);
                 break;
 
         }
