@@ -9,13 +9,13 @@ import com.example.cabbage.network.HistoryInfo;
 
 import java.util.List;
 
-public class HistoryAdapter extends BaseQuickAdapter<HistoryInfo.data, BaseViewHolder> {
-    public HistoryAdapter(int layoutResId, List<HistoryInfo.data> data) {
+public class HistoryAdapter extends BaseQuickAdapter<HistoryInfo.data.Info, BaseViewHolder> {
+    public HistoryAdapter(int layoutResId, List<HistoryInfo.data.Info> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, HistoryInfo.data item) {
+    protected void convert(@NonNull BaseViewHolder helper, HistoryInfo.data.Info item) {
 //        helper.setText(R.id.txt_observationId, "观测Id："+item.getObservationId());
         helper.setText(R.id.txt_obsPeriod, "观测时期："+item.getObsPeriod());
         helper.setText(R.id.txt_materialType, "材料类型："+item.getMaterialType());

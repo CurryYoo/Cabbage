@@ -71,17 +71,17 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerViewHistory.setLayoutManager(linearLayoutManager);
 
-                historyAdapter = new HistoryAdapter(R.layout.item_history, historyInfo.data);
+                historyAdapter = new HistoryAdapter(R.layout.item_history, historyInfo.data.list);
                 historyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         ARouter.getInstance()
                                 .build(ARouterPaths.SURVEY_ACTIVITY)
-                                .withString("surveyId", historyInfo.data.get(position).getObservationId())
-                                .withString("materialId", historyInfo.data.get(position).getMaterialNumber())
-                                .withString("materialType", historyInfo.data.get(position).getMaterialType())
-                                .withString("plantId", historyInfo.data.get(position).getPlantNumber())
-                                .withString("surveyPeriod", historyInfo.data.get(position).getObsPeriod())
+                                .withString("surveyId", historyInfo.data.list.get(position).getObservationId())
+                                .withString("materialId", historyInfo.data.list.get(position).getMaterialNumber())
+                                .withString("materialType", historyInfo.data.list.get(position).getMaterialType())
+                                .withString("plantId", historyInfo.data.list.get(position).getPlantNumber())
+                                .withString("surveyPeriod", historyInfo.data.list.get(position).getObsPeriod())
                                 .withInt("status", STATUS_READ)
                                 .navigation();
                     }
