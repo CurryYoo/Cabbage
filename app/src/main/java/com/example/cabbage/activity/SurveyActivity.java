@@ -21,7 +21,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +59,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -72,6 +72,9 @@ import io.objectbox.Box;
 
 import static com.example.cabbage.utils.BasicUtil.watchOnlineLargePhoto;
 import static com.example.cabbage.utils.ImageUtils.getImageThumbnail;
+import static com.example.cabbage.utils.UIUtils.separator;
+import static com.example.cabbage.utils.UIUtils.setSelection;
+import static com.example.cabbage.utils.UIUtils.setSelectionAndText;
 
 @Route(path = ARouterPaths.SURVEY_ACTIVITY)
 public class SurveyActivity extends AppCompatActivity {
@@ -149,6 +152,7 @@ public class SurveyActivity extends AppCompatActivity {
     EditText editGerminationRate;
     Button btnGerminationRate;
     private HashMap<String, ArrayList<String>> photosInGermination = new HashMap<>();
+    private HashMap<String, SingleImageAdapter> adaptersInGermination = new HashMap<>();
     // 幼苗期
     Spinner spnCotyledonSize;
     Button btnCotyledonSize;
@@ -242,6 +246,7 @@ public class SurveyActivity extends AppCompatActivity {
         }
     };
     private HashMap<String, ArrayList<String>> photosInSeedling = new HashMap<>();
+    private HashMap<String, SingleImageAdapter> adaptersInSeedling = new HashMap<>();
     private RecyclerView imgCotyledonColor;
     private SingleImageAdapter mCotyledonColorAdapter;
     private ArrayList<String> mCotyledonColorImgList = new ArrayList<>();
@@ -311,6 +316,8 @@ public class SurveyActivity extends AppCompatActivity {
     private EditText editLeafTexture;
     private Button btnLeafTexture;
     private HashMap<String, ArrayList<String>> photosInRosette = new HashMap<>();
+    private HashMap<String, SingleImageAdapter> adaptersInRosette = new HashMap<>();
+//    private HashMap<String, ImageAdapter> commonAdaptersInRosette = new HashMap<>();
     private GridView imgRosettePeriod;
     private ImageAdapter mRosettePeriodAdapter;
     private ArrayList<String> mRosettePeriodImgList = new ArrayList<>();
@@ -458,8 +465,6 @@ public class SurveyActivity extends AppCompatActivity {
     private Map<String, String> imgPathMap1 = new HashMap<>();
     private Map<String, String> imgPathMap2 = new HashMap<>();
     private Map<String, String> imgPathMap3 = new HashMap<>();
-
-    private static final String separator = "/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -653,7 +658,6 @@ public class SurveyActivity extends AppCompatActivity {
         imgCotyledonShape = findViewById(R.id.img_cotyledon_shape);
         LinearLayoutManager mCotyledonShapeManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
-        imgCotyledonColor.setLayoutManager(mCotyledonColorManager);
         imgCotyledonShape.setLayoutManager(mCotyledonShapeManager);
         mCotyledonShapeAdapter = new SingleImageAdapter(context, mCotyledonShapeImgList);
         mCotyledonShapeAdapter.setOnItemClickListener(new SingleImageAdapter.OnItemClickListener() {
@@ -1037,6 +1041,17 @@ public class SurveyActivity extends AppCompatActivity {
         saveDialog.show();
     }
 
+    private void initMaps() {
+        photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_color), mCotyledonColorImgList);
+        photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_count), mCotyledonCountImgList);
+        photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_shape), mCotyledonShapeImgList);
+        adaptersInSeedling.put(context.getResources().getString(R.string.info_cotyledon_color), mCotyledonColorAdapter);
+        adaptersInSeedling.put(context.getResources().getString(R.string.info_cotyledon_count), mCotyledonCountAdapter);
+        adaptersInSeedling.put(context.getResources().getString(R.string.info_cotyledon_shape), mCotyledonShapeAdapter);
+        photosInRosette.put("common", mRosettePeriodImgList);
+
+    }
+
     // 初始化基本数据
     private void initBasicInfo(String plantId) {
         // TODO
@@ -1091,29 +1106,23 @@ public class SurveyActivity extends AppCompatActivity {
                 editGerminationRate.setText(surveyInfo.data.germinationRate);
                 break;
             case SURVEY_PERIOD_SEEDLING:
-                setSelection(spnCotyledonSize, surveyInfo.data.cotyledonSize);
+                setSelection(spnCotyledonSize, surveyInfo.data.cotyledonSize1);
                 setSelection(spnCotyledonColor, surveyInfo.data.cotyledonColor);
-                String[] dataCotyledonCount = surveyInfo.data.cotyledonNumber.split(separator);
-                setSelection(spnCotyledonCount, dataCotyledonCount[0]);
-                edtCotyledonCount.setText(dataCotyledonCount[1]);
+                setSelectionAndText(spnCotyledonCount, edtCotyledonCount, surveyInfo.data.cotyledonNumber);
                 setSelection(spnCotyledonShape, surveyInfo.data.cotyledonShape);
                 setSelection(spnHeartLeafColor, surveyInfo.data.colorOfHeartLeaf);
                 setSelection(spnTrueLeafColor, surveyInfo.data.trueLeafColor);
-                String[] dataTrueLeafLength = surveyInfo.data.trueLeafLength.split(separator);
-                setSelection(spnTrueLeafLength, dataTrueLeafLength[0]);
-                edtTrueLeafLength.setText(dataTrueLeafLength[1]);
-                String[] dataTrueLeafWidth = surveyInfo.data.trueLeafWidth.split(separator);
-                setSelection(spnTrueLeafWidth, dataTrueLeafWidth[0]);
-                edtTrueLeafWidth.setText(dataTrueLeafWidth[1]);
+                setSelectionAndText(spnTrueLeafLength, edtTrueLeafLength, surveyInfo.data.trueLeafLength1);
+                setSelectionAndText(spnTrueLeafWidth, edtTrueLeafWidth, surveyInfo.data.trueLeafWidth1);
                 break;
             case SURVEY_PERIOD_ROSETTE:
                 setSelection(spnPlantShape, surveyInfo.data.plantType);
-                setSelection(spnPlantHeight, surveyInfo.data.plantHeight);
+                setSelection(spnPlantHeight, surveyInfo.data.plantHeight1);
                 setSelection(spnDevelopmentDegree, surveyInfo.data.developmentDegree);
                 edtLeafCount.setText(surveyInfo.data.numberOfLeaves);
-                edtSoftLeafThickness.setText(surveyInfo.data.thicknessOfSoftLeaf);
-                setSelection(spnLeafLength, surveyInfo.data.bladeLength);
-                setSelection(spnLeafWidth, surveyInfo.data.bladeWidth);
+                edtSoftLeafThickness.setText(surveyInfo.data.thicknessOfSoftLeaf1);
+                setSelection(spnLeafLength, surveyInfo.data.bladeLength1);
+                setSelection(spnLeafWidth, surveyInfo.data.bladeWidth1);
                 setSelection(spnLeafShape, surveyInfo.data.leafShape);
                 setSelection(spnLeafColor, surveyInfo.data.leafColor);
                 setSelection(spnLeafLuster, surveyInfo.data.leafLuster);
@@ -1133,24 +1142,83 @@ public class SurveyActivity extends AppCompatActivity {
         }
     }
 
-    private void setSelection(Spinner spinner, String data) {
-        if (TextUtils.isEmpty(data)) {
-            return;
-        }
-        SpinnerAdapter spinnerAdapter = spinner.getAdapter();
-        for (int j = 0; j < spinnerAdapter.getCount(); j++) {
-            if (spinnerAdapter.getItem(j).toString().equals(data)) {
-                spinner.setSelection(j, true);
-            } else if (j == spinnerAdapter.getCount() - 1) {
-
-            }
-        }
-    }
+//    private void setSelection(Spinner spinner, String data) {
+//        if (TextUtils.isEmpty(data)) {
+//            return;
+//        }
+//        SpinnerAdapter spinnerAdapter = spinner.getAdapter();
+//        for (int j = 0; j < spinnerAdapter.getCount(); j++) {
+//            if (spinnerAdapter.getItem(j).toString().equals(data)) {
+//                spinner.setSelection(j, true);
+//            } else if (j == spinnerAdapter.getCount() - 1) {
+//
+//            }
+//        }
+//    }
+//
+//    private void setSelectionAndText(Spinner spinner, EditText editText, SurveyInfo surveyInfo) {
+//        String[] dataCotyledonCount = surveyInfo.data.cotyledonNumber.split(separator);
+//        setSelection(spinner, dataCotyledonCount[0]);
+//        editText.setText(dataCotyledonCount[1]);
+//    }
 
     // 初始化图片
     private void initPictures(String surveyPeriod) {
         // TODO
         // 获取图片url
+        List<String> picList = new ArrayList<>(Arrays.asList(getResources().getString(R.string.info_cotyledon_color), getResources().getString(R.string.info_cotyledon_count), getResources().getString(R.string.info_cotyledon_shape)));
+        for (String specCharacter : picList) {
+            HttpRequest.getPhoto(token, surveyId, specCharacter, new HttpRequest.IPhotoCallback() {
+
+                @Override
+                public void onResponse(PhotoInfo photoInfo) {
+                    String url = "";
+                    String surveyPeriod = "";
+                    Map<String, ArrayList<String>> imageMap;
+                    Map<String, SingleImageAdapter> adapterMap;
+                    ImageAdapter commonAdapter;
+                    switch (surveyPeriod) {
+                        case SURVEY_PERIOD_GERMINATION:
+                            imageMap = photosInGermination;
+                            adapterMap = adaptersInGermination;
+                            commonAdapter = null;
+                            break;
+                        case SURVEY_PERIOD_SEEDLING:
+                            imageMap = photosInSeedling;
+                            adapterMap = adaptersInSeedling;
+                            commonAdapter = null;
+                            break;
+                        case SURVEY_PERIOD_ROSETTE:
+                            imageMap = photosInRosette;
+                            adapterMap = adaptersInRosette;
+                            commonAdapter = mRosettePeriodAdapter;
+                            break;
+                        default:
+                            imageMap = new HashMap<>();
+                            adapterMap = new HashMap<>();
+                            commonAdapter = null;
+                            break;
+                    }
+                    if (imageMap.get(specCharacter) != null) {
+                        imageMap.get(specCharacter).add(url);
+                    }
+                    if (adapterMap.get(specCharacter) != null) {
+                        adapterMap.get(specCharacter).notifyDataSetChanged();
+                    }
+                    if (commonAdapter != null) {
+                        commonAdapter.notifyDataSetChanged();
+                    }
+
+//                    refreshAdapter();
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
+        }
+
         Map<String, ImageView> imageMap = initImageMap(surveyPeriod);
 
         for (String specCharacter : imageMap.keySet()) {
@@ -1294,14 +1362,14 @@ public class SurveyActivity extends AppCompatActivity {
         String trueLeafLength = spnTrueLeafLength.getSelectedItem().toString() + separator + edtTrueLeafLength.getText();
         String trueLeafWidth = spnTrueLeafWidth.getSelectedItem().toString() + separator + edtTrueLeafWidth.getText();
 
-        jsonObject.addProperty("cotyledonSize", cotyledonSize);
+        jsonObject.addProperty("cotyledonSize1", cotyledonSize);
         jsonObject.addProperty("cotyledonColor", cotyledonColor);
         jsonObject.addProperty("cotyledonNumber", cotyledonCount);
         jsonObject.addProperty("cotyledonShape", cotyledonShape);
         jsonObject.addProperty("colorOfHeartLeaf", heartLeafColor);
         jsonObject.addProperty("trueLeafColor", trueLeafColor);
-        jsonObject.addProperty("trueLeafLength", trueLeafLength);
-        jsonObject.addProperty("trueLeafWidth", trueLeafWidth);
+        jsonObject.addProperty("trueLeafLength1", trueLeafLength);
+        jsonObject.addProperty("trueLeafWidth1", trueLeafWidth);
 
         return jsonObject.toString();
     }
@@ -1331,31 +1399,26 @@ public class SurveyActivity extends AppCompatActivity {
         String leafCurlinessPart = spnLeafCurlinessPart.getSelectedItem().toString();
         String leafTexture = spnLeafTexture.getSelectedItem().toString();
 
-        jsonObject.addProperty("material_type", materialType);
-        jsonObject.addProperty("material_number", materialId);
-        jsonObject.addProperty("plant_number", plantId);
-        jsonObject.addProperty("investigating_time", getCurrentTime());
-        jsonObject.addProperty("investigator", nickname);
-        jsonObject.addProperty("plant_type", plantShape);
-        jsonObject.addProperty("plant_height", plantHeight);
-        jsonObject.addProperty("development_degree", developmentDegree);
-        jsonObject.addProperty("number_of_leaves", leafCount);
-        jsonObject.addProperty("thickness_of_soft_leaf", softLeafThickness);
-        jsonObject.addProperty("blade_length", leafLength);
-        jsonObject.addProperty("blade_width", leafWidth);
-        jsonObject.addProperty("leaf_shape", leafShape);
-        jsonObject.addProperty("leaf_color", leafColor);
-        jsonObject.addProperty("leaf_luster", leafLuster);
-        jsonObject.addProperty("leaf_fluff", leafFuzz);
-        jsonObject.addProperty("leaf_margin_wavy", leafMarginUndulance);
-        jsonObject.addProperty("leaf_margin_serrate", leafMarginSawtooth);
-        jsonObject.addProperty("blade_smooth", leafSmoothness);
-        jsonObject.addProperty("size_of_vesicles", leafProtuberance);
-        jsonObject.addProperty("freshness_of_leaf_vein", leafVeinLivingness);
-        jsonObject.addProperty("brightness_of_middle_rib", leafKeelLivingness);
-        jsonObject.addProperty("leaf_curl", leafCurliness);
-        jsonObject.addProperty("leaf_curl_part", leafCurlinessPart);
-        jsonObject.addProperty("leaf_texture", leafTexture);
+        jsonObject.addProperty("plantType", plantShape);
+        jsonObject.addProperty("plantHeight1", plantHeight);
+        jsonObject.addProperty("developmentDegree", developmentDegree);
+        jsonObject.addProperty("numberOfLeaves", leafCount);
+        jsonObject.addProperty("thicknessOfSoftLeaf1", softLeafThickness);
+        jsonObject.addProperty("bladeLength1", leafLength);
+        jsonObject.addProperty("bladeWidth1", leafWidth);
+        jsonObject.addProperty("leafShape", leafShape);
+        jsonObject.addProperty("leafColor", leafColor);
+        jsonObject.addProperty("leafLuster", leafLuster);
+        jsonObject.addProperty("leafFluff", leafFuzz);
+        jsonObject.addProperty("leafMarginWavy", leafMarginUndulance);
+        jsonObject.addProperty("leafMarginSerrate", leafMarginSawtooth);
+        jsonObject.addProperty("bladeSmooth", leafSmoothness);
+        jsonObject.addProperty("sizeOfVesicles", leafProtuberance);
+        jsonObject.addProperty("freshnessOfLeafVein", leafVeinLivingness);
+        jsonObject.addProperty("brightnessOfMiddleRib", leafKeelLivingness);
+        jsonObject.addProperty("leafCurl", leafCurliness);
+        jsonObject.addProperty("leafCurlPart", leafCurlinessPart);
+        jsonObject.addProperty("leafTexture", leafTexture);
 
         return jsonObject.toString();
     }
