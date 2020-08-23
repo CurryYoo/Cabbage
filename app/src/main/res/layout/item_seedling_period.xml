@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_seedling_period"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/layout_cotyledon_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -54,12 +56,36 @@
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
 
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <Button
+                    android:id="@+id/btn_add_cotyledon_size"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:background="@mipmap/ic_round_add" />
+
             </LinearLayout>
 
         </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_repeated_cotyledon_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" />
+
+    <LinearLayout
+        android:id="@+id/layout_cotyledon_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -122,10 +148,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
 
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
+                <Button
+                    android:id="@+id/btn_add_cotyledon_color"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:background="@mipmap/ic_round_add" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_repeated_cotyledon_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -205,9 +252,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
 
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <Button
+                    android:id="@+id/btn_add_cotyledon_count"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:background="@mipmap/ic_round_add" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_repeated_cotyledon_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -272,9 +341,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
 
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <Button
+                    android:id="@+id/btn_add_cotyledon_shape"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:background="@mipmap/ic_round_add" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_repeated_cotyledon_shape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -326,10 +417,30 @@
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
 
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <Button
+                    android:id="@+id/btn_add_heart_leaf_color"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:background="@mipmap/ic_round_add" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
-
+    <LinearLayout
+        android:id="@+id/layout_repeated_heart_leaf_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -380,9 +491,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
 
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <Button
+                    android:id="@+id/btn_add_true_leaf_color"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:background="@mipmap/ic_round_add" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_repeated_true_leaf_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -448,9 +581,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
 
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <Button
+                    android:id="@+id/btn_add_true_leaf_length"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:background="@mipmap/ic_round_add" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_repeated_true_leaf_length"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -516,9 +671,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/survey_help" />
 
+                <View
+                    style="@style/divider_color"
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+                <Button
+                    android:id="@+id/btn_add_true_leaf_width"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:background="@mipmap/ic_round_add" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_repeated_true_leaf_width"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical" />
 
     <LinearLayout
         android:id="@+id/layout_custom_attribute3"

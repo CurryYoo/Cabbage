@@ -3,6 +3,7 @@ package com.example.cabbage.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -11,7 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.example.cabbage.R;
 
-import butterknife.BindView;
+import java.util.Arrays;
 
 public class CustomAttributeView extends LinearLayout {
     private static final int TEXT_REMARK = 0;
@@ -22,9 +23,9 @@ public class CustomAttributeView extends LinearLayout {
     private EditText edtAttribute;
     private EditText txtAttribute;
 
-    public CustomAttributeView(Context context, int type) {
+    public CustomAttributeView(Context context, int type, String... name) {
         super(context);
-        initView(context, type);
+        initView(context, type, name);
     }
 
     public CustomAttributeView(Context context, @Nullable AttributeSet attrs) {
@@ -39,20 +40,25 @@ public class CustomAttributeView extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    private void initView(Context context, int i) {
-        btnDelete=findViewById(R.id.btn_delete);
+    private void initView(Context context, int i, String... name) {
+        btnDelete = findViewById(R.id.btn_delete);
         switch (i) {
             case TEXT_REMARK:
                 LayoutInflater.from(context).inflate(R.layout.view_remark, this, true);
                 break;
             case TEXT_ATTRIBUTE:
-                LayoutInflater.from(context).inflate(R.layout.view_attribute, this, true);
+                View view = LayoutInflater.from(context).inflate(R.layout.view_attribute, this, true);
+                if (name.length != 0) {
+                    EditText editText = view.findViewById(R.id.edt_attribute);
+                    editText.setText(name[0]);
+                }
                 break;
             default:
                 break;
         }
     }
-    private void setDeleteListener(OnClickListener onClickListener){
+
+    private void setDeleteListener(OnClickListener onClickListener) {
         btnDelete.setOnClickListener(onClickListener);
     }
 }
