@@ -72,6 +72,9 @@ dependencies {
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.4'
     implementation 'com.jaeger.ninegridimageview:library:1.1.1'
 
+    //底部弹出框
+    implementation 'me.shaohui:bottomdialog:1.1.9'
+
     // glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'

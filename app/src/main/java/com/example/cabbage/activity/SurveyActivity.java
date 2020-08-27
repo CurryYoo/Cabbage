@@ -52,6 +52,7 @@ import com.example.cabbage.utils.MainConstant;
 import com.example.cabbage.utils.PictureResultCode;
 import com.example.cabbage.utils.PictureSelectorConfig;
 import com.example.cabbage.view.CustomAttributeView;
+import com.example.cabbage.view.InfoBottomDialog;
 import com.example.cabbage.view.InfoItemBar;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.JsonObject;
@@ -284,91 +285,91 @@ public class SurveyActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_germination_rate:
-                    showHelpDialog(context.getResources().getString(R.string.info_germination_rate));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_germination_rate));
                     break;
                 case R.id.btn_cotyledon_size:
-                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_size));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_size));
                     break;
                 case R.id.btn_cotyledon_color:
-                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_color));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_color));
                     break;
                 case R.id.btn_cotyledon_count:
-                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_count));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_count));
                     break;
                 case R.id.btn_cotyledon_shape:
-                    showHelpDialog(context.getResources().getString(R.string.info_cotyledon_shape));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_shape));
                     break;
                 case R.id.btn_heart_leaf_color:
-                    showHelpDialog(context.getResources().getString(R.string.info_heart_leaf_color));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_heart_leaf_color));
                     break;
                 case R.id.btn_true_leaf_color:
-                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_color));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_true_leaf_color));
                     break;
                 case R.id.btn_true_leaf_length:
-                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_length));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_true_leaf_length));
                     break;
                 case R.id.btn_true_leaf_width:
-                    showHelpDialog(context.getResources().getString(R.string.info_true_leaf_width));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_true_leaf_width));
                     break;
                 case R.id.btn_plant_shape:
-                    showHelpDialog(context.getResources().getString(R.string.info_plant_shape));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_plant_shape));
                     break;
                 case R.id.btn_plant_height:
-                    showHelpDialog(context.getResources().getString(R.string.info_plant_height));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_plant_height));
                     break;
                 case R.id.btn_development_degree:
-                    showHelpDialog(context.getResources().getString(R.string.info_development_degree));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_development_degree));
                     break;
                 case R.id.btn_leaf_count:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_count));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_count));
                     break;
                 case R.id.btn_soft_leaf_thickness:
-                    showHelpDialog(context.getResources().getString(R.string.info_soft_leaf_thickness));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_soft_leaf_thickness));
                     break;
                 case R.id.btn_leaf_length:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_length));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_length));
                     break;
                 case R.id.btn_leaf_width:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_width));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_width));
                     break;
                 case R.id.btn_leaf_shape:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_shape));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_shape));
                     break;
                 case R.id.btn_leaf_color:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_color));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_color));
                     break;
                 case R.id.btn_leaf_luster:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_luster));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_luster));
                     break;
                 case R.id.btn_leaf_fuzz:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_fuzz));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_fuzz));
                     break;
                 case R.id.btn_leaf_margin_undulance:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_margin_undulance));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_margin_undulance));
                     break;
                 case R.id.btn_leaf_margin_sawtooth:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_margin_sawtooth));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_margin_sawtooth));
                     break;
                 case R.id.btn_leaf_smoothness:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_smoothness));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_smoothness));
                     break;
                 case R.id.btn_leaf_protuberance:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_protuberance));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_protuberance));
                     break;
                 case R.id.btn_leaf_vein_livingness:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_vein_livingness));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_vein_livingness));
                     break;
                 case R.id.btn_leaf_keel_livingness:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_keel_livingness));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_keel_livingness));
                     break;
                 case R.id.btn_leaf_curliness:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_curliness));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_curliness));
                     break;
                 case R.id.btn_leaf_curliness_part:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_curliness_part));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_curliness_part));
                     break;
                 case R.id.btn_leaf_texture:
-                    showHelpDialog(context.getResources().getString(R.string.info_leaf_texture));
+                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_texture));
                     break;
             }
         }
@@ -894,8 +895,8 @@ public class SurveyActivity extends AppCompatActivity {
 
     }
 
-    // 展示帮助对话框
-    private void showHelpDialog(String specificCharacter) {
+    //底部帮助对话框
+    private void showBottomHelpDialog(String specificCharacter) {
         // 获取数据
         HttpRequest.getMeasurementBySpecificCharacter(token, specificCharacter, new HttpRequest.IHelpCallback() {
             @Override
@@ -903,13 +904,9 @@ public class SurveyActivity extends AppCompatActivity {
                 String measurementBasis = helpInfo.data.measurementBasis;
                 String observationMethod = helpInfo.data.observationMethod;
                 String helpText = "测量标准：" + measurementBasis + "\n\n" + "观测方法：" + observationMethod;
-                // 展示对话框
-                final SweetAlertDialog sDialog = new SweetAlertDialog(context)
-                        .setTitleText(context.getResources().getString(R.string.survey_help))
-                        .setContentText(helpText);
-                sDialog.show();
-                TextView tv = sDialog.findViewById(R.id.content_text);
-                tv.setTextSize(13f);
+                InfoBottomDialog dialog = new InfoBottomDialog();
+                dialog.setTxtInfo(helpText);
+                dialog.show(getSupportFragmentManager());
             }
 
             @Override
