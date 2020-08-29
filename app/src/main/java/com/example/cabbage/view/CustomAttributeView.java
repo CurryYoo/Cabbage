@@ -1,6 +1,7 @@
 package com.example.cabbage.view;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +20,23 @@ public class CustomAttributeView extends LinearLayout {
     private static final int TEXT_ATTRIBUTE = 1;
 
     private int mType = TEXT_REMARK;
+    private String mKeyName = "";
 
     private EditText txtRemark;
     private Button btnDelete;
     private EditText edtAttribute;
     private EditText txtAttribute;
 
-    public CustomAttributeView(Context context, int type, String... name) {
+    public CustomAttributeView(Context context, int type, String keyName) {
+        super(context);
+        initView(context, type, "");
+        mKeyName = keyName;
+    }
+
+    public CustomAttributeView(Context context, int type, String name, String keyName) {
         super(context);
         initView(context, type, name);
+        mKeyName = keyName;
     }
 
     public CustomAttributeView(Context context, @Nullable AttributeSet attrs) {
@@ -42,7 +51,7 @@ public class CustomAttributeView extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    private void initView(Context context, int i, String... name) {
+    private void initView(Context context, int i, String name) {
         btnDelete = findViewById(R.id.btn_delete);
         mType = i;
         switch (mType) {
@@ -52,9 +61,9 @@ public class CustomAttributeView extends LinearLayout {
                 break;
             case TEXT_ATTRIBUTE:
                 View attributeView = LayoutInflater.from(context).inflate(R.layout.view_attribute, this, true);
-                if (name.length != 0) {
+                if (!TextUtils.isEmpty(name)) {
                     edtAttribute = attributeView.findViewById(R.id.edt_attribute);
-                    edtAttribute.setText(name[0]);
+                    edtAttribute.setText(name);
                 }
                 txtAttribute = attributeView.findViewById(R.id.txt_attribute);
                 break;
@@ -91,6 +100,10 @@ public class CustomAttributeView extends LinearLayout {
                 break;
         }
         return content;
+    }
+
+    public String getKeyName() {
+        return mKeyName;
     }
 
     private void setDeleteListener(OnClickListener onClickListener) {
