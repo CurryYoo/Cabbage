@@ -67,7 +67,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -525,7 +524,7 @@ public class SurveyActivity extends AppCompatActivity {
         btnCotyledonSize = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_size);
         btnAddCotyledonSize = seedlingPeriodLayout.findViewById(R.id.btn_add_cotyledon_size);
         layoutRepeatedCotyledonSize = seedlingPeriodLayout.findViewById(R.id.layout_repeated_cotyledon_size);
-        addRepeatedAttribute(btnAddCotyledonSize, layoutRepeatedCotyledonSize, "子叶大小", "cotyledonSize", SURVEY_PERIOD_SEEDLING);
+        addRepeatedAttributeListener(btnAddCotyledonSize, layoutRepeatedCotyledonSize, "子叶大小", "cotyledonSize", SURVEY_PERIOD_SEEDLING);
         btnCotyledonSize.setOnClickListener(helpClickListener);
 
         spnCotyledonColor = seedlingPeriodLayout.findViewById(R.id.cotyledon_color);
@@ -564,7 +563,7 @@ public class SurveyActivity extends AppCompatActivity {
         btnTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_length);
         btnAddTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.btn_add_true_leaf_length);
         layoutRepeatedTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.layout_repeated_true_leaf_length);
-        addRepeatedAttribute(btnAddTrueLeafLength, layoutRepeatedTrueLeafLength, "真叶长度", "trueLeafLength",SURVEY_PERIOD_SEEDLING);
+        addRepeatedAttributeListener(btnAddTrueLeafLength, layoutRepeatedTrueLeafLength, "真叶长度", "trueLeafLength",SURVEY_PERIOD_SEEDLING);
         btnTrueLeafLength.setOnClickListener(helpClickListener);
 
         spnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.true_leaf_width);
@@ -572,7 +571,7 @@ public class SurveyActivity extends AppCompatActivity {
         btnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_width);
         btnAddTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.btn_add_true_leaf_width);
         layoutRepeatedTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.layout_repeated_true_leaf_width);
-        addRepeatedAttribute(btnAddTrueLeafWidth, layoutRepeatedTrueLeafWidth, "真叶宽度", "trueLeafWidth",SURVEY_PERIOD_SEEDLING);
+        addRepeatedAttributeListener(btnAddTrueLeafWidth, layoutRepeatedTrueLeafWidth, "真叶宽度", "trueLeafWidth",SURVEY_PERIOD_SEEDLING);
         btnTrueLeafWidth.setOnClickListener(helpClickListener);
 
 
@@ -799,26 +798,26 @@ public class SurveyActivity extends AppCompatActivity {
         layoutCustomAttribute2 = findViewById(R.id.layout_custom_attribute2);
         btnAddRemark2 = findViewById(R.id.btn_add_remark2);
         btnAddAttribute2 = findViewById(R.id.btn_add_attribute2);
-        addExtraAttribute(btnAddAttribute2, layoutCustomAttribute2, "spare", SURVEY_PERIOD_GERMINATION);
-        addRemarkAttribute(btnAddRemark2, layoutCustomAttribute2, "spare", SURVEY_PERIOD_GERMINATION);
+        addExtraAttributeListener(btnAddAttribute2, layoutCustomAttribute2, "spare", SURVEY_PERIOD_GERMINATION);
+        addRemarkAttributeListener(btnAddRemark2, layoutCustomAttribute2, "spare", SURVEY_PERIOD_GERMINATION);
 
         //幼苗期
         layoutCustomAttribute3 = findViewById(R.id.layout_custom_attribute3);
         btnAddRemark3 = findViewById(R.id.btn_add_remark3);
         btnAddAttribute3 = findViewById(R.id.btn_add_attribute3);
-        addExtraAttribute(btnAddAttribute3, layoutCustomAttribute3, "spare", SURVEY_PERIOD_SEEDLING);
-        addRemarkAttribute(btnAddRemark3, layoutCustomAttribute3, "spare", SURVEY_PERIOD_SEEDLING);
+        addExtraAttributeListener(btnAddAttribute3, layoutCustomAttribute3, "spare", SURVEY_PERIOD_SEEDLING);
+        addRemarkAttributeListener(btnAddRemark3, layoutCustomAttribute3, "spare", SURVEY_PERIOD_SEEDLING);
 
         //莲座期
         layoutCustomAttribute4 = findViewById(R.id.layout_custom_attribute4);
         btnAddRemark4 = findViewById(R.id.btn_add_remark4);
         btnAddAttribute4 = findViewById(R.id.btn_add_attribute4);
-        addExtraAttribute(btnAddAttribute4, layoutCustomAttribute4, "spare", SURVEY_PERIOD_ROSETTE);
-        addRemarkAttribute(btnAddRemark4, layoutCustomAttribute4, "spare", SURVEY_PERIOD_ROSETTE);
+        addExtraAttributeListener(btnAddAttribute4, layoutCustomAttribute4, "spare", SURVEY_PERIOD_ROSETTE);
+        addRemarkAttributeListener(btnAddRemark4, layoutCustomAttribute4, "spare", SURVEY_PERIOD_ROSETTE);
     }
 
     //添加重复属性
-    private void addRepeatedAttribute(Button button, LinearLayout layout, String attributeName, String keyName, String surveyPeriod) {
+    private void addRepeatedAttributeListener(Button button, LinearLayout layout, String attributeName, String keyName, String surveyPeriod) {
         button.setOnClickListener(v -> {
             CustomAttributeView customAttributeView = new CustomAttributeView(context, 1, attributeName, keyName);
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
@@ -833,7 +832,7 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     //添加额外属性
-    private void addExtraAttribute(Button btnAddAttribute, LinearLayout layout, String keyName, String surveyPeriod) {
+    private void addExtraAttributeListener(Button btnAddAttribute, LinearLayout layout, String keyName, String surveyPeriod) {
         btnAddAttribute.setOnClickListener(v -> {
             CustomAttributeView customAttributeView = new CustomAttributeView(context, 1, keyName);
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
@@ -848,7 +847,7 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     //添加备注
-    private void addRemarkAttribute(Button btnAddRemark, LinearLayout layout, String keyName, String surveyPeriod) {
+    private void addRemarkAttributeListener(Button btnAddRemark, LinearLayout layout, String keyName, String surveyPeriod) {
         btnAddRemark.setOnClickListener(v -> {
             CustomAttributeView customAttributeView = new CustomAttributeView(context, 0, keyName);
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
@@ -1066,16 +1065,26 @@ public class SurveyActivity extends AppCompatActivity {
         switch (surveyPeriod) {
             case SURVEY_PERIOD_GERMINATION:
                 editGerminationRate.setText(surveyInfo.data.germinationRate);
+                updateExtraView(layoutCustomAttribute2, "预设属性", "spare", surveyInfo.data.spare1, surveyPeriod);
+                updateExtraView(layoutCustomAttribute2, "备注", "spare", surveyInfo.data.spare2, surveyPeriod);
                 break;
             case SURVEY_PERIOD_SEEDLING:
                 setSelection(spnCotyledonSize, surveyInfo.data.cotyledonSize1);
+                updateExtraView(layoutRepeatedCotyledonSize, "子叶大小", "cotyledonSize", surveyInfo.data.cotyledonSize2, surveyPeriod);
+                updateExtraView(layoutRepeatedCotyledonSize, "子叶大小", "cotyledonSize", surveyInfo.data.cotyledonSize3, surveyPeriod);
                 setSelection(spnCotyledonColor, surveyInfo.data.cotyledonColor);
                 setSelectionAndText(spnCotyledonCount, edtCotyledonCount, surveyInfo.data.cotyledonNumber);
                 setSelection(spnCotyledonShape, surveyInfo.data.cotyledonShape);
                 setSelection(spnHeartLeafColor, surveyInfo.data.colorOfHeartLeaf);
                 setSelection(spnTrueLeafColor, surveyInfo.data.trueLeafColor);
                 setSelectionAndText(spnTrueLeafLength, edtTrueLeafLength, surveyInfo.data.trueLeafLength1);
+                updateExtraView(layoutRepeatedTrueLeafLength, "真叶长度", "trueLeafLength", surveyInfo.data.trueLeafLength2, surveyPeriod);
+                updateExtraView(layoutRepeatedTrueLeafLength, "真叶长度" ,"trueLeafLength", surveyInfo.data.trueLeafLength3, surveyPeriod);
                 setSelectionAndText(spnTrueLeafWidth, edtTrueLeafWidth, surveyInfo.data.trueLeafWidth1);
+                updateExtraView(layoutRepeatedTrueLeafWidth, "真叶宽度", "trueLeafWidth", surveyInfo.data.trueLeafWidth2, surveyPeriod);
+                updateExtraView(layoutRepeatedTrueLeafWidth, "真叶宽度", "trueLeafWidth", surveyInfo.data.trueLeafWidth3, surveyPeriod);
+                updateExtraView(layoutCustomAttribute3, "预设属性", "spare", surveyInfo.data.spare1, surveyPeriod);
+                updateExtraView(layoutCustomAttribute3, "备注", "spare", surveyInfo.data.spare2, surveyPeriod);
                 break;
             case SURVEY_PERIOD_ROSETTE:
                 setSelection(spnPlantShape, surveyInfo.data.plantType);
@@ -1098,31 +1107,36 @@ public class SurveyActivity extends AppCompatActivity {
                 setSelection(spnLeafCurliness, surveyInfo.data.leafCurl);
                 setSelection(spnLeafCurlinessPart, surveyInfo.data.leafCurlPart);
                 setSelection(spnLeafTexture, surveyInfo.data.leafTexture);
+                updateExtraView(layoutCustomAttribute4, "预设属性", "spare", surveyInfo.data.spare1, surveyPeriod);
+                updateExtraView(layoutCustomAttribute4, "备注", "spare", surveyInfo.data.spare2, surveyPeriod);
                 break;
             default:
                 break;
         }
     }
 
-//    private void setSelection(Spinner spinner, String data) {
-//        if (TextUtils.isEmpty(data)) {
-//            return;
-//        }
-//        SpinnerAdapter spinnerAdapter = spinner.getAdapter();
-//        for (int j = 0; j < spinnerAdapter.getCount(); j++) {
-//            if (spinnerAdapter.getItem(j).toString().equals(data)) {
-//                spinner.setSelection(j, true);
-//            } else if (j == spinnerAdapter.getCount() - 1) {
-//
-//            }
-//        }
-//    }
-//
-//    private void setSelectionAndText(Spinner spinner, EditText editText, SurveyInfo surveyInfo) {
-//        String[] dataCotyledonCount = surveyInfo.data.cotyledonNumber.split(separator);
-//        setSelection(spinner, dataCotyledonCount[0]);
-//        editText.setText(dataCotyledonCount[1]);
-//    }
+    private void updateExtraView(LinearLayout layout, String title, String keyName, String value, String surveyPeriod) {
+        if (!TextUtils.isEmpty(value)) {
+            initAttributeView(layout, title, keyName, value, surveyPeriod);
+        }
+    }
+
+    private void initAttributeView(LinearLayout layout, String title, String keyName, String value, String surveyPeriod) {
+        CustomAttributeView customAttributeView = new CustomAttributeView(context, 1, keyName);
+        customAttributeView.setTitle(title);
+        customAttributeView.setContent(value);
+        Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
+        btnDelete.setOnClickListener(v1 -> {
+            customAttributeView.removeAllViews();
+        });
+//        btnDelete.setVisibility(View.GONE);
+        customAttributeView.hideDeleteBtn();
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        layout.addView(customAttributeView);
+        addToAttributeList(surveyPeriod, customAttributeView);
+    }
 
     // 初始化图片
     private void initPictures(String surveyPeriod) {

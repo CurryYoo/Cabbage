@@ -52,20 +52,22 @@ public class CustomAttributeView extends LinearLayout {
     }
 
     private void initView(Context context, int i, String name) {
-        btnDelete = findViewById(R.id.btn_delete);
+//        btnDelete = findViewById(R.id.btn_delete);
         mType = i;
         switch (mType) {
             case TEXT_REMARK:
                 View remarkView = LayoutInflater.from(context).inflate(R.layout.view_remark, this, true);
                 txtRemark = remarkView.findViewById(R.id.txt_remark);
+                btnDelete = remarkView.findViewById(R.id.btn_delete);
                 break;
             case TEXT_ATTRIBUTE:
                 View attributeView = LayoutInflater.from(context).inflate(R.layout.view_attribute, this, true);
+                edtAttribute = attributeView.findViewById(R.id.edt_attribute);
                 if (!TextUtils.isEmpty(name)) {
-                    edtAttribute = attributeView.findViewById(R.id.edt_attribute);
                     edtAttribute.setText(name);
                 }
                 txtAttribute = attributeView.findViewById(R.id.txt_attribute);
+                btnDelete = attributeView.findViewById(R.id.btn_delete);
                 break;
             default:
                 break;
@@ -87,6 +89,18 @@ public class CustomAttributeView extends LinearLayout {
         return title;
     }
 
+    public void setTitle(String title) {
+        switch (mType) {
+            case TEXT_REMARK:
+                break;
+            case TEXT_ATTRIBUTE:
+                edtAttribute.setText(title);
+                break;
+            default:
+                break;
+        }
+    }
+
     public String getContent() {
         String content = "";
         switch (mType) {
@@ -102,11 +116,28 @@ public class CustomAttributeView extends LinearLayout {
         return content;
     }
 
+    public void setContent(String content) {
+        switch (mType) {
+            case TEXT_REMARK:
+                txtRemark.setText(content);
+                break;
+            case TEXT_ATTRIBUTE:
+                txtAttribute.setText(content);
+                break;
+            default:
+                break;
+        }
+    }
+
     public String getKeyName() {
         return mKeyName;
     }
 
     private void setDeleteListener(OnClickListener onClickListener) {
         btnDelete.setOnClickListener(onClickListener);
+    }
+
+    public void hideDeleteBtn() {
+        btnDelete.setVisibility(View.GONE);
     }
 }

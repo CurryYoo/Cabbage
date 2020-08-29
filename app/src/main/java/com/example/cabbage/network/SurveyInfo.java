@@ -67,5 +67,7 @@ public class SurveyInfo extends NormalInfo {
         public String leafCurlPart;
         public String leafTexture;
 
+        public String spare1;
+        public String spare2;
     }
 }
