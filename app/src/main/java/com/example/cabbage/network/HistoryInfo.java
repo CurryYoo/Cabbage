@@ -35,60 +35,60 @@ public class HistoryInfo extends NormalInfo {
             public String investigatingTime;
             public String investigator;
             public String obsPeriod;
-            public int year;
-            public int season;
-            public int origin;
-            public int feature;
-            public int oddLeeds;
-            public int experiment;
+            public String year;
+            public String season;
+            public String origin;
+            public String feature;
+            public String oddLeeds;
+            public String experiment;
             public String paternal;
             public String maternal;
 
-            public int getYear() {
+            public String getYear() {
                 return year;
             }
 
-            public void setYear(int year) {
+            public void setYear(String year) {
                 this.year = year;
             }
 
-            public int getSeason() {
+            public String getSeason() {
                 return season;
             }
 
-            public void setSeason(int season) {
+            public void setSeason(String season) {
                 this.season = season;
             }
 
-            public int getOrigin() {
+            public String getOrigin() {
                 return origin;
             }
 
-            public void setOrigin(int origin) {
+            public void setOrigin(String origin) {
                 this.origin = origin;
             }
 
-            public int getFeature() {
+            public String getFeature() {
                 return feature;
             }
 
-            public void setFeature(int feature) {
+            public void setFeature(String feature) {
                 this.feature = feature;
             }
 
-            public int getOddLeeds() {
+            public String getOddLeeds() {
                 return oddLeeds;
             }
 
-            public void setOddLeeds(int oddLeeds) {
+            public void setOddLeeds(String oddLeeds) {
                 this.oddLeeds = oddLeeds;
             }
 
-            public int getExperiment() {
+            public String getExperiment() {
                 return experiment;
             }
 
-            public void setExperiment(int experiment) {
+            public void setExperiment(String experiment) {
                 this.experiment = experiment;
             }
 
