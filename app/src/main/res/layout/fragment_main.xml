@@ -7,7 +7,19 @@
     android:orientation="vertical"
     tools:context=".fragment.MainFragment">
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal">
+    <ImageButton
+        android:id="@+id/btn_paste_data"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/ic_paste"/>
+</LinearLayout>
     <com.arlib.floatingsearchview.FloatingSearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"

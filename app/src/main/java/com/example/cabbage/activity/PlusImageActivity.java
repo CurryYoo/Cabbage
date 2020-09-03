@@ -59,7 +59,7 @@ public class PlusImageActivity extends AppCompatActivity implements ViewPager.On
 
     //删除图片
     private void deletePic() {
-        //TODO 删除图片是弹出确认框确认
+        //TODO 删除图片时弹出确认框确认
 
         imgList.remove(mPosition); //从数据源移除删除的图片
         setPosition();

@@ -1,7 +1,8 @@
 package com.example.cabbage.fragment;
 
-import android.app.Dialog;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,22 +28,24 @@ import com.example.cabbage.data.DataHelper;
 import com.example.cabbage.data.MaterialSuggestion;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.MaterialInfo;
-import com.example.cabbage.network.UserInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.utils.NetworkUtils;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.example.cabbage.activity.SurveyActivity.STATUS_COPY;
 import static com.example.cabbage.activity.SurveyActivity.STATUS_NEW;
 
 public class MainFragment extends Fragment {
     @BindView(R.id.search_view)
     FloatingSearchView searchView;
+    @BindView(R.id.btn_paste_data)
+    ImageButton btnPasteData;
 
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
@@ -63,6 +67,27 @@ public class MainFragment extends Fragment {
 
         SharedPreferences sp = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         token = sp.getString("token", "");
+        btnPasteData.setOnClickListener(v -> {
+            ClipboardManager cm = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
+            Intent dataIntent = Objects.requireNonNull(cm.getPrimaryClip()).getItemAt(0).getIntent();
+            if(dataIntent != null) {
+                String surveyId = dataIntent.getStringExtra("surveyId");
+                String surveyPeriod = dataIntent.getStringExtra("surveyPeriod");
+                String materialId = dataIntent.getStringExtra("materialId");
+                String materialType = dataIntent.getStringExtra("materialType");
+                Toast.makeText(getContext(), "粘贴数据成功", Toast.LENGTH_SHORT).show();
+                ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
+                        .withString("surveyId", surveyId)
+                        .withString("surveyPeriod", surveyPeriod)
+                        .withString("materialId", materialId)
+                        .withString("materialType", materialType)
+                        .withInt("status", STATUS_COPY)
+                        .navigation();
+            }
+            else {
+                Toast.makeText(getContext(), "未检测到复制数据", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         initView();
         return view;
@@ -105,7 +130,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onBindSuggestion(View suggestionView, ImageView leftIcon, TextView textView, SearchSuggestion item, int itemPosition) {
                 if (item instanceof MaterialSuggestion) {
-                    MaterialSuggestion materialSuggestion = (MaterialSuggestion)item;
+                    MaterialSuggestion materialSuggestion = (MaterialSuggestion) item;
                     String textColor = "#000000";
                     String textLight = "#787878";
                     textView.setTextColor(Color.parseColor(textColor));

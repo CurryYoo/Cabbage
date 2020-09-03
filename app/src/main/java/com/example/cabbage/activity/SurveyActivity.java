@@ -2,8 +2,9 @@ package com.example.cabbage.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -26,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -85,6 +85,7 @@ public class SurveyActivity extends AppCompatActivity {
     public static final int STATUS_NEW = 0;    // 新建
     public static final int STATUS_READ = 1;   // 只读
     public static final int STATUS_WRITE = 2;  // 修改
+    public static final int STATUS_COPY = 3;  // 复制粘贴
     // 观测时期
     public static final String SURVEY_PERIOD_GERMINATION = "发芽期";
     public static final String SURVEY_PERIOD_SEEDLING = "幼苗期";
@@ -154,8 +155,6 @@ public class SurveyActivity extends AppCompatActivity {
     // 发芽期
     EditText editGerminationRate;
     Button btnGerminationRate;
-    private HashMap<String, ArrayList<String>> photosInGermination = new HashMap<>();
-    private HashMap<String, SingleImageAdapter> adaptersInGermination = new HashMap<>();
     // 幼苗期
     Spinner spnCotyledonSize;
     Button btnCotyledonSize;
@@ -177,6 +176,8 @@ public class SurveyActivity extends AppCompatActivity {
     EditText edtTrueLeafWidth;
     Button btnTrueLeafWidth;
     Box<SurveyData> surveyDataBox;
+    private HashMap<String, ArrayList<String>> photosInGermination = new HashMap<>();
+    private HashMap<String, SingleImageAdapter> adaptersInGermination = new HashMap<>();
     private HashMap<String, ArrayList<String>> photosInSeedling = new HashMap<>();
     private HashMap<String, SingleImageAdapter> adaptersInSeedling = new HashMap<>();
     private RecyclerView imgCotyledonColor;
@@ -266,7 +267,7 @@ public class SurveyActivity extends AppCompatActivity {
     private Button btnLeafTexture;
     private HashMap<String, ArrayList<String>> photosInRosette = new HashMap<>();
     private HashMap<String, SingleImageAdapter> adaptersInRosette = new HashMap<>();
-//    private HashMap<String, ImageAdapter> commonAdaptersInRosette = new HashMap<>();
+    //    private HashMap<String, ImageAdapter> commonAdaptersInRosette = new HashMap<>();
     private GridView imgRosettePeriod;
     private ImageAdapter mRosettePeriodAdapter;
     private ArrayList<String> mRosettePeriodImgList = new ArrayList<>();
@@ -289,21 +290,19 @@ public class SurveyActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.right_two_layout:
-                    final EditText inputServer = new EditText(context);
-                    inputServer.setFocusable(true);
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle(context.getResources().getString(R.string.dialog_title_tip)).setIcon(
-                            R.drawable.video_icon).setView(inputServer).setNegativeButton(
-                            context.getResources().getString(R.string.dialog_cancel), null);
-                    builder.setPositiveButton(getString(R.string.dialog_ok),
-                            new DialogInterface.OnClickListener() {
-
-                                public void onClick(DialogInterface dialog, int which) {
-                                    String inputName = inputServer.getText().toString();
-                                }
-                            });
-                    builder.show();
+                    if (status == STATUS_READ) {
+                        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        Intent dataIntent = new Intent();
+                        // 创建普通字符型ClipData
+                        dataIntent.putExtra("surveyId", surveyId);
+                        dataIntent.putExtra("surveyPeriod", surveyPeriod);
+                        dataIntent.putExtra("materialId", materialId);
+                        dataIntent.putExtra("materialType", materialType);
+                        ClipData mClipData1 = ClipData.newIntent("copyData", dataIntent);
+                        // 将ClipData内容放到系统剪贴板里
+                        cm.setPrimaryClip(mClipData1);
+                        Toast.makeText(getApplicationContext(), "复制数据成功", Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 default:
                     break;
@@ -437,23 +436,38 @@ public class SurveyActivity extends AppCompatActivity {
 
         initToolBar();
 
-        if (status != STATUS_NEW) {
-            initView(false);
-            initBasicInfo(plantId);
-            initData(surveyPeriod);
-            initPictures(surveyPeriod);
-        } else {
-            initView(true);
-            initBasicInfo("");
+        switch (status) {
+            case STATUS_NEW:
+                initView(true);
+                initBasicInfo("");
+                break;
+            case STATUS_READ:
+                initView(false);
+                initBasicInfo(plantId);
+                initData(surveyPeriod);
+                initPictures(surveyPeriod);
+                break;
+//            case STATUS_WRITE:
+//                break;
+            case STATUS_COPY:
+                initView(true);
+                initBasicInfo("");
+                initData(surveyPeriod);
+//                initPictures(surveyPeriod);
+                break;
+            default:
+                break;
         }
-
     }
 
     private void initToolBar() {
         titleText.setText(getText(R.string.species_data_pick));
         leftOneButton.setBackgroundResource(R.mipmap.ic_back);
         rightOneButton.setBackgroundResource(R.mipmap.ic_homepage);
-        rightTwoButton.setBackgroundResource(R.mipmap.ic_no_save);
+        if (status == STATUS_READ) {
+            rightTwoButton.setBackgroundResource(R.mipmap.ic_copy);
+            rightTwoLayout.setOnClickListener(toolBarOnClickListener);
+        }
 
         leftOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
         rightOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
@@ -461,7 +475,6 @@ public class SurveyActivity extends AppCompatActivity {
 
         leftOneLayout.setOnClickListener(toolBarOnClickListener);
         rightOneLayout.setOnClickListener(toolBarOnClickListener);
-        rightTwoLayout.setOnClickListener(toolBarOnClickListener);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             leftOneLayout.setTooltipText(getResources().getText(R.string.back_left));
@@ -563,7 +576,7 @@ public class SurveyActivity extends AppCompatActivity {
         btnTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_length);
         btnAddTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.btn_add_true_leaf_length);
         layoutRepeatedTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.layout_repeated_true_leaf_length);
-        addRepeatedAttributeListener(btnAddTrueLeafLength, layoutRepeatedTrueLeafLength, "真叶长度", "trueLeafLength",SURVEY_PERIOD_SEEDLING);
+        addRepeatedAttributeListener(btnAddTrueLeafLength, layoutRepeatedTrueLeafLength, "真叶长度", "trueLeafLength", SURVEY_PERIOD_SEEDLING);
         btnTrueLeafLength.setOnClickListener(helpClickListener);
 
         spnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.true_leaf_width);
@@ -571,7 +584,7 @@ public class SurveyActivity extends AppCompatActivity {
         btnTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_width);
         btnAddTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.btn_add_true_leaf_width);
         layoutRepeatedTrueLeafWidth = seedlingPeriodLayout.findViewById(R.id.layout_repeated_true_leaf_width);
-        addRepeatedAttributeListener(btnAddTrueLeafWidth, layoutRepeatedTrueLeafWidth, "真叶宽度", "trueLeafWidth",SURVEY_PERIOD_SEEDLING);
+        addRepeatedAttributeListener(btnAddTrueLeafWidth, layoutRepeatedTrueLeafWidth, "真叶宽度", "trueLeafWidth", SURVEY_PERIOD_SEEDLING);
         btnTrueLeafWidth.setOnClickListener(helpClickListener);
 
 
@@ -974,11 +987,7 @@ public class SurveyActivity extends AppCompatActivity {
 
     // 校验已有数据是否合法
     private boolean checkIsValid() {
-        if (TextUtils.isEmpty(editPlantId.getText())) {
-            return false;
-        } else {
-            return true;
-        }
+        return !TextUtils.isEmpty(editPlantId.getText());
     }
 
     private void showDialog(String surveyPeriod) {
@@ -1079,7 +1088,7 @@ public class SurveyActivity extends AppCompatActivity {
                 setSelection(spnTrueLeafColor, surveyInfo.data.trueLeafColor);
                 setSelectionAndText(spnTrueLeafLength, edtTrueLeafLength, surveyInfo.data.trueLeafLength1);
                 updateExtraView(layoutRepeatedTrueLeafLength, "真叶长度", "trueLeafLength", surveyInfo.data.trueLeafLength2, surveyPeriod);
-                updateExtraView(layoutRepeatedTrueLeafLength, "真叶长度" ,"trueLeafLength", surveyInfo.data.trueLeafLength3, surveyPeriod);
+                updateExtraView(layoutRepeatedTrueLeafLength, "真叶长度", "trueLeafLength", surveyInfo.data.trueLeafLength3, surveyPeriod);
                 setSelectionAndText(spnTrueLeafWidth, edtTrueLeafWidth, surveyInfo.data.trueLeafWidth1);
                 updateExtraView(layoutRepeatedTrueLeafWidth, "真叶宽度", "trueLeafWidth", surveyInfo.data.trueLeafWidth2, surveyPeriod);
                 updateExtraView(layoutRepeatedTrueLeafWidth, "真叶宽度", "trueLeafWidth", surveyInfo.data.trueLeafWidth3, surveyPeriod);
