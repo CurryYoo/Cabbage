@@ -81,6 +81,7 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
                                 .withString("materialId", historyInfo.data.list.get(position).getMaterialNumber())
                                 .withString("materialType", historyInfo.data.list.get(position).getMaterialType())
                                 .withString("plantId", historyInfo.data.list.get(position).getPlantNumber())
+                                .withString("investigatingTime", historyInfo.data.list.get(position).getInvestigatingTime())
                                 .withString("surveyPeriod", historyInfo.data.list.get(position).getObsPeriod())
                                 .withInt("status", STATUS_READ)
                                 .navigation();

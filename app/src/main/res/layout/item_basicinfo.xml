@@ -73,6 +73,26 @@
 
     <View style="@style/view_divider_style" />
 
+    <View style="@style/view_divider_style" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_basicinfo_textview"
+            android:text="调查时间" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <TextView
+            android:id="@+id/edt_investigating_time"
+            style="@style/style_item_basicinfo_edittext"
+            android:layout_width="match_parent"/>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,26 +109,6 @@
 
         <EditText
             android:id="@+id/remark"
-            style="@style/style_item_basicinfo_edittext"
-            android:layout_width="match_parent"/>
-    </LinearLayout>
-
-    <View style="@style/view_divider_style" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/style_item_basicinfo_textview"
-            android:text="调查时间" />
-
-        <View style="@style/view_vertical_divider_style" />
-
-        <EditText
-            android:id="@+id/txt_investigatingTime"
             style="@style/style_item_basicinfo_edittext"
             android:layout_width="match_parent"/>
     </LinearLayout>

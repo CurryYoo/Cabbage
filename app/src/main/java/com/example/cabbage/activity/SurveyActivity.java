@@ -36,7 +36,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bumptech.glide.Glide;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.ImageAdapter;
 import com.example.cabbage.adapter.SingleImageAdapter;
@@ -45,7 +44,6 @@ import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HelpInfo;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.NormalInfo;
-import com.example.cabbage.network.PhotoInfo;
 import com.example.cabbage.network.PhotoListInfo;
 import com.example.cabbage.network.ResultInfo;
 import com.example.cabbage.network.SurveyInfo;
@@ -74,7 +72,7 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.objectbox.Box;
 
-import static com.example.cabbage.utils.BasicUtil.watchOnlineLargePhoto;
+import static com.example.cabbage.utils.BasicUtil.showDatePickerDialog;
 import static com.example.cabbage.utils.ImageUtils.getImageThumbnail;
 import static com.example.cabbage.utils.UIUtils.setSelection;
 import static com.example.cabbage.utils.UIUtils.setSelectionAndText;
@@ -106,6 +104,8 @@ public class SurveyActivity extends AppCompatActivity {
     public String materialType = "";
     @Autowired(name = "plantId")
     public String plantId;
+    @Autowired(name = "investigatingTime")
+    public String investigatingTime;
     @Autowired
     public int status = STATUS_NEW;
     @Autowired(name = "surveyId")
@@ -140,6 +140,7 @@ public class SurveyActivity extends AppCompatActivity {
     EditText editMaterialId;
     EditText editMaterialType;
     EditText editPlantId;
+    TextView tvInvestigatingTime;
     LinearLayout layoutCustomAttribute1;
     Button btnAddAttribute1;
     Button btnAddRemark1;
@@ -500,6 +501,7 @@ public class SurveyActivity extends AppCompatActivity {
         editMaterialId = basicInfoLayout.findViewById(R.id.edt_material_id);
         editMaterialType = basicInfoLayout.findViewById(R.id.edt_material_type);
         editPlantId = basicInfoLayout.findViewById(R.id.edt_plant_id);
+        tvInvestigatingTime = basicInfoLayout.findViewById(R.id.edt_investigating_time);
 
         //发芽期View
         View germinationPeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_germination_period, null);
@@ -840,6 +842,7 @@ public class SurveyActivity extends AppCompatActivity {
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
+                removeAttribute(surveyPeriod, customAttributeView);
             });
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -855,6 +858,7 @@ public class SurveyActivity extends AppCompatActivity {
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
+                removeAttribute(surveyPeriod, customAttributeView);
             });
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -870,6 +874,7 @@ public class SurveyActivity extends AppCompatActivity {
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
+                removeAttribute(surveyPeriod, customAttributeView);
             });
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -889,6 +894,22 @@ public class SurveyActivity extends AppCompatActivity {
                 break;
             case SURVEY_PERIOD_ROSETTE:
                 mRosetteExtraList.add(customAttributeView);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void removeAttribute(String surveyPeriod, CustomAttributeView customAttributeView) {
+        switch (surveyPeriod) {
+            case SURVEY_PERIOD_GERMINATION:
+                mGerminationExtraList.remove(customAttributeView);
+                break;
+            case SURVEY_PERIOD_SEEDLING:
+                mSeedlingExtraList.remove(customAttributeView);
+                break;
+            case SURVEY_PERIOD_ROSETTE:
+                mRosetteExtraList.remove(customAttributeView);
                 break;
             default:
                 break;
@@ -1028,12 +1049,15 @@ public class SurveyActivity extends AppCompatActivity {
 
     // 初始化基本数据
     private void initBasicInfo(String plantId) {
-        // TODO
         // 展示基本信息
         commitInfo.setText(context.getResources().getString(R.string.info_nickname) + nickname);
         editMaterialId.setText(materialId);
         editMaterialType.setText(materialType);
         editPlantId.setText(plantId);
+        tvInvestigatingTime.setText(investigatingTime);
+        tvInvestigatingTime.setOnClickListener(v -> {
+            showDatePickerDialog(context, tvInvestigatingTime);
+        });
     }
 
     // 初始化本地数据库数据
@@ -1327,8 +1351,8 @@ public class SurveyActivity extends AppCompatActivity {
         jsonObject.addProperty("materialType", materialType);
         jsonObject.addProperty("materialNumber", materialId);
         jsonObject.addProperty("plantNumber", plantId);
-//        jsonObject.addProperty("investigating_time", getCurrentTime());
-//        jsonObject.addProperty("investigator", nickname);
+        jsonObject.addProperty("investigatingTime", tvInvestigatingTime.getText().toString());
+        jsonObject.addProperty("investigator", nickname);
         jsonObject.addProperty("userId", userId);
 
         return jsonObject;
