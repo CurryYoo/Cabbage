@@ -38,7 +38,7 @@ public interface GetApi {
 
     // 获取个人历史数据
     @GET("characterAnalysis/findHistoryDataByUserAndSearchCriteria")
-    Call<HistoryInfo> getHistorySurveyData(@Header("token") String token);
+    Call<HistoryInfo> getHistorySurveyData(@Header("token") String token, @Query("pageSize") int pageSize);
 
     // 获取材料数据详情
     // 根据观测id和观测时期
@@ -58,7 +58,7 @@ public interface GetApi {
     Call<PhotoListInfo> getPhotoList(@Header("token") String token, @Query("obsPeriod") String obsPeriod, @Query("specCharacter") String specCharacter, @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 
     @GET("/qiNiuContent/specCharacterPhoto")
-    Call<PhotoInfo> getPhoto(@Header("token") String token, @Query("observationId") String observationId, @Query("specCharacter") String specCharacter);
+    Call<PhotoListInfo> getPhoto(@Header("token") String token, @Query("observationId") String observationId, @Query("specCharacter") String specCharacter);
 
     // 上传图片信息
     @Multipart

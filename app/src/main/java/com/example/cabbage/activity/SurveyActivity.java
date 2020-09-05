@@ -46,6 +46,7 @@ import com.example.cabbage.network.HelpInfo;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.NormalInfo;
 import com.example.cabbage.network.PhotoInfo;
+import com.example.cabbage.network.PhotoListInfo;
 import com.example.cabbage.network.ResultInfo;
 import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.utils.ARouterPaths;
@@ -443,6 +444,7 @@ public class SurveyActivity extends AppCompatActivity {
                 break;
             case STATUS_READ:
                 initView(false);
+                initMaps();
                 initBasicInfo(plantId);
                 initData(surveyPeriod);
                 initPictures(surveyPeriod);
@@ -451,8 +453,10 @@ public class SurveyActivity extends AppCompatActivity {
 //                break;
             case STATUS_COPY:
                 initView(true);
+                initMaps();
                 initBasicInfo("");
                 initData(surveyPeriod);
+                //复制粘贴暂不支持图片
 //                initPictures(surveyPeriod);
                 break;
             default:
@@ -1151,47 +1155,51 @@ public class SurveyActivity extends AppCompatActivity {
     private void initPictures(String surveyPeriod) {
         // TODO
         // 获取图片url
-        List<String> picList = new ArrayList<>(Arrays.asList(getResources().getString(R.string.info_cotyledon_color), getResources().getString(R.string.info_cotyledon_count), getResources().getString(R.string.info_cotyledon_shape)));
+        List<String> picList = new ArrayList<>(Arrays.asList(getResources().getString(R.string.info_cotyledon_color), getResources().getString(R.string.info_cotyledon_count), getResources().getString(R.string.info_cotyledon_shape), "common"));
         for (String specCharacter : picList) {
-            HttpRequest.getPhoto(token, surveyId, specCharacter, new HttpRequest.IPhotoCallback() {
+            HttpRequest.getPhoto(token, surveyId, specCharacter, new HttpRequest.IPhotoListCallback() {
 
                 @Override
-                public void onResponse(PhotoInfo photoInfo) {
-                    String url = "";
-                    String surveyPeriod = "";
-                    Map<String, ArrayList<String>> imageMap;
-                    Map<String, SingleImageAdapter> adapterMap;
-                    ImageAdapter commonAdapter;
-                    switch (surveyPeriod) {
-                        case SURVEY_PERIOD_GERMINATION:
-                            imageMap = photosInGermination;
-                            adapterMap = adaptersInGermination;
-                            commonAdapter = null;
-                            break;
-                        case SURVEY_PERIOD_SEEDLING:
-                            imageMap = photosInSeedling;
-                            adapterMap = adaptersInSeedling;
-                            commonAdapter = null;
-                            break;
-                        case SURVEY_PERIOD_ROSETTE:
-                            imageMap = photosInRosette;
-                            adapterMap = adaptersInRosette;
-                            commonAdapter = mRosettePeriodAdapter;
-                            break;
-                        default:
-                            imageMap = new HashMap<>();
-                            adapterMap = new HashMap<>();
-                            commonAdapter = null;
-                            break;
-                    }
-                    if (imageMap.get(specCharacter) != null) {
-                        imageMap.get(specCharacter).add(url);
-                    }
-                    if (adapterMap.get(specCharacter) != null) {
-                        adapterMap.get(specCharacter).notifyDataSetChanged();
-                    }
-                    if (commonAdapter != null) {
-                        commonAdapter.notifyDataSetChanged();
+                public void onResponse(PhotoListInfo photoListInfo) {
+                    List<PhotoListInfo.data> photoList = photoListInfo.data;
+                    for(PhotoListInfo.data photo : photoList) {
+                        String url = photo.url;
+                        String surveyPeriod = photo.obsPeriod;
+
+                        Map<String, ArrayList<String>> imageMap;
+                        Map<String, SingleImageAdapter> adapterMap;
+                        ImageAdapter commonAdapter;
+                        switch (surveyPeriod) {
+                            case SURVEY_PERIOD_GERMINATION:
+                                imageMap = photosInGermination;
+                                adapterMap = adaptersInGermination;
+                                commonAdapter = null;
+                                break;
+                            case SURVEY_PERIOD_SEEDLING:
+                                imageMap = photosInSeedling;
+                                adapterMap = adaptersInSeedling;
+                                commonAdapter = null;
+                                break;
+                            case SURVEY_PERIOD_ROSETTE:
+                                imageMap = photosInRosette;
+                                adapterMap = adaptersInRosette;
+                                commonAdapter = mRosettePeriodAdapter;
+                                break;
+                            default:
+                                imageMap = new HashMap<>();
+                                adapterMap = new HashMap<>();
+                                commonAdapter = null;
+                                break;
+                        }
+                        if (imageMap.get(specCharacter) != null) {
+                            imageMap.get(specCharacter).add(url);
+                        }
+                        if (adapterMap.get(specCharacter) != null) {
+                            adapterMap.get(specCharacter).notifyDataSetChanged();
+                        }
+                        if (commonAdapter != null) {
+                            commonAdapter.notifyDataSetChanged();
+                        }
                     }
 
 //                    refreshAdapter();
@@ -1204,31 +1212,31 @@ public class SurveyActivity extends AppCompatActivity {
             });
         }
 
-        Map<String, ImageView> imageMap = initImageMap(surveyPeriod);
-
-        for (String specCharacter : imageMap.keySet()) {
-            HttpRequest.getPhoto(token, surveyId, specCharacter, new HttpRequest.IPhotoCallback() {
-                @Override
-                public void onResponse(PhotoInfo photoInfo) {
-                    String url = photoInfo.data.url;
-                    ImageView iv = imageMap.get(specCharacter);
-                    if (iv != null) {
-                        Glide.with(context).load(url).thumbnail(0.1f).into(iv);
-                        iv.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                watchOnlineLargePhoto(context, Uri.parse(url), specCharacter);
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onFailure() {
-                    Toast.makeText(context, "图片加载失败", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+//        Map<String, ImageView> imageMap = initImageMap(surveyPeriod);
+//
+//        for (String specCharacter : imageMap.keySet()) {
+//            HttpRequest.getPhoto(token, surveyId, specCharacter, new HttpRequest.IPhotoCallback() {
+//                @Override
+//                public void onResponse(PhotoInfo photoInfo) {
+//                    String url = photoInfo.data.url;
+//                    ImageView iv = imageMap.get(specCharacter);
+//                    if (iv != null) {
+//                        Glide.with(context).load(url).thumbnail(0.1f).into(iv);
+//                        iv.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                watchOnlineLargePhoto(context, Uri.parse(url), specCharacter);
+//                            }
+//                        });
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure() {
+//                    Toast.makeText(context, "图片加载失败", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
     }
 
     private Map<String, ImageView> initImageMap(String surveyPeriod) {

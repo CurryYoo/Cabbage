@@ -68,23 +68,27 @@ public class MainFragment extends Fragment {
         SharedPreferences sp = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         token = sp.getString("token", "");
         btnPasteData.setOnClickListener(v -> {
-            ClipboardManager cm = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
-            Intent dataIntent = Objects.requireNonNull(cm.getPrimaryClip()).getItemAt(0).getIntent();
-            if(dataIntent != null) {
-                String surveyId = dataIntent.getStringExtra("surveyId");
-                String surveyPeriod = dataIntent.getStringExtra("surveyPeriod");
-                String materialId = dataIntent.getStringExtra("materialId");
-                String materialType = dataIntent.getStringExtra("materialType");
-                Toast.makeText(getContext(), "粘贴数据成功", Toast.LENGTH_SHORT).show();
-                ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
-                        .withString("surveyId", surveyId)
-                        .withString("surveyPeriod", surveyPeriod)
-                        .withString("materialId", materialId)
-                        .withString("materialType", materialType)
-                        .withInt("status", STATUS_COPY)
-                        .navigation();
-            }
-            else {
+            if (getActivity() == null) { return; }
+            ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            if (cm != null && cm.getPrimaryClip() != null) {
+                Intent dataIntent = cm.getPrimaryClip().getItemAt(0).getIntent();
+                if (dataIntent != null) {
+                    String surveyId = dataIntent.getStringExtra("surveyId");
+                    String surveyPeriod = dataIntent.getStringExtra("surveyPeriod");
+                    String materialId = dataIntent.getStringExtra("materialId");
+                    String materialType = dataIntent.getStringExtra("materialType");
+                    Toast.makeText(getContext(), "粘贴数据成功", Toast.LENGTH_SHORT).show();
+                    ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
+                            .withString("surveyId", surveyId)
+                            .withString("surveyPeriod", surveyPeriod)
+                            .withString("materialId", materialId)
+                            .withString("materialType", materialType)
+                            .withInt("status", STATUS_COPY)
+                            .navigation();
+                } else {
+                    Toast.makeText(getContext(), "未检测到复制数据", Toast.LENGTH_SHORT).show();
+                }
+            } else {
                 Toast.makeText(getContext(), "未检测到复制数据", Toast.LENGTH_SHORT).show();
             }
         });
