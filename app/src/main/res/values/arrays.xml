@@ -1,117 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="colors">
-        <item>浅绿</item>
-        <item>绿</item>
-        <item>深绿</item>
-    </string-array>
-
-    <string-array name="corolla_colors" >
-        <item>白</item>
-        <item>浅红</item>
-        <item>红</item>
-        <item>红紫</item>
-        <item>紫</item>
-        <item>蓝紫</item>
-        <item>蓝</item>
-        <item>黄</item>
-    </string-array>
-
-    <string-array name="plant_flourish">
-        <item>无</item>
-        <item>少</item>
-        <item>中</item>
-        <item>多</item>
-    </string-array>
-
-    <string-array name="stem_colors">
-        <item>绿</item>
-        <item>褐</item>
-        <item>紫</item>
-        <item>深紫</item>
-        <item>局部有紫色</item>
-    </string-array>
-
-    <string-array name="natural_fecundity_arr">
-        <item>无</item>
-        <item>弱</item>
-        <item>中</item>
-        <item>强</item>
-        <item>极强</item>
-    </string-array>
-
-    <string-array name="tuber_uniformity_arr">
-        <item>整齐</item>
-        <item>中</item>
-        <item>不整齐</item>
-    </string-array>
-
-    <string-array name="potato_types">
-        <item>扁圆</item>
-        <item>圆形</item>
-        <item>卵形</item>
-        <item>倒卵</item>
-        <item>扁椭圆</item>
-        <item>椭圆</item>
-        <item>长方</item>
-        <item>长筒</item>
-        <item>棍棒</item>
-        <item>楔形</item>
-        <item>肾形</item>
-        <item>纺锤</item>
-        <item>镰刀</item>
-        <item>卷曲</item>
-        <item>掌状</item>
-        <item>手风琴</item>
-        <item>结节</item>
-    </string-array>
-
-    <string-array name="potato_skin_smoothness_arr">
-        <item>光滑</item>
-        <item>中</item>
-        <item>粗糙</item>
-    </string-array>
-
-    <string-array name="eye_arr">
-        <item>浅</item>
-        <item>中</item>
-        <item>深</item>
-    </string-array>
-
-    <string-array name="skin_colors">
-        <item>乳白</item>
-        <item>浅黄</item>
-        <item>黄</item>
-        <item>褐</item>
-        <item>浅红</item>
-        <item>红</item>
-        <item>深红</item>
-        <item>紫</item>
-        <item>深紫</item>
-        <item>锈色</item>
-        <item>红杂色</item>
-        <item>蓝紫杂色</item>
-    </string-array>
-
-    <string-array name="flesh_colors">
-        <item>白</item>
-        <item>乳白</item>
-        <item>浅黄</item>
-        <item>黄</item>
-        <item>深黄</item>
-        <item>橙</item>
-        <item>红</item>
-        <item>浅紫</item>
-        <item>紫</item>
-        <item>蓝紫</item>
-        <item>红纹或紫纹</item>
-    </string-array>
-
-
     <string-array name="size">
         <item>小</item>
         <item>中</item>
         <item>大</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="cotyledon_color">
@@ -121,6 +14,7 @@
         <item>中等绿</item>
         <item>深绿</item>
         <item>灰绿</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="cotyledon_count">
@@ -131,6 +25,7 @@
     <string-array name="cotyledon_shape">
         <item>心形</item>
         <item>圆形</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="heart_leaf_color">
@@ -142,6 +37,7 @@
         <item>深绿色</item>
         <item>灰绿色</item>
         <item>紫色</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="true_leaf_color">
@@ -153,6 +49,7 @@
         <item>深绿色</item>
         <item>灰绿色</item>
         <item>紫色</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="true_leaf_length">
@@ -169,6 +66,7 @@
         <item>直立</item>
         <item>半直立</item>
         <item>平展</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="plant_height">
@@ -203,6 +101,7 @@
         <item>倒卵</item>
         <item>长倒卵</item>
         <item>长圆</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_color">
@@ -213,12 +112,14 @@
         <item>中等绿</item>
         <item>灰绿</item>
         <item>深绿</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_luster">
         <item>弱</item>
         <item>中</item>
         <item>强</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_fuzz">
@@ -226,6 +127,7 @@
         <item>疏</item>
         <item>中</item>
         <item>密</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_margin_undulance">
@@ -233,6 +135,7 @@
         <item>小</item>
         <item>中</item>
         <item>大</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_margin_sawtooth">
@@ -240,6 +143,7 @@
         <item>钝锯（圆齿）</item>
         <item>单锯（锯齿）</item>
         <item>复锯（重齿）</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_smoothness">
@@ -248,6 +152,7 @@
         <item>多皱</item>
         <item>泡皱</item>
         <item>刺突</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_protuberance">
@@ -255,17 +160,20 @@
         <item>小</item>
         <item>中</item>
         <item>大</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_vein_livingness">
         <item>粗</item>
         <item>中</item>
         <item>细</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_keel_livingness">
         <item>不明显</item>
         <item>明显</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_curliness">
@@ -273,6 +181,7 @@
         <item>外翻</item>
         <item>拧生</item>
         <item>叶缘内卷</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_curliness_part">
@@ -280,12 +189,14 @@
         <item>叶上部</item>
         <item>叶下部</item>
         <item>叶柄</item>
+        <item>其他</item>
     </string-array>
 
     <string-array name="leaf_texture">
         <item>软</item>
         <item>硬</item>
         <item>蜡质或革质</item>
+        <item>其他</item>
     </string-array>
 
 </resources>

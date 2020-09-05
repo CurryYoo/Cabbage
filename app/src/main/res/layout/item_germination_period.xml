@@ -39,6 +39,7 @@
                     style="@style/style_item_basicinfo_edittext"
                     android:layout_width="100dp"
                     android:inputType="numberDecimal" />
+                <include layout="@layout/view_vertical_divider"/>
 
                 <Button
                     android:id="@+id/btn_germination_rate"
@@ -69,7 +70,7 @@
             android:layout_height="30dp"
             android:layout_margin="@dimen/dp_10"
             android:background="@drawable/bg_button_red"
-            android:text="添加性状"
+            android:text="@string/add_attribute"
             android:textColor="@color/white"
             android:layout_columnWeight="1"/>
 
@@ -79,7 +80,7 @@
             android:layout_height="30dp"
             android:layout_margin="@dimen/dp_10"
             android:background="@drawable/bg_button_red"
-            android:text="添加备注"
+            android:text="@string/add_remark"
             android:textColor="@color/white"
             android:layout_columnWeight="1"/>
     </GridLayout>

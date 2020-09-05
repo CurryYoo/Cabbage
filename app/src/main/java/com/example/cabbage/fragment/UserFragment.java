@@ -18,6 +18,8 @@ import com.example.cabbage.R;
 import com.example.cabbage.utils.ARouterPaths;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -38,8 +40,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     TextView txtLogout;
 
     public static UserFragment newInstance() {
-        UserFragment fragment = new UserFragment();
-        return fragment;
+        return new UserFragment();
     }
 
     private View view;
@@ -57,8 +58,8 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initView() {
-        SharedPreferences sp = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        String nickname = sp.getString("nickname", "测试账号");
+        SharedPreferences sp = Objects.requireNonNull(getContext()).getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String nickname = sp.getString("nickname", getString(R.string.user_role));
         String headImgUrl = sp.getString("headImgUrl", ""); //暂时没有数据
 
         if (!TextUtils.isEmpty(headImgUrl)) {
@@ -68,7 +69,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
             imgAvatar.setImageResource(R.mipmap.ic_user_avatar);
         }
         txtNickname.setText(nickname);
-        txtRole.setText("实验员");
+        txtRole.setText(getString(R.string.user_role));
         txtHistory.setOnClickListener(this);
         txtPw.setOnClickListener(this);
         txtLogout.setOnClickListener(this);
@@ -91,7 +92,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.txt_logout:
                 ARouter.getInstance().build(ARouterPaths.LOGIN_ACTIVITY).navigation();
-                getActivity().finish();
+                Objects.requireNonNull(getActivity()).finish();
                 break;
         }
     }

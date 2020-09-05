@@ -97,6 +97,21 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="style_user_define_edit_text">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:maxLength">20</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:hint">@string/user_define</item>
+    </style>
+
     <style name="style_item_basicinfo_calendar">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">15dp</item>
@@ -221,10 +236,11 @@
     </style>
 
     <style name="style_basic_help_btn" parent="@style/Widget.AppCompat.Button.Borderless">
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">3dp</item>
         <item name="android:layout_marginEnd">3dp</item>
+        <item name="android:text">@string/survey_help</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/primary_text</item>
         <item name="android:background">@drawable/selector_trans_button</item>
@@ -258,6 +274,18 @@
 
     <style name="divider_color_dark">
         <item name="android:background">@color/color_divider_dark</item>
+    </style>
+
+    <style name="survey_linear_layout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginStart">@dimen/dp_5</item>
+        <item name="android:layout_marginTop">@dimen/dp_2</item>
+        <item name="android:layout_marginEnd">@dimen/dp_5</item>
+        <item name="android:layout_marginBottom">@dimen/dp_2</item>
+        <item name="android:background">@drawable/bg_10_light</item>
+        <item name="android:elevation">@dimen/dp_2</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <declare-styleable name="SanJiaoView">

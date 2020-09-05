@@ -75,7 +75,7 @@ public class MainFragment extends Fragment {
                 String surveyPeriod = dataIntent.getStringExtra("surveyPeriod");
                 String materialId = dataIntent.getStringExtra("materialId");
                 String materialType = dataIntent.getStringExtra("materialType");
-                Toast.makeText(getContext(), "粘贴数据成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.paste_data_success, Toast.LENGTH_SHORT).show();
                 ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
                         .withString("surveyId", surveyId)
                         .withString("surveyPeriod", surveyPeriod)
@@ -85,7 +85,7 @@ public class MainFragment extends Fragment {
                         .navigation();
             }
             else {
-                Toast.makeText(getContext(), "未检测到复制数据", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.data_no_get, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -94,34 +94,31 @@ public class MainFragment extends Fragment {
     }
 
     private void initView() {
-        searchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
-            @Override
-            public void onSearchTextChanged(String oldQuery, String newQuery) {
-                if (!oldQuery.equals("") && newQuery.equals("")) {
-                    searchView.clearSuggestions();
-                } else {
-                    // 网络请求数据
-                    if (NetworkUtils.isNetworkConnected(getContext())) {
-                        HttpRequest.requestSearch(token, newQuery, new HttpRequest.IMaterialCallback() {
-                            @Override
-                            public void onResponse(MaterialInfo materialInfo) {
-                                searchView.hideProgress();
-                                if (materialInfo.code == 200 && materialInfo.message.equals("操作成功")) {
-                                    List<MaterialSuggestion> newSuggestion = DataHelper.toSuggestionList(materialInfo.data.list);
-                                    searchView.swapSuggestions(newSuggestion);
-                                } else {
-                                    Toast.makeText(getContext(), "查询失败", Toast.LENGTH_SHORT).show();
-                                }
+        searchView.setOnQueryChangeListener((oldQuery, newQuery) -> {
+            if (!oldQuery.equals("") && newQuery.equals("")) {
+                searchView.clearSuggestions();
+            } else {
+                // 网络请求数据
+                if (NetworkUtils.isNetworkConnected(getContext())) {
+                    HttpRequest.requestSearch(token, newQuery, new HttpRequest.IMaterialCallback() {
+                        @Override
+                        public void onResponse(MaterialInfo materialInfo) {
+                            searchView.hideProgress();
+                            if (materialInfo.code == 200 && materialInfo.message.equals(getString(R.string.option_success))) {
+                                List<MaterialSuggestion> newSuggestion = DataHelper.toSuggestionList(materialInfo.data.list);
+                                searchView.swapSuggestions(newSuggestion);
+                            } else {
+                                Toast.makeText(getContext(), R.string.query_success, Toast.LENGTH_SHORT).show();
                             }
+                        }
 
-                            @Override
-                            public void onFailure() {
-                                Toast.makeText(getContext(), "查询失败", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else {
-                        Toast.makeText(getContext(), getResources().getString(R.string.network_wrong), Toast.LENGTH_SHORT).show();
-                    }
+                        @Override
+                        public void onFailure() {
+                            Toast.makeText(getContext(), R.string.query_fail, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getContext(), getResources().getString(R.string.network_wrong), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -178,10 +175,10 @@ public class MainFragment extends Fragment {
         HttpRequest.requestSearch(token, input, new HttpRequest.IMaterialCallback() {
             @Override
             public void onResponse(MaterialInfo materialInfo) {
-                if (materialInfo.code == 200 && materialInfo.message.equals("操作成功")) {
+                if (materialInfo.code == 200 && materialInfo.message.equals(getString(R.string.query_success))) {
 
                 } else {
-                    Toast.makeText(getContext(), "查询失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.query_fail, Toast.LENGTH_SHORT).show();
                 }
             }
 

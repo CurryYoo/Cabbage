@@ -22,7 +22,7 @@
             style="@style/style_item_basicinfo_textview"
             android:layout_width="wrap_content"
             android:paddingEnd="@dimen/dp_5"
-            android:text="备注" />
+            android:text="@string/info_mark" />
 
         <View style="@style/view_vertical_divider_style" />
 
@@ -31,7 +31,6 @@
             style="@style/style_item_basicinfo_edittext"
             android:layout_width="match_parent"
             android:background="@drawable/bg_10_light" />
-
     </LinearLayout>
 
     <View style="@style/view_divider_style" />

@@ -67,7 +67,7 @@
             android:id="@+id/txt_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="采集历史"
+            android:text="@string/observation_history"
             android:paddingBottom="@dimen/dp_5"
             android:paddingTop="@dimen/dp_5"/>
         <View
@@ -79,7 +79,7 @@
             android:id="@+id/txt_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="修改密码"
+            android:text="@string/pwd_change"
             android:paddingBottom="@dimen/dp_5"
             android:paddingTop="@dimen/dp_5"/>
         <View
@@ -91,7 +91,7 @@
             android:id="@+id/txt_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="退出登录"
+            android:text="@string/log_out"
             android:paddingBottom="@dimen/dp_5"
             android:paddingTop="@dimen/dp_5"/>
         <View

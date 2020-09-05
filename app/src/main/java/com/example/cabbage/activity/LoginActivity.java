@@ -90,16 +90,16 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("token", userInfo.getToken());
                     editor.apply();
                     ARouter.getInstance().build(ARouterPaths.MAIN_ACTIVITY).navigation();
-                    Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.log_in_success), Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(context, "登录错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.log_in_fail), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure() {
-                Toast.makeText(context, "登录错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, getString(R.string.log_in_fail), Toast.LENGTH_SHORT).show();
             }
         });
     }

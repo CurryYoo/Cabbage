@@ -1,5 +1,6 @@
 package com.example.cabbage.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -114,6 +115,7 @@ public class PlusImageActivity extends AppCompatActivity implements ViewPager.On
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onPageSelected(int position) {
         mPosition = position;

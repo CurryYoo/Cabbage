@@ -33,7 +33,7 @@
             app:iconNormal="@mipmap/ic_normal_home"
             app:iconSelected="@mipmap/ic_selected_home"
             app:iconWidth="20dp"
-            app:itemText="首页"
+            app:itemText="@string/home_page"
             app:itemTextSize="8sp" />
 
         <com.chaychan.library.BottomBarItem
@@ -44,7 +44,7 @@
             app:iconNormal="@mipmap/ic_normal_user"
             app:iconSelected="@mipmap/ic_selected_user"
             app:iconWidth="20dp"
-            app:itemText="个人中心"
+            app:itemText="@string/user_page"
             app:itemTextSize="8sp" />
     </com.chaychan.library.BottomBarLayout>
 </LinearLayout>

@@ -26,32 +26,6 @@ public class SingleImageAdapter extends RecyclerView.Adapter<SingleImageHolder> 
         inflater = LayoutInflater.from(mContext);
     }
 
-//    public int getCount() {
-//        int count = mList == null ? 1 : mList.size() + 1;
-//        if (count > 4) {
-//            return mList.size();
-//        } else {
-//            return count;
-//        }
-//    }
-//
-//    public Object getItem(int position) {
-//        return mList.get(position);
-//    }
-//
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        convertView = inflater.inflate(R.layout.item_signle_image, parent, false);
-//        ImageView imageView = convertView.findViewById(R.id.imageUpload);
-//        if (position < mList.size()) {
-//            String picUrl = mList.get(position);
-//            Glide.with(mContext).load(picUrl).into(imageView);
-//        } else {
-//            imageView.setImageResource(R.mipmap.ic_default_add_img);
-//        }
-//        return convertView;
-//    }
-
-
     @NonNull
     @Override
     public SingleImageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -62,7 +36,7 @@ public class SingleImageAdapter extends RecyclerView.Adapter<SingleImageHolder> 
             String picUrl = mList.get(parent.getChildCount());
             Glide.with(mContext).load(picUrl).into(singleImageHolder.imageView);
         } else {
-            singleImageHolder.imageView.setImageResource(R.mipmap.ic_default_add_img);
+            singleImageHolder.imageView.setImageResource(R.mipmap.ic_add_photos);
         }
         return singleImageHolder;
     }
@@ -73,16 +47,11 @@ public class SingleImageAdapter extends RecyclerView.Adapter<SingleImageHolder> 
             String picUrl = mList.get(position);
             Glide.with(mContext).load(picUrl).into(holder.imageView);
         } else {
-            holder.imageView.setImageResource(R.mipmap.ic_default_add_img);
+            holder.imageView.setImageResource(R.mipmap.ic_add_photos);
         }
         // item click
         if (mOnItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mOnItemClickListener.onItemClick(holder.itemView, position);
-                }
-            });
+            holder.itemView.setOnClickListener(view -> mOnItemClickListener.onItemClick(holder.itemView, position));
         }
     }
 

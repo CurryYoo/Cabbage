@@ -24,9 +24,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="登录"
+            android:text="@string/log_in"
             android:textColor="#222222"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/tv_title_tip"
@@ -34,9 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:includeFontPadding="false"
-            android:text="输入账号密码进行登录"
+            android:text="@string/account_login"
             android:textColor="#999999"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
 
         <Space
             android:id="@+id/space_top"
@@ -50,7 +50,7 @@
             <EditText
                 android:id="@+id/et_account"
                 style="@style/EditText_Common"
-                android:hint="账号"
+                android:hint="@string/account"
                 android:maxLength="11" />
 
             <View
@@ -86,12 +86,12 @@
         <Button
             android:id="@+id/btn_login"
             style="@style/Button_Red"
-            android:text="立即登录" />
+            android:text="@string/log_in" />
 
         <Button
             android:id="@+id/btn_fast_login"
             style="@style/Button_Red"
-            android:text="一键填入测试账号"
+            android:text="@string/fill_account"
             android:layout_marginTop="20dp"/>
 
         <Space
@@ -110,9 +110,9 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:lineSpacingExtra="0dp"
-            android:text="账号注册"
+            android:text="@string/sign_up"
             android:textColor="#5b77be"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:visibility="gone"/>
     </LinearLayout>
 </FrameLayout>

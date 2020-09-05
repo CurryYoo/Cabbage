@@ -14,103 +14,12 @@
         completions."
     </string>
 
-    <!-- Toast Tip -->
-    <string name="toast_null_error">"未知错误"</string>
-    <string name="toast_bigFarm_null_error">"无试验基地信息"</string>
-    <string name="toast_farm_null_error">"无试验田信息"</string>
-    <string name="toast_shack_farm_null_error">"无棚内试验田信息"</string>
-    <string name="toast_field_null_error">"无试验田规划信息"</string>
-    <string name="toast_field_plan_null_error">"试验田尚未规划种植图"</string>
-    <string name="toast_species_null_error">"无试验品种信息"</string>
-    <string name="toast_species_click_tip">请填写品种编号</string>
-    <string name="toast_log_in">请登录账号</string>
-    <string name="toast_update_plan_complete">规划数据上传完成</string>
-    <string name="toast_update_pick_complete">采集数据上传完成</string>
-    <string name="toast_network_error">网络错误</string>
-    <string name="toast_check_network_state">请检查网络连接状态</string>
-    <string name="toast_null_plan_data">尚未规划</string>
-    <string name="toast_null_pick_data">尚未采集</string>
-    <string name="toast_start_download">开始下载</string>
-
-    <!-- saveDataActivity Toast -->
-    <string name="toast_date_error">输入日期有误，请检查</string>
-    <string name="toast_input_error">输入数据有误，请检查</string>
-    <string name="toast_save_data_complete">保存完成,请及时上传到云端</string>
-    <string name="toast_rateOfEmergenceContentParseInt">出苗率输入有误</string>
-    <string name="toast_check_data_form">请检查输入数据的格式是否正确</string>
-    <string name="toast_no_permission">应用无权限</string>
-
-<!--    system string-->
-    <string name="system_name">马铃薯育种信息管理系统</string>
-    <string name="big_farm">试验基地</string>
-    <string name="farm">试验田</string>
-    <string name="exp_type">试验类型</string>
-    <string name="type">类型</string>
-    <string name="year">年份</string>
-
-    <string name="out_shack">棚外</string>
-    <string name="in_shack">棚内</string>
-    <string name="common_farm">棚外试验田</string>
-    <string name="greenhouse_farm">棚内试验田</string>
-
-    <string name="species_id">品种编号</string>
-    <string name="block_id">试验田分块编号</string>
-    <string name="block_name">上层分块名称</string>
-
-    <string name="dialog_title_farm_image">试验田示意图</string>
-    <string name="dialog_picture_operate">双指缩放，单击退出</string>
-
-    <string name="download_data">下载云端数据</string>
-    <string name="farm_list">试验田列表</string>
-    <string name="farm_tree">试验田目录树</string>
-    <string name="search_species">搜索试验品种</string>
-    <string name="species_data">试验品种</string>
-    <string name="species_data_plan">品种规划</string>
-    <string name="species_data_pick">品种信息采集</string>
-    <string name="update_plan">上传品种规划信息</string>
-    <string name="update_pick">上传品种采集信息</string>
-    <string name="input_species_data">请输入品种编号</string>
-    <string name="download_data_warn">本地数据未上传，下载云端数据将覆盖本地数据，是否继续下载数据？</string>
-    <string name="save_data_tip">确定保存？</string>
-    <string name="upload_data_tip">确认上传数据？</string>
-
-    <string name="download_big_farm_data">下载试验基地数据</string>
-    <string name="download_farm_plan_data">下载试验田规划数据</string>
-    <string name="download_farm_data">下载试验田数据</string>
-    <string name="download_species_data">下载试验品种数据</string>
-    <string name="download_complete">下载完成</string>
-
-    <string name="farm_info_hint">试验田信息</string>
-    <string name="farm_description">备注：</string>
-
-    <string name="enter_species_plan_mode">进入品种规划</string>
-    <string name="exit_species_plan_mode">保存完成，退出品种规划</string>
-
-    <string name="album">相册</string>
-    <string name="average_branch">平均分株数</string>
-    <string name="average_height">平均株高</string>
-    <string name="calculate">计算</string>
-
-<!--    item bar string-->
-    <string name="item_bar_basic">基本信息</string>
-
-<!--    item basic info string-->
-    <string name="info_squaring_period">现蕾期</string>
-    <string name="info_colors">叶颜色</string>
-    <string name="info_growing_days">生育日数</string>
-    <string name="info_tuber_uniformity">块茎整齐度</string>
-    <string name="info_whether_to_be_included">是否入选</string>
-    <string name="info_remark">备注</string>
-    <string name="info_num_of_harvested_plants">收获株数</string>
-    <string name="info_num_of_large_and_medium_potatoes">大中薯数</string>
-
-
-<!--    app string-->
+    <!--    app common string-->
     <string name="home_page">主页</string>
     <string name="user_page">用户中心</string>
     <string name="back_left">返回</string>
     <string name="save_data">保存</string>
-    <string name="click_edit_hint">...</string>
+    <string name="click_edit_hint">…</string>
     <string name="account_log_in">账号登录</string>
     <string name="account">账号</string>
     <string name="password">密码</string>
@@ -118,16 +27,44 @@
     <string name="log_in">登 录</string>
     <string name="account_password_error">账号或密码无效</string>
     <string name="log_in_success">登录成功</string>
+    <string name="log_in_fail">登录成功</string>
+    <string name="sign_up">账号注册</string>
     <string name="network_normal">网络正常</string>
     <string name="network_wrong">网络异常</string>
     <string name="dialog_title_tip">提示</string>
     <string name="upload_data">正在上传数据…</string>
     <string name="upload_data_content">上传数据耗时较长，请勿中途退出</string>
+    <string name="pwd_old">原密码</string>
+    <string name="pwd_new">新密码</string>
+    <string name="pwd_repeat">重复密码</string>
+    <string name="pwd_change">修改密码</string>
+    <string name="pwd_no_same">两次密码不一致</string>
+    <string name="pwd_old_error">旧密码错误</string>
+    <string name="upload_data_tip">确认上传数据？</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
 
+    <string name="copy_data_success">数据复制成功</string>
+    <string name="paste_data_success">数据粘贴成功</string>
+    <string name="data_no_get">未检测到复制数据</string>
+
+    <string name="option_success">操作成功</string>
+    <string name="query_success">查询成功</string>
+    <string name="query_fail">查询失败</string>
+
+    <string name="user_role">实验员</string>
+    <string name="dialog_picture_operate">双指缩放，单击退出</string>
+
+
+    <string name="species_data_pick">调查数据采集</string>
+
+    <!--    app survey string-->
+    <string name="item_bar_basic">基本信息</string>
     <string name="info_nickname">调查人员：</string>
     <string name="info_material_id">材料编号</string>
     <string name="info_material_type">材料类型</string>
     <string name="info_plant_id">单株编号</string>
+    <string name="investigate_time">调查时间</string>
     <string name="info_mark">备注</string>
 
     <string name="title_germination_period">发芽期</string>
@@ -219,7 +156,7 @@
     <string name="info_group_sterile_degree">群体不育度</string>
     <string name="info_group_sterile_rate">群体不育株率</string>
     <string name="info_male_sterile">雄性不育</string>
-    
+
     <string name="title_seed_harvest_period">结荚与种子收获期</string>
     <string name="info_seed_pod_length">种荚长度</string>
     <string name="info_seed_pod_beak_length">种荚喙长</string>
@@ -231,7 +168,34 @@
     <string name="info_single_seed_pod_rate">单荚结籽率%</string>
     <string name="info_self_compatible">自交亲和性</string>
 
-    <string name="survey_help">测量帮助</string>
+    <string name="check_required">请检查必填项！</string>
+    <string name="survey_help">测量提示</string>
+    <string name="measure_standard">测量标准：</string>
+    <string name="measure_method">测量方法：</string>
     <string name="number_value">数值</string>
+    <string name="add_attribute">添加性状</string>
+    <string name="add_remark">添加备注</string>
+    <string name="obligate_attribute">预设属性</string>
+    <string name="user_define">自定义</string>
+
+    <!--    app history string -->
+    <string name="observation_period">观测时期：</string>
+    <string name="material_type">材料类型：</string>
+    <string name="material_number">材料编号：</string>
+    <string name="plant_number">单株编号：</string>
+    <string name="investigating_time">调查时间：</string>
+    <string name="investigator">调查人员：</string>
+
+<!--    app main page string-->
+    <string name="query_material">材料搜索…</string>
+
+    <!--    app user page string-->
+    <string name="observation_history">采集历史</string>
+    <string name="log_out">退出登录</string>
+
+    <!--    app login string-->
+    <string name="account_login">输入账号密码进行登录</string>
+    <string name="fill_account">一键填入测试账号</string>
+
 
 </resources>

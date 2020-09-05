@@ -21,7 +21,7 @@
         style="@style/style_item_basicinfo_edittext"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:hint="自定义"
+        android:hint="@string/user_define"
         android:textSize="14sp" />
 
     <Button

@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <GridView
@@ -10,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="4"
-        android:verticalSpacing="5dp"/>
+        android:verticalSpacing="5dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,36 +30,25 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/plant_shape"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/plant_shape" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_plant_shape"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_plant_shape"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -72,6 +61,7 @@
         android:layout_marginTop="4dp"
         android:gravity="center_vertical"
         android:orientation="vertical" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,48 +81,30 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/plant_height"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/plant_height" />
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+
+                <include layout="@layout/view_vertical_divider" />
+
 
                 <EditText
                     android:id="@+id/edt_plant_height"
+                    style="@style/style_item_basicinfo_edittext"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:hint="@string/number_value"/>
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                    android:hint="@string/number_value" />
+
+                <include layout="@layout/view_vertical_divider" />
+
 
                 <Button
                     android:id="@+id/btn_plant_height"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -157,48 +129,30 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/development_degree"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/development_degree" />
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+
+                <include layout="@layout/view_vertical_divider" />
+
 
                 <EditText
                     android:id="@+id/edt_development_degree"
+                    style="@style/style_item_basicinfo_edittext"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:hint="@string/number_value"/>
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                    android:hint="@string/number_value" />
+
+                <include layout="@layout/view_vertical_divider" />
+
 
                 <Button
                     android:id="@+id/btn_development_degree"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -223,16 +177,7 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <EditText
                     android:id="@+id/edt_leaf_count"
@@ -240,19 +185,12 @@
                     android:layout_width="100dp"
                     android:inputType="numberDecimal" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
 
                 <Button
                     android:id="@+id/btn_leaf_count"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn"/>
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -277,16 +215,7 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <EditText
                     android:id="@+id/edt_soft_leaf_thickness"
@@ -294,19 +223,12 @@
                     android:layout_width="100dp"
                     android:inputType="numberDecimal" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
 
                 <Button
                     android:id="@+id/btn_soft_leaf_thickness"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn"/>
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -331,48 +253,31 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_length"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_length" />
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+
+                <include layout="@layout/view_vertical_divider" />
+
 
                 <EditText
                     android:id="@+id/edt_leaf_length"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
                     style="@style/style_item_basicinfo_edittext"
-                    android:hint="@string/number_value" />
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                    android:layout_width="28dp"
+                    android:layout_height="47dp"
+                    android:hint="@string/number_value"
+                    android:inputType="number" />
+
+                <include layout="@layout/view_vertical_divider" />
+
 
                 <Button
                     android:id="@+id/btn_leaf_length"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -397,48 +302,30 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_width"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_width" />
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+
+                <include layout="@layout/view_vertical_divider" />
+
 
                 <EditText
                     android:id="@+id/edt_leaf_width"
+                    style="@style/style_item_basicinfo_edittext"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:hint="@string/number_value" />
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                    android:hint="@string/number_value"
+                    android:inputType="number" />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_width"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -463,36 +350,25 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_shape"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_shape" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_true_leaf_shaper"
+                    style="@style/style_user_define_edit_text"  />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_shape"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -517,36 +393,25 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_color"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_color" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_leaf_color"
+                    style="@style/style_user_define_edit_text"  />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_color"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -571,36 +436,25 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_luster"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_luster" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_leaf_luster"
+                    style="@style/style_user_define_edit_text"  />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_luster"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn"/>
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -625,36 +479,25 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_fuzz"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_fuzz" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_leaf_fuzz"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_fuzz"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -679,36 +522,25 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_margin_undulance"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_margin_undulance" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_leaf_margin_undulance"
+                    style="@style/style_user_define_edit_text"  />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_margin_undulance"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn"/>
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -733,16 +565,7 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_margin_sawtooth"
@@ -750,19 +573,17 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_margin_sawtooth" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_leaf_margin_sawtoothr"
+                    style="@style/style_user_define_edit_text"  />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_margin_sawtooth"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -787,36 +608,25 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_smoothness"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_smoothness" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_leaf_smoothness"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_smoothness"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -841,16 +651,7 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_protuberance"
@@ -858,19 +659,17 @@
                     android:layout_width="100dp"
                     android:entries="@array/leaf_protuberance" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_leaf_protuberance"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_protuberance"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn"/>
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -895,36 +694,25 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_vein_livingness"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_vein_livingness" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_leaf_vein_livingness"
+                    style="@style/style_user_define_edit_text"  />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_vein_livingness"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn"/>
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -949,36 +737,25 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_keel_livingness"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:entries="@array/leaf_keel_livingness" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_leaf_keel_livingness"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_keel_livingness"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -1003,36 +780,25 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_curliness"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_curliness" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_leaf_curliness"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_curliness"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn"/>
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -1057,36 +823,26 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_curliness_part"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_curliness_part" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+
+                <EditText
+                    android:id="@+id/edt_leaf_curliness_part"
+                    style="@style/style_user_define_edit_text"  />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_curliness_part"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn"/>
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -1111,40 +867,30 @@
             android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_2"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_2"
-                android:background="@drawable/bg_10_light"
-                android:elevation="@dimen/dp_2"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_texture"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_texture" />
 
-                <View
-                    style="@style/divider_color"
-                    android:layout_width="0.1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                <include layout="@layout/view_vertical_divider" />
+
+                <EditText
+                    android:id="@+id/edt_leaf_texture"
+                    style="@style/style_user_define_edit_text"  />
+
+                <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_texture"
-                    style="@style/style_basic_help_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/survey_help" />
+                    style="@style/style_basic_help_btn"/>
 
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/layout_custom_attribute4"
         android:layout_width="match_parent"
@@ -1162,21 +908,21 @@
             android:id="@+id/btn_add_attribute4"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_columnWeight="1"
             android:layout_margin="@dimen/dp_10"
             android:background="@drawable/bg_button_red"
-            android:text="添加性状"
-            android:textColor="@color/white"
-            android:layout_columnWeight="1"/>
+            android:text="@string/add_attribute"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btn_add_remark4"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_columnWeight="1"
             android:layout_margin="@dimen/dp_10"
             android:background="@drawable/bg_button_red"
-            android:text="添加备注"
-            android:textColor="@color/white"
-            android:layout_columnWeight="1"/>
+            android:text="@string/add_remark"
+            android:textColor="@color/white" />
     </GridLayout>
 
 </LinearLayout>

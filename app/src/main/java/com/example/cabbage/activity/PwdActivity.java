@@ -61,7 +61,7 @@ public class PwdActivity extends AppCompatActivity implements View.OnClickListen
 
     private void initView() {
         imgLeftOne.setImageResource(R.mipmap.ic_back);
-        txtTitle.setText("修改密码");
+        txtTitle.setText(R.string.pwd_change);
         llLeftOne.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
     }
@@ -73,7 +73,6 @@ public class PwdActivity extends AppCompatActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.btn_confirm:
-                Log.d("CheatGZ", "password" + password + "username" + username);
                 if (edtOldPwd.length() > 0 & edtNewPwd.length() > 0 & edtNewPwd2.length() > 0) {
                     if (edtOldPwd.getText().toString().equals(password)) {
                         if (edtNewPwd.getText().toString().equals(edtNewPwd2.getText().toString())) {
@@ -89,10 +88,10 @@ public class PwdActivity extends AppCompatActivity implements View.OnClickListen
                                 }
                             });
                         } else {
-                            Toast.makeText(this, "两次密码不相同", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, R.string.pwd_no_same, Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(this, "旧密码错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.pwd_old_error, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;

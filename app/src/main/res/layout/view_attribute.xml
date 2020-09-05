@@ -23,7 +23,7 @@
             style="@style/style_item_basicinfo_edittext"
             android:layout_width="wrap_content"
             android:paddingEnd="@dimen/dp_5"
-            android:text="预设属性" />
+            android:text="@string/obligate_attribute" />
 
         <View style="@style/view_vertical_divider_style" />
 

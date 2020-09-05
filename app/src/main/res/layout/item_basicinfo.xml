@@ -23,7 +23,6 @@
             android:layout_width="match_parent"
             android:focusable="false"
             android:textColor="@color/primary_text" />
-        <!--android:hint="每次提交请输入不同的数字"-->
     </LinearLayout>
 
     <View style="@style/view_divider_style" />
@@ -103,7 +102,7 @@
 
         <TextView
             style="@style/style_item_basicinfo_textview"
-            android:text="调查时间" />
+            android:text="@string/investigate_time" />
 
         <View style="@style/view_vertical_divider_style" />
 
@@ -135,7 +134,7 @@
             android:layout_height="30dp"
             android:layout_margin="@dimen/dp_10"
             android:background="@drawable/bg_button_red"
-            android:text="添加性状"
+            android:text="@string/add_attribute"
             android:textColor="@color/white"
             android:layout_columnWeight="1"/>
 
@@ -145,7 +144,7 @@
             android:layout_height="30dp"
             android:layout_margin="@dimen/dp_10"
             android:background="@drawable/bg_button_red"
-            android:text="添加备注"
+            android:text="@string/add_remark"
             android:textColor="@color/white"
             android:layout_columnWeight="1"/>
     </GridLayout>
