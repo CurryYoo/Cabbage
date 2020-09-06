@@ -140,7 +140,7 @@ public class HttpRequest {
 
     // 获取个人历史数据
     public static void getHistorySurveyData(String token, IHistoryCallback callback) {
-        getApi.getHistorySurveyData(token).enqueue(new Callback<HistoryInfo>() {
+        getApi.getHistorySurveyData(token, 100).enqueue(new Callback<HistoryInfo>() {
             @Override
             public void onResponse(Call<HistoryInfo> call, Response<HistoryInfo> response) {
                 if (response != null && response.body() != null) {
@@ -238,18 +238,18 @@ public class HttpRequest {
         });
     }
 
-    public static void getPhoto(String token, String surveyId, String specCharacter, IPhotoCallback callback) {
-        getApi.getPhoto(token, surveyId, specCharacter).enqueue(new Callback<PhotoInfo>() {
+    public static void getPhoto(String token, String surveyId, String specCharacter, IPhotoListCallback callback) {
+        getApi.getPhoto(token, surveyId, specCharacter).enqueue(new Callback<PhotoListInfo>() {
             @Override
-            public void onResponse(Call<PhotoInfo> call, Response<PhotoInfo> response) {
+            public void onResponse(Call<PhotoListInfo> call, Response<PhotoListInfo> response) {
                 if (response != null && response.body() != null) {
-                    PhotoInfo photoInfo = response.body();
+                    PhotoListInfo photoInfo = response.body();
                     callback.onResponse(photoInfo);
                 }
             }
 
             @Override
-            public void onFailure(Call<PhotoInfo> call, Throwable t) {
+            public void onFailure(Call<PhotoListInfo> call, Throwable t) {
                 t.printStackTrace();
                 callback.onFailure();
             }

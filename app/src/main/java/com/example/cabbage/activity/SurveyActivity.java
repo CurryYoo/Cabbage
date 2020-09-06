@@ -35,7 +35,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bumptech.glide.Glide;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.ImageAdapter;
 import com.example.cabbage.adapter.SingleImageAdapter;
@@ -44,7 +43,8 @@ import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HelpInfo;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.NormalInfo;
-import com.example.cabbage.network.PhotoInfo;
+import com.example.cabbage.network.PhotoListInfo;
+import com.example.cabbage.network.PhotoListInfo;
 import com.example.cabbage.network.ResultInfo;
 import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.utils.ARouterPaths;
@@ -72,7 +72,7 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.objectbox.Box;
 
-import static com.example.cabbage.utils.BasicUtil.watchOnlineLargePhoto;
+import static com.example.cabbage.utils.BasicUtil.showDatePickerDialog;
 import static com.example.cabbage.utils.ImageUtils.getImageThumbnail;
 import static com.example.cabbage.utils.UIUtils.setSelection;
 import static com.example.cabbage.utils.UIUtils.setSelectionAndText;
@@ -89,6 +89,14 @@ public class SurveyActivity extends AppCompatActivity {
     public static final String SURVEY_PERIOD_GERMINATION = "发芽期";
     public static final String SURVEY_PERIOD_SEEDLING = "幼苗期";
     public static final String SURVEY_PERIOD_ROSETTE = "莲座期";
+    // 拍照
+    private static final int TAKE_PHOTO_COTYLEDON_COLOR = 10;
+    private static final int TAKE_PHOTO_COTYLEDON_COUNT = 11;
+    private static final int TAKE_PHOTO_COTYLEDON_SHAPE = 12;
+    // 相册
+    private static final int SELECT_PHOTO_COTYLEDON_COLOR = 100;
+    private static final int SELECT_PHOTO_COTYLEDON_COUNT = 101;
+    private static final int SELECT_PHOTO_COTYLEDON_SHAPE = 102;
     private static final String separator = "/";
     @Autowired(name = "materialId")
     public String materialId = "";
@@ -96,6 +104,8 @@ public class SurveyActivity extends AppCompatActivity {
     public String materialType = "";
     @Autowired(name = "plantId")
     public String plantId;
+    @Autowired(name = "investigatingTime")
+    public String investigatingTime;
     @Autowired
     public int status = STATUS_NEW;
     @Autowired(name = "surveyId")
@@ -131,6 +141,7 @@ public class SurveyActivity extends AppCompatActivity {
     private EditText editMaterialId;
     private EditText editMaterialType;
     private EditText editPlantId;
+    TextView tvInvestigatingTime;
     //    LinearLayout layoutCustomAttribute1;
 //    Button btnAddAttribute1;
 //    Button btnAddRemark1;
@@ -424,17 +435,17 @@ public class SurveyActivity extends AppCompatActivity {
     };
     private int userId;
     private String nickname;
-//    // 图片路径
-//    private String pathCotyledonColor;
-//    private Uri imageUriCotyledonColor;
-//    private String pathCotyledonCount;
-//    private Uri imageUriCotyledonCount;
-//    private String pathCotyledonShape;
-//    private Uri imageUriCotyledonShape;
-//    private Map<String, Map<String, String>> map;
-//    private Map<String, String> imgPathMap1 = new HashMap<>();
-//    private Map<String, String> imgPathMap2 = new HashMap<>();
-//    private Map<String, String> imgPathMap3 = new HashMap<>();
+    // 图片路径
+    private String pathCotyledonColor;
+    private Uri imageUriCotyledonColor;
+    private String pathCotyledonCount;
+    private Uri imageUriCotyledonCount;
+    private String pathCotyledonShape;
+    private Uri imageUriCotyledonShape;
+    private Map<String, Map<String, String>> map;
+    private Map<String, String> imgPathMap1 = new HashMap<>();
+    private Map<String, String> imgPathMap2 = new HashMap<>();
+    private Map<String, String> imgPathMap3 = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -461,6 +472,7 @@ public class SurveyActivity extends AppCompatActivity {
                 break;
             case STATUS_READ:
                 initView(false);
+                initMaps();
                 initBasicInfo(plantId);
                 initData(surveyPeriod);
                 initPictures(surveyPeriod);
@@ -469,8 +481,10 @@ public class SurveyActivity extends AppCompatActivity {
 //                break;
             case STATUS_COPY:
                 initView(true);
+                initMaps();
                 initBasicInfo("");
                 initData(surveyPeriod);
+                //复制粘贴暂不支持图片
 //                initPictures(surveyPeriod);
                 break;
             default:
@@ -512,6 +526,7 @@ public class SurveyActivity extends AppCompatActivity {
         editMaterialId = basicInfoLayout.findViewById(R.id.edt_material_id);
         editMaterialType = basicInfoLayout.findViewById(R.id.edt_material_type);
         editPlantId = basicInfoLayout.findViewById(R.id.edt_plant_id);
+        tvInvestigatingTime = basicInfoLayout.findViewById(R.id.edt_investigating_time);
 
         //发芽期View
         View germinationPeriodLayout = LayoutInflater.from(context).inflate(R.layout.item_germination_period, null);
@@ -854,6 +869,7 @@ public class SurveyActivity extends AppCompatActivity {
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
+                removeAttribute(surveyPeriod, customAttributeView);
             });
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -869,6 +885,7 @@ public class SurveyActivity extends AppCompatActivity {
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
+                removeAttribute(surveyPeriod, customAttributeView);
             });
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -884,6 +901,7 @@ public class SurveyActivity extends AppCompatActivity {
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
+                removeAttribute(surveyPeriod, customAttributeView);
             });
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -903,6 +921,22 @@ public class SurveyActivity extends AppCompatActivity {
                 break;
             case SURVEY_PERIOD_ROSETTE:
                 mRosetteExtraList.add(customAttributeView);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void removeAttribute(String surveyPeriod, CustomAttributeView customAttributeView) {
+        switch (surveyPeriod) {
+            case SURVEY_PERIOD_GERMINATION:
+                mGerminationExtraList.remove(customAttributeView);
+                break;
+            case SURVEY_PERIOD_SEEDLING:
+                mSeedlingExtraList.remove(customAttributeView);
+                break;
+            case SURVEY_PERIOD_ROSETTE:
+                mRosetteExtraList.remove(customAttributeView);
                 break;
             default:
                 break;
@@ -1043,12 +1077,15 @@ public class SurveyActivity extends AppCompatActivity {
     // 初始化基本数据
     @SuppressLint("SetTextI18n")
     private void initBasicInfo(String plantId) {
-        // TODO
         // 展示基本信息
         commitInfo.setText(context.getResources().getString(R.string.info_nickname) + nickname);
         editMaterialId.setText(materialId);
         editMaterialType.setText(materialType);
         editPlantId.setText(plantId);
+        tvInvestigatingTime.setText(investigatingTime);
+        tvInvestigatingTime.setOnClickListener(v -> {
+            showDatePickerDialog(context, tvInvestigatingTime);
+        });
     }
 
     // 初始化本地数据库数据
@@ -1170,44 +1207,51 @@ public class SurveyActivity extends AppCompatActivity {
     private void initPictures(String surveyPeriod) {
         // TODO
         // 获取图片url
-        List<String> picList = new ArrayList<>(Arrays.asList(getResources().getString(R.string.info_cotyledon_color), getResources().getString(R.string.info_cotyledon_count), getResources().getString(R.string.info_cotyledon_shape)));
+        List<String> picList = new ArrayList<>(Arrays.asList(getResources().getString(R.string.info_cotyledon_color), getResources().getString(R.string.info_cotyledon_count), getResources().getString(R.string.info_cotyledon_shape), "common"));
         for (String specCharacter : picList) {
-            HttpRequest.getPhoto(token, surveyId, specCharacter, new HttpRequest.IPhotoCallback() {
+            HttpRequest.getPhoto(token, surveyId, specCharacter, new HttpRequest.IPhotoListCallback() {
 
                 @Override
-                public void onResponse(PhotoInfo photoInfo) {
-                    String url = "";
-                    String surveyPeriod = "";
-                    Map<String, ArrayList<String>> imageMap;
-                    Map<String, SingleImageAdapter> adapterMap;
-                    ImageAdapter commonAdapter;
-                    switch (surveyPeriod) {
-                        case SURVEY_PERIOD_GERMINATION:
-                            imageMap = photosInGermination;
-                            adapterMap = adaptersInGermination;
-                            commonAdapter = null;
-                            break;
-                        case SURVEY_PERIOD_SEEDLING:
-                            imageMap = photosInSeedling;
-                            adapterMap = adaptersInSeedling;
-                            commonAdapter = null;
-                            break;
-                        case SURVEY_PERIOD_ROSETTE:
-                            imageMap = photosInRosette;
-                            adapterMap = adaptersInRosette;
-                            commonAdapter = mRosettePeriodAdapter;
-                            break;
-                        default:
-                            imageMap = new HashMap<>();
-                            adapterMap = new HashMap<>();
-                            commonAdapter = null;
-                            break;
-                    }
-                    if (imageMap.get(specCharacter) != null) {
-                        imageMap.get(specCharacter).add(url);
-                    }
-                    if (adapterMap.get(specCharacter) != null) {
-                        adapterMap.get(specCharacter).notifyDataSetChanged();
+                public void onResponse(PhotoListInfo photoListInfo) {
+                    List<PhotoListInfo.data> photoList = photoListInfo.data;
+                    for(PhotoListInfo.data photo : photoList) {
+                        String url = photo.url;
+                        String surveyPeriod = photo.obsPeriod;
+
+                        Map<String, ArrayList<String>> imageMap;
+                        Map<String, SingleImageAdapter> adapterMap;
+                        ImageAdapter commonAdapter;
+                        switch (surveyPeriod) {
+                            case SURVEY_PERIOD_GERMINATION:
+                                imageMap = photosInGermination;
+                                adapterMap = adaptersInGermination;
+                                commonAdapter = null;
+                                break;
+                            case SURVEY_PERIOD_SEEDLING:
+                                imageMap = photosInSeedling;
+                                adapterMap = adaptersInSeedling;
+                                commonAdapter = null;
+                                break;
+                            case SURVEY_PERIOD_ROSETTE:
+                                imageMap = photosInRosette;
+                                adapterMap = adaptersInRosette;
+                                commonAdapter = mRosettePeriodAdapter;
+                                break;
+                            default:
+                                imageMap = new HashMap<>();
+                                adapterMap = new HashMap<>();
+                                commonAdapter = null;
+                                break;
+                        }
+                        if (imageMap.get(specCharacter) != null) {
+                            imageMap.get(specCharacter).add(url);
+                        }
+                        if (adapterMap.get(specCharacter) != null) {
+                            adapterMap.get(specCharacter).notifyDataSetChanged();
+                        }
+                        if (commonAdapter != null) {
+                            commonAdapter.notifyDataSetChanged();
+                        }
                     }
 
 //                    refreshAdapter();
@@ -1220,31 +1264,31 @@ public class SurveyActivity extends AppCompatActivity {
             });
         }
 
-        Map<String, ImageView> imageMap = initImageMap(surveyPeriod);
-
-        for (String specCharacter : imageMap.keySet()) {
-            HttpRequest.getPhoto(token, surveyId, specCharacter, new HttpRequest.IPhotoCallback() {
-                @Override
-                public void onResponse(PhotoInfo photoInfo) {
-                    String url = photoInfo.data.url;
-                    ImageView iv = imageMap.get(specCharacter);
-                    if (iv != null) {
-                        Glide.with(context).load(url).thumbnail(0.1f).into(iv);
-                        iv.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                watchOnlineLargePhoto(context, Uri.parse(url), specCharacter);
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onFailure() {
-                    Toast.makeText(context, "图片加载失败", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+//        Map<String, ImageView> imageMap = initImageMap(surveyPeriod);
+//
+//        for (String specCharacter : imageMap.keySet()) {
+//            HttpRequest.getPhoto(token, surveyId, specCharacter, new HttpRequest.IPhotoCallback() {
+//                @Override
+//                public void onResponse(PhotoInfo photoInfo) {
+//                    String url = photoInfo.data.url;
+//                    ImageView iv = imageMap.get(specCharacter);
+//                    if (iv != null) {
+//                        Glide.with(context).load(url).thumbnail(0.1f).into(iv);
+//                        iv.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                watchOnlineLargePhoto(context, Uri.parse(url), specCharacter);
+//                            }
+//                        });
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure() {
+//                    Toast.makeText(context, "图片加载失败", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
     }
 
     private Map<String, ImageView> initImageMap(String surveyPeriod) {
@@ -1333,8 +1377,8 @@ public class SurveyActivity extends AppCompatActivity {
         jsonObject.addProperty("materialType", materialType);
         jsonObject.addProperty("materialNumber", materialId);
         jsonObject.addProperty("plantNumber", plantId);
-//        jsonObject.addProperty("investigating_time", getCurrentTime());
-//        jsonObject.addProperty("investigator", nickname);
+        jsonObject.addProperty("investigatingTime", tvInvestigatingTime.getText().toString());
+        jsonObject.addProperty("investigator", nickname);
         jsonObject.addProperty("userId", userId);
 
         return jsonObject;
