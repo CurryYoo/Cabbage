@@ -110,6 +110,26 @@
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
         <item name="android:hint">@string/user_define</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:inputType">text</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="style_number_edit_text">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:maxLength">20</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:hint">@string/number_value</item>
+        <item name="android:inputType">number</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
 
     <style name="style_item_basicinfo_calendar">
@@ -189,17 +209,6 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">15sp</item>
         <item name="android:background">@drawable/selector_trans_button</item>
-        <item name="android:scrollbars">none</item>
-    </style>
-
-    <style name="style_basic_spinner2">
-        <item name="android:layout_height">30dp</item>
-        <item name="android:layout_marginEnd">@dimen/dp_10</item>
-        <item name="android:layout_marginStart">15dp</item>
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:background">@drawable/selector_5_button_light</item>
-        <item name="android:elevation">2dp</item>
         <item name="android:scrollbars">none</item>
     </style>
 

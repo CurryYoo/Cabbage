@@ -10,8 +10,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +45,7 @@ public class MainFragment extends Fragment {
     @BindView(R.id.search_view)
     FloatingSearchView searchView;
     @BindView(R.id.btn_paste_data)
-    ImageButton btnPasteData;
+    LinearLayout btnPasteData;
 
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
@@ -70,7 +70,7 @@ public class MainFragment extends Fragment {
         btnPasteData.setOnClickListener(v -> {
             ClipboardManager cm = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
             Intent dataIntent = Objects.requireNonNull(cm.getPrimaryClip()).getItemAt(0).getIntent();
-            if(dataIntent != null) {
+            if (dataIntent != null) {
                 String surveyId = dataIntent.getStringExtra("surveyId");
                 String surveyPeriod = dataIntent.getStringExtra("surveyPeriod");
                 String materialId = dataIntent.getStringExtra("materialId");
@@ -83,8 +83,7 @@ public class MainFragment extends Fragment {
                         .withString("materialType", materialType)
                         .withInt("status", STATUS_COPY)
                         .navigation();
-            }
-            else {
+            } else {
                 Toast.makeText(getContext(), R.string.data_no_get, Toast.LENGTH_SHORT).show();
             }
         });

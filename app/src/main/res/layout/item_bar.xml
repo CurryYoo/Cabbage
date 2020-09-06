@@ -32,7 +32,7 @@
             android:id="@+id/item_btn_submit"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="20dp"
             android:background="@mipmap/ic_no_save"/>
 
         <ImageView

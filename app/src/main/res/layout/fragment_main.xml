@@ -7,30 +7,41 @@
     android:orientation="vertical"
     tools:context=".fragment.MainFragment">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginTop="10dp"
-    android:orientation="horizontal">
-    <ImageButton
+    <LinearLayout
         android:id="@+id/btn_paste_data"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@mipmap/ic_paste"/>
-</LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_margin="12dp"
+        android:elevation="3dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/selector_5_button_light"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/ic_paste"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/paste" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@string/copy_paste_and_create"/>
+    </LinearLayout>
+
     <com.arlib.floatingsearchview.FloatingSearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+        app:floatingSearch_dismissOnOutsideTouch="true"
+
+        app:floatingSearch_hideOverflowMenuWhenFocused="true"
         app:floatingSearch_leftActionMode="showSearch"
-        
         app:floatingSearch_searchHint="@string/query_material"
         app:floatingSearch_showOverFlowMenu="true"
-        app:floatingSearch_hideOverflowMenuWhenFocused="true"
-        app:floatingSearch_showSearchKey="false"
-        app:floatingSearch_dismissOnOutsideTouch="true" />
+        app:floatingSearch_showSearchKey="false" />
 
 </LinearLayout>

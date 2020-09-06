@@ -186,7 +186,10 @@
     <string name="investigating_time">调查时间：</string>
     <string name="investigator">调查人员：</string>
 
-<!--    app main page string-->
+    <!--    app main page string-->
+    <string name="copy">复制</string>
+    <string name="paste">粘贴</string>
+    <string name="copy_paste_and_create">使用历史数据创建新调查数据</string>
     <string name="query_material">材料搜索…</string>
 
     <!--    app user page string-->
@@ -196,6 +199,4 @@
     <!--    app login string-->
     <string name="account_login">输入账号密码进行登录</string>
     <string name="fill_account">一键填入测试账号</string>
-
-
 </resources>

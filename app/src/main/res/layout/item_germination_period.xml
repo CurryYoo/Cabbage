@@ -37,7 +37,7 @@
                 <EditText
                     android:id="@+id/edt_germination_rate"
                     style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:inputType="numberDecimal" />
                 <include layout="@layout/view_vertical_divider"/>
 

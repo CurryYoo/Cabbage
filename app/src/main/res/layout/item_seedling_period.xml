@@ -39,7 +39,7 @@
                 <EditText
                     android:id="@+id/edt_cotyledon_size"
                     style="@style/style_user_define_edit_text"
-                    android:hint="@string/user_define" />
+                    android:hint="@string/user_define"/>
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -182,13 +182,9 @@
 
                 <EditText
                     android:id="@+id/edt_cotyledon_count"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:hint="@string/number_value" />
+                    style="@style/style_number_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
-
 
                 <Button
                     android:id="@+id/btn_cotyledon_count"
@@ -324,8 +320,6 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
-
                 <Button
                     android:id="@+id/btn_heart_leaf_color"
                     style="@style/style_basic_help_btn" />
@@ -449,11 +443,7 @@
 
                 <EditText
                     android:id="@+id/edt_true_leaf_length"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:hint="@string/number_value"
-                    android:inputType="number" />
+                    style="@style/style_number_edit_text"/>
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -517,11 +507,7 @@
 
                 <EditText
                     android:id="@+id/edt_true_leaf_width"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:hint="@string/number_value"
-                    android:inputType="number" />
+                    style="@style/style_number_edit_text"/>
 
                 <include layout="@layout/view_vertical_divider" />
 

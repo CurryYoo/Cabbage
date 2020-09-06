@@ -94,10 +94,7 @@
 
                 <EditText
                     android:id="@+id/edt_plant_height"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:hint="@string/number_value" />
+                    style="@style/style_number_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -142,10 +139,7 @@
 
                 <EditText
                     android:id="@+id/edt_development_degree"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:hint="@string/number_value" />
+                    style="@style/style_number_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -182,7 +176,7 @@
                 <EditText
                     android:id="@+id/edt_leaf_count"
                     style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:inputType="numberDecimal" />
 
                 <include layout="@layout/view_vertical_divider" />
@@ -190,7 +184,7 @@
 
                 <Button
                     android:id="@+id/btn_leaf_count"
-                    style="@style/style_basic_help_btn"/>
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -220,7 +214,7 @@
                 <EditText
                     android:id="@+id/edt_soft_leaf_thickness"
                     style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:inputType="numberDecimal" />
 
                 <include layout="@layout/view_vertical_divider" />
@@ -228,7 +222,7 @@
 
                 <Button
                     android:id="@+id/btn_soft_leaf_thickness"
-                    style="@style/style_basic_help_btn"/>
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -266,11 +260,7 @@
 
                 <EditText
                     android:id="@+id/edt_leaf_length"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="28dp"
-                    android:layout_height="47dp"
-                    android:hint="@string/number_value"
-                    android:inputType="number" />
+                    style="@style/style_number_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -315,11 +305,7 @@
 
                 <EditText
                     android:id="@+id/edt_leaf_width"
-                    style="@style/style_item_basicinfo_edittext"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:hint="@string/number_value"
-                    android:inputType="number" />
+                    style="@style/style_number_edit_text"/>
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -361,8 +347,8 @@
                 <include layout="@layout/view_vertical_divider" />
 
                 <EditText
-                    android:id="@+id/edt_true_leaf_shaper"
-                    style="@style/style_user_define_edit_text"  />
+                    android:id="@+id/edt_leaf_shape"
+                    style="@style/style_user_define_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -405,7 +391,7 @@
 
                 <EditText
                     android:id="@+id/edt_leaf_color"
-                    style="@style/style_user_define_edit_text"  />
+                    style="@style/style_user_define_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -448,13 +434,13 @@
 
                 <EditText
                     android:id="@+id/edt_leaf_luster"
-                    style="@style/style_user_define_edit_text"  />
+                    style="@style/style_user_define_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_luster"
-                    style="@style/style_basic_help_btn"/>
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -534,13 +520,13 @@
 
                 <EditText
                     android:id="@+id/edt_leaf_margin_undulance"
-                    style="@style/style_user_define_edit_text"  />
+                    style="@style/style_user_define_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_margin_undulance"
-                    style="@style/style_basic_help_btn"/>
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -570,14 +556,14 @@
                 <Spinner
                     android:id="@+id/leaf_margin_sawtooth"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_margin_sawtooth" />
 
                 <include layout="@layout/view_vertical_divider" />
 
                 <EditText
-                    android:id="@+id/edt_leaf_margin_sawtoothr"
-                    style="@style/style_user_define_edit_text"  />
+                    android:id="@+id/edt_leaf_margin_sawtooth"
+                    style="@style/style_user_define_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -656,7 +642,7 @@
                 <Spinner
                     android:id="@+id/leaf_protuberance"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_protuberance" />
 
                 <include layout="@layout/view_vertical_divider" />
@@ -669,7 +655,7 @@
 
                 <Button
                     android:id="@+id/btn_leaf_protuberance"
-                    style="@style/style_basic_help_btn"/>
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -706,13 +692,13 @@
 
                 <EditText
                     android:id="@+id/edt_leaf_vein_livingness"
-                    style="@style/style_user_define_edit_text"  />
+                    style="@style/style_user_define_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_vein_livingness"
-                    style="@style/style_basic_help_btn"/>
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -742,7 +728,7 @@
                 <Spinner
                     android:id="@+id/leaf_keel_livingness"
                     style="@style/style_basic_spinner1"
-                    android:layout_width="80dp"
+                    android:layout_width="60dp"
                     android:entries="@array/leaf_keel_livingness" />
 
                 <include layout="@layout/view_vertical_divider" />
@@ -798,7 +784,7 @@
 
                 <Button
                     android:id="@+id/btn_leaf_curliness"
-                    style="@style/style_basic_help_btn"/>
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -836,13 +822,13 @@
 
                 <EditText
                     android:id="@+id/edt_leaf_curliness_part"
-                    style="@style/style_user_define_edit_text"  />
+                    style="@style/style_user_define_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_curliness_part"
-                    style="@style/style_basic_help_btn"/>
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -879,13 +865,13 @@
 
                 <EditText
                     android:id="@+id/edt_leaf_texture"
-                    style="@style/style_user_define_edit_text"  />
+                    style="@style/style_user_define_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_leaf_texture"
-                    style="@style/style_basic_help_btn"/>
+                    style="@style/style_basic_help_btn" />
 
             </LinearLayout>
         </HorizontalScrollView>

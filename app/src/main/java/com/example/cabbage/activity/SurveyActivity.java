@@ -35,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.ImageAdapter;
 import com.example.cabbage.adapter.SingleImageAdapter;
@@ -165,7 +166,6 @@ public class SurveyActivity extends AppCompatActivity {
     private Spinner spnCotyledonColor;
     private Button btnCotyledonColor;
     private Spinner spnCotyledonCount;
-    private EditText edtCotyledonCount;
     private Button btnCotyledonCount;
     private Spinner spnCotyledonShape;
     private Button btnCotyledonShape;
@@ -174,11 +174,14 @@ public class SurveyActivity extends AppCompatActivity {
     private Spinner spnTrueLeafColor;
     private Button btnTrueLeafColor;
     private Spinner spnTrueLeafLength;
-    private EditText edtTrueLeafLength;
     private Button btnTrueLeafLength;
     private Spinner spnTrueLeafWidth;
-    private EditText edtTrueLeafWidth;
     private Button btnTrueLeafWidth;
+
+    //幼苗期数值
+    private EditText edtCotyledonCount;
+    private EditText edtTrueLeafLength;
+    private EditText edtTrueLeafWidth;
 
     //幼苗期自定义属性
     private EditText edtCotyledonSize;
@@ -220,72 +223,58 @@ public class SurveyActivity extends AppCompatActivity {
     private Button btnAddTrueLeafWidth;
     // 莲座期
     private Spinner spnPlantShape;
-    private EditText editPlantShape;
     private Button btnPlantShape;
     private Spinner spnPlantHeight;
-    private EditText editPlantHeight;
     private Button btnPlantHeight;
     private Spinner spnDevelopmentDegree;
-    private EditText editDevelopmentDegree;
     private Button btnDevelopmentDegree;
     private EditText edtLeafCount;
     private Button btnLeafCount;
     private EditText edtSoftLeafThickness;
     private Button btnSoftLeafThickness;
     private Spinner spnLeafLength;
-    private EditText editLeafLength;
     private Button btnLeafLength;
     private Spinner spnLeafWidth;
-    private EditText editLeafWidth;
     private Button btnLeafWidth;
     private Spinner spnLeafShape;
-    private EditText editLeafShape;
     private Button btnLeafShape;
     private Spinner spnLeafColor;
-    private EditText editLeafColor;
     private Button btnLeafColor;
     private Spinner spnLeafLuster;
-    private EditText editLeafLuster;
     private Button btnLeafLuster;
     private Spinner spnLeafFuzz;
-    private EditText editLeafFuzz;
     private Button btnLeafFuzz;
     private Spinner spnLeafMarginUndulance;
-    private EditText editLeafMarginUndulance;
     private Button btnLeafMarginUndulance;
     private Spinner spnLeafMarginSawtooth;
-    private EditText editLeafMarginSawtooth;
     private Button btnLeafMarginSawtooth;
     private Spinner spnLeafSmoothness;
-    private EditText editLeafSmoothness;
     private Button btnLeafSmoothness;
     private Spinner spnLeafProtuberance;
-    private EditText editLeafProtuberance;
     private Button btnLeafProtuberance;
     private Spinner spnLeafVeinLivingness;
-    private EditText editLeafVeinLivingness;
     private Button btnLeafVeinLivingness;
     private Spinner spnLeafKeelLivingness;
-    private EditText editLeafKeelLivingness;
     private Button btnLeafKeelLivingness;
     private Spinner spnLeafCurliness;
-    private EditText editLeafCurliness;
     private Button btnLeafCurliness;
     private Spinner spnLeafCurlinessPart;
-    private EditText editLeafCurlinessPart;
     private Button btnLeafCurlinessPart;
     private Spinner spnLeafTexture;
-    private EditText editLeafTexture;
     private Button btnLeafTexture;
-
+    //莲座期数值
+    private EditText edtPlantHeight;
+    private EditText edtDevelopmentDegree;
+    private EditText edtLeafLength;
+    private EditText edtLeafWidth;
     //莲座期自定义属性
     private EditText edtPlantShape;
-    private EditText edtTrueLeafShaper;
+    private EditText edtLeafShape;
     private EditText edtLeafColor;
     private EditText edtLeafLuster;
     private EditText edtLeafFuzz;
     private EditText edtLeafMarginUndulance;
-    private EditText edtLeafMarginSawtoothr;
+    private EditText edtLeafMarginSawtooth;
     private EditText edtLeafSmoothness;
     private EditText edtLeafProtuberance;
     private EditText edtLeafVeinLivingness;
@@ -293,19 +282,90 @@ public class SurveyActivity extends AppCompatActivity {
     private EditText edtLeafCurliness;
     private EditText edtLeafCurlinessPart;
     private EditText edtLeafTexture;
+    //spinner选择监听，选择其他是，显示自定义填空
+    Spinner.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            switch (parent.getId()) {
+                //幼苗期
+                case R.id.cotyledon_size:
+                    setVisibilityOfUserDefined(position, 3, edtCotyledonSize);
+                    break;
+                case R.id.cotyledon_color:
+                    setVisibilityOfUserDefined(position, 6, edtCotyledonColor);
+                    break;
+                case R.id.cotyledon_shape:
+                    setVisibilityOfUserDefined(position, 2, edtCotyledonShape);
+                    break;
+                case R.id.heart_leaf_color:
+                    setVisibilityOfUserDefined(position, 8, edtHeartLeafColor);
+                    break;
+                case R.id.true_leaf_color:
+                    setVisibilityOfUserDefined(position, 8, edtTrueLeafColor);
+                    break;
+                //莲座期自定义
+                case R.id.plant_shape:
+                    setVisibilityOfUserDefined(position, 3, edtPlantShape);
+                    break;
+                case R.id.leaf_shape:
+                    setVisibilityOfUserDefined(position, 5, edtLeafShape);
+                    break;
+                case R.id.leaf_color:
+                    setVisibilityOfUserDefined(position, 7, edtLeafColor);
+                    break;
+                case R.id.leaf_luster:
+                    setVisibilityOfUserDefined(position, 3, edtLeafLuster);
+                    break;
+                case R.id.leaf_fuzz:
+                    setVisibilityOfUserDefined(position, 4, edtLeafFuzz);
+                    break;
+                case R.id.leaf_margin_undulance:
+                    setVisibilityOfUserDefined(position, 4, edtLeafMarginUndulance);
+                    break;
+                case R.id.leaf_margin_sawtooth:
+                    setVisibilityOfUserDefined(position, 4, edtLeafMarginSawtooth);
+                    break;
+                case R.id.leaf_smoothness:
+                    setVisibilityOfUserDefined(position, 5, edtLeafSmoothness);
+                    break;
+                case R.id.leaf_protuberance:
+                    setVisibilityOfUserDefined(position, 4, edtLeafProtuberance);
+                    break;
+                case R.id.leaf_vein_livingness:
+                    setVisibilityOfUserDefined(position, 3, edtLeafVeinLivingness);
+                    break;
+                case R.id.leaf_keel_livingness:
+                    setVisibilityOfUserDefined(position, 2, edtLeafKeelLivingness);
+                    break;
+                case R.id.leaf_curliness:
+                    setVisibilityOfUserDefined(position, 4, edtLeafCurliness);
+                    break;
+                case R.id.leaf_curliness_part:
+                    setVisibilityOfUserDefined(position, 4, edtLeafCurlinessPart);
+                    break;
+                case R.id.leaf_texture:
+                    setVisibilityOfUserDefined(position, 3, edtLeafTexture);
+                    break;
+                default:
+                    break;
+            }
+        }
 
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
     private HashMap<String, ArrayList<String>> photosInRosette = new HashMap<>();
     private HashMap<String, SingleImageAdapter> adaptersInRosette = new HashMap<>();
     //    private HashMap<String, ImageAdapter> commonAdaptersInRosette = new HashMap<>();
     private GridView imgRosettePeriod;
     private ImageAdapter mRosettePeriodAdapter;
     private ArrayList<String> mRosettePeriodImgList = new ArrayList<>();
-
     private List<CustomAttributeView> customAttributeViewList = new ArrayList<>();
     private List<CustomAttributeView> mGerminationExtraList = new ArrayList<>();
     private List<CustomAttributeView> mSeedlingExtraList = new ArrayList<>();
     private List<CustomAttributeView> mRosetteExtraList = new ArrayList<>();
-
     private Context context = this;
     View.OnClickListener toolBarOnClickListener = new View.OnClickListener() {
         @Override
@@ -339,98 +399,95 @@ public class SurveyActivity extends AppCompatActivity {
         }
     };
     private String token;
-    View.OnClickListener helpClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_germination_rate:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_germination_rate));
-                    break;
-                case R.id.btn_cotyledon_size:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_size));
-                    break;
-                case R.id.btn_cotyledon_color:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_color));
-                    break;
-                case R.id.btn_cotyledon_count:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_count));
-                    break;
-                case R.id.btn_cotyledon_shape:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_shape));
-                    break;
-                case R.id.btn_heart_leaf_color:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_heart_leaf_color));
-                    break;
-                case R.id.btn_true_leaf_color:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_true_leaf_color));
-                    break;
-                case R.id.btn_true_leaf_length:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_true_leaf_length));
-                    break;
-                case R.id.btn_true_leaf_width:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_true_leaf_width));
-                    break;
-                case R.id.btn_plant_shape:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_plant_shape));
-                    break;
-                case R.id.btn_plant_height:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_plant_height));
-                    break;
-                case R.id.btn_development_degree:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_development_degree));
-                    break;
-                case R.id.btn_leaf_count:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_count));
-                    break;
-                case R.id.btn_soft_leaf_thickness:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_soft_leaf_thickness));
-                    break;
-                case R.id.btn_leaf_length:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_length));
-                    break;
-                case R.id.btn_leaf_width:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_width));
-                    break;
-                case R.id.btn_leaf_shape:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_shape));
-                    break;
-                case R.id.btn_leaf_color:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_color));
-                    break;
-                case R.id.btn_leaf_luster:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_luster));
-                    break;
-                case R.id.btn_leaf_fuzz:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_fuzz));
-                    break;
-                case R.id.btn_leaf_margin_undulance:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_margin_undulance));
-                    break;
-                case R.id.btn_leaf_margin_sawtooth:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_margin_sawtooth));
-                    break;
-                case R.id.btn_leaf_smoothness:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_smoothness));
-                    break;
-                case R.id.btn_leaf_protuberance:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_protuberance));
-                    break;
-                case R.id.btn_leaf_vein_livingness:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_vein_livingness));
-                    break;
-                case R.id.btn_leaf_keel_livingness:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_keel_livingness));
-                    break;
-                case R.id.btn_leaf_curliness:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_curliness));
-                    break;
-                case R.id.btn_leaf_curliness_part:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_curliness_part));
-                    break;
-                case R.id.btn_leaf_texture:
-                    showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_texture));
-                    break;
-            }
+    View.OnClickListener helpClickListener = v -> {
+        switch (v.getId()) {
+            case R.id.btn_germination_rate:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_germination_rate));
+                break;
+            case R.id.btn_cotyledon_size:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_size));
+                break;
+            case R.id.btn_cotyledon_color:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_color));
+                break;
+            case R.id.btn_cotyledon_count:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_count));
+                break;
+            case R.id.btn_cotyledon_shape:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_cotyledon_shape));
+                break;
+            case R.id.btn_heart_leaf_color:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_heart_leaf_color));
+                break;
+            case R.id.btn_true_leaf_color:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_true_leaf_color));
+                break;
+            case R.id.btn_true_leaf_length:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_true_leaf_length));
+                break;
+            case R.id.btn_true_leaf_width:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_true_leaf_width));
+                break;
+            case R.id.btn_plant_shape:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_plant_shape));
+                break;
+            case R.id.btn_plant_height:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_plant_height));
+                break;
+            case R.id.btn_development_degree:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_development_degree));
+                break;
+            case R.id.btn_leaf_count:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_count));
+                break;
+            case R.id.btn_soft_leaf_thickness:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_soft_leaf_thickness));
+                break;
+            case R.id.btn_leaf_length:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_length));
+                break;
+            case R.id.btn_leaf_width:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_width));
+                break;
+            case R.id.btn_leaf_shape:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_shape));
+                break;
+            case R.id.btn_leaf_color:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_color));
+                break;
+            case R.id.btn_leaf_luster:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_luster));
+                break;
+            case R.id.btn_leaf_fuzz:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_fuzz));
+                break;
+            case R.id.btn_leaf_margin_undulance:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_margin_undulance));
+                break;
+            case R.id.btn_leaf_margin_sawtooth:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_margin_sawtooth));
+                break;
+            case R.id.btn_leaf_smoothness:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_smoothness));
+                break;
+            case R.id.btn_leaf_protuberance:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_protuberance));
+                break;
+            case R.id.btn_leaf_vein_livingness:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_vein_livingness));
+                break;
+            case R.id.btn_leaf_keel_livingness:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_keel_livingness));
+                break;
+            case R.id.btn_leaf_curliness:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_curliness));
+                break;
+            case R.id.btn_leaf_curliness_part:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_curliness_part));
+                break;
+            case R.id.btn_leaf_texture:
+                showBottomHelpDialog(context.getResources().getString(R.string.info_leaf_texture));
+                break;
         }
     };
     private int userId;
@@ -499,11 +556,11 @@ public class SurveyActivity extends AppCompatActivity {
         if (status == STATUS_READ) {
             rightTwoButton.setBackgroundResource(R.mipmap.ic_copy);
             rightTwoLayout.setOnClickListener(toolBarOnClickListener);
+            rightTwoLayout.setBackgroundResource(R.drawable.selector_trans_button);
         }
 
         leftOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
         rightOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
-        rightTwoLayout.setBackgroundResource(R.drawable.selector_trans_button);
 
         leftOneLayout.setOnClickListener(toolBarOnClickListener);
         rightOneLayout.setOnClickListener(toolBarOnClickListener);
@@ -565,18 +622,20 @@ public class SurveyActivity extends AppCompatActivity {
         mainArea.addView(seedlingPeriodItemBar);
 
         spnCotyledonSize = seedlingPeriodLayout.findViewById(R.id.cotyledon_size);
-        edtCotyledonSize=seedlingPeriodLayout.findViewById(R.id.edt_cotyledon_size);
+        edtCotyledonSize = seedlingPeriodLayout.findViewById(R.id.edt_cotyledon_size);
         btnCotyledonSize = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_size);
         btnAddCotyledonSize = seedlingPeriodLayout.findViewById(R.id.btn_add_cotyledon_size);
         layoutRepeatedCotyledonSize = seedlingPeriodLayout.findViewById(R.id.layout_repeated_cotyledon_size);
+        spnCotyledonSize.setOnItemSelectedListener(onItemSelectedListener);
         addRepeatedAttributeListener(btnAddCotyledonSize, layoutRepeatedCotyledonSize, getString(R.string.info_cotyledon_size), "cotyledonSize", SURVEY_PERIOD_SEEDLING);
         btnCotyledonSize.setOnClickListener(helpClickListener);
 
         spnCotyledonColor = seedlingPeriodLayout.findViewById(R.id.cotyledon_color);
-        edtCotyledonColor=seedlingPeriodLayout.findViewById(R.id.edt_cotyledon_color);
+        edtCotyledonColor = seedlingPeriodLayout.findViewById(R.id.edt_cotyledon_color);
         btnCotyledonColor = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_color);
 //        btnAddCotyledonColor = seedlingPeriodLayout.findViewById(R.id.btn_add_cotyledon_color);
 //        layoutRepeatedCotyledonColor = seedlingPeriodLayout.findViewById(R.id.layout_repeated_cotyledon_color);
+        spnCotyledonColor.setOnItemSelectedListener(onItemSelectedListener);
         btnCotyledonColor.setOnClickListener(helpClickListener);
 
         spnCotyledonCount = seedlingPeriodLayout.findViewById(R.id.cotyledon_count);
@@ -587,21 +646,27 @@ public class SurveyActivity extends AppCompatActivity {
         btnCotyledonCount.setOnClickListener(helpClickListener);
 
         spnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.cotyledon_shape);
+        edtCotyledonShape = seedlingPeriodLayout.findViewById(R.id.edt_cotyledon_shape);
         btnCotyledonShape = seedlingPeriodLayout.findViewById(R.id.btn_cotyledon_shape);
 //        btnAddCotyledonShape = seedlingPeriodLayout.findViewById(R.id.btn_add_cotyledon_shape);
 //        layoutRepeatedCotyledonShape = seedlingPeriodLayout.findViewById(R.id.layout_repeated_cotyledon_shape);
+        spnCotyledonShape.setOnItemSelectedListener(onItemSelectedListener);
         btnCotyledonShape.setOnClickListener(helpClickListener);
 
         spnHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.heart_leaf_color);
+        edtHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.edt_heart_leaf_color);
         btnHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.btn_heart_leaf_color);
 //        btnAddHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.btn_add_heart_leaf_color);
 //        layoutRepeatedHeartLeafColor = seedlingPeriodLayout.findViewById(R.id.layout_repeated_heart_leaf_color);
+        spnHeartLeafColor.setOnItemSelectedListener(onItemSelectedListener);
         btnHeartLeafColor.setOnClickListener(helpClickListener);
 
         spnTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.true_leaf_color);
+        edtTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.edt_true_leaf_color);
         btnTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.btn_true_leaf_color);
 //        btnAddTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.btn_add_true_leaf_color);
 //        layoutRepeatedTrueLeafColor = seedlingPeriodLayout.findViewById(R.id.layout_repeated_true_leaf_color);
+        spnTrueLeafColor.setOnItemSelectedListener(onItemSelectedListener);
         btnTrueLeafColor.setOnClickListener(helpClickListener);
 
         spnTrueLeafLength = seedlingPeriodLayout.findViewById(R.id.true_leaf_length);
@@ -721,14 +786,18 @@ public class SurveyActivity extends AppCompatActivity {
         mainArea.addView(rosettePeriodItemBar);
 
         spnPlantShape = rosettePeriodLayout.findViewById(R.id.plant_shape);
+        edtPlantShape = rosettePeriodLayout.findViewById(R.id.edt_plant_shape);
         btnPlantShape = rosettePeriodLayout.findViewById(R.id.btn_plant_shape);
+        spnPlantShape.setOnItemSelectedListener(onItemSelectedListener);
         btnPlantShape.setOnClickListener(helpClickListener);
 
         spnPlantHeight = rosettePeriodLayout.findViewById(R.id.plant_height);
+        edtPlantHeight=rosettePeriodLayout.findViewById(R.id.edt_plant_height);
         btnPlantHeight = rosettePeriodLayout.findViewById(R.id.btn_plant_height);
         btnPlantHeight.setOnClickListener(helpClickListener);
 
         spnDevelopmentDegree = rosettePeriodLayout.findViewById(R.id.development_degree);
+        edtDevelopmentDegree=rosettePeriodLayout.findViewById(R.id.edt_development_degree);
         btnDevelopmentDegree = rosettePeriodLayout.findViewById(R.id.btn_development_degree);
         btnDevelopmentDegree.setOnClickListener(helpClickListener);
 
@@ -741,63 +810,91 @@ public class SurveyActivity extends AppCompatActivity {
         btnSoftLeafThickness.setOnClickListener(helpClickListener);
 
         spnLeafLength = rosettePeriodLayout.findViewById(R.id.leaf_length);
+        edtLeafLength=rosettePeriodLayout.findViewById(R.id.edt_leaf_length);
         btnLeafLength = rosettePeriodLayout.findViewById(R.id.btn_leaf_length);
         btnLeafLength.setOnClickListener(helpClickListener);
 
         spnLeafWidth = rosettePeriodLayout.findViewById(R.id.leaf_width);
+        edtLeafWidth=rosettePeriodLayout.findViewById(R.id.edt_leaf_width);
         btnLeafWidth = rosettePeriodLayout.findViewById(R.id.btn_leaf_width);
         btnLeafWidth.setOnClickListener(helpClickListener);
 
         spnLeafShape = rosettePeriodLayout.findViewById(R.id.leaf_shape);
+        edtLeafShape = rosettePeriodLayout.findViewById(R.id.edt_leaf_shape);
         btnLeafShape = rosettePeriodLayout.findViewById(R.id.btn_leaf_shape);
+        spnLeafShape.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafShape.setOnClickListener(helpClickListener);
 
         spnLeafColor = rosettePeriodLayout.findViewById(R.id.leaf_color);
+        edtLeafColor = rosettePeriodLayout.findViewById(R.id.edt_leaf_color);
         btnLeafColor = rosettePeriodLayout.findViewById(R.id.btn_leaf_color);
+        spnLeafColor.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafColor.setOnClickListener(helpClickListener);
 
         spnLeafLuster = rosettePeriodLayout.findViewById(R.id.leaf_luster);
+        edtLeafLuster = rosettePeriodLayout.findViewById(R.id.edt_leaf_luster);
         btnLeafLuster = rosettePeriodLayout.findViewById(R.id.btn_leaf_luster);
+        spnLeafLuster.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafLuster.setOnClickListener(helpClickListener);
 
         spnLeafFuzz = rosettePeriodLayout.findViewById(R.id.leaf_fuzz);
+        edtLeafFuzz = rosettePeriodLayout.findViewById(R.id.edt_leaf_fuzz);
         btnLeafFuzz = rosettePeriodLayout.findViewById(R.id.btn_leaf_fuzz);
+        spnLeafFuzz.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafFuzz.setOnClickListener(helpClickListener);
 
         spnLeafMarginUndulance = rosettePeriodLayout.findViewById(R.id.leaf_margin_undulance);
+        edtLeafMarginUndulance = rosettePeriodLayout.findViewById(R.id.edt_leaf_margin_undulance);
         btnLeafMarginUndulance = rosettePeriodLayout.findViewById(R.id.btn_leaf_margin_undulance);
+        spnLeafMarginUndulance.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafMarginUndulance.setOnClickListener(helpClickListener);
 
         spnLeafMarginSawtooth = rosettePeriodLayout.findViewById(R.id.leaf_margin_sawtooth);
+        edtLeafMarginSawtooth = rosettePeriodLayout.findViewById(R.id.edt_leaf_margin_sawtooth);
         btnLeafMarginSawtooth = rosettePeriodLayout.findViewById(R.id.btn_leaf_margin_sawtooth);
+        spnLeafMarginSawtooth.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafMarginSawtooth.setOnClickListener(helpClickListener);
 
         spnLeafSmoothness = rosettePeriodLayout.findViewById(R.id.leaf_smoothness);
+        edtLeafSmoothness = rosettePeriodLayout.findViewById(R.id.edt_leaf_smoothness);
         btnLeafSmoothness = rosettePeriodLayout.findViewById(R.id.btn_leaf_smoothness);
+        spnLeafSmoothness.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafSmoothness.setOnClickListener(helpClickListener);
 
         spnLeafProtuberance = rosettePeriodLayout.findViewById(R.id.leaf_protuberance);
+        edtLeafProtuberance = rosettePeriodLayout.findViewById(R.id.edt_leaf_protuberance);
         btnLeafProtuberance = rosettePeriodLayout.findViewById(R.id.btn_leaf_protuberance);
+        spnLeafProtuberance.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafProtuberance.setOnClickListener(helpClickListener);
 
         spnLeafVeinLivingness = rosettePeriodLayout.findViewById(R.id.leaf_vein_livingness);
+        edtLeafVeinLivingness = rosettePeriodLayout.findViewById(R.id.edt_leaf_vein_livingness);
         btnLeafVeinLivingness = rosettePeriodLayout.findViewById(R.id.btn_leaf_vein_livingness);
+        spnLeafVeinLivingness.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafVeinLivingness.setOnClickListener(helpClickListener);
 
         spnLeafKeelLivingness = rosettePeriodLayout.findViewById(R.id.leaf_keel_livingness);
+        edtLeafKeelLivingness = rosettePeriodLayout.findViewById(R.id.edt_leaf_keel_livingness);
         btnLeafKeelLivingness = rosettePeriodLayout.findViewById(R.id.btn_leaf_keel_livingness);
+        spnLeafKeelLivingness.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafKeelLivingness.setOnClickListener(helpClickListener);
 
         spnLeafCurliness = rosettePeriodLayout.findViewById(R.id.leaf_curliness);
+        edtLeafCurliness = rosettePeriodLayout.findViewById(R.id.edt_leaf_curliness);
         btnLeafCurliness = rosettePeriodLayout.findViewById(R.id.btn_leaf_curliness);
+        spnLeafCurliness.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafCurliness.setOnClickListener(helpClickListener);
 
         spnLeafCurlinessPart = rosettePeriodLayout.findViewById(R.id.leaf_curliness_part);
+        edtLeafCurlinessPart = rosettePeriodLayout.findViewById(R.id.edt_leaf_curliness_part);
         btnLeafCurlinessPart = rosettePeriodLayout.findViewById(R.id.btn_leaf_curliness_part);
+        spnLeafCurlinessPart.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafCurlinessPart.setOnClickListener(helpClickListener);
 
         spnLeafTexture = rosettePeriodLayout.findViewById(R.id.leaf_texture);
+        edtLeafTexture = rosettePeriodLayout.findViewById(R.id.edt_leaf_texture);
         btnLeafTexture = rosettePeriodLayout.findViewById(R.id.btn_leaf_texture);
+        spnLeafTexture.setOnItemSelectedListener(onItemSelectedListener);
         btnLeafTexture.setOnClickListener(helpClickListener);
 
         rosettePeriodItemBar.setSubmitListener(new View.OnClickListener() {
@@ -869,7 +966,6 @@ public class SurveyActivity extends AppCompatActivity {
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
-                removeAttribute(surveyPeriod, customAttributeView);
             });
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -885,7 +981,6 @@ public class SurveyActivity extends AppCompatActivity {
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
-                removeAttribute(surveyPeriod, customAttributeView);
             });
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -901,7 +996,6 @@ public class SurveyActivity extends AppCompatActivity {
             Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
                 customAttributeView.removeAllViews();
-                removeAttribute(surveyPeriod, customAttributeView);
             });
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -1037,6 +1131,15 @@ public class SurveyActivity extends AppCompatActivity {
         });
     }
 
+    //判断是否显示用户自定义
+    private void setVisibilityOfUserDefined(int positionSelect, int positionOther, EditText userDefined) {
+        if (positionSelect == positionOther) {
+            userDefined.setVisibility(View.VISIBLE);
+        } else {
+            userDefined.setVisibility(View.GONE);
+        }
+    }
+
     // 校验已有数据是否合法
     private boolean checkIsValid() {
         return !TextUtils.isEmpty(editPlantId.getText());
@@ -1077,6 +1180,7 @@ public class SurveyActivity extends AppCompatActivity {
     // 初始化基本数据
     @SuppressLint("SetTextI18n")
     private void initBasicInfo(String plantId) {
+        // TODO
         // 展示基本信息
         commitInfo.setText(context.getResources().getString(R.string.info_nickname) + nickname);
         editMaterialId.setText(materialId);
@@ -1134,14 +1238,14 @@ public class SurveyActivity extends AppCompatActivity {
                 updateExtraView(layoutCustomAttribute2, "备注", "spare", surveyInfo.data.spare2, surveyPeriod);
                 break;
             case SURVEY_PERIOD_SEEDLING:
-                setSelection(spnCotyledonSize, surveyInfo.data.cotyledonSize1);
+                setSelectionAndText(spnCotyledonSize,edtCotyledonSize, surveyInfo.data.cotyledonSize1);
                 updateExtraView(layoutRepeatedCotyledonSize, "子叶大小", "cotyledonSize", surveyInfo.data.cotyledonSize2, surveyPeriod);
                 updateExtraView(layoutRepeatedCotyledonSize, "子叶大小", "cotyledonSize", surveyInfo.data.cotyledonSize3, surveyPeriod);
-                setSelection(spnCotyledonColor, surveyInfo.data.cotyledonColor);
+                setSelectionAndText(spnCotyledonColor, edtCotyledonColor,surveyInfo.data.cotyledonColor);
                 setSelectionAndText(spnCotyledonCount, edtCotyledonCount, surveyInfo.data.cotyledonNumber);
-                setSelection(spnCotyledonShape, surveyInfo.data.cotyledonShape);
-                setSelection(spnHeartLeafColor, surveyInfo.data.colorOfHeartLeaf);
-                setSelection(spnTrueLeafColor, surveyInfo.data.trueLeafColor);
+                setSelectionAndText(spnCotyledonShape,edtCotyledonShape, surveyInfo.data.cotyledonShape);
+                setSelectionAndText(spnHeartLeafColor,edtHeartLeafColor, surveyInfo.data.colorOfHeartLeaf);
+                setSelectionAndText(spnTrueLeafColor, edtTrueLeafColor,surveyInfo.data.trueLeafColor);
                 setSelectionAndText(spnTrueLeafLength, edtTrueLeafLength, surveyInfo.data.trueLeafLength1);
                 updateExtraView(layoutRepeatedTrueLeafLength, "真叶长度", "trueLeafLength", surveyInfo.data.trueLeafLength2, surveyPeriod);
                 updateExtraView(layoutRepeatedTrueLeafLength, "真叶长度", "trueLeafLength", surveyInfo.data.trueLeafLength3, surveyPeriod);
@@ -1152,26 +1256,26 @@ public class SurveyActivity extends AppCompatActivity {
                 updateExtraView(layoutCustomAttribute3, "备注", "spare", surveyInfo.data.spare2, surveyPeriod);
                 break;
             case SURVEY_PERIOD_ROSETTE:
-                setSelection(spnPlantShape, surveyInfo.data.plantType);
-                setSelection(spnPlantHeight, surveyInfo.data.plantHeight1);
-                setSelection(spnDevelopmentDegree, surveyInfo.data.developmentDegree);
+                setSelectionAndText(spnPlantShape, edtPlantShape,surveyInfo.data.plantType);
+                setSelectionAndText(spnPlantHeight,edtPlantHeight,surveyInfo.data.plantHeight1);
+                setSelectionAndText(spnDevelopmentDegree,edtDevelopmentDegree, surveyInfo.data.developmentDegree);
                 edtLeafCount.setText(surveyInfo.data.numberOfLeaves);
                 edtSoftLeafThickness.setText(surveyInfo.data.thicknessOfSoftLeaf1);
-                setSelection(spnLeafLength, surveyInfo.data.bladeLength1);
-                setSelection(spnLeafWidth, surveyInfo.data.bladeWidth1);
-                setSelection(spnLeafShape, surveyInfo.data.leafShape);
-                setSelection(spnLeafColor, surveyInfo.data.leafColor);
-                setSelection(spnLeafLuster, surveyInfo.data.leafLuster);
-                setSelection(spnLeafFuzz, surveyInfo.data.leafFluff);
-                setSelection(spnLeafMarginUndulance, surveyInfo.data.leafMarginWavy);
-                setSelection(spnLeafMarginSawtooth, surveyInfo.data.leafMarginSerrate);
-                setSelection(spnLeafSmoothness, surveyInfo.data.bladeSmooth);
-                setSelection(spnLeafProtuberance, surveyInfo.data.sizeOfVesicles);
-                setSelection(spnLeafVeinLivingness, surveyInfo.data.freshnessOfLeafVein);
-                setSelection(spnLeafKeelLivingness, surveyInfo.data.brightnessOfMiddleRib);
-                setSelection(spnLeafCurliness, surveyInfo.data.leafCurl);
-                setSelection(spnLeafCurlinessPart, surveyInfo.data.leafCurlPart);
-                setSelection(spnLeafTexture, surveyInfo.data.leafTexture);
+                setSelectionAndText(spnLeafLength,edtLeafLength, surveyInfo.data.bladeLength1);
+                setSelectionAndText(spnLeafWidth, edtLeafWidth,surveyInfo.data.bladeWidth1);
+                setSelectionAndText(spnLeafShape,edtLeafShape, surveyInfo.data.leafShape);
+                setSelectionAndText(spnLeafColor,edtLeafColor, surveyInfo.data.leafColor);
+                setSelectionAndText(spnLeafLuster, edtLeafLuster,surveyInfo.data.leafLuster);
+                setSelectionAndText(spnLeafFuzz,edtLeafFuzz, surveyInfo.data.leafFluff);
+                setSelectionAndText(spnLeafMarginUndulance, edtLeafMarginUndulance,surveyInfo.data.leafMarginWavy);
+                setSelectionAndText(spnLeafMarginSawtooth,edtLeafMarginSawtooth, surveyInfo.data.leafMarginSerrate);
+                setSelectionAndText(spnLeafSmoothness, edtLeafSmoothness,surveyInfo.data.bladeSmooth);
+                setSelectionAndText(spnLeafProtuberance, edtLeafProtuberance,surveyInfo.data.sizeOfVesicles);
+                setSelectionAndText(spnLeafVeinLivingness, edtLeafVeinLivingness,surveyInfo.data.freshnessOfLeafVein);
+                setSelectionAndText(spnLeafKeelLivingness, edtLeafKeelLivingness,surveyInfo.data.brightnessOfMiddleRib);
+                setSelectionAndText(spnLeafCurliness,edtLeafCurliness, surveyInfo.data.leafCurl);
+                setSelectionAndText(spnLeafCurlinessPart, edtLeafCurlinessPart,surveyInfo.data.leafCurlPart);
+                setSelectionAndText(spnLeafTexture, edtLeafTexture,surveyInfo.data.leafTexture);
                 updateExtraView(layoutCustomAttribute4, "预设属性", "spare", surveyInfo.data.spare1, surveyPeriod);
                 updateExtraView(layoutCustomAttribute4, "备注", "spare", surveyInfo.data.spare2, surveyPeriod);
                 break;
@@ -1396,12 +1500,12 @@ public class SurveyActivity extends AppCompatActivity {
     private String getSeedlingPeriodData() {
         JsonObject jsonObject = getBasicInfoData();
 
-        String cotyledonSize = spnCotyledonSize.getSelectedItem().toString();
-        String cotyledonColor = spnCotyledonColor.getSelectedItem().toString();
+        String cotyledonSize = spnCotyledonSize.getSelectedItem().toString()+separator+edtCotyledonSize.getText();
+        String cotyledonColor = spnCotyledonColor.getSelectedItem().toString()+separator+edtCotyledonColor.getText();
         String cotyledonCount = spnCotyledonCount.getSelectedItem().toString() + separator + edtCotyledonCount.getText();
-        String cotyledonShape = spnCotyledonShape.getSelectedItem().toString();
-        String heartLeafColor = spnHeartLeafColor.getSelectedItem().toString();
-        String trueLeafColor = spnTrueLeafColor.getSelectedItem().toString();
+        String cotyledonShape = spnCotyledonShape.getSelectedItem().toString()+separator+edtCotyledonShape.getText();
+        String heartLeafColor = spnHeartLeafColor.getSelectedItem().toString()+separator+edtHeartLeafColor.getText();
+        String trueLeafColor = spnTrueLeafColor.getSelectedItem().toString()+separator+edtTrueLeafColor.getText();
         String trueLeafLength = spnTrueLeafLength.getSelectedItem().toString() + separator + edtTrueLeafLength.getText();
         String trueLeafWidth = spnTrueLeafWidth.getSelectedItem().toString() + separator + edtTrueLeafWidth.getText();
 
@@ -1434,27 +1538,27 @@ public class SurveyActivity extends AppCompatActivity {
     private String getRosettePeriodData() {
         JsonObject jsonObject = getBasicInfoData();
 
-        String plantId = editPlantId.getText().toString();
-        String plantShape = spnPlantShape.getSelectedItem().toString();
-        String plantHeight = spnPlantHeight.getSelectedItem().toString();
-        String developmentDegree = spnDevelopmentDegree.getSelectedItem().toString();
+//        String plantId = editPlantId.getText().toString();
+        String plantShape = spnPlantShape.getSelectedItem().toString()+separator+edtPlantShape.getText();
+        String plantHeight = spnPlantHeight.getSelectedItem().toString()+separator+edtPlantHeight.getText();
+        String developmentDegree = spnDevelopmentDegree.getSelectedItem().toString()+separator+edtDevelopmentDegree.getText();
         String leafCount = edtLeafCount.getText().toString();
         String softLeafThickness = edtSoftLeafThickness.getText().toString();
-        String leafLength = spnLeafLength.getSelectedItem().toString();
-        String leafWidth = spnLeafWidth.getSelectedItem().toString();
-        String leafShape = spnLeafShape.getSelectedItem().toString();
-        String leafColor = spnLeafColor.getSelectedItem().toString();
-        String leafLuster = spnLeafLuster.getSelectedItem().toString();
-        String leafFuzz = spnLeafFuzz.getSelectedItem().toString();
-        String leafMarginUndulance = spnLeafMarginUndulance.getSelectedItem().toString();
-        String leafMarginSawtooth = spnLeafMarginSawtooth.getSelectedItem().toString();
-        String leafSmoothness = spnLeafSmoothness.getSelectedItem().toString();
-        String leafProtuberance = spnLeafProtuberance.getSelectedItem().toString();
-        String leafVeinLivingness = spnLeafVeinLivingness.getSelectedItem().toString();
-        String leafKeelLivingness = spnLeafKeelLivingness.getSelectedItem().toString();
-        String leafCurliness = spnLeafCurliness.getSelectedItem().toString();
-        String leafCurlinessPart = spnLeafCurlinessPart.getSelectedItem().toString();
-        String leafTexture = spnLeafTexture.getSelectedItem().toString();
+        String leafLength = spnLeafLength.getSelectedItem().toString()+separator+edtLeafLength.getText();
+        String leafWidth = spnLeafWidth.getSelectedItem().toString()+separator+edtLeafWidth.getText();
+        String leafShape = spnLeafShape.getSelectedItem().toString()+separator+edtLeafShape.getText();
+        String leafColor = spnLeafColor.getSelectedItem().toString()+separator+edtLeafColor.getText();
+        String leafLuster = spnLeafLuster.getSelectedItem().toString()+separator+edtLeafLuster.getText();
+        String leafFuzz = spnLeafFuzz.getSelectedItem().toString()+separator+edtLeafFuzz.getText();
+        String leafMarginUndulance = spnLeafMarginUndulance.getSelectedItem().toString()+separator+edtLeafMarginUndulance.getText();
+        String leafMarginSawtooth = spnLeafMarginSawtooth.getSelectedItem().toString()+separator+edtLeafMarginSawtooth.getText();
+        String leafSmoothness = spnLeafSmoothness.getSelectedItem().toString()+separator+edtLeafSmoothness.getText();
+        String leafProtuberance = spnLeafProtuberance.getSelectedItem().toString()+separator+edtLeafProtuberance.getText();
+        String leafVeinLivingness = spnLeafVeinLivingness.getSelectedItem().toString()+separator+edtLeafVeinLivingness.getText();
+        String leafKeelLivingness = spnLeafKeelLivingness.getSelectedItem().toString()+separator+edtLeafKeelLivingness.getText();
+        String leafCurliness = spnLeafCurliness.getSelectedItem().toString()+separator+edtLeafCurliness.getText();
+        String leafCurlinessPart = spnLeafCurlinessPart.getSelectedItem().toString()+separator+edtLeafCurlinessPart.getText();
+        String leafTexture = spnLeafTexture.getSelectedItem().toString()+separator+edtLeafTexture.getText();
 
         jsonObject.addProperty("plantType", plantShape);
         jsonObject.addProperty("plantHeight1", plantHeight);
