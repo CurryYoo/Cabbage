@@ -17,14 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:replace="android:icon">
-        <activity android:name=".activity.SurveyActivity" />
-        <activity
-            android:name=".activity.MainActivity"
-            android:launchMode="singleTask" />
-        <activity android:name=".activity.HistoryActivity" />
-        <activity android:name=".activity.PwdActivity" />
-        <activity android:name=".activity.PlusImageActivity" />
+        tools:replace="android:icon"
+        tools:targetApi="m">
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleInstance">
@@ -34,6 +28,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.SurveyActivity2" />
+        <activity android:name=".activity.HistoryActivity" />
+        <activity android:name=".activity.PwdActivity" />
+        <activity android:name=".activity.PlusImageActivity" />
+        <activity android:name=".activity.SurveyActivity" />
+        <activity android:name=".activity.HistoryDetailActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -31,7 +31,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.cabbage.activity.SurveyActivity.STATUS_READ;
+import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
+
 
 @Route(path = ARouterPaths.HISTORY_ACTIVITY)
 public class HistoryActivity extends AppCompatActivity implements OnClickListener {
@@ -69,14 +70,13 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
         HttpRequest.getHistorySurveyData(token, new HttpRequest.IHistoryCallback() {
             @Override
             public void onResponse(HistoryInfo historyInfo) {
-
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerViewHistory.setLayoutManager(linearLayoutManager);
 
                 historyAdapter = new HistoryAdapter(R.layout.item_history, historyInfo.data.list);
                 historyAdapter.setOnItemClickListener((adapter, view, position) -> ARouter.getInstance()
-                        .build(ARouterPaths.SURVEY_ACTIVITY)
+                        .build(ARouterPaths.SURVEY_ACTIVITY2)
                         .withString("surveyId", historyInfo.data.list.get(position).getObservationId())
                         .withString("materialId", historyInfo.data.list.get(position).getMaterialNumber())
                         .withString("materialType", historyInfo.data.list.get(position).getMaterialType())

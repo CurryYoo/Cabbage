@@ -68,12 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView(){
         showFragment(0);
-        bottomBar.setOnItemSelectedListener(new BottomBarLayout.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(BottomBarItem bottomBarItem, int previousPosition, int currentPosition) {
-                changeFragment(currentPosition);
-            }
-        });
+        bottomBar.setOnItemSelectedListener((bottomBarItem, previousPosition, currentPosition) -> changeFragment(currentPosition));
     }
     private void changeFragment(int fg) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

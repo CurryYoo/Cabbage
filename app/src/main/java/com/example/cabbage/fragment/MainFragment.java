@@ -38,30 +38,28 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.example.cabbage.activity.SurveyActivity.STATUS_COPY;
-import static com.example.cabbage.activity.SurveyActivity.STATUS_NEW;
+import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
+import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
+
 
 public class MainFragment extends Fragment {
     @BindView(R.id.search_view)
     FloatingSearchView searchView;
     @BindView(R.id.btn_paste_data)
     LinearLayout btnPasteData;
+    private Context self;
+    private Unbinder unbinder;
+    private String token;
 
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
         return fragment;
     }
 
-    private View view;
-    private Context self;
-    private Unbinder unbinder;
-
-    private String token;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
         self = getContext();
         unbinder = ButterKnife.bind(this, view);
 
@@ -71,16 +69,12 @@ public class MainFragment extends Fragment {
             ClipboardManager cm = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
             Intent dataIntent = Objects.requireNonNull(cm.getPrimaryClip()).getItemAt(0).getIntent();
             if (dataIntent != null) {
-                String surveyId = dataIntent.getStringExtra("surveyId");
-                String surveyPeriod = dataIntent.getStringExtra("surveyPeriod");
-                String materialId = dataIntent.getStringExtra("materialId");
-                String materialType = dataIntent.getStringExtra("materialType");
                 Toast.makeText(getContext(), R.string.paste_data_success, Toast.LENGTH_SHORT).show();
                 ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
-                        .withString("surveyId", surveyId)
-                        .withString("surveyPeriod", surveyPeriod)
-                        .withString("materialId", materialId)
-                        .withString("materialType", materialType)
+                        .withString("surveyId", dataIntent.getStringExtra("surveyId"))
+                        .withString("surveyPeriod", dataIntent.getStringExtra("surveyPeriod"))
+                        .withString("materialId", dataIntent.getStringExtra("materialId"))
+                        .withString("materialType", dataIntent.getStringExtra("materialType"))
                         .withInt("status", STATUS_COPY)
                         .navigation();
             } else {
@@ -188,6 +182,6 @@ public class MainFragment extends Fragment {
         });
 
         // 根据返回结果跳转页面
-        ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY).withString("speciesId", input).navigation();
+        ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY2).withString("speciesId", input).navigation();
     }
 }

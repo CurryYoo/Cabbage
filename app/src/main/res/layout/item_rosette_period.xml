@@ -2,7 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_margin="@dimen/dp_10"
+    android:background="@drawable/bg_10_dark"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/dp_10"
+    android:paddingEnd="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_5">
 
     <GridView
         android:id="@+id/img_rosette_period"
@@ -19,15 +24,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
-            android:text="@string/info_plant_shape" />
-
-        <View style="@style/view_vertical_divider_style" />
+            style="@style/style_item_long_text_view"
+            android:text="@string/info_rosette_plant_shape" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -40,7 +42,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_plant_shape"
                     style="@style/style_user_define_edit_text" />
 
@@ -70,15 +72,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
-            android:text="@string/info_plant_height" />
-
-        <View style="@style/view_vertical_divider_style" />
+            style="@style/style_item_long_text_view"
+            android:text="@string/info_rosette_plant_height" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -92,7 +91,7 @@
                 <include layout="@layout/view_vertical_divider" />
 
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_plant_height"
                     style="@style/style_number_edit_text" />
 
@@ -115,15 +114,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
-            android:text="@string/info_development_degree" />
-
-        <View style="@style/view_vertical_divider_style" />
+            style="@style/style_item_long_text_view"
+            android:text="@string/info_rosette_development_degree" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -137,7 +133,7 @@
                 <include layout="@layout/view_vertical_divider" />
 
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_development_degree"
                     style="@style/style_number_edit_text" />
 
@@ -160,22 +156,19 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_count" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
 
                 <EditText
                     android:id="@+id/edt_leaf_count"
-                    style="@style/style_item_basicinfo_edittext"
+                    style="@style/style_item_basic_info_edit_text"
                     android:layout_width="60dp"
                     android:inputType="numberDecimal" />
 
@@ -198,22 +191,19 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_soft_leaf_thickness" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
 
                 <EditText
                     android:id="@+id/edt_soft_leaf_thickness"
-                    style="@style/style_item_basicinfo_edittext"
+                    style="@style/style_item_basic_info_edit_text"
                     android:layout_width="60dp"
                     android:inputType="numberDecimal" />
 
@@ -236,15 +226,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_length" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -258,7 +245,7 @@
                 <include layout="@layout/view_vertical_divider" />
 
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_length"
                     style="@style/style_number_edit_text" />
 
@@ -281,15 +268,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_width" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -303,9 +287,9 @@
                 <include layout="@layout/view_vertical_divider" />
 
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_width"
-                    style="@style/style_number_edit_text"/>
+                    style="@style/style_number_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -325,15 +309,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_shape" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -346,7 +327,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_shape"
                     style="@style/style_user_define_edit_text" />
 
@@ -368,15 +349,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_color" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -389,7 +367,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_color"
                     style="@style/style_user_define_edit_text" />
 
@@ -411,15 +389,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_luster" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -432,7 +407,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_luster"
                     style="@style/style_user_define_edit_text" />
 
@@ -454,15 +429,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_fuzz" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -475,7 +447,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_fuzz"
                     style="@style/style_user_define_edit_text" />
 
@@ -497,15 +469,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_margin_undulance" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -518,7 +487,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_margin_undulance"
                     style="@style/style_user_define_edit_text" />
 
@@ -540,15 +509,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_margin_sawtooth" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -561,7 +527,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_margin_sawtooth"
                     style="@style/style_user_define_edit_text" />
 
@@ -583,15 +549,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_smoothness" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -604,7 +567,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_smoothness"
                     style="@style/style_user_define_edit_text" />
 
@@ -626,15 +589,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_protuberance" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -647,7 +607,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_protuberance"
                     style="@style/style_user_define_edit_text" />
 
@@ -669,15 +629,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_vein_livingness" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -690,7 +647,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_vein_livingness"
                     style="@style/style_user_define_edit_text" />
 
@@ -712,15 +669,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_keel_livingness" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -733,7 +687,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_keel_livingness"
                     style="@style/style_user_define_edit_text" />
 
@@ -755,15 +709,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_curliness" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -776,7 +727,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_curliness"
                     style="@style/style_user_define_edit_text" />
 
@@ -798,15 +749,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_curliness_part" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -820,7 +768,7 @@
                 <include layout="@layout/view_vertical_divider" />
 
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_curliness_part"
                     style="@style/style_user_define_edit_text" />
 
@@ -842,15 +790,12 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_long_text_view"
             android:text="@string/info_leaf_texture" />
-
-        <View style="@style/view_vertical_divider_style" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
             android:scrollbars="none">
 
             <LinearLayout style="@style/survey_linear_layout">
@@ -863,7 +808,7 @@
 
                 <include layout="@layout/view_vertical_divider" />
 
-                <EditText
+                <com.example.cabbage.view.AutoClearEditText
                     android:id="@+id/edt_leaf_texture"
                     style="@style/style_user_define_edit_text" />
 
@@ -878,7 +823,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_custom_attribute4"
+        android:id="@+id/layout_custom_attribute3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_5"
@@ -890,8 +835,8 @@
         android:layout_height="wrap_content"
         android:columnCount="2">
 
-        <Button
-            android:id="@+id/btn_add_attribute4"
+        <com.example.cabbage.view.CountButton
+            android:id="@+id/btn_add_attribute3"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_columnWeight="1"
@@ -900,8 +845,8 @@
             android:text="@string/add_attribute"
             android:textColor="@color/white" />
 
-        <Button
-            android:id="@+id/btn_add_remark4"
+        <com.example.cabbage.view.CountButton
+            android:id="@+id/btn_add_remark3"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_columnWeight="1"

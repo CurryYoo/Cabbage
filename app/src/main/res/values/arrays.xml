@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="size">
+    <!--    幼苗期-->
+    <string-array name="cotyledon_size">
         <item>小</item>
         <item>中</item>
         <item>大</item>
@@ -69,6 +70,8 @@
         <item>其他</item>
     </string-array>
 
+
+    <!--    莲座期-->
     <string-array name="plant_height">
         <item>极矮</item>
         <item>矮</item>
@@ -196,6 +199,231 @@
         <item>软</item>
         <item>硬</item>
         <item>蜡质或革质</item>
+        <item>其他</item>
+    </string-array>
+
+    <!--    结球期-->
+    <!--    前三个性状和莲座期相同-->
+    <string-array name="is_knot">
+        <item>不结球</item>
+        <item>半结球</item>
+        <item>结球</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="flower_bud">
+        <item>无</item>
+        <item>有</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="lateral_bud">
+        <item>无</item>
+        <item>有</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="outer_leaf_length">
+        <item>极短</item>
+        <item>短</item>
+        <item>中</item>
+        <item>长</item>
+    </string-array>
+
+    <string-array name="outer_leaf_width">
+        <item>极窄</item>
+        <item>窄</item>
+        <item>中</item>
+        <item>宽</item>
+        <item>极宽</item>
+    </string-array>
+
+    <string-array name="outer_leaf_shape">
+        <item>近圆</item>
+        <item>宽倒卵</item>
+        <item>倒卵</item>
+        <item>长倒卵</item>
+        <item>长圆</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="outer_leaf_keel_color">
+        <item>白</item>
+        <item>绿白</item>
+        <item>浅绿</item>
+        <item>中等绿</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="outer_leaf_keel_thickness">
+        <item>薄</item>
+        <item>中</item>
+        <item>厚</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="outer_leaf_keel_length">
+        <item>极短</item>
+        <item>短</item>
+        <item>中</item>
+        <item>长</item>
+    </string-array>
+
+    <string-array name="outer_leaf_keel_width">
+        <item>窄</item>
+        <item>中</item>
+        <item>宽</item>
+    </string-array>
+
+    <string-array name="leaf_keel_shape">
+        <item>平</item>
+        <item>中</item>
+        <item>鼓</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="outer_leaf_count">
+        <item>少</item>
+        <item>中</item>
+        <item>多</item>
+    </string-array>
+
+    <string-array name="strobilus_head_closure_type">
+        <item>开放</item>
+        <item>半开放</item>
+        <item>闭合</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="strobilus_head_conjugation_type">
+        <item>拧抱</item>
+        <item>合抱</item>
+        <item>叠抱</item>
+        <item>舒心</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="strobilus_head_shape">
+        <item>尖</item>
+        <item>圆</item>
+        <item>平</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="strobilus_top_color">
+        <item>白</item>
+        <item>绿</item>
+        <item>黄</item>
+        <item>紫</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="strobilus_top_green_degree">
+        <item>浅绿</item>
+        <item>绿</item>
+        <item>深绿</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="strobilus_shape">
+        <item>球形</item>
+        <item>头球形</item>
+        <item>筒形</item>
+        <item>长筒形</item>
+        <item>炮弹形</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="strobilus_height">
+        <item>极矮</item>
+        <item>矮</item>
+        <item>中</item>
+        <item>高</item>
+        <item>极高</item>
+    </string-array>
+
+    <string-array name="strobilus_width">
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+    </string-array>
+
+    <string-array name="strobilus_compaction">
+        <item>松</item>
+        <item>中</item>
+        <item>紧</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="strobilus_inner_color">
+        <item>白</item>
+        <item>浅黄</item>
+        <item>中等黄</item>
+        <item>橙色</item>
+        <item>紫</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="strobilus_leaf_count">
+        <item>极少</item>
+        <item>少</item>
+        <item>中</item>
+        <item>多</item>
+    </string-array>
+
+    <string-array name="soft_leaf_rate">
+        <item>低</item>
+        <item>中</item>
+        <item>高</item>
+    </string-array>
+
+    <string-array name="strobilus_mass">
+        <item>极轻</item>
+        <item>轻</item>
+        <item>中</item>
+        <item>重</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="clean_veg_rate">
+        <item>低</item>
+        <item>中</item>
+        <item>高</item>
+    </string-array>
+
+    <string-array name="center_shape">
+        <item>扁圆</item>
+        <item>近圆</item>
+        <item>近椭圆</item>
+        <item>锥形</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="center_length">
+        <item>短</item>
+        <item>中</item>
+        <item>长</item>
+    </string-array>
+
+    <string-array name="harvest_type">
+        <item>极早熟</item>
+        <item>早熟</item>
+        <item>中熟</item>
+        <item>中晚熟</item>
+        <item>晚熟</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="harvest_delay_time_early">
+        <item>短</item>
+        <item>中</item>
+        <item>长</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="harvest_delay_time_late">
+        <item>短</item>
+        <item>中</item>
+        <item>长</item>
         <item>其他</item>
     </string-array>
 

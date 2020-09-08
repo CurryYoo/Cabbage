@@ -38,7 +38,7 @@
     </style>
 
     <!-- 无边框loading -->
-    <style name="dialogstyle" parent="@android:style/Theme.Dialog">
+    <style name="dialog_style" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -65,8 +65,6 @@
         <item name="android:layout_height">40dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">15sp</item>
-        <!--<item name="android:paddingLeft">4dp</item>-->
-        <!--<item name="android:paddingRight">4dp</item>-->
         <item name="android:layout_margin">3dp</item>
         <item name="android:maxLines">2</item>
         <item name="android:textColor">@color/primary_text</item>
@@ -75,16 +73,43 @@
     </style>
 
 
-    <style name="style_item_basicinfo_textview">
-        <item name="android:layout_width">130dp</item>
+    <style name="style_item_short_text_view">
+        <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginEnd">5dp</item>
         <item name="android:textColor">@color/primary_text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="style_item_basicinfo_edittext">
+    <style name="style_item_long_text_view">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="style_item_long_long_text_view">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="style_item_basic_info_edit_text">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:paddingTop">5dp</item>
@@ -99,10 +124,8 @@
 
     <style name="style_user_define_edit_text">
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_margin">3dp</item>
         <item name="android:background">@null</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/primary_text</item>
@@ -112,15 +135,13 @@
         <item name="android:hint">@string/user_define</item>
         <item name="android:visibility">gone</item>
         <item name="android:inputType">text</item>
-        <item name="android:gravity">center_horizontal</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="style_number_edit_text">
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_margin">3dp</item>
         <item name="android:background">@null</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/primary_text</item>
@@ -129,7 +150,7 @@
         <item name="android:singleLine">true</item>
         <item name="android:hint">@string/number_value</item>
         <item name="android:inputType">number</item>
-        <item name="android:gravity">center_horizontal</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="style_item_basicinfo_calendar">
@@ -204,8 +225,7 @@
 
     <style name="style_basic_spinner1">
         <item name="android:layout_height">30dp</item>
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:layout_marginEnd">@dimen/dp_3</item>
+        <item name="android:layout_margin">3dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">15sp</item>
         <item name="android:background">@drawable/selector_trans_button</item>
@@ -245,13 +265,12 @@
     </style>
 
     <style name="style_basic_help_btn" parent="@style/Widget.AppCompat.Button.Borderless">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">3dp</item>
-        <item name="android:layout_marginEnd">3dp</item>
+        <item name="android:layout_margin">3dp</item>
         <item name="android:text">@string/survey_help</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/help_text</item>
         <item name="android:background">@drawable/selector_trans_button</item>
     </style>
 
@@ -297,15 +316,10 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-    <declare-styleable name="SanJiaoView">
-        <attr name="sjv_resolutionWidth" format="dimension" />
-        <attr name="sjv_resolutionHeight" format="dimension" />
-        <attr name="sjv_color" format="color" />
-        <attr name="sjv_direction">
-            <enum name="top" value="0" />
-            <enum name="bottom" value="1" />
-            <enum name="right" value="2" />
-            <enum name="left" value="3" />
-        </attr>
-    </declare-styleable>
+    <style name="style_btn_add_attribute">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_margin">@dimen/dp_3</item>
+        <item name="android:background">@mipmap/ic_round_add</item>
+    </style>
 </resources>

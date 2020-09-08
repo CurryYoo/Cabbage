@@ -19,19 +19,17 @@
             android:background="@mipmap/ic_delete_small" />
 
         <TextView
-            style="@style/style_item_basicinfo_textview"
+            style="@style/style_item_basic_info_edit_text"
             android:layout_width="wrap_content"
             android:paddingEnd="@dimen/dp_5"
-            android:text="@string/info_mark" />
-
-        <View style="@style/view_vertical_divider_style" />
+            android:text="@string/info_remark" />
 
         <EditText
-            android:id="@+id/txt_remark"
-            style="@style/style_item_basicinfo_edittext"
+            android:id="@+id/edt_remark"
+            style="@style/style_item_basic_info_edit_text"
             android:layout_width="match_parent"
+            android:paddingStart="@dimen/dp_5"
+            android:paddingEnd="@dimen/dp_5"
             android:background="@drawable/bg_10_light" />
     </LinearLayout>
-
-    <View style="@style/view_divider_style" />
 </LinearLayout>

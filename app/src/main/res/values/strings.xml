@@ -31,8 +31,12 @@
     <string name="sign_up">账号注册</string>
     <string name="network_normal">网络正常</string>
     <string name="network_wrong">网络异常</string>
+    <string name="network_request_wrong">网络请求失败</string>
     <string name="dialog_title_tip">提示</string>
-    <string name="upload_data">正在上传数据…</string>
+    <string name="upload_data">上传数据</string>
+    <string name="upload_data_tip">确认上传数据？</string>
+    <string name="upload_data_ing">正在上传数据…</string>
+    <string name="upload_data_success">保存数据成功</string>
     <string name="upload_data_content">上传数据耗时较长，请勿中途退出</string>
     <string name="pwd_old">原密码</string>
     <string name="pwd_new">新密码</string>
@@ -40,7 +44,6 @@
     <string name="pwd_change">修改密码</string>
     <string name="pwd_no_same">两次密码不一致</string>
     <string name="pwd_old_error">旧密码错误</string>
-    <string name="upload_data_tip">确认上传数据？</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
 
@@ -65,7 +68,8 @@
     <string name="info_material_type">材料类型</string>
     <string name="info_plant_id">单株编号</string>
     <string name="investigate_time">调查时间</string>
-    <string name="info_mark">备注</string>
+    <string name="investigate_user">调查人员</string>
+    <string name="info_remark">备注</string>
 
     <string name="title_germination_period">发芽期</string>
     <string name="info_germination_rate">出苗（发芽）率</string>
@@ -81,9 +85,9 @@
     <string name="info_true_leaf_width">真叶宽度</string>
 
     <string name="title_rosette_period">莲座期</string>
-    <string name="info_plant_shape">株型</string>
-    <string name="info_plant_height">株高</string>
-    <string name="info_development_degree">开展度</string>
+    <string name="info_rosette_plant_shape">株型(莲座期)</string>
+    <string name="info_rosette_plant_height">株高(莲座期)</string>
+    <string name="info_rosette_development_degree">开展度(莲座期)</string>
     <string name="info_leaf_count">叶片数目</string>
     <string name="info_soft_leaf_thickness">叶片软叶厚度</string>
     <string name="info_leaf_length">叶片长</string>
@@ -102,8 +106,11 @@
     <string name="info_leaf_curliness_part">叶卷曲部位</string>
     <string name="info_leaf_texture">叶片质地</string>
 
-    <string name="title_harvest_period">结球及收获期</string>
-    <string name="info_isKnot">是否结球</string>
+    <string name="title_heading_period">结球期</string>
+    <string name="info_harvest_plant_shape">株型(结球期及收获期)</string>
+    <string name="info_harvest_plant_height">株高(结球期及收获期)</string>
+    <string name="info_harvest_development_degree">开展度(结球期及收获期)</string>
+    <string name="info_is_knot">是否结球</string>
     <string name="info_flower_bud">花蕾</string>
     <string name="info_lateral_bud">侧芽</string>
     <string name="info_outer_leaf_length">外叶长</string>
@@ -169,13 +176,13 @@
     <string name="info_self_compatible">自交亲和性</string>
 
     <string name="check_required">请检查必填项！</string>
-    <string name="survey_help">测量提示</string>
+    <string name="survey_help">帮助</string>
     <string name="measure_standard">测量标准：</string>
     <string name="measure_method">测量方法：</string>
     <string name="number_value">数值</string>
     <string name="add_attribute">添加性状</string>
     <string name="add_remark">添加备注</string>
-    <string name="obligate_attribute">预设属性</string>
+    <string name="obligate_attribute">性状</string>
     <string name="user_define">自定义</string>
 
     <!--    app history string -->
@@ -199,4 +206,9 @@
     <!--    app login string-->
     <string name="account_login">输入账号密码进行登录</string>
     <string name="fill_account">一键填入测试账号</string>
+    <string name="update_success">更新成功</string>
+    <string name="update_fail">更新失败</string>
+    <string name="must_required">必填项</string>
+    <string name="disease_resistance">抗病性</string>
+    <string name="string_null" />
 </resources>

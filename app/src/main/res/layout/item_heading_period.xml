@@ -1,0 +1,1495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/dp_10"
+    android:background="@drawable/bg_10_dark"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_5"
+    android:paddingEnd="@dimen/dp_10">
+
+    <!--    <GridView-->
+    <!--        android:id="@+id/img_heading_period"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:numColumns="4"-->
+    <!--        android:verticalSpacing="5dp" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_harvest_plant_shape" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/plant_shape"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/plant_shape" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_plant_shape"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_plant_shape"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_harvest_plant_height" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/plant_height"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/plant_height" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+
+                <EditText
+                    android:id="@+id/edt_plant_height"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+
+                <Button
+                    android:id="@+id/btn_plant_height"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_harvest_development_degree" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/development_degree"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/development_degree" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_development_degree"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+
+                <Button
+                    android:id="@+id/btn_development_degree"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_is_knot" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/is_knot"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/is_knot" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_is_knot"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_is_knot"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_flower_bud" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/flower_bud"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/flower_bud" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_flower_bud"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_flower_bud"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_lateral_bud" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/lateral_bud"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/lateral_bud" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_lateral_bud"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+
+                <Button
+                    android:id="@+id/btn_lateral_bud"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_outer_leaf_length" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/outer_leaf_length"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/outer_leaf_length" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_outer_leaf_length"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_outer_leaf_length"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_outer_leaf_width" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/outer_leaf_width"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/outer_leaf_width" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_outer_leaf_width"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_outer_leaf_width"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_outer_leaf_shape" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/outer_leaf_shape"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/outer_leaf_shape" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_outer_leaf_shape"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_outer_leaf_shape"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_outer_leaf_keel_color" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/outer_leaf_keel_color"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/outer_leaf_keel_color" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_outer_leaf_keel_color"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_outer_leaf_keel_color"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_outer_leaf_keel_thickness" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/outer_leaf_keel_thickness"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/outer_leaf_keel_thickness" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_outer_leaf_keel_thickness"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_outer_leaf_keel_thickness"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_outer_leaf_keel_length" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/outer_leaf_keel_length"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/outer_leaf_keel_length" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_outer_leaf_keel_length"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_outer_leaf_keel_length"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_outer_leaf_keel_width" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/outer_leaf_keel_width"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/outer_leaf_keel_width" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_outer_leaf_keel_width"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_outer_leaf_keel_width"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_leaf_keel_shape" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/leaf_keel_shape"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/leaf_keel_shape" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_leaf_keel_shape"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_leaf_keel_shape"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_outer_leaf_count" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/outer_leaf_count"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/outer_leaf_count" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_outer_leaf_count"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_outer_leaf_count"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_head_closure_type" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_head_closure_type"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_head_closure_type" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_head_closure_type"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_head_closure_type"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_head_conjugation_type" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_head_conjugation_type"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_head_conjugation_type" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_head_conjugation_type"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_head_conjugation_type"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_head_shape" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_head_shape"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_head_shape" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_head_shape"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_head_shape"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_top_color" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_top_color"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_top_color" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_top_color"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_top_color"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_top_green_degree" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_top_green_degree"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_top_green_degree" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_top_green_degree"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_top_green_degree"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_shape" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_shape"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_shape" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_shape"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_shape"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_height" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_height"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_height" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_height"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_height"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_width" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_width"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_width" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_width"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_width"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_mid_width" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <EditText
+                    android:id="@+id/edt_strobilus_mid_width"
+                    style="@style/style_item_basic_info_edit_text"
+                    android:layout_width="60dp"
+                    android:inputType="numberDecimal" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_mid_width"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_end_width" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <EditText
+                    android:id="@+id/edt_strobilus_end_width"
+                    style="@style/style_item_basic_info_edit_text"
+                    android:layout_width="60dp"
+                    android:inputType="numberDecimal" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_end_width"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_compaction" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_compaction"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_compaction" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_compaction"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_compaction"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_inner_color" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_inner_color"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_inner_color" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_inner_color"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_inner_color"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_leaf_count" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_leaf_count"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_leaf_count" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_leaf_count"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_leaf_count"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_soft_leaf_rate" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/soft_leaf_rate"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/soft_leaf_rate" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_soft_leaf_rate"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_soft_leaf_rate"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_strobilus_mass" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/strobilus_mass"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/strobilus_mass" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_strobilus_mass"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_strobilus_mass"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_clean_veg_rate" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/clean_veg_rate"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/clean_veg_rate" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_clean_veg_rate"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_clean_veg_rate"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_center_shape" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/center_shape"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/center_shape" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_center_shape"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_center_shape"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_center_length" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/center_length"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/center_length" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_center_length"
+                    style="@style/style_number_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_center_length"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_harvest_type" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/harvest_type"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/harvest_type" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_harvest_type"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_harvest_type"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_harvest_delay_time_early" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/harvest_delay_time_early"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/harvest_delay_time_early" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_harvest_delay_time_early"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_harvest_delay_time_early"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_long_long_text_view"
+            android:text="@string/info_harvest_delay_time_late" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout style="@style/survey_linear_layout">
+
+                <Spinner
+                    android:id="@+id/harvest_delay_time_late"
+                    style="@style/style_basic_spinner1"
+                    android:layout_width="60dp"
+                    android:entries="@array/harvest_delay_time_late" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <com.example.cabbage.view.AutoClearEditText
+                    android:id="@+id/edt_harvest_delay_time_late"
+                    style="@style/style_user_define_edit_text" />
+
+                <include layout="@layout/view_vertical_divider" />
+
+                <Button
+                    android:id="@+id/btn_harvest_delay_time_late"
+                    style="@style/style_basic_help_btn" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_custom_attribute3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:orientation="vertical" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2">
+
+        <com.example.cabbage.view.CountButton
+            android:id="@+id/btn_add_attribute_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/bg_button_red"
+            android:text="@string/add_attribute"
+            android:textColor="@color/white" />
+
+        <com.example.cabbage.view.CountButton
+            android:id="@+id/btn_add_remark_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/bg_button_red"
+            android:text="@string/add_remark"
+            android:textColor="@color/white" />
+    </GridLayout>
+
+    <Button
+        android:id="@+id/btn_upload_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/upload_data" />
+
+</LinearLayout>
