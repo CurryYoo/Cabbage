@@ -602,31 +602,33 @@ public class HarvestPeriodFragment extends Fragment {
     //添加额外属性
     private void addExtraAttribute(CountButton btnAdd, LinearLayout layout, String keyName) {
         btnAdd.subtractCount();
-        ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, keyName);
-        Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
+
         switch (keyName) {
             case "spare1":
-                extraAttributeView.setTitle(getString(R.string.obligate_attribute));
+                ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.obligate_attribute), keyName);
+                Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
                 extraAttribute = extraAttributeView;
                 btnDelete.setOnClickListener(v1 -> {
                     extraAttribute = null;
                     extraAttributeView.removeAllViews();
                     btnAdd.addCount();
                 });
+                layout.addView(extraAttributeView);
                 break;
             case "spare2":
-                extraAttributeView.setTitle(getString(R.string.info_remark));
-                extraRemark = extraAttributeView;
-                btnDelete.setOnClickListener(v1 -> {
+                ExtraAttributeView extraRemarkView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.info_remark), keyName);
+                Button btnDelete2 = extraRemarkView.findViewById(R.id.btn_delete);
+                extraRemark = extraRemarkView;
+                btnDelete2.setOnClickListener(v1 -> {
                     extraRemark = null;
-                    extraAttributeView.removeAllViews();
+                    extraRemarkView.removeAllViews();
                     btnAdd.addCount();
                 });
+                layout.addView(extraRemarkView);
                 break;
             default:
                 break;
         }
-        layout.addView(extraAttributeView);
     }
 
 

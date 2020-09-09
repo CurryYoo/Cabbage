@@ -41,7 +41,7 @@ import static com.example.cabbage.utils.StaticVariable.SEPARATOR;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
-import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_HARVEST;
+import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_HEADING;
 import static com.example.cabbage.utils.UIUtils.checkIsValid;
 import static com.example.cabbage.utils.UIUtils.setVisibilityOfUserDefined;
 import static com.example.cabbage.utils.UIUtils.showBottomHelpDialog;
@@ -277,7 +277,7 @@ public class HeadingPeriodFragment extends Fragment {
         if (checkIsValid(edtPlantId)) {
             Toast.makeText(self, R.string.check_required, Toast.LENGTH_SHORT).show();
         } else {
-            showDialog(SURVEY_PERIOD_HARVEST);
+            showDialog(SURVEY_PERIOD_HEADING);
 
         }
     };
@@ -465,8 +465,8 @@ public class HeadingPeriodFragment extends Fragment {
         jsonObject.addProperty("widthOfMiddleRib", outerLeafKeelWidthString);
         jsonObject.addProperty("middleRibShape", leafKeelShapeString);
         jsonObject.addProperty("numberOfOuterLeaves", outerLeafCountString);
-//        jsonObject.addProperty("spare1", extraAttributeString);
-//        jsonObject.addProperty("spare2", extraRemarkString);
+        jsonObject.addProperty("spare1", extraAttributeString);
+        jsonObject.addProperty("spare2", extraRemarkString);
 
         return jsonObject.toString();
     }
@@ -509,34 +509,37 @@ public class HeadingPeriodFragment extends Fragment {
             }
         }
     }
+
     //添加额外属性
     private void addExtraAttribute(CountButton btnAdd, LinearLayout layout, String keyName) {
         btnAdd.subtractCount();
-        ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, keyName);
-        Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
+
         switch (keyName) {
             case "spare1":
-                extraAttributeView.setTitle(getString(R.string.obligate_attribute));
+                ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE,getString(R.string.obligate_attribute), keyName);
+                Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
                 extraAttribute = extraAttributeView;
                 btnDelete.setOnClickListener(v1 -> {
                     extraAttribute = null;
                     extraAttributeView.removeAllViews();
                     btnAdd.addCount();
                 });
+                layout.addView(extraAttributeView);
                 break;
             case "spare2":
-                extraAttributeView.setTitle(getString(R.string.info_remark));
-                extraRemark = extraAttributeView;
-                btnDelete.setOnClickListener(v1 -> {
+                ExtraAttributeView extraRemarkView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.info_remark),keyName);
+                Button btnDelete2 = extraRemarkView.findViewById(R.id.btn_delete);
+                extraRemark = extraRemarkView;
+                btnDelete2.setOnClickListener(v1 -> {
                     extraRemark = null;
-                    extraAttributeView.removeAllViews();
+                    extraRemarkView.removeAllViews();
                     btnAdd.addCount();
                 });
+                layout.addView(extraRemarkView);
                 break;
             default:
                 break;
         }
-        layout.addView(extraAttributeView);
     }
 
     public void setInitValue(String materialId_
