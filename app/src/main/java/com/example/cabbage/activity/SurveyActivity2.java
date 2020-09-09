@@ -73,7 +73,7 @@ import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_GERMINATION;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_ROSETTE;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEEDLING;
-import static com.example.cabbage.utils.StaticVariable.separator2;
+import static com.example.cabbage.utils.StaticVariable.SEPARATOR_2;
 import static com.example.cabbage.utils.UIUtils.setSelectionAndText;
 import static com.example.cabbage.utils.UIUtils.setVisibilityOfUserDefined;
 import static java.io.File.separator;
@@ -1356,7 +1356,7 @@ public class SurveyActivity2 extends AppCompatActivity {
         String cotyledonSize = spnCotyledonSize.getSelectedItem().toString()
                 + separator
                 + edtCotyledonSize.getText()
-                + separator2;
+                + SEPARATOR_2;
         String cotyledonColor = spnCotyledonColor.getSelectedItem().toString() + separator + edtCotyledonColor.getText();
         String cotyledonCount = spnCotyledonCount.getSelectedItem().toString() + separator + edtCotyledonCount.getText();
         String cotyledonShape = spnCotyledonShape.getSelectedItem().toString() + separator + edtCotyledonShape.getText();

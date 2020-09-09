@@ -441,19 +441,6 @@ public class SFSPeriodFragment extends Fragment {
     }
 
     private void initView(boolean isEditable) {
-//        View basicInfoLayout = LayoutInflater.from(getActivity()).inflate(R.layout.item_basic_info, null);
-//        InfoItemBar itemBar = new InfoItemBar(context, getString(R.string.item_bar_basic));
-//        itemBar.addView(basicInfoLayout);
-//        itemBar.setShow(true);
-//        itemBar.setVisibilitySubmit(false);
-//        mainArea.addView(itemBar);
-//
-//        editMaterialId = basicInfoLayout.findViewById(R.id.edt_material_id);
-//        editMaterialType = basicInfoLayout.findViewById(R.id.edt_material_type);
-//        editPlantId = basicInfoLayout.findViewById(R.id.edt_plant_id);
-//        tvInvestigatingTime = basicInfoLayout.findViewById(R.id.edt_investigating_time);
-//        tvInvestigator = basicInfoLayout.findViewById(R.id.edt_investigator);
-
         //发芽期View
         View germinationPeriodLayout = LayoutInflater.from(getActivity()).inflate(R.layout.item_germination_period, null);
         InfoItemBar germinationPeriodItemBar = new InfoItemBar(self, getResources().getString(R.string.title_germination_period));

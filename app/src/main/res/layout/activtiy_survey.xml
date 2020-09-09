@@ -11,7 +11,7 @@
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/view_pager_indicator"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
+        android:layout_height="@dimen/dp_30"
         android:background="@color/white"/>
 
     <View style="@style/view_divider_style" />
