@@ -381,7 +381,6 @@
         <item>轻</item>
         <item>中</item>
         <item>重</item>
-        <item>其他</item>
     </string-array>
 
     <string-array name="clean_veg_rate">

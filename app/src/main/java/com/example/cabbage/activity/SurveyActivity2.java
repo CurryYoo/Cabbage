@@ -45,7 +45,7 @@ import com.example.cabbage.utils.MainConstant;
 import com.example.cabbage.utils.PictureResultCode;
 import com.example.cabbage.utils.PictureSelectorConfig;
 import com.example.cabbage.utils.UIUtils;
-import com.example.cabbage.view.CustomAttributeView;
+import com.example.cabbage.view.ExtraAttributeView;
 import com.example.cabbage.view.InfoBottomDialog;
 import com.example.cabbage.view.InfoItemBar;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -78,6 +78,11 @@ import static com.example.cabbage.utils.UIUtils.setSelectionAndText;
 import static com.example.cabbage.utils.UIUtils.setVisibilityOfUserDefined;
 import static java.io.File.separator;
 
+/**
+ * Author:created by Kang on 2020/9/9
+ * Email:zyk970512@163.com
+ * Annotation:调查页面（旧），目前历史记录页面会跳转到此页面
+ */
 @Route(path = ARouterPaths.SURVEY_ACTIVITY2)
 public class SurveyActivity2 extends AppCompatActivity {
 
@@ -331,13 +336,13 @@ public class SurveyActivity2 extends AppCompatActivity {
     private GridView imgRosettePeriod;
     private ImageAdapter mRosettePeriodAdapter;
     private ArrayList<String> mRosettePeriodImgList = new ArrayList<>();
-    private List<CustomAttributeView> mGerminationExtraList = new ArrayList<>();
-    private List<CustomAttributeView> mSeedlingExtraList = new ArrayList<>();
-    private List<CustomAttributeView> mRosetteExtraList = new ArrayList<>();
+    private List<ExtraAttributeView> mGerminationExtraList = new ArrayList<>();
+    private List<ExtraAttributeView> mSeedlingExtraList = new ArrayList<>();
+    private List<ExtraAttributeView> mRosetteExtraList = new ArrayList<>();
     private HashMap<String, Integer> limitTag = new HashMap<>();//限制重复属性和额外属性
-    private HashMap<String, CustomAttributeView> mGerminationExtraHashMap = new HashMap<>();
-    private HashMap<String, CustomAttributeView> mSeedlingExtraHashMap = new HashMap<>();
-    private HashMap<String, CustomAttributeView> mRosetteExtraHashMap = new HashMap<>();
+    private HashMap<String, ExtraAttributeView> mGerminationExtraHashMap = new HashMap<>();
+    private HashMap<String, ExtraAttributeView> mSeedlingExtraHashMap = new HashMap<>();
+    private HashMap<String, ExtraAttributeView> mRosetteExtraHashMap = new HashMap<>();
     private Context context = this;
     View.OnClickListener toolBarOnClickListener = new View.OnClickListener() {
         @Override
@@ -906,70 +911,70 @@ public class SurveyActivity2 extends AppCompatActivity {
     //添加重复属性
     private void addRepeatedAttributeListener(Button button, LinearLayout layout, String attributeName, String keyName, String surveyPeriod) {
         button.setOnClickListener(v -> {
-            CustomAttributeView customAttributeView = new CustomAttributeView(context, 1, attributeName, keyName);
-            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
+            ExtraAttributeView extraAttributeView = new ExtraAttributeView(context, 1, attributeName, keyName);
+            Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
-                customAttributeView.removeAllViews();
+                extraAttributeView.removeAllViews();
             });
-            layout.addView(customAttributeView);
-            addToAttributeList(surveyPeriod, customAttributeView);
+            layout.addView(extraAttributeView);
+            addToAttributeList(surveyPeriod, extraAttributeView);
         });
     }
 
     //添加额外属性
     private void addExtraAttributeListener(Button btnAddAttribute, LinearLayout layout, String keyName, String surveyPeriod) {
         btnAddAttribute.setOnClickListener(v -> {
-            CustomAttributeView customAttributeView = new CustomAttributeView(context, 1, keyName);
-            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
+            ExtraAttributeView extraAttributeView = new ExtraAttributeView(context, 1, keyName);
+            Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
-                customAttributeView.removeAllViews();
+                extraAttributeView.removeAllViews();
             });
-            layout.addView(customAttributeView);
-            addToAttributeList(surveyPeriod, customAttributeView);
+            layout.addView(extraAttributeView);
+            addToAttributeList(surveyPeriod, extraAttributeView);
         });
     }
 
     //添加备注
     private void addRemarkAttributeListener(Button btnAddRemark, LinearLayout layout, String keyName, String surveyPeriod) {
         btnAddRemark.setOnClickListener(v -> {
-            CustomAttributeView customAttributeView = new CustomAttributeView(context, 0, keyName);
-            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
+            ExtraAttributeView extraAttributeView = new ExtraAttributeView(context, 0, keyName);
+            Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
             btnDelete.setOnClickListener(v1 -> {
-                customAttributeView.removeAllViews();
+                extraAttributeView.removeAllViews();
             });
-            layout.addView(customAttributeView);
-            addToAttributeList(surveyPeriod, customAttributeView);
+            layout.addView(extraAttributeView);
+            addToAttributeList(surveyPeriod, extraAttributeView);
         });
     }
 
     //增加新的view到对应时期到list中
-    private void addToAttributeList(String surveyPeriod, CustomAttributeView customAttributeView) {
+    private void addToAttributeList(String surveyPeriod, ExtraAttributeView extraAttributeView) {
         switch (surveyPeriod) {
             case SURVEY_PERIOD_GERMINATION:
-                mGerminationExtraList.add(customAttributeView);
+                mGerminationExtraList.add(extraAttributeView);
                 break;
             case SURVEY_PERIOD_SEEDLING:
 //                mSeedlingExtraList.add(customAttributeView);
-                mSeedlingExtraHashMap.put(customAttributeView.getKeyName(), customAttributeView);
+                mSeedlingExtraHashMap.put(extraAttributeView.getKeyName(), extraAttributeView);
                 break;
             case SURVEY_PERIOD_ROSETTE:
-                mRosetteExtraList.add(customAttributeView);
+                mRosetteExtraList.add(extraAttributeView);
                 break;
             default:
                 break;
         }
     }
 
-    private void removeAttribute(String surveyPeriod, CustomAttributeView customAttributeView) {
+    private void removeAttribute(String surveyPeriod, ExtraAttributeView extraAttributeView) {
         switch (surveyPeriod) {
             case SURVEY_PERIOD_GERMINATION:
-                mGerminationExtraList.remove(customAttributeView);
+                mGerminationExtraList.remove(extraAttributeView);
                 break;
             case SURVEY_PERIOD_SEEDLING:
-                mSeedlingExtraList.remove(customAttributeView);
+                mSeedlingExtraList.remove(extraAttributeView);
                 break;
             case SURVEY_PERIOD_ROSETTE:
-                mRosetteExtraList.remove(customAttributeView);
+                mRosetteExtraList.remove(extraAttributeView);
                 break;
             default:
                 break;
@@ -1206,17 +1211,17 @@ public class SurveyActivity2 extends AppCompatActivity {
     }
 
     private void initAttributeView(LinearLayout layout, String title, String keyName, String value, String surveyPeriod) {
-        CustomAttributeView customAttributeView = new CustomAttributeView(context, 1, keyName);
-        customAttributeView.setTitle(title);
-        customAttributeView.setContent(value);
-        Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
+        ExtraAttributeView extraAttributeView = new ExtraAttributeView(context, 1, keyName);
+        extraAttributeView.setTitle(title);
+        extraAttributeView.setContent(value);
+        Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
         btnDelete.setOnClickListener(v1 -> {
-            customAttributeView.removeAllViews();
+            extraAttributeView.removeAllViews();
         });
-        customAttributeView.hideDeleteBtn();
+        extraAttributeView.hideDeleteBtn();
 
-        layout.addView(customAttributeView);
-        addToAttributeList(surveyPeriod, customAttributeView);
+        layout.addView(extraAttributeView);
+        addToAttributeList(surveyPeriod, extraAttributeView);
     }
 
     // 初始化图片
@@ -1341,10 +1346,10 @@ public class SurveyActivity2 extends AppCompatActivity {
         map.put("spare", 0);
 
         //增加额外属性
-        for (CustomAttributeView customAttributeView : mGerminationExtraList) {
-            String finalKey = getFinalKey(map, customAttributeView.getKeyName());
+        for (ExtraAttributeView extraAttributeView : mGerminationExtraList) {
+            String finalKey = getFinalKey(map, extraAttributeView.getKeyName());
             if (!TextUtils.isEmpty(finalKey)) {
-                jsonObject.addProperty(finalKey, customAttributeView.getContent());
+                jsonObject.addProperty(finalKey, extraAttributeView.getContent());
             }
         }
         return jsonObject.toString();

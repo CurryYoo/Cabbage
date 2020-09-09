@@ -32,8 +32,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
-
-
+/**
+ * Author:created by Kang on 2020/9/9
+ * Email:zyk970512@163.com
+ * Annotation:历史记录界面
+ */
 @Route(path = ARouterPaths.HISTORY_ACTIVITY)
 public class HistoryActivity extends AppCompatActivity implements OnClickListener {
 

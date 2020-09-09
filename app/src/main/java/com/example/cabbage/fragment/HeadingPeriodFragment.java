@@ -24,7 +24,7 @@ import com.example.cabbage.network.NormalInfo;
 import com.example.cabbage.network.ResultInfo;
 import com.example.cabbage.view.AutoClearEditText;
 import com.example.cabbage.view.CountButton;
-import com.example.cabbage.view.CustomAttributeView;
+import com.example.cabbage.view.ExtraAttributeView;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -42,14 +42,11 @@ import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_HARVEST;
-import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_HEADING;
-import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEEDLING;
 import static com.example.cabbage.utils.UIUtils.checkIsValid;
 import static com.example.cabbage.utils.UIUtils.setVisibilityOfUserDefined;
 import static com.example.cabbage.utils.UIUtils.showBottomHelpDialog;
 
 public class HeadingPeriodFragment extends Fragment {
-
     @BindView(R.id.edt_material_id)
     EditText edtMaterialId;
     @BindView(R.id.edt_material_type)
@@ -152,134 +149,30 @@ public class HeadingPeriodFragment extends Fragment {
     AutoClearEditText edtOuterLeafCount;
     @BindView(R.id.btn_outer_leaf_count)
     Button btnOuterLeafCount;
-    @BindView(R.id.layout_custom_attribute_heading)
-    LinearLayout layoutCustomAttributeHeading;
-    @BindView(R.id.btn_add_attribute_heading)
-    CountButton btnAddAttributeHeading;
-    @BindView(R.id.btn_add_remark_heading)
-    CountButton btnAddRemarkHeading;
-    @BindView(R.id.btn_upload_data_heading)
-    Button btnUploadDataHeading;
-    @BindView(R.id.strobilus_head_closure_type)
-    Spinner strobilusHeadClosureType;
-    @BindView(R.id.edt_strobilus_head_closure_type)
-    AutoClearEditText edtStrobilusHeadClosureType;
-    @BindView(R.id.btn_strobilus_head_closure_type)
-    Button btnStrobilusHeadClosureType;
-    @BindView(R.id.strobilus_head_conjugation_type)
-    Spinner strobilusHeadConjugationType;
-    @BindView(R.id.edt_strobilus_head_conjugation_type)
-    AutoClearEditText edtStrobilusHeadConjugationType;
-    @BindView(R.id.btn_strobilus_head_conjugation_type)
-    Button btnStrobilusHeadConjugationType;
-    @BindView(R.id.strobilus_head_shape)
-    Spinner strobilusHeadShape;
-    @BindView(R.id.edt_strobilus_head_shape)
-    AutoClearEditText edtStrobilusHeadShape;
-    @BindView(R.id.btn_strobilus_head_shape)
-    Button btnStrobilusHeadShape;
-    @BindView(R.id.strobilus_top_color)
-    Spinner strobilusTopColor;
-    @BindView(R.id.edt_strobilus_top_color)
-    AutoClearEditText edtStrobilusTopColor;
-    @BindView(R.id.btn_strobilus_top_color)
-    Button btnStrobilusTopColor;
-    @BindView(R.id.strobilus_top_green_degree)
-    Spinner strobilusTopGreenDegree;
-    @BindView(R.id.edt_strobilus_top_green_degree)
-    AutoClearEditText edtStrobilusTopGreenDegree;
-    @BindView(R.id.btn_strobilus_top_green_degree)
-    Button btnStrobilusTopGreenDegree;
-    @BindView(R.id.strobilus_shape)
-    Spinner strobilusShape;
-    @BindView(R.id.edt_strobilus_shape)
-    AutoClearEditText edtStrobilusShape;
-    @BindView(R.id.btn_strobilus_shape)
-    Button btnStrobilusShape;
-    @BindView(R.id.strobilus_height)
-    Spinner strobilusHeight;
-    @BindView(R.id.edt_strobilus_height)
-    AutoClearEditText edtStrobilusHeight;
-    @BindView(R.id.btn_strobilus_height)
-    Button btnStrobilusHeight;
-    @BindView(R.id.strobilus_width)
-    Spinner strobilusWidth;
-    @BindView(R.id.edt_strobilus_width)
-    AutoClearEditText edtStrobilusWidth;
-    @BindView(R.id.btn_strobilus_width)
-    Button btnStrobilusWidth;
-    @BindView(R.id.edt_strobilus_mid_width)
-    EditText edtStrobilusMidWidth;
-    @BindView(R.id.btn_strobilus_mid_width)
-    Button btnStrobilusMidWidth;
-    @BindView(R.id.edt_strobilus_end_width)
-    EditText edtStrobilusEndWidth;
-    @BindView(R.id.btn_strobilus_end_width)
-    Button btnStrobilusEndWidth;
-    @BindView(R.id.strobilus_compaction)
-    Spinner strobilusCompaction;
-    @BindView(R.id.edt_strobilus_compaction)
-    AutoClearEditText edtStrobilusCompaction;
-    @BindView(R.id.btn_strobilus_compaction)
-    Button btnStrobilusCompaction;
-    @BindView(R.id.strobilus_inner_color)
-    Spinner strobilusInnerColor;
-    @BindView(R.id.edt_strobilus_inner_color)
-    AutoClearEditText edtStrobilusInnerColor;
-    @BindView(R.id.btn_strobilus_inner_color)
-    Button btnStrobilusInnerColor;
-    @BindView(R.id.strobilus_leaf_count)
-    Spinner strobilusLeafCount;
-    @BindView(R.id.edt_strobilus_leaf_count)
-    AutoClearEditText edtStrobilusLeafCount;
-    @BindView(R.id.btn_strobilus_leaf_count)
-    Button btnStrobilusLeafCount;
-    @BindView(R.id.soft_leaf_rate)
-    Spinner softLeafRate;
-    @BindView(R.id.edt_soft_leaf_rate)
-    AutoClearEditText edtSoftLeafRate;
-    @BindView(R.id.btn_soft_leaf_rate)
-    Button btnSoftLeafRate;
-    @BindView(R.id.strobilus_mass)
-    Spinner strobilusMass;
-    @BindView(R.id.edt_strobilus_mass)
-    AutoClearEditText edtStrobilusMass;
-    @BindView(R.id.btn_strobilus_mass)
-    Button btnStrobilusMass;
-    @BindView(R.id.clean_veg_rate)
-    Spinner cleanVegRate;
-    @BindView(R.id.edt_clean_veg_rate)
-    AutoClearEditText edtCleanVegRate;
-    @BindView(R.id.btn_clean_veg_rate)
-    Button btnCleanVegRate;
-    @BindView(R.id.center_shape)
-    Spinner centerShape;
-    @BindView(R.id.edt_center_shape)
-    AutoClearEditText edtCenterShape;
-    @BindView(R.id.btn_center_shape)
-    Button btnCenterShape;
-    @BindView(R.id.center_length)
-    Spinner centerLength;
-    @BindView(R.id.edt_center_length)
-    AutoClearEditText edtCenterLength;
-    @BindView(R.id.btn_center_length)
-    Button btnCenterLength;
-    @BindView(R.id.harvest_type)
-    Spinner harvestType;
-    @BindView(R.id.edt_harvest_type)
-    AutoClearEditText edtHarvestType;
-    @BindView(R.id.btn_harvest_type)
-    Button btnHarvestType;
-    @BindView(R.id.harvest_delay_time_early)
-    Spinner harvestDelayTimeEarly;
-    @BindView(R.id.edt_harvest_delay_time_early)
-    AutoClearEditText edtHarvestDelayTimeEarly;
-    @BindView(R.id.btn_harvest_delay_time_early)
-    Button btnHarvestDelayTimeEarly;
-    @BindView(R.id.harvest_delay_time_late)
-    Spinner harvestDelayTimeLate;
-    @BindView(R.id.edt_harvest_delay_time_late)
-    AutoClearEditText edtHarvestDelayTimeLate;
+    @BindView(R.id.btn_add_attribute)
+    CountButton btnAddAttribute;
+    @BindView(R.id.btn_add_remark)
+    CountButton btnAddRemark;
+    @BindView(R.id.btn_upload_data)
+    Button btnUploadData;
+    @BindView(R.id.layout_custom_attribute)
+    LinearLayout layoutCustomAttribute;
+    private Context self;
+    private Unbinder unbinder;
+    //必需数据
+    private String materialId;
+    private String materialType;
+    private String plantId;
+    private String investigatingTime;
+    private int status = STATUS_NEW;
+    private String surveyId;
+    private String surveyPeriod;
+    private String token;
+    private int userId;
+    private String nickname;
+    private ExtraAttributeView extraAttribute = null;//额外性状
+    private ExtraAttributeView extraRemark = null;//额外备注
+
     //spinner选择监听，选择其他是，显示自定义填空
     Spinner.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
@@ -309,42 +202,6 @@ public class HeadingPeriodFragment extends Fragment {
                 case R.id.leaf_keel_shape:
                     setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.leaf_keel_shape).length - 1, edtLeafKeelShape);
                     break;
-                case R.id.strobilus_head_closure_type:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.strobilus_head_closure_type).length - 1, edtStrobilusHeadClosureType);
-                    break;
-                case R.id.strobilus_head_conjugation_type:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.strobilus_head_conjugation_type).length - 1, edtStrobilusHeadConjugationType);
-                    break;
-                case R.id.strobilus_head_shape:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.strobilus_head_shape).length - 1, edtStrobilusHeadShape);
-                    break;
-                case R.id.strobilus_top_color:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.strobilus_top_color).length - 1, edtStrobilusTopColor);
-                    break;
-                case R.id.strobilus_top_green_degree:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.strobilus_top_green_degree).length - 1, edtStrobilusTopGreenDegree);
-                    break;
-                case R.id.strobilus_shape:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.strobilus_shape).length - 1, edtStrobilusShape);
-                    break;
-                case R.id.strobilus_compaction:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.strobilus_compaction).length - 1, edtStrobilusCompaction);
-                    break;
-                case R.id.strobilus_inner_color:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.strobilus_inner_color).length - 1, edtStrobilusInnerColor);
-                    break;
-                case R.id.center_shape:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.center_shape).length - 1, edtCenterShape);
-                    break;
-                case R.id.harvest_type:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.harvest_type).length - 1, edtHarvestType);
-                    break;
-                case R.id.harvest_delay_time_early:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.harvest_delay_time_early).length - 1, edtHarvestDelayTimeEarly);
-                    break;
-                case R.id.harvest_delay_time_late:
-                    setVisibilityOfUserDefined(position, getResources().getStringArray(R.array.harvest_delay_time_late).length - 1, edtHarvestDelayTimeLate);
-                    break;
                 default:
                     break;
             }
@@ -355,27 +212,6 @@ public class HeadingPeriodFragment extends Fragment {
 
         }
     };
-    @BindView(R.id.btn_harvest_delay_time_late)
-    Button btnHarvestDelayTimeLate;
-    @BindView(R.id.layout_custom_attribute_harvest)
-    LinearLayout layoutCustomAttributeHarvest;
-    @BindView(R.id.btn_add_attribute_harvest)
-    CountButton btnAddAttributeHarvest;
-    @BindView(R.id.btn_add_remark_harvest)
-    CountButton btnAddRemarkHarvest;
-    @BindView(R.id.btn_upload_data_harvest)
-    Button btnUploadDataHarvest;
-    private Context self;
-    private Unbinder unbinder;
-    //必需数据
-    private String materialId;
-    private String materialType;
-    private String plantId;
-    private String investigatingTime;
-    private int status = STATUS_NEW;
-    private String surveyId;
-    private String surveyPeriod;
-    private String token;
     View.OnClickListener helpClickListener = v -> {
         switch (v.getId()) {
             case R.id.btn_plant_shape:
@@ -423,68 +259,17 @@ public class HeadingPeriodFragment extends Fragment {
             case R.id.btn_outer_leaf_count:
                 showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_outer_leaf_count));
                 break;
-            case R.id.btn_strobilus_head_closure_type:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_head_closure_type));
+            default:
                 break;
-            case R.id.btn_strobilus_head_conjugation_type:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_head_conjugation_type));
+        }
+    };
+    View.OnClickListener extraAttributeClickListener = v -> {
+        switch (v.getId()) {
+            case R.id.btn_add_attribute:
+                addExtraAttribute(btnAddAttribute, layoutCustomAttribute, "spare1");
                 break;
-            case R.id.btn_strobilus_head_shape:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_head_shape));
-                break;
-            case R.id.btn_strobilus_top_color:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_top_color));
-                break;
-            case R.id.btn_strobilus_top_green_degree:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_top_green_degree));
-                break;
-            case R.id.btn_strobilus_shape:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_shape));
-                break;
-            case R.id.btn_strobilus_height:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_height));
-                break;
-            case R.id.btn_strobilus_width:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_width));
-                break;
-            case R.id.btn_strobilus_mid_width:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_mid_width));
-                break;
-            case R.id.btn_strobilus_end_width:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_end_width));
-                break;
-            case R.id.btn_strobilus_compaction:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_compaction));
-                break;
-            case R.id.btn_strobilus_inner_color:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_inner_color));
-                break;
-            case R.id.btn_strobilus_leaf_count:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_leaf_count));
-                break;
-            case R.id.btn_soft_leaf_rate:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_soft_leaf_rate));
-                break;
-            case R.id.btn_strobilus_mass:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_strobilus_mass));
-                break;
-            case R.id.btn_clean_veg_rate:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_clean_veg_rate));
-                break;
-            case R.id.btn_center_shape:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_center_shape));
-                break;
-            case R.id.btn_center_length:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_center_length));
-                break;
-            case R.id.btn_harvest_type:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_harvest_type));
-                break;
-            case R.id.btn_harvest_delay_time_early:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_harvest_delay_time_early));
-                break;
-            case R.id.btn_harvest_delay_time_late:
-                showBottomHelpDialog(self, getFragmentManager(), token, self.getResources().getString(R.string.info_harvest_delay_time_late));
+            case R.id.btn_add_remark:
+                addExtraAttribute(btnAddRemark, layoutCustomAttribute, "spare2");
                 break;
         }
     };
@@ -492,20 +277,10 @@ public class HeadingPeriodFragment extends Fragment {
         if (checkIsValid(edtPlantId)) {
             Toast.makeText(self, R.string.check_required, Toast.LENGTH_SHORT).show();
         } else {
-            switch (v.getId()) {
-                case R.id.btn_upload_data_heading:
-                    showDialog(SURVEY_PERIOD_HEADING);
-                    break;
-                case R.id.btn_upload_data_harvest:
-                    showDialog(SURVEY_PERIOD_HARVEST);
-                    break;
-                default:
-                    break;
-            }
+            showDialog(SURVEY_PERIOD_HARVEST);
+
         }
     };
-    private int userId;
-    private String nickname;
 
     public static HeadingPeriodFragment newInstance() {
         return new HeadingPeriodFragment();
@@ -560,18 +335,6 @@ public class HeadingPeriodFragment extends Fragment {
         outerLeafKeelColor.setOnItemSelectedListener(onItemSelectedListener);
         outerLeafKeelThickness.setOnItemSelectedListener(onItemSelectedListener);
         leafKeelShape.setOnItemSelectedListener(onItemSelectedListener);
-        strobilusHeadClosureType.setOnItemSelectedListener(onItemSelectedListener);
-        strobilusHeadConjugationType.setOnItemSelectedListener(onItemSelectedListener);
-        strobilusHeadShape.setOnItemSelectedListener(onItemSelectedListener);
-        strobilusTopColor.setOnItemSelectedListener(onItemSelectedListener);
-        strobilusTopGreenDegree.setOnItemSelectedListener(onItemSelectedListener);
-        strobilusShape.setOnItemSelectedListener(onItemSelectedListener);
-        strobilusCompaction.setOnItemSelectedListener(onItemSelectedListener);
-        strobilusInnerColor.setOnItemSelectedListener(onItemSelectedListener);
-        centerShape.setOnItemSelectedListener(onItemSelectedListener);
-        harvestType.setOnItemSelectedListener(onItemSelectedListener);
-        harvestDelayTimeEarly.setOnItemSelectedListener(onItemSelectedListener);
-        harvestDelayTimeLate.setOnItemSelectedListener(onItemSelectedListener);
         //显示底部提示弹出框
         btnPlantShape.setOnClickListener(helpClickListener);
         btnPlantHeight.setOnClickListener(helpClickListener);
@@ -588,44 +351,17 @@ public class HeadingPeriodFragment extends Fragment {
         btnOuterLeafKeelWidth.setOnClickListener(helpClickListener);
         btnLeafKeelShape.setOnClickListener(helpClickListener);
         btnOuterLeafCount.setOnClickListener(helpClickListener);
-        btnStrobilusHeadClosureType.setOnClickListener(helpClickListener);
-        btnStrobilusHeadConjugationType.setOnClickListener(helpClickListener);
-        btnStrobilusHeadShape.setOnClickListener(helpClickListener);
-        btnStrobilusTopColor.setOnClickListener(helpClickListener);
-        btnStrobilusTopGreenDegree.setOnClickListener(helpClickListener);
-        btnStrobilusShape.setOnClickListener(helpClickListener);
-        btnStrobilusHeight.setOnClickListener(helpClickListener);
-        btnStrobilusWidth.setOnClickListener(helpClickListener);
-        btnStrobilusMidWidth.setOnClickListener(helpClickListener);
-        btnStrobilusEndWidth.setOnClickListener(helpClickListener);
-        btnStrobilusCompaction.setOnClickListener(helpClickListener);
-        btnStrobilusInnerColor.setOnClickListener(helpClickListener);
-        btnStrobilusLeafCount.setOnClickListener(helpClickListener);
-        btnSoftLeafRate.setOnClickListener(helpClickListener);
-        btnStrobilusMass.setOnClickListener(helpClickListener);
-        btnCleanVegRate.setOnClickListener(helpClickListener);
-        btnCenterShape.setOnClickListener(helpClickListener);
-        btnCenterLength.setOnClickListener(helpClickListener);
-        btnHarvestType.setOnClickListener(helpClickListener);
-        btnHarvestDelayTimeEarly.setOnClickListener(helpClickListener);
-        btnHarvestDelayTimeLate.setOnClickListener(helpClickListener);
 
-        //额外性状和备注
-        btnAddAttributeHeading.setCount(1);
-        btnAddRemarkHeading.setCount(1);
-        btnAddAttributeHarvest.setCount(1);
-        btnAddRemarkHarvest.setCount(1);
-        addExtraAttributeListener(btnAddAttributeHeading, layoutCustomAttributeHeading, "spare", SURVEY_PERIOD_SEEDLING);
-        addRemarkAttributeListener(btnAddRemarkHeading, layoutCustomAttributeHeading, "spare", SURVEY_PERIOD_SEEDLING);
-        addExtraAttributeListener(btnAddAttributeHarvest, layoutCustomAttributeHarvest, "spare", SURVEY_PERIOD_SEEDLING);
-        addRemarkAttributeListener(btnAddRemarkHarvest, layoutCustomAttributeHarvest, "spare", SURVEY_PERIOD_SEEDLING);
+        //额外属性和备注
+        btnAddAttribute.setCount(1);
+        btnAddRemark.setCount(1);
+        btnAddAttribute.setOnClickListener(extraAttributeClickListener);
+        btnAddRemark.setOnClickListener(extraAttributeClickListener);
         //提交按钮
         if (editable) {
-            btnUploadDataHeading.setOnClickListener(submitClickListener);
-            btnUploadDataHarvest.setOnClickListener(submitClickListener);
+            btnUploadData.setOnClickListener(submitClickListener);
         } else {
-            btnUploadDataHeading.setVisibility(View.GONE);
-            btnUploadDataHarvest.setVisibility(View.GONE);
+            btnUploadData.setVisibility(View.GONE);
         }
     }
 
@@ -660,7 +396,7 @@ public class HeadingPeriodFragment extends Fragment {
     // 根据时期，更新服务器数据
     private void uploadPeriodData(String surveyPeriod) {
         try {
-            String mPeriodData = getPeriodData(surveyPeriod);
+            String mPeriodData = getPeriodData();
             HttpRequest.requestAddSurveyData(token, surveyPeriod, mPeriodData, new HttpRequest.IResultCallback() {
                 @Override
                 public void onResponse(ResultInfo resultInfo) {
@@ -683,18 +419,8 @@ public class HeadingPeriodFragment extends Fragment {
         }
     }
 
-    private String getPeriodData(String surveyPeriod) {
-        switch (surveyPeriod) {
-            case SURVEY_PERIOD_HEADING:
-                return getHeadingPeriodData();
-            case SURVEY_PERIOD_HARVEST:
-                return getHarvestPeriodData();
-            default:
-                return "";
-        }
-    }
 
-    private String getHeadingPeriodData() {
+    private String getPeriodData() {
         //结球期
         JsonObject jsonObject = getBasicInfoData();
         String plantShapeString = plantShape.getSelectedItem().toString() + SEPARATOR + edtPlantShape.getText();
@@ -713,6 +439,17 @@ public class HeadingPeriodFragment extends Fragment {
         String leafKeelShapeString = leafKeelShape.getSelectedItem().toString() + SEPARATOR + edtLeafKeelShape.getText();
         String outerLeafCountString = outerLeafCount.getSelectedItem().toString() + SEPARATOR + edtOuterLeafCount.getText();
 
+        //额外属性
+        String extraAttributeString = "";
+        String extraRemarkString = "";
+        if (extraAttribute != null) {
+            extraAttributeString = extraAttribute.getContent();
+            Toast.makeText(self, extraAttributeString, Toast.LENGTH_SHORT).show();
+        }
+        if (extraRemark != null) {
+            extraRemarkString = extraRemark.getContent();
+        }
+
         jsonObject.addProperty("plantType", plantShapeString);
         jsonObject.addProperty("plantHeight", plantHeightString);
         jsonObject.addProperty("developmentDegree", developmentDegreeString);
@@ -728,61 +465,11 @@ public class HeadingPeriodFragment extends Fragment {
         jsonObject.addProperty("widthOfMiddleRib", outerLeafKeelWidthString);
         jsonObject.addProperty("middleRibShape", leafKeelShapeString);
         jsonObject.addProperty("numberOfOuterLeaves", outerLeafCountString);
+//        jsonObject.addProperty("spare1", extraAttributeString);
+//        jsonObject.addProperty("spare2", extraRemarkString);
 
         return jsonObject.toString();
     }
-
-    private String getHarvestPeriodData() {
-        //成熟期
-        JsonObject jsonObject = getBasicInfoData();
-
-        String strobilusHeadClosureTypeString = strobilusHeadClosureType.getSelectedItem().toString() + SEPARATOR + edtStrobilusHeadClosureType.getText();
-        String strobilusHeadConjugationTypeString = strobilusHeadConjugationType.getSelectedItem().toString() + SEPARATOR + edtStrobilusHeadConjugationType.getText();
-        String strobilusHeadShapeString = strobilusHeadShape.getSelectedItem().toString() + SEPARATOR + edtStrobilusHeadShape.getText();
-        String strobilusTopColorString = strobilusTopColor.getSelectedItem().toString() + SEPARATOR + edtStrobilusTopColor.getText();
-        String pstrobilusTopGreenDegreeString = strobilusTopGreenDegree.getSelectedItem().toString() + SEPARATOR + edtStrobilusTopGreenDegree.getText();
-        String strobilusShapeString = strobilusShape.getSelectedItem().toString() + SEPARATOR + edtStrobilusShape.getText();
-        String strobilusHeightString = strobilusHeight.getSelectedItem().toString() + SEPARATOR + edtStrobilusHeight.getText();
-        String strobilusWidthString = strobilusWidth.getSelectedItem().toString() + SEPARATOR + edtStrobilusWidth.getText();
-        String StrobilusMidWidthString = edtStrobilusMidWidth.getText().toString();
-        String StrobilusEndWidthString = edtStrobilusEndWidth.getText().toString();
-        String strobilusCompactionString = strobilusCompaction.getSelectedItem().toString() + SEPARATOR + edtStrobilusCompaction.getText();
-        String strobilusInnerColorString = strobilusInnerColor.getSelectedItem().toString() + SEPARATOR + edtStrobilusInnerColor.getText();
-        String strobilusLeafCountString = strobilusLeafCount.getSelectedItem().toString() + SEPARATOR + edtStrobilusLeafCount.getText();
-        String softLeafRateString = softLeafRate.getSelectedItem().toString() + SEPARATOR + edtSoftLeafRate.getText();
-        String strobilusMassString = strobilusMass.getSelectedItem().toString() + SEPARATOR + edtStrobilusMass.getText();
-        String cleanVegRateString = cleanVegRate.getSelectedItem().toString() + SEPARATOR + edtCleanVegRate.getText();
-        String centerShapeString = centerShape.getSelectedItem().toString() + SEPARATOR + edtCenterShape.getText();
-        String centerLengthString = centerLength.getSelectedItem().toString() + SEPARATOR + edtCenterLength.getText();
-        String harvestTypeString = harvestType.getSelectedItem().toString() + SEPARATOR + edtHarvestType.getText();
-        String harvestDelayTimeEarlyString = harvestDelayTimeEarly.getSelectedItem().toString() + SEPARATOR + edtHarvestDelayTimeEarly.getText();
-        String harvestDelayTimeLateString = harvestDelayTimeLate.getSelectedItem().toString() + SEPARATOR + edtHarvestDelayTimeLate.getText();
-
-        jsonObject.addProperty("ballTopClosedType", strobilusHeadClosureTypeString);
-        jsonObject.addProperty("ballTopHoldType", strobilusHeadConjugationTypeString);
-        jsonObject.addProperty("ballTopShape", strobilusHeadShapeString);
-        jsonObject.addProperty("upperLeafBulbColor", strobilusTopColorString);
-        jsonObject.addProperty("greenDegreeOfUpperLeafBall", pstrobilusTopGreenDegreeString);
-        jsonObject.addProperty("leafBallShape", strobilusShapeString);
-        jsonObject.addProperty("leafBallHeight", strobilusHeightString);
-        jsonObject.addProperty("leafBallWidth", strobilusWidthString);
-        jsonObject.addProperty("leafBallMiddleWidth", StrobilusMidWidthString);
-        jsonObject.addProperty("leafBulbEndWidth", StrobilusEndWidthString);
-        jsonObject.addProperty("leafBallCompactness", strobilusCompactionString);
-        jsonObject.addProperty("innerColorOfLeafBall", strobilusInnerColorString);
-        jsonObject.addProperty("numberOfBulbs", strobilusLeafCountString);
-        jsonObject.addProperty("softLeafRate", softLeafRateString);
-        jsonObject.addProperty("leafBallWeight", strobilusMassString);
-        jsonObject.addProperty("netVegetableRate", cleanVegRateString);
-        jsonObject.addProperty("centerColumnShape", centerShapeString);
-        jsonObject.addProperty("centerColumnLength", centerLengthString);
-        jsonObject.addProperty("maturity", harvestTypeString);
-        jsonObject.addProperty("extendedHarvestPeriodEarly", harvestDelayTimeEarlyString);
-        jsonObject.addProperty("extendedHarvestPeriodMidLate", harvestDelayTimeLateString);
-
-        return jsonObject.toString();
-    }
-
 
     private JsonObject getBasicInfoData() {
         String plantId = edtPlantId.getText().toString();
@@ -822,51 +509,34 @@ public class HeadingPeriodFragment extends Fragment {
             }
         }
     }
-
     //添加额外属性
-    private void addExtraAttributeListener(CountButton btnAddAttribute, LinearLayout layout, String keyName, String surveyPeriod) {
-        btnAddAttribute.setOnClickListener(v -> {
-            btnAddAttribute.subtractCount();
-            CustomAttributeView customAttributeView = new CustomAttributeView(self, 1, keyName);
-            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
-            btnDelete.setOnClickListener(v1 -> {
-                customAttributeView.removeAllViews();
-                btnAddAttribute.addCount();
-            });
-            layout.addView(customAttributeView);
-            addToAttributeList(surveyPeriod, customAttributeView);
-        });
-    }
-
-
-    //添加备注
-    private void addRemarkAttributeListener(CountButton btnAddRemark, LinearLayout layout, String keyName, String surveyPeriod) {
-        btnAddRemark.setOnClickListener(v -> {
-            btnAddRemark.subtractCount();
-            CustomAttributeView customAttributeView = new CustomAttributeView(self, 0, keyName);
-            Button btnDelete = customAttributeView.findViewById(R.id.btn_delete);
-            btnDelete.setOnClickListener(v1 -> {
-                customAttributeView.removeAllViews();
-                btnAddRemark.addCount();
-            });
-            layout.addView(customAttributeView);
-            addToAttributeList(surveyPeriod, customAttributeView);
-        });
-    }
-
-
-    //增加新的view到对应时期到list中
-    private void addToAttributeList(String surveyPeriod, CustomAttributeView customAttributeView) {
-        switch (surveyPeriod) {
-            case SURVEY_PERIOD_HEADING:
-                //TODO
+    private void addExtraAttribute(CountButton btnAdd, LinearLayout layout, String keyName) {
+        btnAdd.subtractCount();
+        ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, keyName);
+        Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
+        switch (keyName) {
+            case "spare1":
+                extraAttributeView.setTitle(getString(R.string.obligate_attribute));
+                extraAttribute = extraAttributeView;
+                btnDelete.setOnClickListener(v1 -> {
+                    extraAttribute = null;
+                    extraAttributeView.removeAllViews();
+                    btnAdd.addCount();
+                });
                 break;
-            case SURVEY_PERIOD_HARVEST:
-                //TODO
+            case "spare2":
+                extraAttributeView.setTitle(getString(R.string.info_remark));
+                extraRemark = extraAttributeView;
+                btnDelete.setOnClickListener(v1 -> {
+                    extraRemark = null;
+                    extraAttributeView.removeAllViews();
+                    btnAdd.addCount();
+                });
                 break;
             default:
                 break;
         }
+        layout.addView(extraAttributeView);
     }
 
     public void setInitValue(String materialId_

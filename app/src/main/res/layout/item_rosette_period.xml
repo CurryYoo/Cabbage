@@ -830,16 +830,15 @@
         android:layout_marginBottom="@dimen/dp_5"
         android:orientation="vertical" />
 
-    <GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="2">
-
+        android:orientation="horizontal">
         <com.example.cabbage.view.CountButton
             android:id="@+id/btn_add_attribute3"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_columnWeight="1"
+            android:layout_weight="1"
             android:layout_margin="@dimen/dp_10"
             android:background="@drawable/bg_button_red"
             android:text="@string/add_attribute"
@@ -847,13 +846,13 @@
 
         <com.example.cabbage.view.CountButton
             android:id="@+id/btn_add_remark3"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_columnWeight="1"
+            android:layout_weight="1"
             android:layout_margin="@dimen/dp_10"
             android:background="@drawable/bg_button_red"
             android:text="@string/add_remark"
             android:textColor="@color/white" />
-    </GridLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -12,16 +12,21 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.SurveyPageAdapter;
-import com.example.cabbage.fragment.DiseasePeriodFragment;
-import com.example.cabbage.fragment.GSRPeriodFragment;
+import com.example.cabbage.fragment.FloweringPeriodFragment;
+import com.example.cabbage.fragment.GerminationPeriodFragment;
+import com.example.cabbage.fragment.HarvestPeriodFragment;
 import com.example.cabbage.fragment.HeadingPeriodFragment;
-import com.example.cabbage.fragment.SFSPeriodFragment;
+import com.example.cabbage.fragment.RosettePeriodFragment;
+import com.example.cabbage.fragment.SeedHarvestPeriodFragment;
+import com.example.cabbage.fragment.SeedlingPeriodFragment;
+import com.example.cabbage.fragment.StoragePeriodFragment;
 import com.example.cabbage.utils.ARouterPaths;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -41,6 +46,11 @@ import butterknife.ButterKnife;
 
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 
+/**
+ * Author:created by Kang on 2020/9/9
+ * Email:zyk970512@163.com
+ * Annotation:调查页面
+ */
 @Route(path = ARouterPaths.SURVEY_ACTIVITY)
 public class SurveyActivity extends AppCompatActivity {
     @Autowired(name = "materialId")
@@ -77,16 +87,24 @@ public class SurveyActivity extends AppCompatActivity {
     @BindView(R.id.title_text)
     TextView titleText;
     private List<String> mTitleDataList;
-    private SFSPeriodFragment sfsPeriodFragment = SFSPeriodFragment.newInstance();
+    private Fragment germinationPeriodFragment = GerminationPeriodFragment.newInstance();
+    private Fragment seedlingPeriodFragment = SeedlingPeriodFragment.newInstance();
+    private Fragment rosettePeriodFragment = RosettePeriodFragment.newInstance();
     private Fragment headingPeriodFragment = HeadingPeriodFragment.newInstance();
-    private Fragment gsrPeriodFragment = GSRPeriodFragment.newInstance();
-    private Fragment diseasePeriodFragment = DiseasePeriodFragment.newInstance();
+    private Fragment harvestPeriodFragment = HarvestPeriodFragment.newInstance();
+    private Fragment storagePeriodFragment = StoragePeriodFragment.newInstance();
+    private Fragment floweringPeriodFragment = FloweringPeriodFragment.newInstance();
+    private Fragment seedHarvestPeriodFragment = SeedHarvestPeriodFragment.newInstance();
     private List<Fragment> mFragmentList = new ArrayList<Fragment>() {
         {
-            add(sfsPeriodFragment);
+            add(germinationPeriodFragment);
+            add(seedlingPeriodFragment);
+            add(rosettePeriodFragment);
             add(headingPeriodFragment);
-            add(gsrPeriodFragment);
-            add(diseasePeriodFragment);
+            add(harvestPeriodFragment);
+            add(storagePeriodFragment);
+            add(floweringPeriodFragment);
+            add(seedHarvestPeriodFragment);
         }
     };
 
@@ -105,9 +123,12 @@ public class SurveyActivity extends AppCompatActivity {
         investigatingTime = getIntent().getStringExtra("investigatingTime");
         mTitleDataList = new ArrayList<String>() {{
             add(getResources().getString(R.string.title_germination_period));
+            add(getResources().getString(R.string.title_seedling_period));
+            add(getResources().getString(R.string.title_rosette_period));
             add(getResources().getString(R.string.title_heading_period));
-            add(getResources().getString(R.string.title_storage_period));
-            add(getResources().getString(R.string.disease_resistance));
+            add(getResources().getString(R.string.title_harvest_period));
+            add(getResources().getString(R.string.title_flowering_period));
+            add(getResources().getString(R.string.title_seed_harvest_period));
         }};
 
         initToolbar();
@@ -123,14 +144,19 @@ public class SurveyActivity extends AppCompatActivity {
 
     private void initViewPager() {
         //viewpager and fragment初始化
-        SurveyPageAdapter surveyPageAdapter = new SurveyPageAdapter(getSupportFragmentManager(), 0, mFragmentList);
+        SurveyPageAdapter surveyPageAdapter = new SurveyPageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragmentList);
         viewPager.setAdapter(surveyPageAdapter);
-        //向Fragment传参
-        SFSPeriodFragment sfsPeriodFragment1 = (SFSPeriodFragment) surveyPageAdapter.instantiateItem(viewPager,0);
-        sfsPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
 
-        HeadingPeriodFragment headingPeriodFragment1 = (HeadingPeriodFragment) surveyPageAdapter.instantiateItem(viewPager,1);
+        //向各个时期Fragment传参
+        SeedlingPeriodFragment seedlingPeriodFragment1 = (SeedlingPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 1);
+        seedlingPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+
+        HeadingPeriodFragment headingPeriodFragment1 = (HeadingPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 3);
         headingPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+
+        HarvestPeriodFragment harvestPeriodFragment1 = (HarvestPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 4);
+        harvestPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+
 
         //indicator初始化
         CommonNavigator commonNavigator = new CommonNavigator(this);

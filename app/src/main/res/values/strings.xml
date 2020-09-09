@@ -122,6 +122,9 @@
     <string name="info_outer_leaf_keel_width">外叶中肋（叶柄）宽度</string>
     <string name="info_leaf_keel_shape">中肋（叶柄）形状</string>
     <string name="info_outer_leaf_count">外叶数</string>
+
+
+    <string name="title_harvest_period">收获期</string>
     <string name="info_strobilus_head_closure_type">球顶部闭合类型</string>
     <string name="info_strobilus_head_conjugation_type">球顶部抱合类型</string>
     <string name="info_strobilus_head_shape">球顶部形状（仅闭合类型）</string>
