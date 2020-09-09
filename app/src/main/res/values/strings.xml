@@ -27,7 +27,7 @@
     <string name="log_in">登 录</string>
     <string name="account_password_error">账号或密码无效</string>
     <string name="log_in_success">登录成功</string>
-    <string name="log_in_fail">登录成功</string>
+    <string name="log_in_fail">登录失败</string>
     <string name="sign_up">账号注册</string>
     <string name="network_normal">网络正常</string>
     <string name="network_wrong">网络异常</string>

@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.cabbage.data.ObjectBox;
+import com.example.cabbage.monitor.AppBlockCanaryContext;
+import com.github.moduth.blockcanary.BlockCanary;
 
 public class BaseApplication extends Application {
     @Override
@@ -15,6 +17,8 @@ public class BaseApplication extends Application {
         ARouter.init(this);
 
         ObjectBox.init(this);
+
+        BlockCanary.install(this, new AppBlockCanaryContext()).start();
     }
 
     @Override
