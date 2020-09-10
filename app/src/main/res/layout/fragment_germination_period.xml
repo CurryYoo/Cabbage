@@ -7,5 +7,8 @@
 
     <include layout="@layout/item_basic_info" />
 
+    <TextView
+        android:text="@string/title_germination_period"
+        style="@style/style_title_period" />
     <include layout="@layout/item_germination_period" />
 </LinearLayout>

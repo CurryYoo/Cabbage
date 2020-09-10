@@ -167,12 +167,18 @@ public class HistoryDetailActivity extends AppCompatActivity {
                     harvestPeriodFragment.setInitValue(info.materialNumber,info.materialType,info.plantNumber,info.investigatingTime,
                             STATUS_READ,info.observationId,info.obsPeriod);
                     mFragmentList.add(harvestPeriodFragment);
+                case SURVEY_PERIOD_STORAGE:
+                    StoragePeriodFragment storagePeriodFragment=new StoragePeriodFragment();
+                    storagePeriodFragment.setInitValue(info.materialNumber,info.materialType,info.plantNumber,info.investigatingTime,
+                            STATUS_READ,info.observationId,info.obsPeriod);
+                    mFragmentList.add(storagePeriodFragment);
                     break;
             }
         }
-        historyPageAdapter = new HistoryPageAdapter(getSupportFragmentManager(), 0, mFragmentList);
+        historyPageAdapter = new HistoryPageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragmentList);
         viewPagerHistory.setOffscreenPageLimit(2);
         viewPagerHistory.setAdapter(historyPageAdapter);
         viewPagerHistory.setCurrentItem(position);
     }
+
 }

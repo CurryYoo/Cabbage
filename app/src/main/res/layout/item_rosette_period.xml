@@ -25,14 +25,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_rosette_plant_shape" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_rosette_plant_shape" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/plant_shape"
@@ -53,7 +46,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -73,14 +65,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_rosette_plant_height" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_rosette_plant_height" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/plant_height"
@@ -103,7 +88,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -115,14 +99,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_rosette_development_degree" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_rosette_development_degree" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/development_degree"
@@ -145,7 +122,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -157,14 +133,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_count" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_count" /><LinearLayout style="@style/survey_linear_layout">
 
                 <EditText
                     android:id="@+id/edt_leaf_count"
@@ -180,7 +149,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -192,14 +160,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_soft_leaf_thickness" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_soft_leaf_thickness" /><LinearLayout style="@style/survey_linear_layout">
 
                 <EditText
                     android:id="@+id/edt_soft_leaf_thickness"
@@ -215,7 +176,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -227,14 +187,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_length" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_length" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_length"
@@ -257,7 +210,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -269,14 +221,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_width" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_width" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_width"
@@ -298,7 +243,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -310,14 +254,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_shape" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_shape" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_shape"
@@ -338,7 +275,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -350,14 +286,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_color" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_color" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_color"
@@ -378,7 +307,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -390,14 +318,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_luster" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_luster" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_luster"
@@ -418,7 +339,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -430,14 +350,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_fuzz" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_fuzz" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_fuzz"
@@ -458,7 +371,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -470,14 +382,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_margin_undulance" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_margin_undulance" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_margin_undulance"
@@ -498,7 +403,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -510,14 +414,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_margin_sawtooth" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_margin_sawtooth" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_margin_sawtooth"
@@ -538,7 +435,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -550,14 +446,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_smoothness" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_smoothness" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_smoothness"
@@ -578,7 +467,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -590,14 +478,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_protuberance" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_protuberance" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_protuberance"
@@ -618,7 +499,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -630,14 +510,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_vein_livingness" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_vein_livingness" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_vein_livingness"
@@ -658,7 +531,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -670,14 +542,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_keel_livingness" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_keel_livingness" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_keel_livingness"
@@ -698,7 +563,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -710,14 +574,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_curliness" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_curliness" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_curliness"
@@ -738,7 +595,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -750,14 +606,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_curliness_part" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_curliness_part" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_curliness_part"
@@ -779,7 +628,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -791,14 +639,7 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_texture" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_texture" /><LinearLayout style="@style/survey_linear_layout">
 
                 <Spinner
                     android:id="@+id/leaf_texture"
@@ -819,7 +660,6 @@
                     style="@style/style_basic_help_btn" />
 
             </LinearLayout>
-        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout

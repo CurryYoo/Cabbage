@@ -6,8 +6,9 @@ package com.example.cabbage.network;
  * Description:
  **/
 public class SurveyInfo extends NormalInfo {
-    public data data;
-    public class data {
+    public Data data;
+
+    public static class Data {
         // 基本信息
         public String observationId;
         public String materialType;
@@ -18,41 +19,31 @@ public class SurveyInfo extends NormalInfo {
         public String investigator;
         public int userId;
 
+        //额外属性和备注
+        public String spare1;
+        public String spare2;
+
         // 发芽期
         public String germinationRate;
 
         // 幼苗期
         public String cotyledonSize;
-//        public String cotyledonSize2;
-//        public String cotyledonSize3;
         public String cotyledonColor;
         public String cotyledonNumber;
         public String cotyledonShape;
         public String colorOfHeartLeaf;
         public String trueLeafColor;
         public String trueLeafLength;
-//        public String trueLeafLength2;
-//        public String trueLeafLength3;
-        public String trueLeafWidth1;
-//        public String trueLeafWidth2;
-//        public String trueLeafWidth3;
+        public String trueLeafWidth;
 
         // 莲座期
         public String plantType;
         public String plantHeight;
-//        public String plantHeight2;
-//        public String plantHeight3;
         public String developmentDegree;
         public String numberOfLeaves;
         public String thicknessOfSoftLeaf;
-//        public String thicknessOfSoftLeaf2;
-//        public String thicknessOfSoftLeaf3;
         public String bladeLength;
-//        public String bladeLength2;
-//        public String bladeLength3;
         public String bladeWidth;
-//        public String bladeWidth2;
-//        public String bladeWidth3;
         public String leafShape;
         public String leafColor;
         public String leafLuster;
@@ -67,7 +58,79 @@ public class SurveyInfo extends NormalInfo {
         public String leafCurlPart;
         public String leafTexture;
 
-        public String spare1;
-        public String spare2;
+        //结球期
+        //前三个与莲座期相同
+//        public String plantType;
+//        public String plantHeight;
+//        public String developmentDegree;
+
+        public String isBall;
+        public String bud;
+        public String lateralBud;
+        public String outerLeafLength;
+        public String outerLeafWidth;
+        public String outerLeafShape;
+        public String colorOfMiddleRib;
+        public String thicknessOfMiddleRib;
+        public String lengthOfMiddleRib;
+        public String widthOfMiddleRib;
+        public String middleRibShape;
+        public String numberOfOuterLeaves;
+
+        //成熟期
+        public String ballTopClosedType;
+        public String ballTopHoldType;
+        public String ballTopShape;
+        public String upperLeafBulbColor;
+        public String greenDegreeOfUpperLeafBall;
+        public String leafBallShape;
+        public String leafBallHeight;
+        public String leafBallWidth;
+        public String leafBallMiddleWidth;
+        public String leafBulbEndWidth;
+        public String leafBallCompactness;
+        public String innerColorOfLeafBall;
+        public String numberOfBulbs;
+        public String softLeafRate;
+        public String leafBallWeight;
+        public String netVegetableRate;
+        public String centerColumnShape;
+        public String centerColumnLength;
+        public String maturity;
+        public String extendedHarvestPeriodEarly;
+        public String extendedHarvestPeriodMidLate;
+
+        //储藏期
+        public String lossRate;
+
+        //现蕾开花期
+        public String halfPlantBudding;
+        public String timeRequiredForTheFirstFlower;
+        public String budState;
+        public String budShape;
+        public String budSize;
+        public String petalShape;
+        public String petalSize;
+        public String petalColor;
+        public String petalNumber;
+
+        //public String plantHeight;//与前时期相同
+        public String branchingAbility;
+        public String sterilityOfSingleFlower;
+        public String sterilityPerPlant;
+        public String populationSterility;
+        public String populationSterilePlantRate;
+        public String maleSterile;
+
+        //结荚与种子收获期
+        public String seedPodLength;
+        public String longBeakOfSeedPod;
+        public String seedSize;
+        public String seedShape;
+        public String seedColor;
+        public Float poddingRate;
+        public String numberOfSeeds;
+        public Float seedSettingRate;
+        public String selfCompatibility;
     }
 }

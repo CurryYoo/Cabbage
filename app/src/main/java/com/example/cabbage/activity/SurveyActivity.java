@@ -156,7 +156,7 @@ public class SurveyActivity extends AppCompatActivity {
     private void initViewPager() {
         //viewpager and fragment初始化
         SurveyPageAdapter surveyPageAdapter = new SurveyPageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragmentList);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(5);//设置预加载页数
         viewPager.setAdapter(surveyPageAdapter);
 
         //向各个时期Fragment传参
@@ -175,8 +175,16 @@ public class SurveyActivity extends AppCompatActivity {
         HarvestPeriodFragment harvestPeriodFragment1 = (HarvestPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 4);
         harvestPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
 
-        //indicator初始化
+        StoragePeriodFragment storagePeriodFragment1 = (StoragePeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 5);
+        storagePeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+//
+//        FloweringPeriodFragment floweringPeriodFragment1 = (FloweringPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 5);
+//        floweringPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+//
+//        SeedHarvestPeriodFragment seedHarvestPeriodFragment1 = (SeedHarvestPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 5);
+//        seedlingPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
 
+        //indicator初始化
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override

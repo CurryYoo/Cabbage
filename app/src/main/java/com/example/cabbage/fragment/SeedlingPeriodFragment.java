@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cabbage.R;
 import com.example.cabbage.activity.PlusImageActivity;
-import com.example.cabbage.adapter.ImageAdapter;
 import com.example.cabbage.adapter.SingleImageAdapter;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.NormalInfo;
@@ -53,11 +52,10 @@ import butterknife.Unbinder;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static com.example.cabbage.utils.BasicUtil.showDatePickerDialog;
-import static com.example.cabbage.utils.StaticVariable.COUNT_1;
+import static com.example.cabbage.utils.StaticVariable.COUNT_EXTRA;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
-import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_ROSETTE;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEEDLING;
 import static com.example.cabbage.utils.UIUtils.checkIsValid;
 import static com.example.cabbage.utils.UIUtils.selectPic;
@@ -67,14 +65,12 @@ import static com.example.cabbage.utils.UIUtils.showBottomHelpDialog;
 import static java.io.File.separator;
 
 /**
- * Author:created by Kang on 2020/9/9
- * Email:zyk970512@163.com
- * Annotation:种子收获期
+ * Author:Kang
+ * Date:2020/9/10
+ * Description:种子收获期
  */
 public class SeedlingPeriodFragment extends Fragment {
 
-    @BindView(R.id.main_area)
-    LinearLayout mainArea;
     @BindView(R.id.edt_material_id)
     EditText edtMaterialId;
     @BindView(R.id.edt_material_type)
@@ -234,10 +230,10 @@ public class SeedlingPeriodFragment extends Fragment {
     View.OnClickListener extraAttributeClickListener = v -> {
         switch (v.getId()) {
             case R.id.btn_add_attribute:
-                addExtraAttribute(btnAddAttribute, layoutCustomAttribute, "spare1");
+                addExtraAttributeView(btnAddAttribute, layoutCustomAttribute, "spare1", "");
                 break;
             case R.id.btn_add_remark:
-                addExtraAttribute(btnAddRemark, layoutCustomAttribute, "spare2");
+                addExtraAttributeView(btnAddRemark, layoutCustomAttribute, "spare2", "");
                 break;
         }
     };
@@ -322,7 +318,7 @@ public class SeedlingPeriodFragment extends Fragment {
         return view;
     }
 
-    private void initView(boolean isEditable) {
+    private void initView(boolean editable) {
 
         cotyledonSize.setOnItemSelectedListener(onItemSelectedListener);
         cotyledonColor.setOnItemSelectedListener(onItemSelectedListener);
@@ -414,15 +410,18 @@ public class SeedlingPeriodFragment extends Fragment {
         });
         imgCotyledonShape.setAdapter(mCotyledonShapeAdapter);
 
-        btnAddAttribute.setCount(COUNT_1);
-        btnAddRemark.setCount(COUNT_1);
-        btnAddAttribute.setOnClickListener(extraAttributeClickListener);
-        btnAddRemark.setOnClickListener(extraAttributeClickListener);
+        //额外属性和备注
+        btnAddAttribute.setCount(COUNT_EXTRA);
+        btnAddRemark.setCount(COUNT_EXTRA);
 
-        //提交按钮
-        if (isEditable) {
+        //判断是否显示按钮
+        if (editable) {
+            btnAddAttribute.setOnClickListener(extraAttributeClickListener);
+            btnAddRemark.setOnClickListener(extraAttributeClickListener);
             btnUploadData.setOnClickListener(submitClickListener);
         } else {
+            btnAddAttribute.setVisibility(View.GONE);
+            btnAddRemark.setVisibility(View.GONE);
             btnUploadData.setVisibility(View.GONE);
         }
     }
@@ -595,79 +594,44 @@ public class SeedlingPeriodFragment extends Fragment {
         setSelectionAndText(heartLeafColor, edtHeartLeafColor, surveyInfo.data.colorOfHeartLeaf);
         setSelectionAndText(trueLeafColor, edtTrueLeafColor, surveyInfo.data.trueLeafColor);
         setSelectionAndText(trueLeafLength, edtTrueLeafLength, surveyInfo.data.trueLeafLength);
-        setSelectionAndText(trueLeafWidth, edtTrueLeafWidth, surveyInfo.data.trueLeafWidth1);
+        setSelectionAndText(trueLeafWidth, edtTrueLeafWidth, surveyInfo.data.trueLeafWidth);
         updateExtraView(btnAddAttribute, layoutCustomAttribute, "spare1", surveyInfo.data.spare1);
         updateExtraView(btnAddRemark, layoutCustomAttribute, "spare2", surveyInfo.data.spare2);
     }
 
     private void updateExtraView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
         if (!TextUtils.isEmpty(value)) {
-            initAttributeView(btnAdd, layout, keyName, value);
+            addExtraAttributeView(btnAdd, layout, keyName, value);
         }
     }
 
-    //初始化额外属性
-    private void initAttributeView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
+    private void addExtraAttributeView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
         btnAdd.subtractCount();
+        ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, "spare1");
         switch (keyName) {
             case "spare1":
-                ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.obligate_attribute), keyName);
-                Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
+                extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, keyName);
                 extraAttribute = extraAttributeView;
-                btnDelete.setOnClickListener(v1 -> {
-                    extraAttribute = null;
-                    extraAttributeView.removeAllViews();
-                    btnAdd.addCount();
-                });
-                extraAttributeView.setContent(value);
-                layout.addView(extraAttributeView);
                 break;
             case "spare2":
-                ExtraAttributeView extraRemarkView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.info_remark), keyName);
-                Button btnDelete2 = extraRemarkView.findViewById(R.id.btn_delete);
-                extraRemark = extraRemarkView;
-                btnDelete2.setOnClickListener(v1 -> {
-                    extraRemark = null;
-                    extraRemarkView.removeAllViews();
-                    btnAdd.addCount();
-                });
-                extraRemarkView.setContent(value);
-                layout.addView(extraRemarkView);
+                extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_REMARK, keyName);
+                extraRemark = extraAttributeView;
                 break;
             default:
                 break;
         }
-    }
-
-    //添加额外属性
-    private void addExtraAttribute(CountButton btnAdd, LinearLayout layout, String keyName) {
-        btnAdd.subtractCount();
-        switch (keyName) {
-            case "spare1":
-                ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.obligate_attribute), keyName);
-                Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
-                extraAttribute = extraAttributeView;
-                btnDelete.setOnClickListener(v1 -> {
-                    extraAttribute = null;
-                    extraAttributeView.removeAllViews();
-                    btnAdd.addCount();
-                });
-                layout.addView(extraAttributeView);
-                break;
-            case "spare2":
-                ExtraAttributeView extraRemarkView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.info_remark), keyName);
-                Button btnDelete2 = extraRemarkView.findViewById(R.id.btn_delete);
-                extraRemark = extraRemarkView;
-                btnDelete2.setOnClickListener(v1 -> {
-                    extraRemark = null;
-                    extraRemarkView.removeAllViews();
-                    btnAdd.addCount();
-                });
-                layout.addView(extraRemarkView);
-                break;
-            default:
-                break;
+        Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
+        if (status == STATUS_READ) {
+            btnDelete.setVisibility(View.GONE);
         }
+        ExtraAttributeView finalExtraAttributeView = extraAttributeView;
+        btnDelete.setOnClickListener(v1 -> {
+            extraAttribute = null;
+            finalExtraAttributeView.removeAllViews();
+            btnAdd.addCount();
+        });
+        extraAttributeView.setContent(value);
+        layout.addView(extraAttributeView);
     }
 
     // 初始化图片

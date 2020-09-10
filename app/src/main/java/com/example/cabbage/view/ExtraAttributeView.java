@@ -52,11 +52,14 @@ public class ExtraAttributeView extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    private void initView(Context context, int i, String name) {
-        mType = i;
+    private void initView(Context context, int type, String name) {
+        mType = type;
         switch (mType) {
             case TYPE_REMARK:
                 View remarkView = LayoutInflater.from(context).inflate(R.layout.view_remark, this, true);
+                if (!TextUtils.isEmpty(name)) {
+                    txtAttribute.setText(name);
+                }
                 edtRemark = remarkView.findViewById(R.id.edt_remark);
                 btnDelete = remarkView.findViewById(R.id.btn_delete);
                 break;

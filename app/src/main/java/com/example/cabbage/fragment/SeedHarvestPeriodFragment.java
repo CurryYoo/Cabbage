@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment;
 import com.example.cabbage.R;
 
 /**
- * Author:created by Kang on 2020/9/9
- * Email:zyk970512@163.com
- * Annotation:结荚与种子收获期
+ * Author:Kang
+ * Date:2020/9/10
+ * Description:结荚与种子收获期
  */
 public class SeedHarvestPeriodFragment extends Fragment {
 

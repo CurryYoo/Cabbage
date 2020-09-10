@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     android:scrollbars="none">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-            <include layout="@layout/item_basic_info" />
+        <include layout="@layout/item_basic_info" />
 
-            <include layout="@layout/item_harvest_period" />
-        </LinearLayout>
+        <TextView
+            style="@style/style_title_period"
+            android:text="@string/title_harvest_period" />
+
+        <include layout="@layout/item_harvest_period" />
+    </LinearLayout>
 </ScrollView>

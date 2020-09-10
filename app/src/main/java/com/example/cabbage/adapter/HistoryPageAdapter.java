@@ -28,7 +28,4 @@ public class HistoryPageAdapter extends FragmentStatePagerAdapter {
         return fragmentList.size();
     }
 
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-    }
 }

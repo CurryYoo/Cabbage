@@ -151,7 +151,8 @@
     <string name="info_loss_rate">损耗率</string>
 
     <string name="title_flowering_period">现蕾开花期</string>
-    <string name="info_50percent_plant_flower_bud">50%植株现蕾</string>
+    <string name="info_half_plant_flower_bud">50%植株现蕾</string>
+    <string name="info_time_of_first_flower">首花开所需时间</string>
     <string name="info_flower_bud_status">花蕾状态</string>
     <string name="info_flower_bud_shape">花蕾形状</string>
     <string name="info_flower_bud_size">花蕾大小</string>
@@ -159,7 +160,7 @@
     <string name="info_petal_size">花瓣大小</string>
     <string name="info_petal_color">花瓣颜色</string>
     <string name="info_petal_count">花瓣数目</string>
-    <string name="info_plant_height0">植株高度</string>
+    <string name="info_flowing_plant_height">植株高度</string>
     <string name="info_branch_ability">分支能力</string>
     <string name="info_single_flower_sterile_degree">单花不育度</string>
     <string name="info_single_plant_sterile_degree">单株不育度</string>

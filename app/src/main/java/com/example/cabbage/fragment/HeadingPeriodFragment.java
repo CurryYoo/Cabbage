@@ -3,6 +3,7 @@ package com.example.cabbage.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.example.cabbage.R;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.NormalInfo;
 import com.example.cabbage.network.ResultInfo;
+import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.view.AutoClearEditText;
 import com.example.cabbage.view.CountButton;
 import com.example.cabbage.view.ExtraAttributeView;
@@ -30,6 +32,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,15 +40,21 @@ import butterknife.Unbinder;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static com.example.cabbage.utils.BasicUtil.showDatePickerDialog;
+import static com.example.cabbage.utils.StaticVariable.COUNT_EXTRA;
 import static com.example.cabbage.utils.StaticVariable.SEPARATOR;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_HEADING;
 import static com.example.cabbage.utils.UIUtils.checkIsValid;
+import static com.example.cabbage.utils.UIUtils.setSelectionAndText;
 import static com.example.cabbage.utils.UIUtils.setVisibilityOfUserDefined;
 import static com.example.cabbage.utils.UIUtils.showBottomHelpDialog;
-
+/**
+ * Author:Kang
+ * Date:2020/9/10
+ * Description:结球期
+ */
 public class HeadingPeriodFragment extends Fragment {
     @BindView(R.id.edt_material_id)
     EditText edtMaterialId;
@@ -266,10 +275,10 @@ public class HeadingPeriodFragment extends Fragment {
     View.OnClickListener extraAttributeClickListener = v -> {
         switch (v.getId()) {
             case R.id.btn_add_attribute:
-                addExtraAttribute(btnAddAttribute, layoutCustomAttribute, "spare1");
+                addExtraAttributeView(btnAddAttribute, layoutCustomAttribute, "spare1","");
                 break;
             case R.id.btn_add_remark:
-                addExtraAttribute(btnAddRemark, layoutCustomAttribute, "spare2");
+                addExtraAttributeView(btnAddRemark, layoutCustomAttribute, "spare2","");
                 break;
         }
     };
@@ -307,7 +316,7 @@ public class HeadingPeriodFragment extends Fragment {
                 initView(false);
 //                initMaps();
                 initBasicInfo(plantId);
-//                initData(surveyPeriod);
+                initData(surveyPeriod);
 //                initPictures();
                 break;
             case STATUS_COPY:
@@ -353,14 +362,17 @@ public class HeadingPeriodFragment extends Fragment {
         btnOuterLeafCount.setOnClickListener(helpClickListener);
 
         //额外属性和备注
-        btnAddAttribute.setCount(1);
-        btnAddRemark.setCount(1);
-        btnAddAttribute.setOnClickListener(extraAttributeClickListener);
-        btnAddRemark.setOnClickListener(extraAttributeClickListener);
-        //提交按钮
+        btnAddAttribute.setCount(COUNT_EXTRA);
+        btnAddRemark.setCount(COUNT_EXTRA);
+
+        //判断是否显示按钮
         if (editable) {
+            btnAddAttribute.setOnClickListener(extraAttributeClickListener);
+            btnAddRemark.setOnClickListener(extraAttributeClickListener);
             btnUploadData.setOnClickListener(submitClickListener);
         } else {
+            btnAddAttribute.setVisibility(View.GONE);
+            btnAddRemark.setVisibility(View.GONE);
             btnUploadData.setVisibility(View.GONE);
         }
     }
@@ -423,50 +435,49 @@ public class HeadingPeriodFragment extends Fragment {
     private String getPeriodData() {
         //结球期
         JsonObject jsonObject = getBasicInfoData();
-        String plantShapeString = plantShape.getSelectedItem().toString() + SEPARATOR + edtPlantShape.getText();
-        String plantHeightString = plantHeight.getSelectedItem().toString() + SEPARATOR + edtPlantHeight.getText();
-        String developmentDegreeString = developmentDegree.getSelectedItem().toString() + SEPARATOR + edtDevelopmentDegree.getText();
-        String isKnotString = isKnot.getSelectedItem().toString() + SEPARATOR + edtIsKnot.getText();
-        String flowerBudString = flowerBud.getSelectedItem().toString() + SEPARATOR + edtFlowerBud.getText();
-        String lateralBudString = lateralBud.getSelectedItem().toString() + SEPARATOR + edtLateralBud.getText();
-        String outerLeafLengthString = outerLeafLength.getSelectedItem().toString() + SEPARATOR + edtOuterLeafLength.getText();
-        String outerLeafWidthString = outerLeafWidth.getSelectedItem().toString() + SEPARATOR + edtOuterLeafWidth.getText();
-        String outerLeafShapeString = outerLeafShape.getSelectedItem().toString() + SEPARATOR + edtOuterLeafShape.getText();
-        String outerLeafKeelColorString = outerLeafKeelColor.getSelectedItem().toString() + SEPARATOR + edtOuterLeafKeelColor.getText();
-        String outerLeafKeelThicknessString = outerLeafKeelThickness.getSelectedItem().toString() + SEPARATOR + edtOuterLeafKeelThickness.getText();
-        String outerLeafKeelLengthString = outerLeafKeelLength.getSelectedItem().toString() + SEPARATOR + edtOuterLeafKeelLength.getText();
-        String outerLeafKeelWidthString = outerLeafKeelWidth.getSelectedItem().toString() + SEPARATOR + edtOuterLeafKeelWidth.getText();
-        String leafKeelShapeString = leafKeelShape.getSelectedItem().toString() + SEPARATOR + edtLeafKeelShape.getText();
-        String outerLeafCountString = outerLeafCount.getSelectedItem().toString() + SEPARATOR + edtOuterLeafCount.getText();
+        String plantShapeData = plantShape.getSelectedItem().toString() + SEPARATOR + edtPlantShape.getText();
+        String plantHeightData= plantHeight.getSelectedItem().toString() + SEPARATOR + edtPlantHeight.getText();
+        String developmentDegreeData= developmentDegree.getSelectedItem().toString() + SEPARATOR + edtDevelopmentDegree.getText();
+        String isKnotData = isKnot.getSelectedItem().toString() + SEPARATOR + edtIsKnot.getText();
+        String flowerBudData = flowerBud.getSelectedItem().toString() + SEPARATOR + edtFlowerBud.getText();
+        String lateralBudData= lateralBud.getSelectedItem().toString() + SEPARATOR + edtLateralBud.getText();
+        String outerLeafLengthData = outerLeafLength.getSelectedItem().toString() + SEPARATOR + edtOuterLeafLength.getText();
+        String outerLeafWidthData= outerLeafWidth.getSelectedItem().toString() + SEPARATOR + edtOuterLeafWidth.getText();
+        String outerLeafShapeData = outerLeafShape.getSelectedItem().toString() + SEPARATOR + edtOuterLeafShape.getText();
+        String outerLeafKeelColorData= outerLeafKeelColor.getSelectedItem().toString() + SEPARATOR + edtOuterLeafKeelColor.getText();
+        String outerLeafKeelThicknessData = outerLeafKeelThickness.getSelectedItem().toString() + SEPARATOR + edtOuterLeafKeelThickness.getText();
+        String outerLeafKeelLengthData = outerLeafKeelLength.getSelectedItem().toString() + SEPARATOR + edtOuterLeafKeelLength.getText();
+        String outerLeafKeelWidthData = outerLeafKeelWidth.getSelectedItem().toString() + SEPARATOR + edtOuterLeafKeelWidth.getText();
+        String leafKeelShapeData = leafKeelShape.getSelectedItem().toString() + SEPARATOR + edtLeafKeelShape.getText();
+        String outerLeafCountData = outerLeafCount.getSelectedItem().toString() + SEPARATOR + edtOuterLeafCount.getText();
 
         //额外属性
-        String extraAttributeString = "";
-        String extraRemarkString = "";
+        String extraAttributeData = "";
+        String extraRemarkData = "";
         if (extraAttribute != null) {
-            extraAttributeString = extraAttribute.getContent();
-            Toast.makeText(self, extraAttributeString, Toast.LENGTH_SHORT).show();
+            extraAttributeData = extraAttribute.getContent();
         }
         if (extraRemark != null) {
-            extraRemarkString = extraRemark.getContent();
+            extraRemarkData = extraRemark.getContent();
         }
 
-        jsonObject.addProperty("plantType", plantShapeString);
-        jsonObject.addProperty("plantHeight", plantHeightString);
-        jsonObject.addProperty("developmentDegree", developmentDegreeString);
-        jsonObject.addProperty("isBall", isKnotString);
-        jsonObject.addProperty("bud", flowerBudString);
-        jsonObject.addProperty("lateralBud", lateralBudString);
-        jsonObject.addProperty("outerLeafLength", outerLeafLengthString);
-        jsonObject.addProperty("outerLeafWidth", outerLeafWidthString);
-        jsonObject.addProperty("outerLeafShape", outerLeafShapeString);
-        jsonObject.addProperty("colorOfMiddleRib", outerLeafKeelColorString);
-        jsonObject.addProperty("thicknessOfMiddleRib", outerLeafKeelThicknessString);
-        jsonObject.addProperty("lengthOfMiddleRib", outerLeafKeelLengthString);
-        jsonObject.addProperty("widthOfMiddleRib", outerLeafKeelWidthString);
-        jsonObject.addProperty("middleRibShape", leafKeelShapeString);
-        jsonObject.addProperty("numberOfOuterLeaves", outerLeafCountString);
-        jsonObject.addProperty("spare1", extraAttributeString);
-        jsonObject.addProperty("spare2", extraRemarkString);
+        jsonObject.addProperty("plantType", plantShapeData);
+        jsonObject.addProperty("plantHeight", plantHeightData);
+        jsonObject.addProperty("developmentDegree", developmentDegreeData);
+        jsonObject.addProperty("isBall", isKnotData);
+        jsonObject.addProperty("bud", flowerBudData);
+        jsonObject.addProperty("lateralBud", lateralBudData);
+        jsonObject.addProperty("outerLeafLength", outerLeafLengthData);
+        jsonObject.addProperty("outerLeafWidth", outerLeafWidthData);
+        jsonObject.addProperty("outerLeafShape", outerLeafShapeData);
+        jsonObject.addProperty("colorOfMiddleRib", outerLeafKeelColorData);
+        jsonObject.addProperty("thicknessOfMiddleRib", outerLeafKeelThicknessData);
+        jsonObject.addProperty("lengthOfMiddleRib", outerLeafKeelLengthData);
+        jsonObject.addProperty("widthOfMiddleRib", outerLeafKeelWidthData);
+        jsonObject.addProperty("middleRibShape", leafKeelShapeData);
+        jsonObject.addProperty("numberOfOuterLeaves", outerLeafCountData);
+        jsonObject.addProperty("spare1", extraAttributeData);
+        jsonObject.addProperty("spare2", extraRemarkData);
 
         return jsonObject.toString();
     }
@@ -509,37 +520,79 @@ public class HeadingPeriodFragment extends Fragment {
             }
         }
     }
+    // 初始化网络数据（文本数据）
+    private void initData(String surveyPeriod) {
+        // 网络请求具体数据
+        HttpRequest.getSurveyDataDetailBySurveyId(token, surveyPeriod, surveyId, new HttpRequest.ISurveyCallback() {
+            @Override
+            public void onResponse(SurveyInfo surveyInfo) {
+                updateUI(surveyInfo);
+            }
 
-    //添加额外属性
-    private void addExtraAttribute(CountButton btnAdd, LinearLayout layout, String keyName) {
+            @Override
+            public void onFailure() {
+                Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
+                    Toast.makeText(self, R.string.network_request_wrong, Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+    }
+
+    // 更新页面中特定时期的数据
+    private void updateUI(SurveyInfo surveyInfo) {
+        setSelectionAndText(plantShape, edtPlantShape, surveyInfo.data.plantType);
+        setSelectionAndText(plantHeight, edtPlantHeight, surveyInfo.data.plantHeight);
+        setSelectionAndText(developmentDegree, edtDevelopmentDegree, surveyInfo.data.developmentDegree);
+        setSelectionAndText(isKnot, edtIsKnot, surveyInfo.data.isBall);
+        setSelectionAndText(flowerBud, edtFlowerBud, surveyInfo.data.bud);
+        setSelectionAndText(lateralBud, edtLateralBud, surveyInfo.data.lateralBud);
+        setSelectionAndText(outerLeafLength, edtOuterLeafLength, surveyInfo.data.outerLeafLength);
+        setSelectionAndText(outerLeafWidth, edtOuterLeafLength, surveyInfo.data.outerLeafWidth);
+        setSelectionAndText(outerLeafShape, edtOuterLeafShape, surveyInfo.data.outerLeafShape);
+        setSelectionAndText(outerLeafKeelColor, edtOuterLeafKeelColor, surveyInfo.data.colorOfMiddleRib);
+        setSelectionAndText(outerLeafKeelThickness, edtOuterLeafKeelThickness, surveyInfo.data.thicknessOfMiddleRib);
+        setSelectionAndText(outerLeafKeelLength, edtOuterLeafKeelLength, surveyInfo.data.lengthOfMiddleRib);
+        setSelectionAndText(outerLeafKeelWidth, edtOuterLeafKeelWidth, surveyInfo.data.lengthOfMiddleRib);
+        setSelectionAndText(leafKeelShape, edtLeafKeelShape, surveyInfo.data.widthOfMiddleRib);
+        setSelectionAndText(outerLeafCount, edtOuterLeafShape, surveyInfo.data.middleRibShape);
+
+        updateExtraView(btnAddAttribute, layoutCustomAttribute, "spare1", surveyInfo.data.spare1);
+        updateExtraView(btnAddRemark, layoutCustomAttribute, "spare2", surveyInfo.data.spare2);
+    }
+
+    private void updateExtraView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
+        if (!TextUtils.isEmpty(value)) {
+            addExtraAttributeView(btnAdd, layout, keyName, value);
+        }
+    }
+
+    private void addExtraAttributeView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
         btnAdd.subtractCount();
-
+        ExtraAttributeView extraAttributeView=new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, "spare1");
         switch (keyName) {
             case "spare1":
-                ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE,getString(R.string.obligate_attribute), keyName);
-                Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
+                extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, keyName);
                 extraAttribute = extraAttributeView;
-                btnDelete.setOnClickListener(v1 -> {
-                    extraAttribute = null;
-                    extraAttributeView.removeAllViews();
-                    btnAdd.addCount();
-                });
-                layout.addView(extraAttributeView);
                 break;
             case "spare2":
-                ExtraAttributeView extraRemarkView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.info_remark),keyName);
-                Button btnDelete2 = extraRemarkView.findViewById(R.id.btn_delete);
-                extraRemark = extraRemarkView;
-                btnDelete2.setOnClickListener(v1 -> {
-                    extraRemark = null;
-                    extraRemarkView.removeAllViews();
-                    btnAdd.addCount();
-                });
-                layout.addView(extraRemarkView);
+                extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_REMARK, keyName);
+                extraRemark = extraAttributeView;
                 break;
             default:
                 break;
         }
+        Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
+        if(status==STATUS_READ){
+            btnDelete.setVisibility(View.GONE);
+        }
+        ExtraAttributeView finalExtraAttributeView = extraAttributeView;
+        btnDelete.setOnClickListener(v1 -> {
+            extraAttribute = null;
+            finalExtraAttributeView.removeAllViews();
+            btnAdd.addCount();
+        });
+        extraAttributeView.setContent(value);
+        layout.addView(extraAttributeView);
     }
 
     public void setInitValue(String materialId_
