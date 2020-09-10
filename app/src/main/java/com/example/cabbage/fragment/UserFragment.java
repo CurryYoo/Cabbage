@@ -24,6 +24,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+/**
+ * Author:created by Kang on 2020/9/9
+ * Email:zyk970512@163.com
+ * Annotation:用户中心页面
+ */
 public class UserFragment extends Fragment implements View.OnClickListener{
 
     @BindView(R.id.img_avatar)

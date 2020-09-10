@@ -12,6 +12,6 @@
 
         <include layout="@layout/item_basic_info" />
 
-        <include layout="@layout/item_heading_period" />
+        <include layout="@layout/item_rosette_period" />
     </LinearLayout>
 </ScrollView>

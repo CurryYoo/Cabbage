@@ -41,7 +41,11 @@ import butterknife.Unbinder;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 
-
+/**
+ * Author:created by Kang on 2020/9/9
+ * Email:zyk970512@163.com
+ * Annotation:主页
+ */
 public class MainFragment extends Fragment {
     @BindView(R.id.search_view)
     FloatingSearchView searchView;

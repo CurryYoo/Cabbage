@@ -14,11 +14,13 @@ import androidx.annotation.Nullable;
 
 import com.example.cabbage.R;
 
-public class CustomAttributeView extends LinearLayout {
-    private static final int TEXT_REMARK = 0;
-    private static final int TEXT_ATTRIBUTE = 1;
+public class ExtraAttributeView extends LinearLayout {
+    public static final int TYPE_REMARK = 0;
+    public static final int TYPE_ATTRIBUTE = 1;
+    public static final String STRING_REMARK = "extraAttribute";
+    public static final String STRING_ATTRIBUTE = "extraRemark";
 
-    private int mType = TEXT_REMARK;
+    private int mType = TYPE_REMARK;
     private String mKeyName = "";
 
     private Button btnDelete;
@@ -26,39 +28,39 @@ public class CustomAttributeView extends LinearLayout {
     private TextView txtAttribute;
     private EditText edtAttribute;
 
-    public CustomAttributeView(Context context, int type, String keyName) {
+    public ExtraAttributeView(Context context, int type, String keyName) {
         super(context);
         initView(context, type, "");
         mKeyName = keyName;
     }
 
-    public CustomAttributeView(Context context, int type, String name, String keyName) {
+    public ExtraAttributeView(Context context, int type, String name, String keyName) {
         super(context);
         initView(context, type, name);
         mKeyName = keyName;
     }
 
-    public CustomAttributeView(Context context, @Nullable AttributeSet attrs) {
+    public ExtraAttributeView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CustomAttributeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ExtraAttributeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public CustomAttributeView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ExtraAttributeView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     private void initView(Context context, int i, String name) {
         mType = i;
         switch (mType) {
-            case TEXT_REMARK:
+            case TYPE_REMARK:
                 View remarkView = LayoutInflater.from(context).inflate(R.layout.view_remark, this, true);
                 edtRemark = remarkView.findViewById(R.id.edt_remark);
                 btnDelete = remarkView.findViewById(R.id.btn_delete);
                 break;
-            case TEXT_ATTRIBUTE:
+            case TYPE_ATTRIBUTE:
                 View attributeView = LayoutInflater.from(context).inflate(R.layout.view_attribute, this, true);
                 txtAttribute = attributeView.findViewById(R.id.txt_attribute);
                 if (!TextUtils.isEmpty(name)) {
@@ -75,10 +77,10 @@ public class CustomAttributeView extends LinearLayout {
     public String getTitle() {
         String title = "";
         switch (mType) {
-            case TEXT_REMARK:
+            case TYPE_REMARK:
                 title = "备注";
                 break;
-            case TEXT_ATTRIBUTE:
+            case TYPE_ATTRIBUTE:
                 title = edtAttribute.getText().toString();
                 break;
             default:
@@ -89,9 +91,9 @@ public class CustomAttributeView extends LinearLayout {
 
     public void setTitle(String title) {
         switch (mType) {
-            case TEXT_REMARK:
+            case TYPE_REMARK:
                 break;
-            case TEXT_ATTRIBUTE:
+            case TYPE_ATTRIBUTE:
                 edtAttribute.setText(title);
                 break;
             default:
@@ -102,10 +104,10 @@ public class CustomAttributeView extends LinearLayout {
     public String getContent() {
         String content = "";
         switch (mType) {
-            case TEXT_REMARK:
+            case TYPE_REMARK:
                 content = edtRemark.getText().toString();
                 break;
-            case TEXT_ATTRIBUTE:
+            case TYPE_ATTRIBUTE:
                 content = edtAttribute.getText().toString();
                 break;
             default:
@@ -116,10 +118,10 @@ public class CustomAttributeView extends LinearLayout {
 
     public void setContent(String content) {
         switch (mType) {
-            case TEXT_REMARK:
+            case TYPE_REMARK:
                 edtRemark.setText(content);
                 break;
-            case TEXT_ATTRIBUTE:
+            case TYPE_ATTRIBUTE:
                 edtAttribute.setText(content);
                 break;
             default:

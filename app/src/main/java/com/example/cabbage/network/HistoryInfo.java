@@ -8,15 +8,6 @@ import java.util.List;
  * Description:
  **/
 public class HistoryInfo extends NormalInfo {
-//    public List<data> data;
-//
-//    public List<HistoryInfo.data> getData() {
-//        return data;
-//    }
-//
-//    public void setData(List<HistoryInfo.data> data) {
-//        this.data = data;
-//    }
     public data data;
 
     public class data {

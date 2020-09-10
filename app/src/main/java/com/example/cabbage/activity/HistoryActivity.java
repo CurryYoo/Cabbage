@@ -33,7 +33,11 @@ import butterknife.ButterKnife;
 
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
 
-
+/**
+ * Author:created by Kang on 2020/9/9
+ * Email:zyk970512@163.com
+ * Annotation:历史记录界面
+ */
 @Route(path = ARouterPaths.HISTORY_ACTIVITY)
 public class HistoryActivity extends AppCompatActivity implements OnClickListener {
 
@@ -50,7 +54,7 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
     private List<HistoryInfo.data> data;
 
     private String token;
-    private Context context = this;
+    private Context self = this;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +62,7 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
         setContentView(R.layout.activity_history);
         ButterKnife.bind(this);
 
-        SharedPreferences sp = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences sp = self.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         token = sp.getString("token", "");
 
         initData();
@@ -70,21 +74,31 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
         HttpRequest.getHistorySurveyData(token, new HttpRequest.IHistoryCallback() {
             @Override
             public void onResponse(HistoryInfo historyInfo) {
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(self);
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerViewHistory.setLayoutManager(linearLayoutManager);
 
                 historyAdapter = new HistoryAdapter(R.layout.item_history, historyInfo.data.list);
+
+//                //点击跳转旧采集页面
+//                historyAdapter.setOnItemClickListener((adapter, view, position) -> ARouter.getInstance()
+//                        .build(ARouterPaths.SURVEY_ACTIVITY2)
+//                        .withString("surveyId", historyInfo.data.list.get(position).getObservationId())
+//                        .withString("materialId", historyInfo.data.list.get(position).getMaterialNumber())
+//                        .withString("materialType", historyInfo.data.list.get(position).getMaterialType())
+//                        .withString("plantId", historyInfo.data.list.get(position).getPlantNumber())
+//                        .withString("investigatingTime", historyInfo.data.list.get(position).getInvestigatingTime())
+//                        .withString("surveyPeriod", historyInfo.data.list.get(position).getObsPeriod())
+//                        .withInt("status", STATUS_READ)
+//                        .navigation());
+
+                //点击跳转历史页面
                 historyAdapter.setOnItemClickListener((adapter, view, position) -> ARouter.getInstance()
-                        .build(ARouterPaths.SURVEY_ACTIVITY2)
-                        .withString("surveyId", historyInfo.data.list.get(position).getObservationId())
-                        .withString("materialId", historyInfo.data.list.get(position).getMaterialNumber())
-                        .withString("materialType", historyInfo.data.list.get(position).getMaterialType())
-                        .withString("plantId", historyInfo.data.list.get(position).getPlantNumber())
-                        .withString("investigatingTime", historyInfo.data.list.get(position).getInvestigatingTime())
-                        .withString("surveyPeriod", historyInfo.data.list.get(position).getObsPeriod())
-                        .withInt("status", STATUS_READ)
+                        .build(ARouterPaths.HISTORY_DETAIL_ACTIVITY)
+                        .withInt("position", position)
                         .navigation());
+
+                //复制按钮
                 historyAdapter.setOnItemChildClickListener((adapter, view, position) -> {
                     ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                     Intent dataIntent = new Intent();

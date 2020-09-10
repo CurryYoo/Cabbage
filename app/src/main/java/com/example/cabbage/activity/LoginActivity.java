@@ -25,6 +25,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Author:created by Kang on 2020/9/9
+ * Email:zyk970512@163.com
+ * Annotation:登录页
+ */
 @Route(path = ARouterPaths.LOGIN_ACTIVITY)
 public class LoginActivity extends AppCompatActivity {
     private Context context = this;

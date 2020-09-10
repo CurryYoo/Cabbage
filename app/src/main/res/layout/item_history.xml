@@ -74,5 +74,6 @@
         android:background="@drawable/bg_10_dark"
         android:padding="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_investigator" />
+        app:layout_constraintTop_toBottomOf="@id/txt_investigator"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

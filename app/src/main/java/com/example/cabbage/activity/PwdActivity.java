@@ -24,6 +24,11 @@ import com.example.cabbage.utils.ARouterPaths;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Author:created by Kang on 2020/9/9
+ * Email:zyk970512@163.com
+ * Annotation:修改密码页面
+ */
 @Route(path = ARouterPaths.PWD_ACTIVITY)
 public class PwdActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.left_one_button)

@@ -1,5 +1,6 @@
 package com.example.cabbage.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,22 +9,19 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 
 import com.example.cabbage.R;
 import com.example.cabbage.network.HelpInfo;
 import com.example.cabbage.network.HttpRequest;
-import com.example.cabbage.network.ResultInfo;
-import com.example.cabbage.network.SurveyInfo;
-import com.example.cabbage.view.CustomAttributeView;
+import com.example.cabbage.view.CountButton;
+import com.example.cabbage.view.ExtraAttributeView;
 import com.example.cabbage.view.InfoBottomDialog;
-import com.google.gson.JsonObject;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static java.io.File.separator;
 
@@ -106,5 +104,9 @@ public class UIUtils {
         } else {
             return "";
         }
+    }
+
+    public static void selectPic(Activity activity, int maxTotal, int resultCode) {
+        PictureSelectorConfig.initMultiConfig(activity, maxTotal, resultCode);
     }
 }
