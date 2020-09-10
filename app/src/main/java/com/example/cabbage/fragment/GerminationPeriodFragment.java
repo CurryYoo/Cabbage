@@ -33,6 +33,7 @@ import butterknife.Unbinder;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static com.example.cabbage.utils.BasicUtil.showDatePickerDialog;
+import static com.example.cabbage.utils.StaticVariable.COUNT_EXTRA;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
@@ -41,9 +42,9 @@ import static com.example.cabbage.utils.UIUtils.checkIsValid;
 import static com.example.cabbage.utils.UIUtils.showBottomHelpDialog;
 
 /**
- * Author:created by Kang on 2020/9/9
- * Email:zyk970512@163.com
- * Annotation:发芽期
+ * Author:Kang
+ * Date:2020/9/10
+ * Description:发芽期
  */
 public class GerminationPeriodFragment extends Fragment {
 
@@ -94,10 +95,10 @@ public class GerminationPeriodFragment extends Fragment {
     View.OnClickListener extraAttributeClickListener = v -> {
         switch (v.getId()) {
             case R.id.btn_add_attribute:
-                addExtraAttribute(btnAddAttribute, layoutCustomAttribute, "spare1");
+                addExtraAttributeView(btnAddAttribute, layoutCustomAttribute, "spare1","");
                 break;
             case R.id.btn_add_remark:
-                addExtraAttribute(btnAddRemark, layoutCustomAttribute, "spare2");
+                addExtraAttributeView(btnAddRemark, layoutCustomAttribute, "spare2","");
                 break;
         }
     };
@@ -170,15 +171,17 @@ public class GerminationPeriodFragment extends Fragment {
         btnGerminationRate.setOnClickListener(helpClickListener);
 
         //额外属性和备注
-        btnAddAttribute.setCount(1);
-        btnAddRemark.setCount(1);
-        btnAddAttribute.setOnClickListener(extraAttributeClickListener);
-        btnAddRemark.setOnClickListener(extraAttributeClickListener);
+        btnAddAttribute.setCount(COUNT_EXTRA);
+        btnAddRemark.setCount(COUNT_EXTRA);
 
-        //提交按钮
+        //判断是否显示按钮
         if (editable) {
+            btnAddAttribute.setOnClickListener(extraAttributeClickListener);
+            btnAddRemark.setOnClickListener(extraAttributeClickListener);
             btnUploadData.setOnClickListener(submitClickListener);
         } else {
+            btnAddAttribute.setVisibility(View.GONE);
+            btnAddRemark.setVisibility(View.GONE);
             btnUploadData.setVisibility(View.GONE);
         }
     }
@@ -225,21 +228,21 @@ public class GerminationPeriodFragment extends Fragment {
         //成熟期
         JsonObject jsonObject = getBasicInfoData();
 
-        String germinationRateString = edtGerminationRate.getText().toString();
+        String germinationRateData = edtGerminationRate.getText().toString();
 
         //额外属性
-        String extraAttributeString = "";
-        String extraRemarkString = "";
+        String extraAttributeData = "";
+        String extraRemarkData = "";
         if (extraAttribute != null) {
-            extraAttributeString = extraAttribute.getContent();
+            extraAttributeData = extraAttribute.getContent();
         }
         if (extraRemark != null) {
-            extraRemarkString = extraRemark.getContent();
+            extraRemarkData = extraRemark.getContent();
         }
 
-        jsonObject.addProperty("germinationRate", germinationRateString);
-        jsonObject.addProperty("spare1", extraAttributeString);
-        jsonObject.addProperty("spare2", extraRemarkString);
+        jsonObject.addProperty("germinationRate", germinationRateData);
+        jsonObject.addProperty("spare1", extraAttributeData);
+        jsonObject.addProperty("spare2", extraRemarkData);
 
         return jsonObject.toString();
     }
@@ -287,73 +290,38 @@ public class GerminationPeriodFragment extends Fragment {
 
     private void updateExtraView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
         if (!TextUtils.isEmpty(value)) {
-            initAttributeView(btnAdd, layout, keyName, value);
+            addExtraAttributeView(btnAdd, layout, keyName, value);
         }
     }
 
-    private void initAttributeView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
+    private void addExtraAttributeView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
         btnAdd.subtractCount();
+        ExtraAttributeView extraAttributeView=new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, "spare1");
         switch (keyName) {
             case "spare1":
-                ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.obligate_attribute), keyName);
-                Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
+                extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, keyName);
                 extraAttribute = extraAttributeView;
-                btnDelete.setOnClickListener(v1 -> {
-                    extraAttribute = null;
-                    extraAttributeView.removeAllViews();
-                    btnAdd.addCount();
-                });
-                extraAttributeView.setContent(value);
-                layout.addView(extraAttributeView);
                 break;
             case "spare2":
-                ExtraAttributeView extraRemarkView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.info_remark), keyName);
-                Button btnDelete2 = extraRemarkView.findViewById(R.id.btn_delete);
-                extraRemark = extraRemarkView;
-                btnDelete2.setOnClickListener(v1 -> {
-                    extraRemark = null;
-                    extraRemarkView.removeAllViews();
-                    btnAdd.addCount();
-                });
-                extraRemarkView.setContent(value);
-                layout.addView(extraRemarkView);
+                extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_REMARK, keyName);
+                extraRemark = extraAttributeView;
                 break;
             default:
                 break;
         }
-    }
-
-    //添加额外属性
-    private void addExtraAttribute(CountButton btnAdd, LinearLayout layout, String keyName) {
-        btnAdd.subtractCount();
-        switch (keyName) {
-            case "spare1":
-                ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.obligate_attribute), keyName);
-                Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
-                extraAttribute = extraAttributeView;
-                btnDelete.setOnClickListener(v1 -> {
-                    extraAttribute = null;
-                    extraAttributeView.removeAllViews();
-                    btnAdd.addCount();
-                });
-                layout.addView(extraAttributeView);
-                break;
-            case "spare2":
-                ExtraAttributeView extraRemarkView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, getString(R.string.info_remark), keyName);
-                Button btnDelete2 = extraRemarkView.findViewById(R.id.btn_delete);
-                extraRemark = extraRemarkView;
-                btnDelete2.setOnClickListener(v1 -> {
-                    extraRemark = null;
-                    extraRemarkView.removeAllViews();
-                    btnAdd.addCount();
-                });
-                layout.addView(extraRemarkView);
-                break;
-            default:
-                break;
+        Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
+        if(status==STATUS_READ){
+            btnDelete.setVisibility(View.GONE);
         }
+        ExtraAttributeView finalExtraAttributeView = extraAttributeView;
+        btnDelete.setOnClickListener(v1 -> {
+            extraAttribute = null;
+            finalExtraAttributeView.removeAllViews();
+            btnAdd.addCount();
+        });
+        extraAttributeView.setContent(value);
+        layout.addView(extraAttributeView);
     }
-
 
     public void setInitValue(String materialId_
             , String materialType_

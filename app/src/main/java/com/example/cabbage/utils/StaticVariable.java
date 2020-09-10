@@ -23,6 +23,6 @@ public class StaticVariable {
     public static final String SEPARATOR_2 = ",";
 
     //重复属性和额外属性最大数目
-    public static final int  COUNT_1= 1;  // 额外属性限制1个
-    public static final int  COUNT_2= 2;  // 重复属性限制2个
+    public static final int COUNT_EXTRA = 1;  // 额外属性限制1个
+    public static final int COUNT_REPEAT = 2;  // 重复属性限制2个
 }

@@ -426,4 +426,148 @@
         <item>其他</item>
     </string-array>
 
+    <!--    储藏期-->
+    <string-array name="loss_rate">
+        <item>差</item>
+        <item>中</item>
+        <item>好</item>
+    </string-array>
+
+    <!--    现蕾开花期-->
+    <string-array name="half_plant_flower_bud">
+        <item>弱</item>
+        <item>中</item>
+        <item>强</item>
+    </string-array>
+
+    <string-array name="flower_bud_status">
+        <item>正常</item>
+        <item>花中花</item>
+        <item>花瓣萼片化</item>
+        <item>柱头外露</item>
+        <item>子房开裂</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="flower_bud_shape">
+        <item>瘦长</item>
+        <item>钝圆</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="flower_bud_size">
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+    </string-array>
+
+    <string-array name="petal_shape">
+        <item>近圆</item>
+        <item>倒卵</item>
+        <item>长倒卵</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="petal_size">
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+    </string-array>
+
+    <string-array name="petal_color">
+        <item>白色</item>
+        <item>浅黄色</item>
+        <item>黄色</item>
+        <item>深黄色</item>
+        <item>橘黄色</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="branch_ability">
+        <item>弱</item>
+        <item>中等</item>
+        <item>强</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="single_flower_sterile_degree">
+        <item>可育花</item>
+        <item>低不育花</item>
+        <item>半不育花</item>
+        <item>高不育花</item>
+        <item>全不育花</item>
+    </string-array>
+
+    <string-array name="single_plant_sterile_degree">
+        <item>全可育株</item>
+        <item>低不育株</item>
+        <item>半不育株</item>
+        <item>高不育株</item>
+        <item>近似全不育株</item>
+        <item>全不育株</item>
+    </string-array>
+
+    <string-array name="group_sterile_degree">
+        <item>低</item>
+        <item>中</item>
+        <item>高</item>
+    </string-array>
+
+    <string-array name="group_sterile_rate">
+        <item>低</item>
+        <item>中</item>
+        <item>高</item>
+    </string-array>
+
+    <string-array name="male_sterile">
+        <item>细胞质</item>
+        <item>质核互作</item>
+        <item>核基因互作</item>
+        <item>显性核不育</item>
+        <item>隐形核不育</item>
+        <item>其他</item>
+    </string-array>
+
+    <!--    结荚与种子收获期期-->
+    <string-array name="seed_pod_length">
+        <item>短</item>
+        <item>中</item>
+        <item>长</item>
+    </string-array>
+
+    <string-array name="seed_pod_beak_length">
+        <item>短</item>
+        <item>中</item>
+        <item>长</item>
+    </string-array>
+
+    <string-array name="seed_size">
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+    </string-array>
+
+    <string-array name="seed_shape">
+        <item>扁</item>
+        <item>圆</item>
+        <item>不规则</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="seed_color">
+        <item>黄</item>
+        <item>浅褐</item>
+        <item>红褐</item>
+        <item>褐绿</item>
+        <item>深褐</item>
+        <item>黑</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="self_compatible">
+        <item>不亲和</item>
+        <item>弱亲和</item>
+        <item>中亲和</item>
+        <item>亲和</item>
+    </string-array>
 </resources>

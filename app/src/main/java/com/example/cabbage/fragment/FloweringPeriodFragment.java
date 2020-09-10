@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cabbage.R;
 /**
- * Author:created by Kang on 2020/9/9
- * Email:zyk970512@163.com
- * Annotation:现蕾开花期
+ * Author:Kang
+ * Date:2020/9/10
+ * Description:现蕾开花期
  */
 public class FloweringPeriodFragment extends Fragment {
 
@@ -27,5 +27,6 @@ public class FloweringPeriodFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_flowering_period, container, false);
         return view;
     }
+
 
 }

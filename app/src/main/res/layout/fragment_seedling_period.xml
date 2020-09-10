@@ -6,14 +6,15 @@
     android:scrollbars="none">
 
     <LinearLayout
-        android:id="@+id/main_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/dp_5">
+        android:orientation="vertical">
 
         <include layout="@layout/item_basic_info" />
+
+        <TextView
+            style="@style/style_title_period"
+            android:text="@string/title_seedling_period" />
 
         <include layout="@layout/item_seedling_period" />
     </LinearLayout>

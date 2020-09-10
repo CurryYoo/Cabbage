@@ -67,8 +67,6 @@ public interface GetApi {
 
     // 时期下图片上传
 
-
     // 批量上传图片
-
 
 }

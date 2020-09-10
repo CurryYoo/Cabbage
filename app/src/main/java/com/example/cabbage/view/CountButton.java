@@ -6,24 +6,24 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import static com.example.cabbage.utils.StaticVariable.COUNT_2;
+import static com.example.cabbage.utils.StaticVariable.COUNT_REPEAT;
 
 public class CountButton extends androidx.appcompat.widget.AppCompatButton {
     public int count;
 
     public CountButton(@NonNull Context context) {
         super(context);
-        count=COUNT_2;
+        count= COUNT_REPEAT;
     }
 
     public CountButton(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        count=COUNT_2;
+        count= COUNT_REPEAT;
     }
 
     public CountButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        count=COUNT_2;
+        count= COUNT_REPEAT;
     }
 
 

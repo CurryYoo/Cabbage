@@ -1169,7 +1169,7 @@ public class SurveyActivity2 extends AppCompatActivity {
                 setSelectionAndText(spnTrueLeafLength, edtTrueLeafLength, surveyInfo.data.trueLeafLength);
 //                updateExtraView(layoutRepeatedTrueLeafLength, getString(R.string.info_true_leaf_length), "trueLeafLength", surveyInfo.data.trueLeafLength2, surveyPeriod);
 //                updateExtraView(layoutRepeatedTrueLeafLength, getString(R.string.info_true_leaf_length), "trueLeafLength", surveyInfo.data.trueLeafLength3, surveyPeriod);
-                setSelectionAndText(spnTrueLeafWidth, edtTrueLeafWidth, surveyInfo.data.trueLeafWidth1);
+                setSelectionAndText(spnTrueLeafWidth, edtTrueLeafWidth, surveyInfo.data.trueLeafWidth);
 //                updateExtraView(layoutRepeatedTrueLeafWidth, getString(R.string.info_true_leaf_width), "trueLeafWidth", surveyInfo.data.trueLeafWidth2, surveyPeriod);
 //                updateExtraView(layoutRepeatedTrueLeafWidth, getString(R.string.info_true_leaf_width), "trueLeafWidth", surveyInfo.data.trueLeafWidth3, surveyPeriod);
                 updateExtraView(layoutCustomAttribute2, getString(R.string.obligate_attribute), "spare", surveyInfo.data.spare1, surveyPeriod);
