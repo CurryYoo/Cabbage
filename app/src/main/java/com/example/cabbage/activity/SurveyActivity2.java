@@ -887,23 +887,23 @@ public class SurveyActivity2 extends AppCompatActivity {
         });
 
         //发芽期
-        layoutCustomAttribute1 = findViewById(R.id.layout_custom_attribute1);
-        btnAddRemark1 = findViewById(R.id.btn_add_remark1);
-        btnAddAttribute1 = findViewById(R.id.btn_add_attribute1);
+        layoutCustomAttribute1 = findViewById(R.id.layout_custom_attribute);
+        btnAddRemark1 = findViewById(R.id.btn_add_remark);
+        btnAddAttribute1 = findViewById(R.id.btn_add_attribute);
         addExtraAttributeListener(btnAddAttribute1, layoutCustomAttribute1, "spare", SURVEY_PERIOD_GERMINATION);
         addRemarkAttributeListener(btnAddRemark1, layoutCustomAttribute1, "spare", SURVEY_PERIOD_GERMINATION);
 
         //幼苗期
-        layoutCustomAttribute2 = findViewById(R.id.layout_custom_attribute2);
-        btnAddRemark2 = findViewById(R.id.btn_add_remark2);
-        btnAddAttribute2 = findViewById(R.id.btn_add_attribute2);
+        layoutCustomAttribute2 = findViewById(R.id.layout_custom_attribute);
+        btnAddRemark2 = findViewById(R.id.btn_add_remark);
+        btnAddAttribute2 = findViewById(R.id.btn_add_attribute);
         addExtraAttributeListener(btnAddAttribute2, layoutCustomAttribute2, "spare", SURVEY_PERIOD_SEEDLING);
         addRemarkAttributeListener(btnAddRemark2, layoutCustomAttribute2, "spare", SURVEY_PERIOD_SEEDLING);
 
         //莲座期
-        layoutCustomAttribute3 = findViewById(R.id.layout_custom_attribute3);
-        btnAddRemark3 = findViewById(R.id.btn_add_remark3);
-        btnAddAttribute3 = findViewById(R.id.btn_add_attribute3);
+        layoutCustomAttribute3 = findViewById(R.id.layout_custom_attribute);
+        btnAddRemark3 = findViewById(R.id.btn_add_remark);
+        btnAddAttribute3 = findViewById(R.id.btn_add_attribute);
         addExtraAttributeListener(btnAddAttribute3, layoutCustomAttribute3, "spare", SURVEY_PERIOD_ROSETTE);
         addRemarkAttributeListener(btnAddRemark3, layoutCustomAttribute3, "spare", SURVEY_PERIOD_ROSETTE);
     }

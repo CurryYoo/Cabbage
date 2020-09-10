@@ -147,7 +147,7 @@
     <string name="info_harvest_delay_time_early">收获延长期（早熟）</string>
     <string name="info_harvest_delay_time_late">收获延长期（中晚熟）</string>
 
-    <string name="title_storage_period">贮藏期</string>
+    <string name="title_storage_period">储藏期</string>
     <string name="info_loss_rate">损耗率</string>
 
     <string name="title_flowering_period">现蕾开花期</string>

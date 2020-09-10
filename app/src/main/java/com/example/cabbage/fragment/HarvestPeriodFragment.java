@@ -496,6 +496,20 @@ public class HarvestPeriodFragment extends Fragment {
         }
     }
 
+    private JsonObject getBasicInfoData() {
+        String plantId = edtPlantId.getText().toString();
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("materialType", materialType);
+        jsonObject.addProperty("materialNumber", materialId);
+        jsonObject.addProperty("plantNumber", plantId);
+        jsonObject.addProperty("investigatingTime", edtInvestigatingTime.getText().toString());
+        jsonObject.addProperty("investigator", nickname);
+        jsonObject.addProperty("userId", userId);
+
+        return jsonObject;
+    }
+
     private String getPeriodData() {
         //成熟期
         JsonObject jsonObject = getBasicInfoData();
@@ -559,21 +573,6 @@ public class HarvestPeriodFragment extends Fragment {
         return jsonObject.toString();
     }
 
-
-    private JsonObject getBasicInfoData() {
-        String plantId = edtPlantId.getText().toString();
-
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("materialType", materialType);
-        jsonObject.addProperty("materialNumber", materialId);
-        jsonObject.addProperty("plantNumber", plantId);
-        jsonObject.addProperty("investigatingTime", edtInvestigatingTime.getText().toString());
-        jsonObject.addProperty("investigator", nickname);
-        jsonObject.addProperty("userId", userId);
-
-        return jsonObject;
-    }
-
     // 更新上传图片
     private void uploadPics(String surveyPeriod, String surveyId) {
         Map<String, ArrayList<String>> imageMap;
@@ -630,7 +629,6 @@ public class HarvestPeriodFragment extends Fragment {
                 break;
         }
     }
-
 
     public void setInitValue(String materialId_
             , String materialType_

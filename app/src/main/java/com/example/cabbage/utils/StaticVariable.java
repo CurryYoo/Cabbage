@@ -14,6 +14,9 @@ public class StaticVariable {
     public static final String SURVEY_PERIOD_ROSETTE = "莲座期";
     public static final String SURVEY_PERIOD_HEADING = "结球期";
     public static final String SURVEY_PERIOD_HARVEST = "收获期";
+    public static final String SURVEY_PERIOD_STORAGE = "储藏期";
+    public static final String SURVEY_PERIOD_FLOWERING= "现蕾开花期";
+    public static final String SURVEY_PERIOD_SEED_HARVEST= "结荚与种子收获期";
 
     //分隔符
     public static final String SEPARATOR = "/";

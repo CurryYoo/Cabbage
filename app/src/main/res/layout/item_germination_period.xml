@@ -19,7 +19,7 @@
             style="@style/style_item_long_text_view"
             android:text="@string/info_germination_rate" />
 
-<!--        <View style="@style/view_vertical_divider_style" />-->
+        <!--        <View style="@style/view_vertical_divider_style" />-->
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -55,7 +55,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_custom_attribute1"
+        android:id="@+id/layout_custom_attribute"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_5"
@@ -68,24 +68,31 @@
         android:orientation="horizontal">
 
         <com.example.cabbage.view.CountButton
-            android:id="@+id/btn_add_attribute1"
+            android:id="@+id/btn_add_attribute"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
             android:layout_margin="@dimen/dp_10"
+            android:layout_weight="1"
             android:background="@drawable/bg_button_red"
             android:text="@string/add_attribute"
             android:textColor="@color/white" />
 
         <com.example.cabbage.view.CountButton
-            android:id="@+id/btn_add_remark1"
+            android:id="@+id/btn_add_remark"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
             android:layout_margin="@dimen/dp_10"
+            android:layout_weight="1"
             android:background="@drawable/bg_button_red"
             android:text="@string/add_remark"
             android:textColor="@color/white" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_upload_data"
+        style="@style/Button_Red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:text="@string/upload_data" />
 </LinearLayout>

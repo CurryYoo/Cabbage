@@ -1,5 +1,6 @@
 package com.example.cabbage.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
@@ -103,5 +104,9 @@ public class UIUtils {
         } else {
             return "";
         }
+    }
+
+    public static void selectPic(Activity activity, int maxTotal, int resultCode) {
+        PictureSelectorConfig.initMultiConfig(activity, maxTotal, resultCode);
     }
 }

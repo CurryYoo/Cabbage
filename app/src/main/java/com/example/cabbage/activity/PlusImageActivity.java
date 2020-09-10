@@ -35,9 +35,7 @@ public class PlusImageActivity extends AppCompatActivity implements ViewPager.On
         ButterKnife.bind(this);
         initData(savedInstanceState);
     }
-//    public int initView(@Nullable Bundle savedInstanceState) {
-//        return R.layout.activity_plus_image; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
-//    }
+
     public void initData(@Nullable Bundle savedInstanceState) {
         imgList = getIntent().getStringArrayListExtra(MainConstant.IMG_LIST);
         mPosition = getIntent().getIntExtra(MainConstant.POSITION, 0);
@@ -60,8 +58,6 @@ public class PlusImageActivity extends AppCompatActivity implements ViewPager.On
 
     //删除图片
     private void deletePic() {
-        //TODO 删除图片时弹出确认框确认
-
         imgList.remove(mPosition); //从数据源移除删除的图片
         setPosition();
 

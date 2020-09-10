@@ -6,14 +6,14 @@
     android:background="@drawable/bg_10_dark"
     android:orientation="vertical"
     android:paddingStart="@dimen/dp_10"
-    android:paddingEnd="@dimen/dp_10"
-    android:paddingTop="@dimen/dp_5">
+    android:paddingTop="@dimen/dp_5"
+    android:paddingEnd="@dimen/dp_10">
 
     <GridView
         android:id="@+id/img_rosette_period"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numColumns="4"
+        android:numColumns="8"
         android:verticalSpacing="5dp" />
 
     <LinearLayout
@@ -823,7 +823,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_custom_attribute3"
+        android:id="@+id/layout_custom_attribute"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_5"
@@ -834,25 +834,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <com.example.cabbage.view.CountButton
-            android:id="@+id/btn_add_attribute3"
+            android:id="@+id/btn_add_attribute"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
             android:layout_margin="@dimen/dp_10"
+            android:layout_weight="1"
             android:background="@drawable/bg_button_red"
             android:text="@string/add_attribute"
             android:textColor="@color/white" />
 
         <com.example.cabbage.view.CountButton
-            android:id="@+id/btn_add_remark3"
+            android:id="@+id/btn_add_remark"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
             android:layout_margin="@dimen/dp_10"
+            android:layout_weight="1"
             android:background="@drawable/bg_button_red"
             android:text="@string/add_remark"
             android:textColor="@color/white" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_upload_data"
+        style="@style/Button_Red"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:text="@string/upload_data" />
 </LinearLayout>
