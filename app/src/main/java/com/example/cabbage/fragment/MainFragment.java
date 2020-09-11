@@ -30,7 +30,9 @@ import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.MaterialInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.utils.NetworkUtils;
+import com.example.cabbage.utils.UIUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -149,6 +151,8 @@ public class MainFragment extends Fragment {
                             .withString("materialType", materialType)
                             .withInt("status", STATUS_NEW)
                             .navigation();
+                    searchView.clearFocus();
+
                 }
             }
 
