@@ -410,14 +410,14 @@ public class RosettePeriodFragment extends Fragment {
                 break;
             case STATUS_READ:
                 initView(false);
-//                initMaps();
+                initMaps();
                 initBasicInfo(plantId);
                 initData();
                 initPictures();
                 break;
             case STATUS_COPY:
                 initView(true);
-//                initMaps();
+                initMaps();
                 initBasicInfo("");
                 initData();
                 break;
@@ -535,7 +535,7 @@ public class RosettePeriodFragment extends Fragment {
                 @Override
                 public void onResponse(ResultInfo resultInfo) {
                     if (resultInfo.code == 200 && resultInfo.message.equals(getString(R.string.option_success))) {
-                        uploadPics( surveyId);
+                        uploadPics(resultInfo.data.observationId);
                         Toast.makeText(self, R.string.update_success, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(self, R.string.update_fail, Toast.LENGTH_SHORT).show();
@@ -815,6 +815,11 @@ public class RosettePeriodFragment extends Fragment {
         status = status_;
         surveyId = surveyId_;
     }
+
+    private void initMaps() {
+        imgHashMap.put("common", imgList);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
