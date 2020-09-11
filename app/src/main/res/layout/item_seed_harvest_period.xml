@@ -39,14 +39,15 @@
                 <include layout="@layout/view_vertical_divider" />
 
                 <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_half_plant_flower_bud"
+                    android:id="@+id/edt_seed_pod_length"
                     style="@style/style_number_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
                 <Button
                     android:id="@+id/btn_seed_pod_length"
-                    style="@style/style_basic_help_btn" />
+                    style="@style/style_basic_help_btn"
+                    android:layout_width="34dp" />
 
             </LinearLayout>
     </LinearLayout>
@@ -73,8 +74,8 @@
                 <include layout="@layout/view_vertical_divider" />
 
                 <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_flower_bud_status"
-                    style="@style/style_user_define_edit_text" />
+                    android:id="@+id/edt_seed_pod_beak_length"
+                    style="@style/style_number_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -107,8 +108,8 @@
                 <include layout="@layout/view_vertical_divider" />
 
                 <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_flower_bud_shape"
-                    style="@style/style_user_define_edit_text" />
+                    android:id="@+id/edt_seed_size"
+                    style="@style/style_number_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -141,8 +142,8 @@
                 <include layout="@layout/view_vertical_divider" />
 
                 <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_flower_bud_size"
-                    style="@style/style_number_edit_text" />
+                    android:id="@+id/edt_seed_shape"
+                    style="@style/style_user_define_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 
@@ -175,7 +176,7 @@
                 <include layout="@layout/view_vertical_divider" />
 
                 <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_petal_shape"
+                    android:id="@+id/edt_seed_color"
                     style="@style/style_user_define_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
@@ -320,8 +321,8 @@
                 <include layout="@layout/view_vertical_divider" />
 
                 <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_petal_color"
-                    style="@style/style_user_define_edit_text" />
+                    android:id="@+id/edt_self_compatible"
+                    style="@style/style_number_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
 

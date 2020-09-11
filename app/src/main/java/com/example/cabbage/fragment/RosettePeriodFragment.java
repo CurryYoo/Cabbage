@@ -390,15 +390,17 @@ public class RosettePeriodFragment extends Fragment {
         userId = sp.getInt("userId", 1);
         nickname = sp.getString("nickname", "");
 
-//        initFragment();
-
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        layoutCustomAttribute.removeAllViews();//清除view，防止重复加载
+        //清除view，防止重复加载
+        imgRosettePeriod.removeAllViewsInLayout();
+        imgRosettePeriod.postInvalidate();
+        layoutCustomAttribute.removeAllViews();
+
         initFragment();
     }
 

@@ -28,4 +28,8 @@ public class HistoryPageAdapter extends FragmentStatePagerAdapter {
         return fragmentList.size();
     }
 
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
+    }
 }

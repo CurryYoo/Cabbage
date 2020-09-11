@@ -557,7 +557,7 @@
                 <include layout="@layout/view_vertical_divider" />
 
                 <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_loss_rate"
+                    android:id="@+id/edt_male_sterile"
                     style="@style/style_user_define_edit_text" />
 
                 <include layout="@layout/view_vertical_divider" />
