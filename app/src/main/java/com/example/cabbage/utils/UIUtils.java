@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
@@ -15,12 +13,8 @@ import androidx.fragment.app.FragmentManager;
 import com.example.cabbage.R;
 import com.example.cabbage.network.HelpInfo;
 import com.example.cabbage.network.HttpRequest;
-import com.example.cabbage.view.CountButton;
-import com.example.cabbage.view.ExtraAttributeView;
 import com.example.cabbage.view.InfoBottomDialog;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static java.io.File.separator;
@@ -94,6 +88,10 @@ public class UIUtils {
     // 校验必填数据是否填写
     public static boolean checkIsValid(EditText editText) {
         return TextUtils.isEmpty(editText.getText());
+    }
+
+    public static String checkPeriod(String period, String surveyPeriod, String surveyId) {
+        return period.equals(surveyPeriod) ? surveyId : "";
     }
 
     public static String getFinalKey(Map<String, Integer> map, String keyName) {

@@ -95,7 +95,7 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
                 //点击跳转历史页面
                 historyAdapter.setOnItemClickListener((adapter, view, position) -> ARouter.getInstance()
                         .build(ARouterPaths.HISTORY_DETAIL_ACTIVITY)
-                        .withInt("position", position)
+                        .withInt("pointPosition", position)
                         .navigation());
 
                 //复制按钮

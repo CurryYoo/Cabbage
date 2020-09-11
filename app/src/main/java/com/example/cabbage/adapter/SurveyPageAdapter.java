@@ -27,8 +27,4 @@ public class SurveyPageAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return fragmentList.size();
     }
-
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-    }
 }

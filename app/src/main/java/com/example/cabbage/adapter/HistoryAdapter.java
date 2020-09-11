@@ -18,7 +18,6 @@ public class HistoryAdapter extends BaseQuickAdapter<HistoryInfo.data.Info, Base
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, HistoryInfo.data.Info item) {
-//        helper.setText(R.id.txt_observationId, "观测Id："+item.getObservationId());
         helper.setText(R.id.txt_obsPeriod, mContext.getString(R.string.observation_period)+item.getObsPeriod());
         helper.setText(R.id.txt_materialType, mContext.getString(R.string.material_type)+item.getMaterialType());
         helper.setText(R.id.txt_materialNumber, mContext.getString(R.string.material_number)+item.getMaterialNumber());
