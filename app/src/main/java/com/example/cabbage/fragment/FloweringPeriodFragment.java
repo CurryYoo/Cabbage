@@ -46,7 +46,6 @@ import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_FLOWERING;
-import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_HARVEST;
 import static com.example.cabbage.utils.UIUtils.checkIsValid;
 import static com.example.cabbage.utils.UIUtils.setSelectionAndText;
 import static com.example.cabbage.utils.UIUtils.setVisibilityOfUserDefined;
@@ -288,8 +287,22 @@ public class FloweringPeriodFragment extends Fragment {
         }
     };
 
-    public static FloweringPeriodFragment newInstance() {
-        return new FloweringPeriodFragment();
+    public static FloweringPeriodFragment newInstance(String materialId
+            , String materialType
+            , String plantId
+            , String investigatingTime
+            , String surveyId
+            , int status) {
+        FloweringPeriodFragment newInstance = new FloweringPeriodFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("materialId", materialId);
+        bundle.putString("materialType", materialType);
+        bundle.putString("plantId", plantId);
+        bundle.putString("investigatingTime", investigatingTime);
+        bundle.putString("surveyId", surveyId);
+        newInstance.setArguments(bundle);
+        bundle.putInt("status", status);
+        return newInstance;
     }
 
     @Nullable
@@ -303,6 +316,16 @@ public class FloweringPeriodFragment extends Fragment {
         token = sp.getString("token", "");
         userId = sp.getInt("userId", 1);
         nickname = sp.getString("nickname", "");
+
+        //newInstance传递必需数据
+        Bundle bundle=getArguments();
+        materialId = bundle.getString("materialId");
+        materialType = bundle.getString("materialType");
+        plantId = bundle.getString("plantId");
+        investigatingTime = bundle.getString("investigatingTime");
+        surveyId = bundle.getString("surveyId");
+        status = bundle.getInt("status",STATUS_NEW);
+
 
         return view;
     }
@@ -347,7 +370,7 @@ public class FloweringPeriodFragment extends Fragment {
         petalColor.setOnItemSelectedListener(onItemSelectedListener);
         branchAbility.setOnItemSelectedListener(onItemSelectedListener);
         maleSterile.setOnItemSelectedListener(onItemSelectedListener);
-       //显示底部提示弹出框
+        //显示底部提示弹出框
         btnHalfPlantFlowerBud.setOnClickListener(helpClickListener);
         btnTimeOfFirstFlower.setOnClickListener(helpClickListener);
         btnFlowerBudStatus.setOnClickListener(helpClickListener);

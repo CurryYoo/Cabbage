@@ -374,8 +374,22 @@ public class RosettePeriodFragment extends Fragment {
         }
     };
 
-    public static RosettePeriodFragment newInstance() {
-        return new RosettePeriodFragment();
+    public static RosettePeriodFragment newInstance(String materialId
+            , String materialType
+            , String plantId
+            , String investigatingTime
+            , String surveyId
+            , int status) {
+        RosettePeriodFragment newInstance = new RosettePeriodFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("materialId", materialId);
+        bundle.putString("materialType", materialType);
+        bundle.putString("plantId", plantId);
+        bundle.putString("investigatingTime", investigatingTime);
+        bundle.putString("surveyId", surveyId);
+        newInstance.setArguments(bundle);
+        bundle.putInt("status", status);
+        return newInstance;
     }
 
     @Nullable
@@ -389,6 +403,15 @@ public class RosettePeriodFragment extends Fragment {
         token = sp.getString("token", "");
         userId = sp.getInt("userId", 1);
         nickname = sp.getString("nickname", "");
+
+        //newInstance传递必需数据
+        Bundle bundle=getArguments();
+        materialId = bundle.getString("materialId");
+        materialType = bundle.getString("materialType");
+        plantId = bundle.getString("plantId");
+        investigatingTime = bundle.getString("investigatingTime");
+        surveyId = bundle.getString("surveyId");
+        status = bundle.getInt("status",STATUS_NEW);
 
         return view;
     }

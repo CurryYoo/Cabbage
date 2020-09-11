@@ -43,6 +43,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.lapism:search:2.1.1@aar'
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     //阿里路由

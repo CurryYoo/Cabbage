@@ -10,10 +10,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/item_basic_info" />
         <TextView
             android:text="@string/title_heading_period"
             style="@style/style_title_period" />
+        <include layout="@layout/item_basic_info" />
         <include layout="@layout/item_heading_period" />
     </LinearLayout>
 </ScrollView>

@@ -1,9 +1,13 @@
 package com.example.cabbage.adapter;
 
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.cabbage.fragment.FloweringPeriodFragment;
 import com.example.cabbage.fragment.GerminationPeriodFragment;
@@ -27,33 +31,34 @@ import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEEDLING;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEED_HARVEST;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_STORAGE;
 
-public class HistoryPageAdapter extends FragmentStatePagerAdapter {
+/**
+ * Author:Kang
+ * Date:2020/9/12
+ * Description:
+ */
+public class HistoryDetailAdapter extends FragmentStateAdapter {
     private Fragment fragment;
     private List<HistoryInfo.data.Info> infoList;
 
-    public HistoryPageAdapter(@NonNull FragmentManager fm, int behavior, List<HistoryInfo.data.Info> infoList) {
-        super(fm, behavior);
-        this.infoList = infoList;
+    public HistoryDetailAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, List<HistoryInfo.data.Info> infoList) {
+        super(fragmentManager, lifecycle);
+        this.infoList=infoList;
     }
+
 
     @NonNull
     @Override
-    public Fragment getItem(int position) {
-        fragment = createFragment(infoList.get(position).obsPeriod, infoList.get(position));
+    public Fragment createFragment(int position) {
+        fragment = chooseFragment(infoList.get(position).obsPeriod, infoList.get(position));
         return fragment;
     }
 
     @Override
-    public int getItemPosition(@NonNull Object object) {
-        return POSITION_NONE;
-    }
-
-    @Override
-    public int getCount() {
+    public int getItemCount() {
         return infoList.size();
     }
 
-    private Fragment createFragment(String period, HistoryInfo.data.Info info) {
+    private Fragment chooseFragment(String period, HistoryInfo.data.Info info) {
         Fragment fragment = null;
         switch (period) {
             case SURVEY_PERIOD_GERMINATION:
@@ -91,4 +96,5 @@ public class HistoryPageAdapter extends FragmentStatePagerAdapter {
         }
         return fragment;
     }
+
 }

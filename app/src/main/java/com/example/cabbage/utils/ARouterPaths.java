@@ -8,5 +8,6 @@ public interface ARouterPaths {
     String MAIN_ACTIVITY="/app/main";
     String HISTORY_ACTIVITY="/app/history";
     String HISTORY_DETAIL_ACTIVITY="/app/history_detail";
+    String HISTORY_DETAIL_ACTIVITY2="/app/history_detail2";
     String PWD_ACTIVITY="/app/pwd";
 }

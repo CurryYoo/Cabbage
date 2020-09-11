@@ -37,6 +37,7 @@
         <activity android:name=".activity.PlusImageActivity" />
         <activity android:name=".activity.SurveyActivity" />
         <activity android:name=".activity.HistoryDetailActivity" />
+        <activity android:name=".activity.HistoryDetailActivity2" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

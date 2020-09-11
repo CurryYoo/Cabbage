@@ -328,7 +328,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/dp_10</item>
         <item name="android:layout_marginEnd">@dimen/dp_10</item>
-        <item name="android:background">@drawable/bg_10_dark</item>
+        <item name="android:layout_marginTop">@dimen/dp_10</item>
+        <item name="android:background">@drawable/bg_30_black</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/dp_10</item>
         <item name="android:textColor">@color/primary_text</item>
