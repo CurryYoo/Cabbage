@@ -25,27 +25,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_rosette_plant_shape" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_rosette_plant_shape" />
 
-                <Spinner
-                    android:id="@+id/plant_shape"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/plant_shape" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/plant_shape"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/plant_shape" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_plant_shape"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_plant_shape"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_plant_shape"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_plant_shape"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -65,29 +67,31 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_rosette_plant_height" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_rosette_plant_height" />
 
-                <Spinner
-                    android:id="@+id/plant_height"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/plant_height" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/plant_height"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/plant_height" />
 
-
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_plant_height"
-                    style="@style/style_number_edit_text" />
-
-                <include layout="@layout/view_vertical_divider" />
+            <include layout="@layout/view_vertical_divider" />
 
 
-                <Button
-                    android:id="@+id/btn_plant_height"
-                    style="@style/style_basic_help_btn" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_plant_height"
+                style="@style/style_number_edit_text" />
 
-            </LinearLayout>
+            <include layout="@layout/view_vertical_divider" />
+
+
+            <Button
+                android:id="@+id/btn_plant_height"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -99,29 +103,31 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_rosette_development_degree" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_rosette_development_degree" />
 
-                <Spinner
-                    android:id="@+id/development_degree"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/development_degree" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/development_degree"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/development_degree" />
 
-
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_development_degree"
-                    style="@style/style_number_edit_text" />
-
-                <include layout="@layout/view_vertical_divider" />
+            <include layout="@layout/view_vertical_divider" />
 
 
-                <Button
-                    android:id="@+id/btn_development_degree"
-                    style="@style/style_basic_help_btn" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_development_degree"
+                style="@style/style_number_edit_text" />
 
-            </LinearLayout>
+            <include layout="@layout/view_vertical_divider" />
+
+
+            <Button
+                android:id="@+id/btn_development_degree"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -133,22 +139,24 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_count" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_count" />
 
-                <EditText
-                    android:id="@+id/edt_leaf_count"
-                    style="@style/style_item_basic_info_edit_text"
-                    android:layout_width="60dp"
-                    android:inputType="numberDecimal" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <EditText
+                android:id="@+id/edt_leaf_count"
+                style="@style/style_item_basic_info_edit_text"
+                android:layout_width="60dp"
+                android:inputType="numberDecimal" />
+
+            <include layout="@layout/view_vertical_divider" />
 
 
-                <Button
-                    android:id="@+id/btn_leaf_count"
-                    style="@style/style_basic_help_btn" />
+            <Button
+                android:id="@+id/btn_leaf_count"
+                style="@style/style_basic_help_btn" />
 
-            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -160,22 +168,24 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_soft_leaf_thickness" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_soft_leaf_thickness" />
 
-                <EditText
-                    android:id="@+id/edt_soft_leaf_thickness"
-                    style="@style/style_item_basic_info_edit_text"
-                    android:layout_width="60dp"
-                    android:inputType="numberDecimal" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <EditText
+                android:id="@+id/edt_soft_leaf_thickness"
+                style="@style/style_item_basic_info_edit_text"
+                android:layout_width="60dp"
+                android:inputType="numberDecimal" />
+
+            <include layout="@layout/view_vertical_divider" />
 
 
-                <Button
-                    android:id="@+id/btn_soft_leaf_thickness"
-                    style="@style/style_basic_help_btn" />
+            <Button
+                android:id="@+id/btn_soft_leaf_thickness"
+                style="@style/style_basic_help_btn" />
 
-            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -187,29 +197,31 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_length" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_length" />
 
-                <Spinner
-                    android:id="@+id/leaf_length"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_length" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_length"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_length" />
 
-
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_length"
-                    style="@style/style_number_edit_text" />
-
-                <include layout="@layout/view_vertical_divider" />
+            <include layout="@layout/view_vertical_divider" />
 
 
-                <Button
-                    android:id="@+id/btn_leaf_length"
-                    style="@style/style_basic_help_btn" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_length"
+                style="@style/style_number_edit_text" />
 
-            </LinearLayout>
+            <include layout="@layout/view_vertical_divider" />
+
+
+            <Button
+                android:id="@+id/btn_leaf_length"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -221,28 +233,30 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_width" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_width" />
 
-                <Spinner
-                    android:id="@+id/leaf_width"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_width" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_width"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_width" />
+
+            <include layout="@layout/view_vertical_divider" />
 
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_width"
-                    style="@style/style_number_edit_text" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_width"
+                style="@style/style_number_edit_text" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <Button
-                    android:id="@+id/btn_leaf_width"
-                    style="@style/style_basic_help_btn" />
+            <Button
+                android:id="@+id/btn_leaf_width"
+                style="@style/style_basic_help_btn" />
 
-            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -254,27 +268,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_shape" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_shape" />
 
-                <Spinner
-                    android:id="@+id/leaf_shape"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_shape" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_shape"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_shape" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_shape"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_shape"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_shape"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_shape"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -286,27 +302,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_color" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_color" />
 
-                <Spinner
-                    android:id="@+id/leaf_color"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_color" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_color"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_color" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_color"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_color"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_color"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_color"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -318,27 +336,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_luster" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_luster" />
 
-                <Spinner
-                    android:id="@+id/leaf_luster"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_luster" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_luster"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_luster" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_luster"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_luster"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_luster"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_luster"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -350,27 +370,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_fuzz" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_fuzz" />
 
-                <Spinner
-                    android:id="@+id/leaf_fuzz"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_fuzz" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_fuzz"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_fuzz" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_fuzz"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_fuzz"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_fuzz"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_fuzz"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -382,27 +404,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_margin_undulance" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_margin_undulance" />
 
-                <Spinner
-                    android:id="@+id/leaf_margin_undulance"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_margin_undulance" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_margin_undulance"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_margin_undulance" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_margin_undulance"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_margin_undulance"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_margin_undulance"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_margin_undulance"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -414,27 +438,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_margin_sawtooth" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_margin_sawtooth" />
 
-                <Spinner
-                    android:id="@+id/leaf_margin_sawtooth"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_margin_sawtooth" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_margin_sawtooth"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_margin_sawtooth" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_margin_sawtooth"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_margin_sawtooth"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_margin_sawtooth"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_margin_sawtooth"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -446,27 +472,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_smoothness" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_smoothness" />
 
-                <Spinner
-                    android:id="@+id/leaf_smoothness"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_smoothness" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_smoothness"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_smoothness" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_smoothness"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_smoothness"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_smoothness"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_smoothness"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -478,27 +506,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_protuberance" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_protuberance" />
 
-                <Spinner
-                    android:id="@+id/leaf_protuberance"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_protuberance" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_protuberance"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_protuberance" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_protuberance"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_protuberance"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_protuberance"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_protuberance"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -510,27 +540,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_vein_livingness" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_vein_livingness" />
 
-                <Spinner
-                    android:id="@+id/leaf_vein_livingness"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_vein_livingness" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_vein_livingness"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_vein_livingness" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_vein_livingness"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_vein_livingness"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_vein_livingness"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_vein_livingness"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -542,27 +574,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_keel_livingness" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_keel_livingness" />
 
-                <Spinner
-                    android:id="@+id/leaf_keel_livingness"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_keel_livingness" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_keel_livingness"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_keel_livingness" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_keel_livingness"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_keel_livingness"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_keel_livingness"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_keel_livingness"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -574,27 +608,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_curliness" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_curliness" />
 
-                <Spinner
-                    android:id="@+id/leaf_curliness"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_curliness" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_curliness"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_curliness" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_curliness"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_curliness"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_curliness"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_curliness"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -606,28 +642,30 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_curliness_part" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_curliness_part" />
 
-                <Spinner
-                    android:id="@+id/leaf_curliness_part"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_curliness_part" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_curliness_part"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_curliness_part" />
+
+            <include layout="@layout/view_vertical_divider" />
 
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_curliness_part"
-                    style="@style/style_user_define_edit_text" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_curliness_part"
+                style="@style/style_user_define_edit_text" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <Button
-                    android:id="@+id/btn_leaf_curliness_part"
-                    style="@style/style_basic_help_btn" />
+            <Button
+                android:id="@+id/btn_leaf_curliness_part"
+                style="@style/style_basic_help_btn" />
 
-            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -639,27 +677,29 @@
 
         <TextView
             style="@style/style_item_long_text_view"
-            android:text="@string/info_leaf_texture" /><LinearLayout style="@style/survey_linear_layout">
+            android:text="@string/info_leaf_texture" />
 
-                <Spinner
-                    android:id="@+id/leaf_texture"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/leaf_texture" />
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <include layout="@layout/view_vertical_divider" />
+            <Spinner
+                android:id="@+id/leaf_texture"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/leaf_texture" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_leaf_texture"
-                    style="@style/style_user_define_edit_text" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_leaf_texture"
+                style="@style/style_user_define_edit_text" />
 
-                <Button
-                    android:id="@+id/btn_leaf_texture"
-                    style="@style/style_basic_help_btn" />
+            <include layout="@layout/view_vertical_divider" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_leaf_texture"
+                style="@style/style_basic_help_btn" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

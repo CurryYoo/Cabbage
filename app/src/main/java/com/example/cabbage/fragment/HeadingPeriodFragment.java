@@ -175,7 +175,7 @@ public class HeadingPeriodFragment extends Fragment {
     private String investigatingTime;
     private int status = STATUS_NEW;
     private String surveyId;
-    private String surveyPeriod;
+    private String surveyPeriod=SURVEY_PERIOD_HEADING;
     private String token;
     private int userId;
     private String nickname;
@@ -286,7 +286,7 @@ public class HeadingPeriodFragment extends Fragment {
         if (checkIsValid(edtPlantId)) {
             Toast.makeText(self, R.string.check_required, Toast.LENGTH_SHORT).show();
         } else {
-            showDialog(SURVEY_PERIOD_HEADING);
+            showDialog();
 
         }
     };
@@ -307,6 +307,17 @@ public class HeadingPeriodFragment extends Fragment {
         userId = sp.getInt("userId", 1);
         nickname = sp.getString("nickname", "");
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        layoutCustomAttribute.removeAllViews();//清除view，防止重复加载
+        initFragment();
+    }
+
+    private void initFragment() {
         switch (status) {
             case STATUS_NEW:
                 initView(true);
@@ -316,21 +327,18 @@ public class HeadingPeriodFragment extends Fragment {
                 initView(false);
 //                initMaps();
                 initBasicInfo(plantId);
-                initData(surveyPeriod);
+                initData();
 //                initPictures();
                 break;
             case STATUS_COPY:
                 initView(true);
 //                initMaps();
                 initBasicInfo("");
-//                initData(surveyPeriod);
-                //复制粘贴暂不支持图片
+                initData();
                 break;
             default:
                 break;
         }
-
-        return view;
     }
 
     private void initView(boolean editable) {
@@ -392,13 +400,13 @@ public class HeadingPeriodFragment extends Fragment {
     }
 
     //弹出是否上传dialog
-    private void showDialog(String surveyPeriod) {
+    private void showDialog() {
         final SweetAlertDialog saveDialog = new SweetAlertDialog(self, SweetAlertDialog.NORMAL_TYPE)
                 .setContentText(self.getResources().getString(R.string.upload_data_tip))
                 .setConfirmText(self.getResources().getString(R.string.confirm))
                 .setCancelText(self.getResources().getString(R.string.cancel))
                 .setConfirmClickListener(sweetAlertDialog -> {
-                    uploadPeriodData(surveyPeriod);
+                    uploadPeriodData();
                     sweetAlertDialog.dismissWithAnimation();
                 });
         saveDialog.setCancelClickListener(SweetAlertDialog::dismissWithAnimation);
@@ -406,7 +414,7 @@ public class HeadingPeriodFragment extends Fragment {
     }
 
     // 根据时期，更新服务器数据
-    private void uploadPeriodData(String surveyPeriod) {
+    private void uploadPeriodData() {
         try {
             String mPeriodData = getPeriodData();
             HttpRequest.requestAddSurveyData(token, surveyPeriod, mPeriodData, new HttpRequest.IResultCallback() {
@@ -414,7 +422,7 @@ public class HeadingPeriodFragment extends Fragment {
                 public void onResponse(ResultInfo resultInfo) {
                     if (resultInfo.code == 200 && resultInfo.message.equals(getString(R.string.option_success))) {
                         String surveyId = resultInfo.data.observationId;
-                        uploadPics(surveyPeriod, surveyId);
+                        uploadPics(surveyId);
                         Toast.makeText(self, R.string.update_success, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(self, R.string.update_fail, Toast.LENGTH_SHORT).show();
@@ -497,7 +505,7 @@ public class HeadingPeriodFragment extends Fragment {
     }
 
     // 更新上传图片
-    private void uploadPics(String surveyPeriod, String surveyId) {
+    private void uploadPics(String surveyId) {
         Map<String, ArrayList<String>> imageMap;
         imageMap = new HashMap<>();
         for (String specCharacter : imageMap.keySet()) {
@@ -521,7 +529,7 @@ public class HeadingPeriodFragment extends Fragment {
         }
     }
     // 初始化网络数据（文本数据）
-    private void initData(String surveyPeriod) {
+    private void initData() {
         // 网络请求具体数据
         HttpRequest.getSurveyDataDetailBySurveyId(token, surveyPeriod, surveyId, new HttpRequest.ISurveyCallback() {
             @Override
@@ -600,15 +608,13 @@ public class HeadingPeriodFragment extends Fragment {
             , String plantId_
             , String investigatingTime_
             , int status_
-            , String surveyId_
-            , String surveyPeriod_) {
+            , String surveyId_) {
         materialId = materialId_;
         materialType = materialType_;
         plantId = plantId_;
         investigatingTime = investigatingTime_;
         status = status_;
         surveyId = surveyId_;
-        surveyPeriod = surveyPeriod_;
     }
 
     @Override

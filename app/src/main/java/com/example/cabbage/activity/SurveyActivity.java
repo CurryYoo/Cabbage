@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,6 +56,7 @@ import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_ROSETTE;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEEDLING;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEED_HARVEST;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_STORAGE;
+import static com.example.cabbage.utils.UIUtils.checkPeriod;
 
 /**
  * Author:created by Kang on 2020/9/9
@@ -156,33 +158,33 @@ public class SurveyActivity extends AppCompatActivity {
     private void initViewPager() {
         //viewpager and fragment初始化
         SurveyPageAdapter surveyPageAdapter = new SurveyPageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragmentList);
-        viewPager.setOffscreenPageLimit(5);//设置预加载页数
         viewPager.setAdapter(surveyPageAdapter);
 
         //向各个时期Fragment传参
-        GerminationPeriodFragment germinationPeriodFragment1 = (GerminationPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 0);
-        germinationPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+            GerminationPeriodFragment germinationPeriodFragment1 = (GerminationPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 0);
+            germinationPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, checkPeriod(SURVEY_PERIOD_GERMINATION,surveyPeriod,surveyId));
 
-        SeedlingPeriodFragment seedlingPeriodFragment1 = (SeedlingPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 1);
-        seedlingPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+            SeedlingPeriodFragment seedlingPeriodFragment1 = (SeedlingPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 1);
+            seedlingPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, checkPeriod(SURVEY_PERIOD_SEEDLING,surveyPeriod,surveyId));
 
-        RosettePeriodFragment rosettePeriodFragment1 = (RosettePeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 2);
-        rosettePeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+            RosettePeriodFragment rosettePeriodFragment1 = (RosettePeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 2);
+            rosettePeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, checkPeriod(SURVEY_PERIOD_ROSETTE,surveyPeriod,surveyId));
 
-        HeadingPeriodFragment headingPeriodFragment1 = (HeadingPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 3);
-        headingPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+            HeadingPeriodFragment headingPeriodFragment1 = (HeadingPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 3);
+            headingPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, checkPeriod(SURVEY_PERIOD_HEADING,surveyPeriod,surveyId));
 
-        HarvestPeriodFragment harvestPeriodFragment1 = (HarvestPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 4);
-        harvestPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+            HarvestPeriodFragment harvestPeriodFragment1 = (HarvestPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 4);
+            harvestPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, checkPeriod(SURVEY_PERIOD_HARVEST,surveyPeriod,surveyId));
 
-        StoragePeriodFragment storagePeriodFragment1 = (StoragePeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 5);
-        storagePeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
-//
+            StoragePeriodFragment storagePeriodFragment1 = (StoragePeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 5);
+            storagePeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, checkPeriod(SURVEY_PERIOD_STORAGE,surveyPeriod,surveyId));
+
 //        FloweringPeriodFragment floweringPeriodFragment1 = (FloweringPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 5);
-//        floweringPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+//        floweringPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, checkPeriod(SURVEY_PERIOD_STORAGE,surveyPeriod,surveyId));
 //
 //        SeedHarvestPeriodFragment seedHarvestPeriodFragment1 = (SeedHarvestPeriodFragment) surveyPageAdapter.instantiateItem(viewPager, 5);
-//        seedlingPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, surveyPeriod);
+//        seedlingPeriodFragment1.setInitValue(materialId, materialType, plantId, investigatingTime, status, surveyId, checkPeriod(SURVEY_PERIOD_STORAGE,surveyPeriod,surveyId));
+
 
         //indicator初始化
         CommonNavigator commonNavigator = new CommonNavigator(this);
