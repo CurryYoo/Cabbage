@@ -21,6 +21,7 @@ proguard-project.txt
 .gradle
 *.iml
 build
+release
 
 # android sdk captures folder
 captures
