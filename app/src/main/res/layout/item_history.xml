@@ -9,10 +9,8 @@
     <Button
         android:id="@+id/btn_copy"
         style="@style/Button_Red"
-        android:layout_width="50dp"
-        android:layout_height="0dp"
+        android:layout_width="48dp"
         android:text="@string/copy"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

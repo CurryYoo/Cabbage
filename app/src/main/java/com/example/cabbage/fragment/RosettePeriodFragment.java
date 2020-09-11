@@ -397,8 +397,7 @@ public class RosettePeriodFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //清除view，防止重复加载
-        imgRosettePeriod.removeAllViewsInLayout();
-        imgRosettePeriod.postInvalidate();
+        imgList.clear();
         layoutCustomAttribute.removeAllViews();
 
         initFragment();

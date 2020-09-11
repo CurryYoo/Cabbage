@@ -292,14 +292,14 @@ public class SeedlingPeriodFragment extends Fragment {
         userId = sp.getInt("userId", 1);
         nickname = sp.getString("nickname", "");
 
-
-
-
         return view;
     }
     @Override
     public void onResume() {
         super.onResume();
+        mCotyledonColorImgList.clear();
+        mCotyledonCountImgList.clear();
+        mCotyledonShapeImgList.clear();
         layoutCustomAttribute.removeAllViews();//清除view，防止重复加载
         initFragment();
     }

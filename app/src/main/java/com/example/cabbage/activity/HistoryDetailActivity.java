@@ -46,7 +46,6 @@ import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_ROSETTE;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEEDLING;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEED_HARVEST;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_STORAGE;
-import static com.example.cabbage.utils.UIUtils.checkPeriod;
 
 /**
  * Author:created by Kang on 2020/9/9
@@ -73,16 +72,6 @@ public class HistoryDetailActivity extends AppCompatActivity {
                 break;
         }
     };
-
-    private Fragment germinationPeriodFragment = GerminationPeriodFragment.newInstance();
-    private Fragment seedlingPeriodFragment = SeedlingPeriodFragment.newInstance();
-    private Fragment rosettePeriodFragment = RosettePeriodFragment.newInstance();
-    private Fragment headingPeriodFragment = HeadingPeriodFragment.newInstance();
-    private Fragment harvestPeriodFragment = HarvestPeriodFragment.newInstance();
-    private Fragment storagePeriodFragment = StoragePeriodFragment.newInstance();
-    private Fragment floweringPeriodFragment = FloweringPeriodFragment.newInstance();
-    private Fragment seedHarvestPeriodFragment = SeedHarvestPeriodFragment.newInstance();
-
     @Autowired(name = "position")
     public int pointPosition;
     private int mStartIndex = 1;
@@ -159,18 +148,16 @@ public class HistoryDetailActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
                 //滑动到两端时延迟加载fragment
                 if (state == SCROLL_STATE_IDLE) {
-                   if (viewPagerHistory.getCurrentItem() == mFragmentList.size() - 1) {
+                    if (viewPagerHistory.getCurrentItem() == mFragmentList.size() - 1) {
                         addFragmentToEndList(mHistoryInfoList.get(mEndIndex));
                         historyPageAdapter.notifyDataSetChanged();
                         mEndIndex++;
-                   } else if (viewPagerHistory.getCurrentItem() == 0 && mStartIndex >= 0) {
+                    } else if (viewPagerHistory.getCurrentItem() == 0 && mStartIndex >= 0) {
                         addFragmentToStartList(mHistoryInfoList.get(mStartIndex));
-                       historyPageAdapter.notifyDataSetChanged();
-//                        historyPageAdapter = new HistoryPageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mFragmentList);
-//                        viewPagerHistory.setAdapter(historyPageAdapter);
-//                        viewPagerHistory.setCurrentItem(1);
+                        historyPageAdapter.notifyDataSetChanged();
                         mStartIndex--;
-                     }}
+                    }
+                }
             }
         });
 
@@ -218,11 +205,13 @@ public class HistoryDetailActivity extends AppCompatActivity {
                 storagePeriodFragment.setInitValue(info.materialNumber, info.materialType, info.plantNumber, info.investigatingTime,
                         STATUS_READ, info.observationId);
                 mFragmentList.add(storagePeriodFragment);
+                break;
             case SURVEY_PERIOD_FLOWERING:
                 FloweringPeriodFragment floweringPeriodFragment = FloweringPeriodFragment.newInstance();
                 floweringPeriodFragment.setInitValue(info.materialNumber, info.materialType, info.plantNumber, info.investigatingTime,
                         STATUS_READ, info.observationId);
                 mFragmentList.add(floweringPeriodFragment);
+                break;
             case SURVEY_PERIOD_SEED_HARVEST:
                 SeedHarvestPeriodFragment seedHarvestPeriodFragment = SeedHarvestPeriodFragment.newInstance();
                 seedHarvestPeriodFragment.setInitValue(info.materialNumber, info.materialType, info.plantNumber, info.investigatingTime,
@@ -269,16 +258,18 @@ public class HistoryDetailActivity extends AppCompatActivity {
                 storagePeriodFragment.setInitValue(info.materialNumber, info.materialType, info.plantNumber, info.investigatingTime,
                         STATUS_READ, info.observationId);
                 mFragmentList.add(0, storagePeriodFragment);
+                break;
             case SURVEY_PERIOD_FLOWERING:
                 FloweringPeriodFragment floweringPeriodFragment = FloweringPeriodFragment.newInstance();
                 floweringPeriodFragment.setInitValue(info.materialNumber, info.materialType, info.plantNumber, info.investigatingTime,
                         STATUS_READ, info.observationId);
-                mFragmentList.add(0,floweringPeriodFragment);
+                mFragmentList.add(0, floweringPeriodFragment);
+                break;
             case SURVEY_PERIOD_SEED_HARVEST:
                 SeedHarvestPeriodFragment seedHarvestPeriodFragment = SeedHarvestPeriodFragment.newInstance();
                 seedHarvestPeriodFragment.setInitValue(info.materialNumber, info.materialType, info.plantNumber, info.investigatingTime,
                         STATUS_READ, info.observationId);
-                mFragmentList.add(0,seedHarvestPeriodFragment);
+                mFragmentList.add(0, seedHarvestPeriodFragment);
                 break;
         }
     }
