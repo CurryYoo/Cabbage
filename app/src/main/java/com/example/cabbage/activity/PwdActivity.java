@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.cabbage.R;
+import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.NormalInfo;
 import com.example.cabbage.utils.ARouterPaths;
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
  * Annotation:修改密码页面
  */
 @Route(path = ARouterPaths.PWD_ACTIVITY)
-public class PwdActivity extends AppCompatActivity implements View.OnClickListener {
+public class PwdActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.left_one_button)
     ImageView imgLeftOne;
     @BindView(R.id.left_one_layout)

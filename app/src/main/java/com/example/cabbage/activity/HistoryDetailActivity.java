@@ -18,6 +18,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.HistoryPageAdapter;
+import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.fragment.FloweringPeriodFragment;
 import com.example.cabbage.fragment.GerminationPeriodFragment;
 import com.example.cabbage.fragment.HarvestPeriodFragment;
@@ -53,7 +54,7 @@ import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_STORAGE;
  * Annotation:详细历史调查采集页面
  */
 @Route(path = ARouterPaths.HISTORY_DETAIL_ACTIVITY)
-public class HistoryDetailActivity extends AppCompatActivity {
+public class HistoryDetailActivity extends BaseActivity {
 
     @BindView(R.id.left_one_button)
     ImageView leftOneButton;

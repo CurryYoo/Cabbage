@@ -20,6 +20,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.SurveyPageAdapter;
+import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.fragment.FloweringPeriodFragment;
 import com.example.cabbage.fragment.GerminationPeriodFragment;
 import com.example.cabbage.fragment.HarvestPeriodFragment;
@@ -44,6 +45,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_FLOWERING;
@@ -62,7 +64,7 @@ import static com.example.cabbage.utils.UIUtils.checkPeriod;
  * Annotation:调查页面
  */
 @Route(path = ARouterPaths.SURVEY_ACTIVITY)
-public class SurveyActivity extends AppCompatActivity {
+public class SurveyActivity extends BaseActivity {
     @Autowired(name = "materialId")
     public String materialId;
     @Autowired(name = "materialType")
@@ -86,6 +88,8 @@ public class SurveyActivity extends AppCompatActivity {
     ImageView leftOneButton;
     @BindView(R.id.left_one_layout)
     LinearLayout leftOneLayout;
+    @BindView(R.id.title_text)
+    TextView titleText;
     View.OnClickListener toolBarOnClickListener = v -> {
         switch (v.getId()) {
             case R.id.left_one_layout:
@@ -94,9 +98,8 @@ public class SurveyActivity extends AppCompatActivity {
                 break;
         }
     };
-    @BindView(R.id.title_text)
-    TextView titleText;
     private List<String> mTitleDataList;
+    Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,7 +107,9 @@ public class SurveyActivity extends AppCompatActivity {
         setContentView(R.layout.activtiy_survey);
         ButterKnife.bind(this);
 
-        surveyPeriod=getIntent().getStringExtra("surveyPeriod");
+        intent=getIntent();
+        surveyPeriod=intent.getStringExtra("surveyPeriod");
+
 
         mTitleDataList = new ArrayList<String>() {{
             add(getResources().getString(R.string.title_germination_period));
@@ -130,7 +135,7 @@ public class SurveyActivity extends AppCompatActivity {
 
     private void initViewPager() {
         //viewpager and fragment初始化
-        SurveyPageAdapter surveyPageAdapter = new SurveyPageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, getIntent());
+        SurveyPageAdapter surveyPageAdapter = new SurveyPageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, intent);
         viewPager.setAdapter(surveyPageAdapter);
 
         //indicator初始化

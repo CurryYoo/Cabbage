@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue">#3B9DF1</color>
+    <color name="half_blue">#803B9DF1</color>
+
+    <color name="black">#000000</color>
+    <color name="font_grey_color">#c6c8d1</color>
+    <color name="divider_color">#ebecf1</color>
+    <color name="trans">#00000000</color>
+    <color name="half_black">#222222</color>
+    <color name="color_grey">#cacaca</color>
+
+    <color name="colorGrey">#607D8B</color>
+    <color name="colorOrange">#E64A19</color>
+    <color name="colorGreen">#4CAF50</color>
+    <color name="colorRed">#d03232</color>
+    <color name="colorBlue">#0288D1</color>
+    <color name="colorPink">#E91E63</color>
+
+    <color name="primary_background">#e5edf7</color>
+    <color name="secondary_background">#a2b2c9</color>
+    <color name="light_background">#ffffff</color>
+
+    <color name="primary_text">#070707</color>
+    <color name="secondary_text">#484845</color>
+    <color name="primary_text_light">#ffffff</color>
+    <color name="help_text">#999</color>
+
+    <color name="color_divider">#CFCFCF</color>
+    <color name="color_divider_dark">#5a5a5a</color>
+    <color name="color_white">#fffff0</color>
+
+    <color name="color_pressed">#DBE3ED</color>
+    <color name="color_pressed_light">#F5F5F5</color>
+    <color name="color_pressed_dark">#191919</color>
+    <color name="color_black">#070707</color>
+    <color name="color_dark_grey">#D3D3D3</color>
+
+    <!-- 透明 -->
+    <color name="transparent">#00000000</color>
+
+    <!--ProgressWheel-->
+    <color name="ProgressWheel_color">#489df3</color>
+    <color name="line_color">#dadada</color>
+
+    <color name="actionsheet_gray">#607D8B</color>
+    <color name="bg_grey">#607D8B</color>
+</resources>

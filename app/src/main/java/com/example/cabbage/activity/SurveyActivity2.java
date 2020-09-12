@@ -32,6 +32,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.ImageAdapter;
 import com.example.cabbage.adapter.SingleImageAdapter;
+import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.data.ObjectBox;
 import com.example.cabbage.data.SurveyData;
 import com.example.cabbage.network.HelpInfo;
@@ -84,7 +85,7 @@ import static java.io.File.separator;
  * Annotation:调查页面（旧），目前历史记录页面会跳转到此页面
  */
 @Route(path = ARouterPaths.SURVEY_ACTIVITY2)
-public class SurveyActivity2 extends AppCompatActivity {
+public class SurveyActivity2 extends BaseActivity {
 
     @Autowired(name = "materialId")
     public String materialId = "";

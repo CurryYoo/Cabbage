@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.cabbage.R;
+import com.example.cabbage.activity.LanguageActivity;
+import com.example.cabbage.activity.MainActivity;
 import com.example.cabbage.utils.ARouterPaths;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -29,7 +31,7 @@ import butterknife.Unbinder;
  * Email:zyk970512@163.com
  * Annotation:用户中心页面
  */
-public class UserFragment extends Fragment implements View.OnClickListener{
+public class UserFragment extends Fragment implements View.OnClickListener {
 
     @BindView(R.id.img_avatar)
     RoundedImageView imgAvatar;
@@ -43,6 +45,8 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     TextView txtPw;
     @BindView(R.id.txt_logout)
     TextView txtLogout;
+    @BindView(R.id.txt_language)
+    TextView txtLanguage;
 
     public static UserFragment newInstance() {
         return new UserFragment();
@@ -77,6 +81,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         txtRole.setText(getString(R.string.user_role));
         txtHistory.setOnClickListener(this);
         txtPw.setOnClickListener(this);
+        txtLanguage.setOnClickListener(this);
         txtLogout.setOnClickListener(this);
     }
 
@@ -88,12 +93,15 @@ public class UserFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.txt_history:
                 ARouter.getInstance().build(ARouterPaths.HISTORY_ACTIVITY).navigation();
                 break;
             case R.id.txt_pw:
                 ARouter.getInstance().build(ARouterPaths.PWD_ACTIVITY).navigation();
+                break;
+            case R.id.txt_language:
+                LanguageActivity.enter(getContext());
                 break;
             case R.id.txt_logout:
                 ARouter.getInstance().build(ARouterPaths.LOGIN_ACTIVITY).navigation();

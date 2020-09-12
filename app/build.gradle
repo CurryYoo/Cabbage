@@ -85,6 +85,8 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:2.2.0'
     implementation 'me.relex:photodraweeview:2.0.0'
 
+    implementation 'com.hjq:language:3.0'
+    
     implementation 'com.github.markzhai:blockcanary-android:1.5.0'
     // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
     debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'

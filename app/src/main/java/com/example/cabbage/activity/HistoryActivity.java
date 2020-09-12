@@ -22,6 +22,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.HistoryAdapter;
+import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.network.HistoryInfo;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.utils.ARouterPaths;
@@ -39,7 +40,7 @@ import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
  * Annotation:历史记录界面
  */
 @Route(path = ARouterPaths.HISTORY_ACTIVITY)
-public class HistoryActivity extends AppCompatActivity implements OnClickListener {
+public class HistoryActivity extends BaseActivity implements OnClickListener {
 
     @BindView(R.id.left_one_button)
     ImageView leftOneButton;

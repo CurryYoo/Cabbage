@@ -1,12 +1,16 @@
 package com.example.cabbage.activity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +23,11 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.HistoryDetailAdapter;
+import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.network.HistoryInfo;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.utils.ARouterPaths;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,7 +39,7 @@ import butterknife.ButterKnife;
  * Annotation:详细历史调查采集页面
  */
 @Route(path = ARouterPaths.HISTORY_DETAIL_ACTIVITY2)
-public class HistoryDetailActivity2 extends AppCompatActivity {
+public class HistoryDetailActivity2 extends BaseActivity {
 
 
     @BindView(R.id.left_one_button)
@@ -46,8 +50,14 @@ public class HistoryDetailActivity2 extends AppCompatActivity {
     TextView titleText;
     @BindView(R.id.view_pager_history)
     ViewPager2 viewPagerHistory;
+    @BindView(R.id.right_one_button)
+    ImageView rightOneButton;
+    @BindView(R.id.right_one_layout)
+    LinearLayout rightOneLayout;
+
     @Autowired(name = "position")
     public int pointPosition;
+
     private String token;
     private Context self = this;
     View.OnClickListener toolBarOnClickListener = v -> {
@@ -59,11 +69,11 @@ public class HistoryDetailActivity2 extends AppCompatActivity {
         }
     };
 
-    private int mStartIndex = 1;
-    private int mEndIndex = 1;
+    //    private int mStartIndex = 1;
+//    private int mEndIndex = 1;
     private HistoryDetailAdapter historyDetailAdapter;
-    private List<HistoryInfo.data.Info> mHistoryInfoList = new ArrayList<>();
-    private List<HistoryInfo.data.Info> mAdapterList = new ArrayList<>();
+    private List<HistoryInfo.data.Info> mHistoryInfoList;
+    //    private List<HistoryInfo.data.Info> mAdapterList = new ArrayList<>();
     private float MINALPHA = 0.1f;
 
 
@@ -88,6 +98,19 @@ public class HistoryDetailActivity2 extends AppCompatActivity {
             public void onResponse(HistoryInfo historyInfo) {
                 mHistoryInfoList = historyInfo.data.list;
                 initView();
+                rightOneLayout.setOnClickListener(v -> {
+                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    Intent dataIntent = new Intent();
+                    // 创建普通字符型ClipData
+                    dataIntent.putExtra("surveyId", mHistoryInfoList.get(viewPagerHistory.getCurrentItem()).observationId);
+                    dataIntent.putExtra("surveyPeriod", mHistoryInfoList.get(viewPagerHistory.getCurrentItem()).obsPeriod);
+                    dataIntent.putExtra("materialId", mHistoryInfoList.get(viewPagerHistory.getCurrentItem()).materialNumber);
+                    dataIntent.putExtra("materialType", mHistoryInfoList.get(viewPagerHistory.getCurrentItem()).materialType);
+                    ClipData mClipData1 = ClipData.newIntent("copyData", dataIntent);
+                    // 将ClipData内容放到系统剪贴板里
+                    cm.setPrimaryClip(mClipData1);
+                    Toast.makeText(getApplicationContext(), R.string.copy_data_success, Toast.LENGTH_SHORT).show();
+                });
             }
 
             @Override
@@ -100,6 +123,8 @@ public class HistoryDetailActivity2 extends AppCompatActivity {
     private void initToolbar() {
         leftOneButton.setBackgroundResource(R.mipmap.ic_back);
         leftOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
+        rightOneButton.setBackgroundResource(R.mipmap.ic_copy);
+        rightOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
         titleText.setText(R.string.species_data_pick_history);
         leftOneLayout.setOnClickListener(toolBarOnClickListener);
     }

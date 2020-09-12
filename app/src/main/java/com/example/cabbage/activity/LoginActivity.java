@@ -2,6 +2,7 @@ package com.example.cabbage.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.cabbage.R;
+import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.UserInfo;
 import com.example.cabbage.utils.ARouterPaths;
@@ -31,7 +33,7 @@ import butterknife.OnClick;
  * Annotation:登录页
  */
 @Route(path = ARouterPaths.LOGIN_ACTIVITY)
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private Context context = this;
 
     private SharedPreferences sp;
@@ -114,4 +116,6 @@ public class LoginActivity extends AppCompatActivity {
         etAccount.setText("admin");
         etPassword.setText("admin");
     }
+
+
 }

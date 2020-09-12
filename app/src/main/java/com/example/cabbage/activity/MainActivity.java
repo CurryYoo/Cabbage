@@ -1,5 +1,7 @@
 package com.example.cabbage.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
@@ -13,6 +15,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
 import com.example.cabbage.R;
+import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.fragment.MainFragment;
 import com.example.cabbage.fragment.UserFragment;
 import com.example.cabbage.utils.ARouterPaths;
@@ -25,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @Route(path = ARouterPaths.MAIN_ACTIVITY)
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     @BindView(R.id.main_frame)
     FrameLayout mainFrame;
     @BindView(R.id.bottomBar)
@@ -92,7 +95,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_frame, mFragmentList.get(currentPosition));
         transaction.commit();
-
     }
-
+    //语言设置后重启
+    public static void reStart(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
 }

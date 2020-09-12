@@ -10,4 +10,5 @@ public interface ARouterPaths {
     String HISTORY_DETAIL_ACTIVITY="/app/history_detail";
     String HISTORY_DETAIL_ACTIVITY2="/app/history_detail2";
     String PWD_ACTIVITY="/app/pwd";
+    String LANGUAGE_ACTIVITY="/app/language";
 }

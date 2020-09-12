@@ -31,6 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import timber.log.Timber;
 
 import static com.example.cabbage.utils.BasicUtil.showDatePickerDialog;
 import static com.example.cabbage.utils.StaticVariable.COUNT_EXTRA;
@@ -156,6 +157,11 @@ public class GerminationPeriodFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        Timber.d(materialId);
+        Timber.d(surveyId+"12");
+        Timber.d(materialType);
+
         layoutCustomAttribute.removeAllViews();//清除view，防止重复加载
         initFragment();
     }

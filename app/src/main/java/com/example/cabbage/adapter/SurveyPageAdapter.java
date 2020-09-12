@@ -16,6 +16,8 @@ import com.example.cabbage.fragment.SeedHarvestPeriodFragment;
 import com.example.cabbage.fragment.SeedlingPeriodFragment;
 import com.example.cabbage.fragment.StoragePeriodFragment;
 
+import timber.log.Timber;
+
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_FLOWERING;
 import static com.example.cabbage.utils.UIUtils.checkPeriod;
@@ -40,6 +42,7 @@ public class SurveyPageAdapter extends FragmentStatePagerAdapter {
         this.plantId = intent.getStringExtra("plantId");
         this.investigatingTime = intent.getStringExtra("investigatingTime");
         this.surveyId = intent.getStringExtra("surveyId");
+        this.surveyPeriod=intent.getStringExtra("surveyPeriod");
         this.status = intent.getIntExtra("status", STATUS_NEW);
     }
 
@@ -48,25 +51,25 @@ public class SurveyPageAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                fragment = GerminationPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, checkPeriod(SURVEY_PERIOD_FLOWERING, surveyPeriod, surveyId), status);
+                fragment = GerminationPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
                 break;
             case 1:
-                fragment = SeedlingPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, checkPeriod(SURVEY_PERIOD_FLOWERING, surveyPeriod, surveyId), status);
+                fragment = SeedlingPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
                 break;
             case 2:
-                fragment = RosettePeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, checkPeriod(SURVEY_PERIOD_FLOWERING, surveyPeriod, surveyId), status);
+                fragment = RosettePeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
                 break;
             case 3:
-                fragment = HeadingPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, checkPeriod(SURVEY_PERIOD_FLOWERING, surveyPeriod, surveyId), status);
+                fragment = HeadingPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
                 break;
             case 4:
-                fragment = HarvestPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, checkPeriod(SURVEY_PERIOD_FLOWERING, surveyPeriod, surveyId), status);
+                fragment = HarvestPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
                 break;
             case 5:
-                fragment = StoragePeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, checkPeriod(SURVEY_PERIOD_FLOWERING, surveyPeriod, surveyId), status);
+                fragment = StoragePeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
                 break;
             case 6:
-                fragment = FloweringPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, checkPeriod(SURVEY_PERIOD_FLOWERING, surveyPeriod, surveyId), status);
+                fragment = FloweringPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime,surveyId, status);
                 break;
             case 7:
                 fragment = SeedHarvestPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, checkPeriod(SURVEY_PERIOD_FLOWERING, surveyPeriod, surveyId), status);

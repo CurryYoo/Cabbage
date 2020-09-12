@@ -15,62 +15,61 @@
     </string>
 
     <!--    app common string-->
-    <string name="home_page">主页</string>
-    <string name="user_page">用户中心</string>
-    <string name="back_left">返回</string>
-    <string name="save_data">保存</string>
+    <string name="home_page">Home Page</string>
+    <string name="user_page">User Center</string>
+    <string name="back_left">Back</string>
+    <string name="save_data">Save</string>
     <string name="click_edit_hint">…</string>
-    <string name="account_log_in">账号登录</string>
-    <string name="account">账号</string>
-    <string name="password">密码</string>
-    <string name="remember_password">记住密码</string>
-    <string name="log_in">登 录</string>
-    <string name="account_password_error">账号或密码无效</string>
-    <string name="log_in_success">登录成功</string>
-    <string name="log_in_fail">登录失败</string>
-    <string name="sign_up">账号注册</string>
-    <string name="network_normal">网络正常</string>
-    <string name="network_wrong">网络异常</string>
-    <string name="network_request_wrong">网络请求失败</string>
-    <string name="dialog_title_tip">提示</string>
-    <string name="upload_data">上传数据</string>
-    <string name="upload_data_tip">确认上传数据？</string>
-    <string name="upload_data_ing">正在上传数据…</string>
-    <string name="upload_data_success">保存数据成功</string>
-    <string name="upload_data_content">上传数据耗时较长，请勿中途退出</string>
-    <string name="pwd_old">原密码</string>
-    <string name="pwd_new">新密码</string>
-    <string name="pwd_repeat">重复密码</string>
-    <string name="pwd_change">修改密码</string>
-    <string name="pwd_no_same">两次密码不一致</string>
-    <string name="pwd_old_error">旧密码错误</string>
-    <string name="confirm">确认</string>
-    <string name="cancel">取消</string>
+    <string name="account_log_in">Log in by account</string>
+    <string name="account">Account</string>
+    <string name="password">Password</string>
+    <string name="remember_password">Remember password</string>
+    <string name="log_in">Log In</string>
+    <string name="account_password_error">Invalid account or password</string>
+    <string name="log_in_success">login Successful</string>
+    <string name="log_in_fail">Login Failed</string>
+    <string name="sign_up">Register Account</string>
+    <string name="network_normal">The network is normal</string>
+    <string name="network_wrong">Network Anomaly</string>
+    <string name="network_request_wrong">Network request failed</string>
+    <string name="dialog_title_tip">Tip</string>
+    <string name="upload_data">Upload Data</string>
+    <string name="upload_data_tip">Confirm upload data？</string>
+    <string name="upload_data_ing">Uploading data…</string>
+    <string name="upload_data_success">Save data successfully</string>
+    <string name="upload_data_content">Uploading data takes a long time, please do not exit midway</string>
+    <string name="pwd_old">Old Password</string>
+    <string name="pwd_new">New Password</string>
+    <string name="pwd_repeat">Repeated password</string>
+    <string name="pwd_change">Change Password</string>
+    <string name="pwd_no_same">The two passwords are inconsistent</string>
+    <string name="pwd_old_error">Old password error</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 
-    <string name="copy_data_success">数据复制成功</string>
-    <string name="paste_data_success">数据粘贴成功</string>
-    <string name="data_no_get">未检测到复制数据</string>
+    <string name="copy_data_success">Data copied successfully</string>
+    <string name="paste_data_success">Data pasted successfully</string>
+    <string name="data_no_get">No copied data detected</string>
 
-    <string name="option_success">操作成功</string>
-    <string name="query_success">查询成功</string>
-    <string name="query_fail">查询失败</string>
+    <string name="query_success">Query successful</string>
+    <string name="query_fail">Query failed</string>
 
-    <string name="user_role">实验员</string>
-    <string name="dialog_picture_operate">双指缩放，单击退出</string>
+    <string name="user_role">Experimenter</string>
+    <string name="dialog_picture_operate">Two-finger zoom, click to exit</string>
 
 
-    <string name="species_data_pick">调查数据采集</string>
-    <string name="species_data_pick_history">数据采集历史</string>
+    <string name="species_data_pick">Survey data collection</string>
+    <string name="species_data_pick_history">Data collection history</string>
 
     <!--    app survey string-->
-    <string name="item_bar_basic">基本信息</string>
-    <string name="info_nickname">调查人员：</string>
-    <string name="info_material_id">材料编号</string>
-    <string name="info_material_type">材料类型</string>
-    <string name="info_plant_id">单株编号</string>
-    <string name="investigate_time">调查时间</string>
-    <string name="investigate_user">调查人员</string>
-    <string name="info_remark">备注</string>
+    <string name="item_bar_basic">Basic Information</string>
+    <string name="info_nickname">Inspector：</string>
+    <string name="info_material_id">Material Id</string>
+    <string name="info_material_type">Material Type</string>
+    <string name="info_plant_id">Plant Id</string>
+    <string name="investigate_time">Investigate Time</string>
+    <string name="investigate_user">Investigate User</string>
+    <string name="info_remark">Remark</string>
 
     <string name="title_germination_period">发芽期</string>
     <string name="info_germination_rate">出苗（发芽）率</string>
@@ -182,15 +181,15 @@
 
     <string name="disease_resistance">抗病性</string>
 
-    <string name="check_required">请检查必填项！</string>
-    <string name="survey_help">帮助</string>
-    <string name="measure_standard">测量标准：</string>
-    <string name="measure_method">测量方法：</string>
-    <string name="number_value">数值</string>
-    <string name="add_attribute">添加性状</string>
-    <string name="add_remark">添加备注</string>
-    <string name="obligate_attribute">性状</string>
-    <string name="user_define">自定义</string>
+    <string name="check_required">Please check required fields！</string>
+    <string name="survey_help">Tip</string>
+    <string name="measure_standard">Measurement standard：</string>
+    <string name="measure_method">Measurement methods：</string>
+    <string name="number_value">Value</string>
+    <string name="add_attribute">Add traits</string>
+    <string name="add_remark">Add notes</string>
+    <string name="obligate_attribute">Traits</string>
+    <string name="user_define">Customize</string>
 
     <!--    app history string -->
     <string name="observation_period">观测时期：</string>
@@ -201,26 +200,30 @@
     <string name="investigator">调查人员：</string>
 
     <!--    app main page string-->
-    <string name="copy">复制</string>
-    <string name="paste">粘贴</string>
-    <string name="copy_paste_and_create">使用历史数据创建新调查数据</string>
-    <string name="query_material">材料搜索…</string>
+    <string name="copy">copy</string>
+    <string name="paste">Paste</string>
+    <string name="copy_paste_and_create">Use historical data to create new survey data</string>
+    <string name="query_material">Material Search…</string>
 
     <!--    app user page string-->
-    <string name="observation_history">采集历史</string>
-    <string name="log_out">退出登录</string>
+    <string name="observation_history">Collection history</string>
+    <string name="log_out">Sign out</string>
 
     <!--    app login string-->
-    <string name="account_login">输入账号密码进行登录</string>
-    <string name="fill_account">一键填入测试账号</string>
-    <string name="update_success">更新成功</string>
-    <string name="update_fail">更新失败</string>
-    <string name="must_required">必填项</string>
+    <string name="account_login">Enter account password to log in</string>
+    <string name="fill_account">Fill in the test account with one click</string>
+    <string name="update_success">Update Completed</string>
+    <string name="update_fail">Update Failed</string>
+    <string name="must_required">Required</string>
     <string name="string_null" />
 
-    <string name="language_setting">语言设置</string>
+    <string name="language_setting">Language Setting</string>
     <string name="language_cn">中文</string>
     <string name="language_en">ENGLISH</string>
     <string name="language_auto">自动</string>
-    <string name="choose_language">当前用户选择语言: %s</string>
+    <string name="choose_language">Language selected by current user: %s</string>
+
+
+    //无需翻译
+    <string name="option_success">操作成功</string>
 </resources>

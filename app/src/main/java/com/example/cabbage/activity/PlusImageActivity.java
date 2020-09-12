@@ -13,13 +13,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.PlusViewPagerAdapter;
+import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.utils.MainConstant;
 
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 
-public class PlusImageActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class PlusImageActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
 
     private ViewPager viewPager; //展示图片的ViewPager
