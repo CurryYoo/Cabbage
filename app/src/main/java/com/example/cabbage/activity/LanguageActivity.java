@@ -15,9 +15,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.cabbage.R;
 import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.utils.ARouterPaths;
-import com.hjq.language.LanguagesManager;
-
-import java.util.Locale;
+import com.example.cabbage.utils.LocalManageUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +37,7 @@ public class LanguageActivity extends BaseActivity {
     TextView txtChooseLanguage;
     @BindView(R.id.btn_auto)
     Button btnAuto;
-    @BindView(R.id.btn_chinese)
+    @BindView(R.id.btn_china)
     Button btnChinese;
     @BindView(R.id.btn_english)
     Button btnEnglish;
@@ -48,23 +46,18 @@ public class LanguageActivity extends BaseActivity {
         finish();
     };
     View.OnClickListener settingOnClickListener = v -> {
-        // 是否需要重启
-        boolean restart = true;
         switch (v.getId()) {
             case R.id.btn_auto:
-                restart = LanguagesManager.setSystemLanguage(this);
+                selectLanguage(0);
                 break;
-            case R.id.btn_chinese:
-                restart = LanguagesManager.setAppLanguage(this, Locale.CHINESE);
+            case R.id.btn_china:
+                selectLanguage(1);
                 break;
             case R.id.btn_english:
-                restart = LanguagesManager.setAppLanguage(this, Locale.ENGLISH);
+                selectLanguage(2);
                 break;
-        }
-        if (restart) {
-            // 我们可以充分运用 Activity 跳转动画，在跳转的时候设置一个渐变的效果
-            MainActivity.reStart(this);
-            finish();
+            default:
+                break;
         }
     };
 
@@ -87,14 +80,21 @@ public class LanguageActivity extends BaseActivity {
 
     private void initView() {
         txtChooseLanguage.setText(getString(R.string.choose_language,
-                LanguagesManager.getAppLanguage(this)));
+                LocalManageUtil.getSelectLanguage(this)));
         btnAuto.setOnClickListener(settingOnClickListener);
         btnChinese.setOnClickListener(settingOnClickListener);
         btnEnglish.setOnClickListener(settingOnClickListener);
     }
 
+
     public static void enter(Context context) {
         Intent intent = new Intent(context, LanguageActivity.class);
         context.startActivity(intent);
     }
+
+    private void selectLanguage(int select) {
+        LocalManageUtil.saveSelectLanguage(this, select);
+        MainActivity.reStart(this);
+    }
+
 }

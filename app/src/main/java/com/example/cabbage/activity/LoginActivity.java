@@ -89,8 +89,6 @@ public class LoginActivity extends BaseActivity {
                     editor = sp.edit();
                     editor.putInt("userId", userInfo.getId());
                     editor.putString("nickname", userInfo.getNickname());
-//                    editor.putString("username",etAccount.getText().toString());
-//                    editor.putString("password",etPassword.getText());
                     editor.putString("username",userInfo.getUsername());
                     editor.putString("password",userInfo.getPassword());
                     editor.putString("headImgUrl", userInfo.getHeadImgUrl());

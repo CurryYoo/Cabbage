@@ -30,9 +30,7 @@ import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.MaterialInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.utils.NetworkUtils;
-import com.example.cabbage.utils.UIUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -72,9 +70,11 @@ public class MainFragment extends Fragment {
         SharedPreferences sp = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         token = sp.getString("token", "");
         btnPasteData.setOnClickListener(v -> {
+
+            //获取剪贴板数据
             ClipboardManager cm = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
-            Intent dataIntent = Objects.requireNonNull(cm.getPrimaryClip()).getItemAt(0).getIntent();
-            if (dataIntent != null) {
+            if (Objects.requireNonNull(cm.getPrimaryClip()).getDescription().getLabel().toString().equals("copyData")) {
+                Intent dataIntent = Objects.requireNonNull(cm.getPrimaryClip()).getItemAt(0).getIntent();
                 Toast.makeText(getContext(), R.string.paste_data_success, Toast.LENGTH_SHORT).show();
                 ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
                         .withString("surveyId", dataIntent.getStringExtra("surveyId"))

@@ -1,10 +1,11 @@
 package com.example.cabbage.base;
 
 import android.content.Context;
+import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.hjq.language.LanguagesManager;
 
 /**
  * Author:Kang
@@ -12,9 +13,15 @@ import com.hjq.language.LanguagesManager;
  * Description:
  */
 public class BaseActivity extends AppCompatActivity {
+
     @Override
     protected void attachBaseContext(Context newBase) {
-        // 国际化适配（绑定语种）
-        super.attachBaseContext(LanguagesManager.attach(newBase));
+        super.attachBaseContext(newBase);
+    }
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }

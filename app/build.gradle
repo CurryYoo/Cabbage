@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'multi-languages'
 
 android {
     compileSdkVersion 29
@@ -8,14 +9,25 @@ android {
         applicationId "com.example.cabbage"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
+        }
+
+        multiLanguages {
+            //set plugin is enable( default)
+            enable = true
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "Cabbage-${variant.versionName}.apk"
         }
     }
 
@@ -85,7 +97,8 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:2.2.0'
     implementation 'me.relex:photodraweeview:2.0.0'
 
-    implementation 'com.hjq:language:3.0'
+//    implementation 'com.hjq:language:3.0'
+    implementation 'com.github.jokar:multi-languages:0.1.1'
     
     implementation 'com.github.markzhai:blockcanary-android:1.5.0'
     // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
