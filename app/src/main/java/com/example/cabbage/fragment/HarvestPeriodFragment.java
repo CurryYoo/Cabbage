@@ -1,6 +1,7 @@
 package com.example.cabbage.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,17 +21,28 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.cabbage.R;
+import com.example.cabbage.activity.PlusImageActivity;
+import com.example.cabbage.adapter.ImageAdapter;
+import com.example.cabbage.adapter.SingleImageAdapter;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.NormalInfo;
+import com.example.cabbage.network.PhotoListInfo;
 import com.example.cabbage.network.ResultInfo;
 import com.example.cabbage.network.SurveyInfo;
+import com.example.cabbage.utils.MainConstant;
+import com.example.cabbage.utils.MyGridView;
+import com.example.cabbage.utils.PictureResultCode;
 import com.example.cabbage.view.AutoClearEditText;
 import com.example.cabbage.view.CountButton;
 import com.example.cabbage.view.ExtraAttributeView;
 import com.google.gson.JsonObject;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.entity.LocalMedia;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,7 +51,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-import static com.example.cabbage.utils.BasicUtil.showDatePickerDialog;
 import static com.example.cabbage.utils.StaticVariable.COUNT_EXTRA;
 import static com.example.cabbage.utils.StaticVariable.SEPARATOR;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
@@ -47,6 +58,8 @@ import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_HARVEST;
 import static com.example.cabbage.utils.UIUtils.checkIsValid;
+import static com.example.cabbage.utils.UIUtils.getSystemTime;
+import static com.example.cabbage.utils.UIUtils.selectPic;
 import static com.example.cabbage.utils.UIUtils.setSelectionAndText;
 import static com.example.cabbage.utils.UIUtils.setVisibilityOfUserDefined;
 import static com.example.cabbage.utils.UIUtils.showBottomHelpDialog;
@@ -200,6 +213,10 @@ public class HarvestPeriodFragment extends Fragment {
     Button btnUploadData;
     @BindView(R.id.layout_custom_attribute)
     LinearLayout layoutCustomAttribute;
+    @BindView(R.id.edt_location)
+    EditText edtLocation;
+    @BindView(R.id.img_grid_view)
+    MyGridView imgGridView;
 
     private Context self;
     private Unbinder unbinder;
@@ -210,12 +227,19 @@ public class HarvestPeriodFragment extends Fragment {
     private String investigatingTime;
     private int status = STATUS_NEW;
     private String surveyId;
-    private String surveyPeriod =SURVEY_PERIOD_HARVEST;
+    private String surveyPeriod = SURVEY_PERIOD_HARVEST;
     private String token;
     private int userId;
     private String nickname;
     private ExtraAttributeView extraAttribute = null;//额外性状
     private ExtraAttributeView extraRemark = null;//额外备注
+
+    //图片
+    private ImageAdapter imgAdapter;
+    private ArrayList<String> imgList = new ArrayList<>();
+    private HashMap<String, SingleImageAdapter> imgAdapters = new HashMap<>();
+    private HashMap<String, ArrayList<String>> imgHashMap = new HashMap<>();
+
     //spinner选择监听，选择其他是，显示自定义填空
     Spinner.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
@@ -337,10 +361,10 @@ public class HarvestPeriodFragment extends Fragment {
     View.OnClickListener extraAttributeClickListener = v -> {
         switch (v.getId()) {
             case R.id.btn_add_attribute:
-                addExtraAttributeView(btnAddAttribute, layoutCustomAttribute, "spare1","");
+                addExtraAttributeView(btnAddAttribute, layoutCustomAttribute, "spare1", "");
                 break;
             case R.id.btn_add_remark:
-                addExtraAttributeView(btnAddRemark, layoutCustomAttribute, "spare2","");
+                addExtraAttributeView(btnAddRemark, layoutCustomAttribute, "spare2", "");
                 break;
         }
     };
@@ -369,6 +393,7 @@ public class HarvestPeriodFragment extends Fragment {
         bundle.putInt("status", status);
         return newInstance;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -382,16 +407,17 @@ public class HarvestPeriodFragment extends Fragment {
         nickname = sp.getString("nickname", "");
 
         //newInstance传递必需数据
-        Bundle bundle=getArguments();
+        Bundle bundle = getArguments();
         materialId = bundle.getString("materialId");
         materialType = bundle.getString("materialType");
         plantId = bundle.getString("plantId");
         investigatingTime = bundle.getString("investigatingTime");
         surveyId = bundle.getString("surveyId");
-        status = bundle.getInt("status",STATUS_NEW);
+        status = bundle.getInt("status", STATUS_NEW);
 
         return view;
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -407,10 +433,10 @@ public class HarvestPeriodFragment extends Fragment {
                 break;
             case STATUS_READ:
                 initView(false);
-//                initMaps();
+                initMaps();
                 initBasicInfo(plantId);
                 initData();
-//                initPictures();
+                initPictures();
                 break;
             case STATUS_COPY:
                 initView(true);
@@ -475,6 +501,24 @@ public class HarvestPeriodFragment extends Fragment {
             btnAddRemark.setVisibility(View.GONE);
             btnUploadData.setVisibility(View.GONE);
         }
+
+        //图片
+        imgAdapter = new ImageAdapter(self, imgList);
+        imgGridView.setAdapter(imgAdapter);
+        imgGridView.setOnItemClickListener((parent, view, position, id) -> {
+            if (position == parent.getChildCount() - 1) {
+                //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过MainConstant.MAX_SELECT_PIC_NUM张，才能点击
+                if (imgList.size() == MainConstant.MAX_SELECT_PIC_NUM) {
+                    //最多添加MainConstant.MAX_SELECT_PIC_NUM张图片
+                    viewPluImg(position, PictureResultCode.IMG_HARVEST);
+                } else {
+                    //添加凭证图片
+                    selectPic(getActivity(), MainConstant.MAX_SELECT_PIC_NUM - imgList.size(), PictureResultCode.IMG_HARVEST);
+                }
+            } else {
+                viewPluImg(position, PictureResultCode.IMG_HARVEST);
+            }
+        });
     }
 
     // 初始化基本数据
@@ -484,9 +528,7 @@ public class HarvestPeriodFragment extends Fragment {
         edtMaterialType.setText(materialType);
         edtPlantId.setText(plantId);
         edtInvestigatingTime.setText(investigatingTime);
-        edtInvestigatingTime.setOnClickListener(v -> {
-            showDatePickerDialog(self, edtInvestigatingTime);
-        });
+        edtInvestigatingTime.setOnClickListener(v -> edtInvestigatingTime.setText(getSystemTime()));
         edtInvestigator.setText(nickname);
 
     }
@@ -513,8 +555,7 @@ public class HarvestPeriodFragment extends Fragment {
                 @Override
                 public void onResponse(ResultInfo resultInfo) {
                     if (resultInfo.code == 200 && resultInfo.message.equals(getString(R.string.option_success))) {
-                        String surveyId = resultInfo.data.observationId;
-                        uploadPics(surveyId);
+                        uploadPics(resultInfo.data.observationId);
                         Toast.makeText(self, R.string.update_success, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(self, R.string.update_fail, Toast.LENGTH_SHORT).show();
@@ -531,6 +572,7 @@ public class HarvestPeriodFragment extends Fragment {
         }
     }
 
+
     private JsonObject getBasicInfoData() {
         String plantId = edtPlantId.getText().toString();
 
@@ -538,7 +580,8 @@ public class HarvestPeriodFragment extends Fragment {
         jsonObject.addProperty("materialType", materialType);
         jsonObject.addProperty("materialNumber", materialId);
         jsonObject.addProperty("plantNumber", plantId);
-        jsonObject.addProperty("investigatingTime", edtInvestigatingTime.getText().toString());
+        jsonObject.addProperty("investigatingTime", getSystemTime());
+        jsonObject.addProperty("location", edtLocation.getText().toString());
         jsonObject.addProperty("investigator", nickname);
         jsonObject.addProperty("userId", userId);
 
@@ -550,60 +593,60 @@ public class HarvestPeriodFragment extends Fragment {
         JsonObject jsonObject = getBasicInfoData();
 
         String strobilusHeadClosureTypeData = strobilusHeadClosureType.getSelectedItem().toString() + SEPARATOR + edtStrobilusHeadClosureType.getText();
-        String strobilusHeadConjugationTypeData  = strobilusHeadConjugationType.getSelectedItem().toString() + SEPARATOR + edtStrobilusHeadConjugationType.getText();
+        String strobilusHeadConjugationTypeData = strobilusHeadConjugationType.getSelectedItem().toString() + SEPARATOR + edtStrobilusHeadConjugationType.getText();
         String strobilusHeadShapeData = strobilusHeadShape.getSelectedItem().toString() + SEPARATOR + edtStrobilusHeadShape.getText();
         String strobilusTopColorData = strobilusTopColor.getSelectedItem().toString() + SEPARATOR + edtStrobilusTopColor.getText();
-        String pstrobilusTopGreenDegreeData  = strobilusTopGreenDegree.getSelectedItem().toString() + SEPARATOR + edtStrobilusTopGreenDegree.getText();
+        String pstrobilusTopGreenDegreeData = strobilusTopGreenDegree.getSelectedItem().toString() + SEPARATOR + edtStrobilusTopGreenDegree.getText();
         String strobilusShapeData = strobilusShape.getSelectedItem().toString() + SEPARATOR + edtStrobilusShape.getText();
-        String strobilusHeightData  = strobilusHeight.getSelectedItem().toString() + SEPARATOR + edtStrobilusHeight.getText();
-        String strobilusWidthData  = strobilusWidth.getSelectedItem().toString() + SEPARATOR + edtStrobilusWidth.getText();
-        String StrobilusMidWidthData  = edtStrobilusMidWidth.getText().toString();
-        String StrobilusEndWidthData  = edtStrobilusEndWidth.getText().toString();
-        String strobilusCompactionData  = strobilusCompaction.getSelectedItem().toString() + SEPARATOR + edtStrobilusCompaction.getText();
+        String strobilusHeightData = strobilusHeight.getSelectedItem().toString() + SEPARATOR + edtStrobilusHeight.getText();
+        String strobilusWidthData = strobilusWidth.getSelectedItem().toString() + SEPARATOR + edtStrobilusWidth.getText();
+        String StrobilusMidWidthData = edtStrobilusMidWidth.getText().toString();
+        String StrobilusEndWidthData = edtStrobilusEndWidth.getText().toString();
+        String strobilusCompactionData = strobilusCompaction.getSelectedItem().toString() + SEPARATOR + edtStrobilusCompaction.getText();
         String strobilusInnerColorData = strobilusInnerColor.getSelectedItem().toString() + SEPARATOR + edtStrobilusInnerColor.getText();
         String strobilusLeafCountData = strobilusLeafCount.getSelectedItem().toString() + SEPARATOR + edtStrobilusLeafCount.getText();
-        String softLeafRateData  = softLeafRate.getSelectedItem().toString() + SEPARATOR + edtSoftLeafRate.getText();
+        String softLeafRateData = softLeafRate.getSelectedItem().toString() + SEPARATOR + edtSoftLeafRate.getText();
         String strobilusMassData = strobilusMass.getSelectedItem().toString() + SEPARATOR + edtStrobilusMass.getText();
         String cleanVegRateData = cleanVegRate.getSelectedItem().toString() + SEPARATOR + edtCleanVegRate.getText();
-        String centerShapeData  = centerShape.getSelectedItem().toString() + SEPARATOR + edtCenterShape.getText();
-        String centerLengthData  = centerLength.getSelectedItem().toString() + SEPARATOR + edtCenterLength.getText();
-        String harvestTypeData  = harvestType.getSelectedItem().toString() + SEPARATOR + edtHarvestType.getText();
-        String harvestDelayTimeEarlyData  = harvestDelayTimeEarly.getSelectedItem().toString() + SEPARATOR + edtHarvestDelayTimeEarly.getText();
-        String harvestDelayTimeLateData  = harvestDelayTimeLate.getSelectedItem().toString() + SEPARATOR + edtHarvestDelayTimeLate.getText();
+        String centerShapeData = centerShape.getSelectedItem().toString() + SEPARATOR + edtCenterShape.getText();
+        String centerLengthData = centerLength.getSelectedItem().toString() + SEPARATOR + edtCenterLength.getText();
+        String harvestTypeData = harvestType.getSelectedItem().toString() + SEPARATOR + edtHarvestType.getText();
+        String harvestDelayTimeEarlyData = harvestDelayTimeEarly.getSelectedItem().toString() + SEPARATOR + edtHarvestDelayTimeEarly.getText();
+        String harvestDelayTimeLateData = harvestDelayTimeLate.getSelectedItem().toString() + SEPARATOR + edtHarvestDelayTimeLate.getText();
 
         //额外属性
-        String extraAttributeData  = "";
-        String extraRemarkData  = "";
+        String extraAttributeData = "";
+        String extraRemarkData = "";
         if (extraAttribute != null) {
-            extraAttributeData  = extraAttribute.getContent();
+            extraAttributeData = extraAttribute.getContent();
         }
         if (extraRemark != null) {
-            extraRemarkData  = extraRemark.getContent();
+            extraRemarkData = extraRemark.getContent();
         }
 
-        jsonObject.addProperty("ballTopClosedType", strobilusHeadClosureTypeData );
-        jsonObject.addProperty("ballTopHoldType", strobilusHeadConjugationTypeData );
-        jsonObject.addProperty("ballTopShape", strobilusHeadShapeData );
-        jsonObject.addProperty("upperLeafBulbColor", strobilusTopColorData );
-        jsonObject.addProperty("greenDegreeOfUpperLeafBall", pstrobilusTopGreenDegreeData );
-        jsonObject.addProperty("leafBallShape", strobilusShapeData );
-        jsonObject.addProperty("leafBallHeight", strobilusHeightData) ;
-        jsonObject.addProperty("leafBallWidth", strobilusWidthData );
-        jsonObject.addProperty("leafBallMiddleWidth", StrobilusMidWidthData );
-        jsonObject.addProperty("leafBulbEndWidth", StrobilusEndWidthData );
-        jsonObject.addProperty("leafBallCompactness", strobilusCompactionData );
-        jsonObject.addProperty("innerColorOfLeafBall", strobilusInnerColorData );
-        jsonObject.addProperty("numberOfBulbs", strobilusLeafCountData );
-        jsonObject.addProperty("softLeafRate", softLeafRateData );
-        jsonObject.addProperty("leafBallWeight", strobilusMassData );
-        jsonObject.addProperty("netVegetableRate", cleanVegRateData );
-        jsonObject.addProperty("centerColumnShape", centerShapeData );
-        jsonObject.addProperty("centerColumnLength", centerLengthData );
-        jsonObject.addProperty("maturity", harvestTypeData );
-        jsonObject.addProperty("extendedHarvestPeriodEarly", harvestDelayTimeEarlyData );
-        jsonObject.addProperty("extendedHarvestPeriodMidLate", harvestDelayTimeLateData );
-        jsonObject.addProperty("spare1", extraAttributeData );
-        jsonObject.addProperty("spare2", extraRemarkData );
+        jsonObject.addProperty("ballTopClosedType", strobilusHeadClosureTypeData);
+        jsonObject.addProperty("ballTopHoldType", strobilusHeadConjugationTypeData);
+        jsonObject.addProperty("ballTopShape", strobilusHeadShapeData);
+        jsonObject.addProperty("upperLeafBulbColor", strobilusTopColorData);
+        jsonObject.addProperty("greenDegreeOfUpperLeafBall", pstrobilusTopGreenDegreeData);
+        jsonObject.addProperty("leafBallShape", strobilusShapeData);
+        jsonObject.addProperty("leafBallHeight", strobilusHeightData);
+        jsonObject.addProperty("leafBallWidth", strobilusWidthData);
+        jsonObject.addProperty("leafBallMiddleWidth", StrobilusMidWidthData);
+        jsonObject.addProperty("leafBulbEndWidth", StrobilusEndWidthData);
+        jsonObject.addProperty("leafBallCompactness", strobilusCompactionData);
+        jsonObject.addProperty("innerColorOfLeafBall", strobilusInnerColorData);
+        jsonObject.addProperty("numberOfBulbs", strobilusLeafCountData);
+        jsonObject.addProperty("softLeafRate", softLeafRateData);
+        jsonObject.addProperty("leafBallWeight", strobilusMassData);
+        jsonObject.addProperty("netVegetableRate", cleanVegRateData);
+        jsonObject.addProperty("centerColumnShape", centerShapeData);
+        jsonObject.addProperty("centerColumnLength", centerLengthData);
+        jsonObject.addProperty("maturity", harvestTypeData);
+        jsonObject.addProperty("extendedHarvestPeriodEarly", harvestDelayTimeEarlyData);
+        jsonObject.addProperty("extendedHarvestPeriodMidLate", harvestDelayTimeLateData);
+        jsonObject.addProperty("spare1", extraAttributeData);
+        jsonObject.addProperty("spare2", extraRemarkData);
 
         return jsonObject.toString();
     }
@@ -611,7 +654,7 @@ public class HarvestPeriodFragment extends Fragment {
     // 更新上传图片
     private void uploadPics(String surveyId) {
         Map<String, ArrayList<String>> imageMap;
-        imageMap = new HashMap<>();
+        imageMap = imgHashMap;
         for (String specCharacter : imageMap.keySet()) {
             ArrayList<String> images = imageMap.get(specCharacter);
             if (images.isEmpty()) {
@@ -621,7 +664,6 @@ public class HarvestPeriodFragment extends Fragment {
                 HttpRequest.uploadPicture(token, surveyPeriod, surveyId, specCharacter, imgPath, new HttpRequest.INormalCallback() {
                     @Override
                     public void onResponse(NormalInfo normalInfo) {
-
                     }
 
                     @Override
@@ -653,6 +695,7 @@ public class HarvestPeriodFragment extends Fragment {
 
     // 更新页面中特定时期的数据
     private void updateUI(SurveyInfo surveyInfo) {
+        edtLocation.setText(surveyInfo.data.location);
         setSelectionAndText(strobilusHeadClosureType, edtStrobilusHeadClosureType, surveyInfo.data.ballTopClosedType);
         setSelectionAndText(strobilusHeadConjugationType, edtStrobilusHeadConjugationType, surveyInfo.data.ballTopHoldType);
         setSelectionAndText(strobilusHeadShape, edtStrobilusHeadShape, surveyInfo.data.ballTopShape);
@@ -687,7 +730,7 @@ public class HarvestPeriodFragment extends Fragment {
 
     private void addExtraAttributeView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
         btnAdd.subtractCount();
-        ExtraAttributeView extraAttributeView=new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, "spare1");
+        ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, "spare1");
         switch (keyName) {
             case "spare1":
                 extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, keyName);
@@ -701,7 +744,7 @@ public class HarvestPeriodFragment extends Fragment {
                 break;
         }
         Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
-        if(status==STATUS_READ){
+        if (status == STATUS_READ) {
             btnDelete.setVisibility(View.GONE);
         }
         ExtraAttributeView finalExtraAttributeView = extraAttributeView;
@@ -713,21 +756,87 @@ public class HarvestPeriodFragment extends Fragment {
         extraAttributeView.setContent(value);
         layout.addView(extraAttributeView);
     }
+    // 初始化图片
+    private void initPictures() {
+        // 获取图片url
+        List<String> picList = new ArrayList<>(Arrays.asList("common"));
+        for (String specCharacter : picList) {
+            HttpRequest.getPhoto(token, surveyId, specCharacter, new HttpRequest.IPhotoListCallback() {
+                @Override
+                public void onResponse(PhotoListInfo photoListInfo) {
+                    List<PhotoListInfo.data> photoList = photoListInfo.data;
+                    for (PhotoListInfo.data photo : photoList) {
+                        String url = photo.url;
 
-    public void setInitValue(String materialId_
-            , String materialType_
-            , String plantId_
-            , String investigatingTime_
-            , int status_
-            , String surveyId_) {
-        materialId = materialId_;
-        materialType = materialType_;
-        plantId = plantId_;
-        investigatingTime = investigatingTime_;
-        status = status_;
-        surveyId = surveyId_;
+                        Map<String, ArrayList<String>> imageMap;
+                        Map<String, SingleImageAdapter> adapterMap;
+                        ImageAdapter commonAdapter;
+                        imageMap = imgHashMap;
+                        adapterMap = imgAdapters;
+                        commonAdapter = imgAdapter;
+                        if (imageMap.get(specCharacter) != null) {
+                            imageMap.get(specCharacter).add(url);
+                        }
+                        if (adapterMap.get(specCharacter) != null) {
+                            adapterMap.get(specCharacter).notifyDataSetChanged();
+                        }
+                        if (commonAdapter != null) {
+                            commonAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
+        }
     }
 
+
+    //查看大图
+    private void viewPluImg(int position, int resultCode) {
+        Intent intent = new Intent(self, PlusImageActivity.class);
+        intent.putStringArrayListExtra(MainConstant.IMG_LIST, imgList);
+        intent.putExtra(MainConstant.POSITION, position);
+        startActivityForResult(intent, resultCode);
+    }
+
+    private void initMaps() {
+        imgHashMap.put("common", imgList);
+    }
+    // 处理选择的照片的地址
+    private void refreshAdapter(List<LocalMedia> picList, int requestCode) {
+        switch (requestCode) {
+            case PictureResultCode.IMG_HARVEST:
+                for (LocalMedia localMedia : picList) {
+                    //被压缩后的图片路径
+                    if (localMedia.isCompressed()) {
+                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
+                        imgList.add(compressPath);
+                        imgAdapter.notifyDataSetChanged();
+                    }
+                }
+                break;
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PictureResultCode.IMG_HARVEST) {
+            if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
+                //查看大图页面删除了图片
+                ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
+                imgList.clear();
+                imgList.addAll(toDeletePicList);
+                imgAdapter.notifyDataSetChanged();
+            } else {
+                refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.IMG_HARVEST);
+            }
+            imgHashMap.put("common", imgList);
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

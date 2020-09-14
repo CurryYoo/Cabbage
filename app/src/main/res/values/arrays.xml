@@ -19,6 +19,7 @@
     </string-array>
 
     <string-array name="cotyledon_count">
+        <item>未知</item>
         <item>正常</item>
         <item>异常</item>
     </string-array>
@@ -54,11 +55,13 @@
     </string-array>
 
     <string-array name="true_leaf_length">
+        <item>未知</item>
         <item>短</item>
         <item>长</item>
     </string-array>
 
     <string-array name="true_leaf_width">
+        <item>未知</item>
         <item>短</item>
         <item>长</item>
     </string-array>
@@ -73,6 +76,7 @@
 
     <!--    莲座期-->
     <string-array name="plant_height">
+        <item>未知</item>
         <item>极矮</item>
         <item>矮</item>
         <item>中</item>
@@ -81,18 +85,21 @@
     </string-array>
 
     <string-array name="development_degree">
+        <item>未知</item>
         <item>小</item>
         <item>中</item>
         <item>大</item>
     </string-array>
 
     <string-array name="leaf_length">
+        <item>未知</item>
         <item>短</item>
         <item>中</item>
         <item>长</item>
     </string-array>
 
     <string-array name="leaf_width">
+        <item>未知</item>
         <item>窄</item>
         <item>中</item>
         <item>宽</item>
@@ -224,6 +231,7 @@
     </string-array>
 
     <string-array name="outer_leaf_length">
+        <item>未知</item>
         <item>极短</item>
         <item>短</item>
         <item>中</item>
@@ -231,6 +239,7 @@
     </string-array>
 
     <string-array name="outer_leaf_width">
+        <item>未知</item>
         <item>极窄</item>
         <item>窄</item>
         <item>中</item>
@@ -262,6 +271,7 @@
         <item>其他</item>
     </string-array>
     <string-array name="outer_leaf_keel_length">
+        <item>未知</item>
         <item>极短</item>
         <item>短</item>
         <item>中</item>
@@ -269,6 +279,7 @@
     </string-array>
 
     <string-array name="outer_leaf_keel_width">
+        <item>未知</item>
         <item>窄</item>
         <item>中</item>
         <item>宽</item>
@@ -282,6 +293,7 @@
     </string-array>
 
     <string-array name="outer_leaf_count">
+        <item>未知</item>
         <item>少</item>
         <item>中</item>
         <item>多</item>
@@ -334,6 +346,7 @@
     </string-array>
 
     <string-array name="strobilus_height">
+        <item>未知</item>
         <item>极矮</item>
         <item>矮</item>
         <item>中</item>
@@ -342,6 +355,7 @@
     </string-array>
 
     <string-array name="strobilus_width">
+        <item>未知</item>
         <item>小</item>
         <item>中</item>
         <item>大</item>
@@ -364,6 +378,7 @@
     </string-array>
 
     <string-array name="strobilus_leaf_count">
+        <item>未知</item>
         <item>极少</item>
         <item>少</item>
         <item>中</item>
@@ -377,6 +392,7 @@
     </string-array>
 
     <string-array name="strobilus_mass">
+        <item>未知</item>
         <item>极轻</item>
         <item>轻</item>
         <item>中</item>
@@ -384,6 +400,7 @@
     </string-array>
 
     <string-array name="clean_veg_rate">
+        <item>未知</item>
         <item>低</item>
         <item>中</item>
         <item>高</item>
@@ -398,6 +415,7 @@
     </string-array>
 
     <string-array name="center_length">
+        <item>未知</item>
         <item>短</item>
         <item>中</item>
         <item>长</item>
@@ -428,6 +446,7 @@
 
     <!--    储藏期-->
     <string-array name="loss_rate">
+        <item>未知</item>
         <item>差</item>
         <item>中</item>
         <item>好</item>
@@ -435,6 +454,7 @@
 
     <!--    现蕾开花期-->
     <string-array name="half_plant_flower_bud">
+        <item>未知</item>
         <item>弱</item>
         <item>中</item>
         <item>强</item>
@@ -456,6 +476,7 @@
     </string-array>
 
     <string-array name="flower_bud_size">
+        <item>未知</item>
         <item>小</item>
         <item>中</item>
         <item>大</item>
@@ -469,6 +490,7 @@
     </string-array>
 
     <string-array name="petal_size">
+        <item>未知</item>
         <item>小</item>
         <item>中</item>
         <item>大</item>
@@ -491,6 +513,7 @@
     </string-array>
 
     <string-array name="single_flower_sterile_degree">
+        <item>未知</item>
         <item>可育花</item>
         <item>低不育花</item>
         <item>半不育花</item>
@@ -499,6 +522,7 @@
     </string-array>
 
     <string-array name="single_plant_sterile_degree">
+        <item>未知</item>
         <item>全可育株</item>
         <item>低不育株</item>
         <item>半不育株</item>
@@ -508,12 +532,14 @@
     </string-array>
 
     <string-array name="group_sterile_degree">
+        <item>未知</item>
         <item>低</item>
         <item>中</item>
         <item>高</item>
     </string-array>
 
     <string-array name="group_sterile_rate">
+        <item>未知</item>
         <item>低</item>
         <item>中</item>
         <item>高</item>
@@ -530,18 +556,21 @@
 
     <!--    结荚与种子收获期期-->
     <string-array name="seed_pod_length">
+        <item>未知</item>
         <item>短</item>
         <item>中</item>
         <item>长</item>
     </string-array>
 
     <string-array name="seed_pod_beak_length">
+        <item>未知</item>
         <item>短</item>
         <item>中</item>
         <item>长</item>
     </string-array>
 
     <string-array name="seed_size">
+        <item>未知</item>
         <item>小</item>
         <item>中</item>
         <item>大</item>
@@ -565,6 +594,7 @@
     </string-array>
 
     <string-array name="self_compatible">
+        <item>未知</item>
         <item>不亲和</item>
         <item>弱亲和</item>
         <item>中亲和</item>

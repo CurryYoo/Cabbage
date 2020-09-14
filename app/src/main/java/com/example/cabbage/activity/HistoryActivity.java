@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,8 +30,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
 
 /**
  * Author:created by Kang on 2020/9/9
@@ -125,7 +122,7 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 
     private void initView() {
         leftOneButton.setImageResource(R.mipmap.ic_back);
-        titleText.setText("采集历史");
+        titleText.setText(R.string.species_data_pick_history);
 
         leftOneLayout.setOnClickListener(this);
     }

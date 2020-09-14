@@ -69,6 +69,7 @@
     <string name="info_plant_id">Plant Id</string>
     <string name="investigate_time">Investigate Time</string>
     <string name="investigate_user">Investigate User</string>
+    <string name="investigate_location">Investigate Location</string>
     <string name="info_remark">Remark</string>
 
     <string name="title_germination_period">发芽期</string>
@@ -203,6 +204,7 @@
     <string name="copy">copy</string>
     <string name="paste">Paste</string>
     <string name="copy_paste_and_create">Use historical data to create new survey data</string>
+    <string name="web_system">Enter the background management system</string>
     <string name="query_material">Material Search…</string>
 
     <!--    app user page string-->
@@ -216,6 +218,8 @@
     <string name="update_fail">Update Failed</string>
     <string name="must_required">Required</string>
     <string name="string_null" />
+
+    <string name="back_end_management_system">Back-end management system</string>
 
     <string name="language_setting">Language Setting</string>
     <string name="language_cn">中文</string>

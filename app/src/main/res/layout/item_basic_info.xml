@@ -97,7 +97,26 @@
             style="@style/style_item_basic_info_edit_text"
             android:layout_width="match_parent" />
     </LinearLayout>
+    <View style="@style/view_divider_style" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/style_item_short_text_view"
+            android:text="@string/investigate_location" />
+
+        <View style="@style/view_vertical_divider_style" />
+
+        <EditText
+            android:id="@+id/edt_location"
+            style="@style/style_item_basic_info_edit_text"
+            android:layout_width="match_parent" />
+    </LinearLayout>
     <View style="@style/view_divider_style" />
 
     <LinearLayout

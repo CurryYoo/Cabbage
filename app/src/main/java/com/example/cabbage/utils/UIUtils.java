@@ -1,5 +1,6 @@
 package com.example.cabbage.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
@@ -16,6 +17,8 @@ import com.example.cabbage.network.HelpInfo;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.view.InfoBottomDialog;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -132,6 +135,14 @@ public class UIUtils {
         for (View v : viewList) {
             inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+
+    public static String getSystemTime() {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+        return formatter.format(curDate);
     }
 
 }

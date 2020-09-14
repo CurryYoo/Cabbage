@@ -65,8 +65,4 @@ public interface GetApi {
     @POST("/qiNiuContent")
     Call<NormalInfo> uploadPicture(@Header("token") String token, @QueryMap Map<String, String> params, @Part MultipartBody.Part file);
 
-    // 时期下图片上传
-
-    // 批量上传图片
-
 }

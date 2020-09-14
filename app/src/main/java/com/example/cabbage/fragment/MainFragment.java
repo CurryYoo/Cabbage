@@ -51,9 +51,39 @@ public class MainFragment extends Fragment {
     FloatingSearchView searchView;
     @BindView(R.id.btn_paste_data)
     LinearLayout btnPasteData;
+    @BindView(R.id.btn_web_view)
+    LinearLayout btnWebView;
     private Context self;
     private Unbinder unbinder;
     private String token;
+
+    private View.OnClickListener onClickListener = v -> {
+        switch (v.getId()) {
+            case R.id.btn_paste_data:
+                //获取剪贴板数据
+                ClipboardManager cm = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
+
+                if (cm.getPrimaryClip().getDescription().getLabel() != null && cm.getPrimaryClip().getDescription().getLabel().toString().equals("copyData")) {
+                    Intent dataIntent = Objects.requireNonNull(cm.getPrimaryClip()).getItemAt(0).getIntent();
+                    Toast.makeText(getContext(), R.string.paste_data_success, Toast.LENGTH_SHORT).show();
+                    ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
+                            .withString("surveyId", dataIntent.getStringExtra("surveyId"))
+                            .withString("surveyPeriod", dataIntent.getStringExtra("surveyPeriod"))
+                            .withString("materialId", dataIntent.getStringExtra("materialId"))
+                            .withString("materialType", dataIntent.getStringExtra("materialType"))
+                            .withInt("status", STATUS_COPY)
+                            .navigation();
+                } else {
+                    Toast.makeText(getContext(), R.string.data_no_get, Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.btn_web_view:
+                ARouter.getInstance().build(ARouterPaths.WEB_VIEW_ACTIVITY).navigation();
+                break;
+            default:
+                break;
+        }
+    };
 
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
@@ -69,24 +99,8 @@ public class MainFragment extends Fragment {
 
         SharedPreferences sp = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         token = sp.getString("token", "");
-        btnPasteData.setOnClickListener(v -> {
-
-            //获取剪贴板数据
-            ClipboardManager cm = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
-            if (Objects.requireNonNull(cm.getPrimaryClip()).getDescription().getLabel().toString().equals("copyData")) {
-                Intent dataIntent = Objects.requireNonNull(cm.getPrimaryClip()).getItemAt(0).getIntent();
-                Toast.makeText(getContext(), R.string.paste_data_success, Toast.LENGTH_SHORT).show();
-                ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
-                        .withString("surveyId", dataIntent.getStringExtra("surveyId"))
-                        .withString("surveyPeriod", dataIntent.getStringExtra("surveyPeriod"))
-                        .withString("materialId", dataIntent.getStringExtra("materialId"))
-                        .withString("materialType", dataIntent.getStringExtra("materialType"))
-                        .withInt("status", STATUS_COPY)
-                        .navigation();
-            } else {
-                Toast.makeText(getContext(), R.string.data_no_get, Toast.LENGTH_SHORT).show();
-            }
-        });
+        btnPasteData.setOnClickListener(onClickListener);
+        btnWebView.setOnClickListener(onClickListener);
 
         initView();
         return view;

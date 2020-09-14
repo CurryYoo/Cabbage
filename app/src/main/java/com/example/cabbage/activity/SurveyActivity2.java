@@ -82,7 +82,7 @@ import static java.io.File.separator;
 /**
  * Author:created by Kang on 2020/9/9
  * Email:zyk970512@163.com
- * Annotation:调查页面（旧），目前历史记录页面会跳转到此页面
+ * Annotation:调查页面（旧），已废弃，仅作参考
  */
 @Route(path = ARouterPaths.SURVEY_ACTIVITY2)
 public class SurveyActivity2 extends BaseActivity {
@@ -652,82 +652,6 @@ public class SurveyActivity2 extends BaseActivity {
         btnTrueLeafWidth.setOnClickListener(helpClickListener);
 
 
-        //添加子叶颜色图片
-        imgCotyledonColor = findViewById(R.id.img_cotyledon_color);
-        LinearLayoutManager mCotyledonColorManager = new LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false);
-        imgCotyledonColor.setLayoutManager(mCotyledonColorManager);
-        mCotyledonColorAdapter = new SingleImageAdapter(context, mCotyledonColorImgList);
-        mCotyledonColorAdapter.setOnItemClickListener(new SingleImageAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                if (position == mCotyledonColorAdapter.getItemCount() - 1) {
-                    //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过MainConstant.MAX_SELECT_PIC_NUM张，才能点击
-                    if (mCotyledonColorImgList.size() == MainConstant.MAX_SINGLE_PIC_NUM) {
-                        //最多添加MainConstant.MAX_SELECT_PIC_NUM张图片
-                        viewPluImg(position, PictureResultCode.COTYLEDON_COLOR);
-                    } else {
-                        //添加凭证图片
-                        selectPic(MainConstant.MAX_SINGLE_PIC_NUM - mCotyledonColorImgList.size(), PictureResultCode.COTYLEDON_COLOR);
-                    }
-                } else {
-                    viewPluImg(position, PictureResultCode.COTYLEDON_COLOR);
-                }
-            }
-        });
-        imgCotyledonColor.setAdapter(mCotyledonColorAdapter);
-
-        //添加子叶数目图片
-        imgCotyledonCount = findViewById(R.id.img_cotyledon_count);
-        LinearLayoutManager mCotyledonCountManager = new LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false);
-        imgCotyledonCount.setLayoutManager(mCotyledonCountManager);
-        mCotyledonCountAdapter = new SingleImageAdapter(context, mCotyledonCountImgList);
-        mCotyledonCountAdapter.setOnItemClickListener(new SingleImageAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                if (position == mCotyledonCountAdapter.getItemCount() - 1) {
-                    //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过MainConstant.MAX_SELECT_PIC_NUM张，才能点击
-                    if (mCotyledonCountImgList.size() == MainConstant.MAX_SINGLE_PIC_NUM) {
-                        //最多添加MainConstant.MAX_SELECT_PIC_NUM张图片
-                        viewPluImg(position, PictureResultCode.COTYLEDON_COUNT);
-                    } else {
-                        //添加凭证图片
-                        selectPic(MainConstant.MAX_SINGLE_PIC_NUM - mCotyledonCountImgList.size(), PictureResultCode.COTYLEDON_COUNT);
-                    }
-                } else {
-                    viewPluImg(position, PictureResultCode.COTYLEDON_COUNT);
-                }
-            }
-        });
-        imgCotyledonCount.setAdapter(mCotyledonCountAdapter);
-
-        //添加子叶形状图片
-        imgCotyledonShape = findViewById(R.id.img_cotyledon_shape);
-        LinearLayoutManager mCotyledonShapeManager = new LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false);
-        imgCotyledonShape.setLayoutManager(mCotyledonShapeManager);
-        mCotyledonShapeAdapter = new SingleImageAdapter(context, mCotyledonShapeImgList);
-        mCotyledonShapeAdapter.setOnItemClickListener(new SingleImageAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                if (position == mCotyledonShapeAdapter.getItemCount() - 1) {
-                    //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过MainConstant.MAX_SELECT_PIC_NUM张，才能点击
-                    if (mCotyledonShapeImgList.size() == MainConstant.MAX_SINGLE_PIC_NUM) {
-                        //最多添加MainConstant.MAX_SELECT_PIC_NUM张图片
-                        viewPluImg(position, PictureResultCode.COTYLEDON_SHAPE);
-                    } else {
-                        //添加凭证图片
-                        selectPic(MainConstant.MAX_SINGLE_PIC_NUM - mCotyledonShapeImgList.size(), PictureResultCode.COTYLEDON_SHAPE);
-                    }
-                } else {
-                    viewPluImg(position, PictureResultCode.COTYLEDON_SHAPE);
-                }
-            }
-        });
-        imgCotyledonShape.setAdapter(mCotyledonShapeAdapter);
-
-
         seedlingPeriodItemBar.setSubmitListener(v -> {
             if (checkIsValid()) {
                 Toast.makeText(context, R.string.check_required, Toast.LENGTH_SHORT).show();
@@ -869,7 +793,7 @@ public class SurveyActivity2 extends BaseActivity {
         });
 
         //添加莲座期总图片
-        imgRosettePeriod = findViewById(R.id.img_rosette_period);
+        imgRosettePeriod = findViewById(R.id.img_grid_view);
         mRosettePeriodAdapter = new ImageAdapter(context, mRosettePeriodImgList);
         imgRosettePeriod.setAdapter(mRosettePeriodAdapter);
         imgRosettePeriod.setOnItemClickListener((parent, view, position, id) -> {
@@ -877,13 +801,13 @@ public class SurveyActivity2 extends BaseActivity {
                 //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过MainConstant.MAX_SELECT_PIC_NUM张，才能点击
                 if (mRosettePeriodImgList.size() == MainConstant.MAX_SELECT_PIC_NUM) {
                     //最多添加MainConstant.MAX_SELECT_PIC_NUM张图片
-                    viewPluImg(position, PictureResultCode.ROSETTE_PERIOD);
+                    viewPluImg(position, PictureResultCode.IMG_FLOWERING);
                 } else {
                     //添加凭证图片
-                    selectPic(MainConstant.MAX_SELECT_PIC_NUM - mRosettePeriodImgList.size(), PictureResultCode.ROSETTE_PERIOD);
+                    selectPic(MainConstant.MAX_SELECT_PIC_NUM - mRosettePeriodImgList.size(), PictureResultCode.IMG_FLOWERING);
                 }
             } else {
-                viewPluImg(position, PictureResultCode.ROSETTE_PERIOD);
+                viewPluImg(position, PictureResultCode.IMG_FLOWERING);
             }
         });
 
@@ -986,16 +910,16 @@ public class SurveyActivity2 extends BaseActivity {
     private void viewPluImg(int position, int resultCode) {
         Intent intent = new Intent(this, PlusImageActivity.class);
         switch (resultCode) {
-            case PictureResultCode.COTYLEDON_COLOR:
-                intent.putStringArrayListExtra(MainConstant.IMG_LIST, mCotyledonColorImgList);
-                break;
-            case PictureResultCode.COTYLEDON_COUNT:
-                intent.putStringArrayListExtra(MainConstant.IMG_LIST, mCotyledonCountImgList);
-                break;
-            case PictureResultCode.COTYLEDON_SHAPE:
-                intent.putStringArrayListExtra(MainConstant.IMG_LIST, mCotyledonShapeImgList);
-                break;
-            case PictureResultCode.ROSETTE_PERIOD:
+//            case PictureResultCode.COTYLEDON_COLOR:
+//                intent.putStringArrayListExtra(MainConstant.IMG_LIST, mCotyledonColorImgList);
+//                break;
+//            case PictureResultCode.COTYLEDON_COUNT:
+//                intent.putStringArrayListExtra(MainConstant.IMG_LIST, mCotyledonCountImgList);
+//                break;
+//            case PictureResultCode.COTYLEDON_SHAPE:
+//                intent.putStringArrayListExtra(MainConstant.IMG_LIST, mCotyledonShapeImgList);
+//                break;
+            case PictureResultCode.IMG_FLOWERING:
                 intent.putStringArrayListExtra(MainConstant.IMG_LIST, mRosettePeriodImgList);
                 break;
         }
@@ -1007,52 +931,52 @@ public class SurveyActivity2 extends BaseActivity {
         PictureSelectorConfig.initMultiConfig(this, maxTotal, resultCode);
     }
 
-    // 处理选择的照片的地址
-    private void refreshAdapter(List<LocalMedia> picList, int requestCode) {
-        switch (requestCode) {
-            case PictureResultCode.COTYLEDON_COLOR:
-                for (LocalMedia localMedia : picList) {
-                    //被压缩后的图片路径
-                    if (localMedia.isCompressed()) {
-                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
-                        mCotyledonColorImgList.add(compressPath);
-                        mCotyledonColorAdapter.notifyDataSetChanged();
-                    }
-                }
-                break;
-            case PictureResultCode.COTYLEDON_COUNT:
-                for (LocalMedia localMedia : picList) {
-                    //被压缩后的图片路径
-                    if (localMedia.isCompressed()) {
-                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
-                        mCotyledonCountImgList.add(compressPath);
-                        mCotyledonCountAdapter.notifyDataSetChanged();
-                    }
-                }
-                break;
-            case PictureResultCode.COTYLEDON_SHAPE:
-                for (LocalMedia localMedia : picList) {
-                    //被压缩后的图片路径
-                    if (localMedia.isCompressed()) {
-                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
-                        mCotyledonShapeImgList.add(compressPath);
-                        mCotyledonShapeAdapter.notifyDataSetChanged();
-                    }
-                }
-                break;
-            case PictureResultCode.ROSETTE_PERIOD:
-                for (LocalMedia localMedia : picList) {
-                    //被压缩后的图片路径
-                    if (localMedia.isCompressed()) {
-                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
-                        mRosettePeriodImgList.add(compressPath);
-                        mRosettePeriodAdapter.notifyDataSetChanged();
-                    }
-                }
-                break;
-        }
-
-    }
+//    // 处理选择的照片的地址
+//    private void refreshAdapter(List<LocalMedia> picList, int requestCode) {
+//        switch (requestCode) {
+//            case PictureResultCode.COTYLEDON_COLOR:
+//                for (LocalMedia localMedia : picList) {
+//                    //被压缩后的图片路径
+//                    if (localMedia.isCompressed()) {
+//                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
+//                        mCotyledonColorImgList.add(compressPath);
+//                        mCotyledonColorAdapter.notifyDataSetChanged();
+//                    }
+//                }
+//                break;
+//            case PictureResultCode.COTYLEDON_COUNT:
+//                for (LocalMedia localMedia : picList) {
+//                    //被压缩后的图片路径
+//                    if (localMedia.isCompressed()) {
+//                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
+//                        mCotyledonCountImgList.add(compressPath);
+//                        mCotyledonCountAdapter.notifyDataSetChanged();
+//                    }
+//                }
+//                break;
+//            case PictureResultCode.COTYLEDON_SHAPE:
+//                for (LocalMedia localMedia : picList) {
+//                    //被压缩后的图片路径
+//                    if (localMedia.isCompressed()) {
+//                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
+//                        mCotyledonShapeImgList.add(compressPath);
+//                        mCotyledonShapeAdapter.notifyDataSetChanged();
+//                    }
+//                }
+//                break;
+////            case PictureResultCode.IMG_FLOWERING:
+////                for (LocalMedia localMedia : picList) {
+////                    //被压缩后的图片路径
+////                    if (localMedia.isCompressed()) {
+////                        String compressPath = localMedia.getCompressPath(); //压缩后的图片路径
+////                        mRosettePeriodImgList.add(compressPath);
+////                        mRosettePeriodAdapter.notifyDataSetChanged();
+////                    }
+////                }
+////                break;
+//        }
+//
+//    }
 
     //底部帮助对话框
     private void showBottomHelpDialog(String specificCharacter) {
@@ -1503,65 +1427,65 @@ public class SurveyActivity2 extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case PictureResultCode.COTYLEDON_COLOR:
-                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
-                    //查看大图页面删除了图片
-                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
-                    mCotyledonColorImgList.clear();
-                    mCotyledonColorImgList.addAll(toDeletePicList);
-                    mCotyledonColorAdapter.notifyDataSetChanged();
-                } else {
-                    // 图片选择结果回调
-                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.COTYLEDON_COLOR);
-                    // 例如 LocalMedia 里面返回三种path
-                    // 1.media.getPath(); 为原图path
-                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
-                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
-                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                }
-                photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_color), mCotyledonColorImgList);
-                break;
-            case PictureResultCode.COTYLEDON_COUNT:
-                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
-                    //查看大图页面删除了图片
-                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
-                    mCotyledonCountImgList.clear();
-                    mCotyledonCountImgList.addAll(toDeletePicList);
-                    mCotyledonCountAdapter.notifyDataSetChanged();
-                } else {
-                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.COTYLEDON_COUNT);
-                }
-                photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_count), mCotyledonCountImgList);
-                break;
-            case PictureResultCode.COTYLEDON_SHAPE:
-                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
-                    //查看大图页面删除了图片
-                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
-                    mCotyledonShapeImgList.clear();
-                    mCotyledonShapeImgList.addAll(toDeletePicList);
-                    mCotyledonShapeAdapter.notifyDataSetChanged();
-                } else {
-                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.COTYLEDON_SHAPE);
-                }
-                photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_shape), mCotyledonShapeImgList);
-                break;
-            case PictureResultCode.ROSETTE_PERIOD:
-                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
-                    //查看大图页面删除了图片
-                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
-                    mRosettePeriodImgList.clear();
-                    mRosettePeriodImgList.addAll(toDeletePicList);
-                    mRosettePeriodAdapter.notifyDataSetChanged();
-                } else {
-                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.ROSETTE_PERIOD);
-                }
-                photosInRosette.put("common", mRosettePeriodImgList);
-                break;
-
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch (requestCode) {
+//            case PictureResultCode.COTYLEDON_COLOR:
+//                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
+//                    //查看大图页面删除了图片
+//                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
+//                    mCotyledonColorImgList.clear();
+//                    mCotyledonColorImgList.addAll(toDeletePicList);
+//                    mCotyledonColorAdapter.notifyDataSetChanged();
+//                } else {
+//                    // 图片选择结果回调
+//                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.COTYLEDON_COLOR);
+//                    // 例如 LocalMedia 里面返回三种path
+//                    // 1.media.getPath(); 为原图path
+//                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
+//                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
+//                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+//                }
+//                photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_color), mCotyledonColorImgList);
+//                break;
+//            case PictureResultCode.COTYLEDON_COUNT:
+//                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
+//                    //查看大图页面删除了图片
+//                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
+//                    mCotyledonCountImgList.clear();
+//                    mCotyledonCountImgList.addAll(toDeletePicList);
+//                    mCotyledonCountAdapter.notifyDataSetChanged();
+//                } else {
+//                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.COTYLEDON_COUNT);
+//                }
+//                photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_count), mCotyledonCountImgList);
+//                break;
+//            case PictureResultCode.COTYLEDON_SHAPE:
+//                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
+//                    //查看大图页面删除了图片
+//                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
+//                    mCotyledonShapeImgList.clear();
+//                    mCotyledonShapeImgList.addAll(toDeletePicList);
+//                    mCotyledonShapeAdapter.notifyDataSetChanged();
+//                } else {
+//                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.COTYLEDON_SHAPE);
+//                }
+//                photosInSeedling.put(context.getResources().getString(R.string.info_cotyledon_shape), mCotyledonShapeImgList);
+//                break;
+////            case PictureResultCode.ROSETTE_PERIOD:
+////                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
+////                    //查看大图页面删除了图片
+////                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
+////                    mRosettePeriodImgList.clear();
+////                    mRosettePeriodImgList.addAll(toDeletePicList);
+////                    mRosettePeriodAdapter.notifyDataSetChanged();
+////                } else {
+////                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.ROSETTE_PERIOD);
+////                }
+////                photosInRosette.put("common", mRosettePeriodImgList);
+////                break;
+//
+//        }
+//    }
 }

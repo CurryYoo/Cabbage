@@ -39,6 +39,7 @@
         <activity android:name=".activity.HistoryDetailActivity" />
         <activity android:name=".activity.HistoryDetailActivity2" />
         <activity android:name=".activity.LanguageActivity"/>
+        <activity android:name=".activity.WebViewActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

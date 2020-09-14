@@ -9,12 +9,14 @@
     android:paddingTop="@dimen/dp_5"
     android:paddingEnd="@dimen/dp_10">
 
-    <!--    <GridView-->
-    <!--        android:id="@+id/img_heading_period"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:numColumns="4"-->
-    <!--        android:verticalSpacing="5dp" />-->
+    <com.example.cabbage.utils.MyGridView
+        android:id="@+id/img_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="4"
+        android:verticalSpacing="5dp"
+        android:gravity="center"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"

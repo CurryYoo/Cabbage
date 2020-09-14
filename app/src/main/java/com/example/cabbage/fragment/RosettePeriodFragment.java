@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,6 +30,7 @@ import com.example.cabbage.network.PhotoListInfo;
 import com.example.cabbage.network.ResultInfo;
 import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.utils.MainConstant;
+import com.example.cabbage.utils.MyGridView;
 import com.example.cabbage.utils.PictureResultCode;
 import com.example.cabbage.view.AutoClearEditText;
 import com.example.cabbage.view.CountButton;
@@ -51,13 +51,13 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-import static com.example.cabbage.utils.BasicUtil.showDatePickerDialog;
 import static com.example.cabbage.utils.StaticVariable.COUNT_EXTRA;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_ROSETTE;
 import static com.example.cabbage.utils.UIUtils.checkIsValid;
+import static com.example.cabbage.utils.UIUtils.getSystemTime;
 import static com.example.cabbage.utils.UIUtils.selectPic;
 import static com.example.cabbage.utils.UIUtils.setSelectionAndText;
 import static com.example.cabbage.utils.UIUtils.setVisibilityOfUserDefined;
@@ -83,8 +83,6 @@ public class RosettePeriodFragment extends Fragment {
     TextView edtInvestigator;
     @BindView(R.id.layout_basic_info)
     LinearLayout layoutBasicInfo;
-    @BindView(R.id.img_rosette_period)
-    GridView imgRosettePeriod;
     @BindView(R.id.plant_shape)
     Spinner plantShape;
     @BindView(R.id.edt_plant_shape)
@@ -211,6 +209,10 @@ public class RosettePeriodFragment extends Fragment {
     CountButton btnAddRemark;
     @BindView(R.id.btn_upload_data)
     Button btnUploadData;
+    @BindView(R.id.edt_location)
+    EditText edtLocation;
+    @BindView(R.id.img_grid_view)
+    MyGridView imgGridView;
 
     private Context self;
     private Unbinder unbinder;
@@ -221,7 +223,7 @@ public class RosettePeriodFragment extends Fragment {
     private String investigatingTime;
     private int status = STATUS_NEW;
     private String surveyId;
-    private String surveyPeriod=SURVEY_PERIOD_ROSETTE;
+    private String surveyPeriod = SURVEY_PERIOD_ROSETTE;
     private String token;
     private int userId;
     private String nickname;
@@ -359,10 +361,10 @@ public class RosettePeriodFragment extends Fragment {
     View.OnClickListener extraAttributeClickListener = v -> {
         switch (v.getId()) {
             case R.id.btn_add_attribute:
-                addExtraAttributeView(btnAddAttribute, layoutCustomAttribute, "spare1","");
+                addExtraAttributeView(btnAddAttribute, layoutCustomAttribute, "spare1", "");
                 break;
             case R.id.btn_add_remark:
-                addExtraAttributeView(btnAddRemark, layoutCustomAttribute, "spare2","");
+                addExtraAttributeView(btnAddRemark, layoutCustomAttribute, "spare2", "");
                 break;
         }
     };
@@ -405,13 +407,13 @@ public class RosettePeriodFragment extends Fragment {
         nickname = sp.getString("nickname", "");
 
         //newInstance传递必需数据
-        Bundle bundle=getArguments();
+        Bundle bundle = getArguments();
         materialId = bundle.getString("materialId");
         materialType = bundle.getString("materialType");
         plantId = bundle.getString("plantId");
         investigatingTime = bundle.getString("investigatingTime");
         surveyId = bundle.getString("surveyId");
-        status = bundle.getInt("status",STATUS_NEW);
+        status = bundle.getInt("status", STATUS_NEW);
 
         return view;
     }
@@ -420,7 +422,7 @@ public class RosettePeriodFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //清除view，防止重复加载
-        imgList.clear();
+//        imgList.clear();
         layoutCustomAttribute.removeAllViews();
 
         initFragment();
@@ -457,9 +459,7 @@ public class RosettePeriodFragment extends Fragment {
         edtMaterialType.setText(materialType);
         edtPlantId.setText(plantId);
         edtInvestigatingTime.setText(investigatingTime);
-        edtInvestigatingTime.setOnClickListener(v -> {
-            showDatePickerDialog(self, edtInvestigatingTime);
-        });
+        edtInvestigatingTime.setOnClickListener(v -> edtInvestigatingTime.setText(getSystemTime()));
         edtInvestigator.setText(nickname);
 
     }
@@ -518,23 +518,24 @@ public class RosettePeriodFragment extends Fragment {
         }
 
 
-        //添加莲座期总图片
+        //图片
         imgAdapter = new ImageAdapter(self, imgList);
-        imgRosettePeriod.setAdapter(imgAdapter);
-        imgRosettePeriod.setOnItemClickListener((parent, view, position, id) -> {
+        imgGridView.setAdapter(imgAdapter);
+        imgGridView.setOnItemClickListener((parent, view, position, id) -> {
             if (position == parent.getChildCount() - 1) {
                 //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过MainConstant.MAX_SELECT_PIC_NUM张，才能点击
                 if (imgList.size() == MainConstant.MAX_SELECT_PIC_NUM) {
                     //最多添加MainConstant.MAX_SELECT_PIC_NUM张图片
-                    viewPluImg(position, PictureResultCode.ROSETTE_PERIOD);
+                    viewPluImg(position, PictureResultCode.IMG_ROSETTE);
                 } else {
                     //添加凭证图片
-                    selectPic(getActivity(), MainConstant.MAX_SELECT_PIC_NUM - imgList.size(), PictureResultCode.ROSETTE_PERIOD);
+                    selectPic(getActivity(), MainConstant.MAX_SELECT_PIC_NUM - imgList.size(), PictureResultCode.IMG_ROSETTE);
                 }
             } else {
-                viewPluImg(position, PictureResultCode.ROSETTE_PERIOD);
+                viewPluImg(position, PictureResultCode.IMG_ROSETTE);
             }
         });
+
     }
 
     //弹出是否上传dialog
@@ -583,7 +584,8 @@ public class RosettePeriodFragment extends Fragment {
         jsonObject.addProperty("materialType", materialType);
         jsonObject.addProperty("materialNumber", materialId);
         jsonObject.addProperty("plantNumber", plantId);
-        jsonObject.addProperty("investigatingTime", edtInvestigatingTime.getText().toString());
+        jsonObject.addProperty("investigatingTime", getSystemTime());
+        jsonObject.addProperty("location", edtLocation.getText().toString());
         jsonObject.addProperty("investigator", nickname);
         jsonObject.addProperty("userId", userId);
 
@@ -647,14 +649,14 @@ public class RosettePeriodFragment extends Fragment {
         jsonObject.addProperty("leafTexture", leafTextureString);
 
         //TODO 莲座期额外属性有bug
-//        jsonObject.addProperty("spare1", extraAttributeString);
-//        jsonObject.addProperty("spare2", extraRemarkString);
+        jsonObject.addProperty("spare1", extraAttributeData);
+        jsonObject.addProperty("spare2", extraRemarkData);
 
         return jsonObject.toString();
     }
 
     // 更新上传图片
-    private void uploadPics( String surveyId) {
+    private void uploadPics(String surveyId) {
         Map<String, ArrayList<String>> imageMap;
         imageMap = imgHashMap;
         for (String specCharacter : imageMap.keySet()) {
@@ -697,6 +699,7 @@ public class RosettePeriodFragment extends Fragment {
 
     // 更新页面中特定时期的数据
     private void updateUI(SurveyInfo surveyInfo) {
+        edtLocation.setText(surveyInfo.data.location);
         setSelectionAndText(plantShape, edtPlantShape, surveyInfo.data.plantType);
         setSelectionAndText(plantHeight, edtPlantHeight, surveyInfo.data.plantHeight);
         setSelectionAndText(developmentDegree, edtDevelopmentDegree, surveyInfo.data.developmentDegree);
@@ -730,7 +733,7 @@ public class RosettePeriodFragment extends Fragment {
 
     private void addExtraAttributeView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
         btnAdd.subtractCount();
-        ExtraAttributeView extraAttributeView=new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, "spare1");
+        ExtraAttributeView extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, "spare1");
         switch (keyName) {
             case "spare1":
                 extraAttributeView = new ExtraAttributeView(self, ExtraAttributeView.TYPE_ATTRIBUTE, keyName);
@@ -744,7 +747,7 @@ public class RosettePeriodFragment extends Fragment {
                 break;
         }
         Button btnDelete = extraAttributeView.findViewById(R.id.btn_delete);
-        if(status==STATUS_READ){
+        if (status == STATUS_READ) {
             btnDelete.setVisibility(View.GONE);
         }
         ExtraAttributeView finalExtraAttributeView = extraAttributeView;
@@ -799,21 +802,19 @@ public class RosettePeriodFragment extends Fragment {
     //查看大图
     private void viewPluImg(int position, int resultCode) {
         Intent intent = new Intent(self, PlusImageActivity.class);
-        switch (resultCode) {
-            case PictureResultCode.ROSETTE_PERIOD:
-                intent.putStringArrayListExtra(MainConstant.IMG_LIST, imgList);
-                break;
-            default:
-                break;
-        }
+        intent.putStringArrayListExtra(MainConstant.IMG_LIST, imgList);
         intent.putExtra(MainConstant.POSITION, position);
         startActivityForResult(intent, resultCode);
+    }
+
+    private void initMaps() {
+        imgHashMap.put("common", imgList);
     }
 
     // 处理选择的照片的地址
     private void refreshAdapter(List<LocalMedia> picList, int requestCode) {
         switch (requestCode) {
-            case PictureResultCode.ROSETTE_PERIOD:
+            case PictureResultCode.IMG_ROSETTE:
                 for (LocalMedia localMedia : picList) {
                     //被压缩后的图片路径
                     if (localMedia.isCompressed()) {
@@ -826,40 +827,20 @@ public class RosettePeriodFragment extends Fragment {
         }
     }
 
-    public void setInitValue(String materialId_
-            , String materialType_
-            , String plantId_
-            , String investigatingTime_
-            , int status_
-            , String surveyId_) {
-        materialId = materialId_;
-        materialType = materialType_;
-        plantId = plantId_;
-        investigatingTime = investigatingTime_;
-        status = status_;
-        surveyId = surveyId_;
-    }
-
-    private void initMaps() {
-        imgHashMap.put("common", imgList);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case PictureResultCode.ROSETTE_PERIOD:
-                if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
-                    //查看大图页面删除了图片
-                    ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
-                    imgList.clear();
-                    imgList.addAll(toDeletePicList);
-                    imgAdapter.notifyDataSetChanged();
-                } else {
-                    refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.ROSETTE_PERIOD);
-                }
-                imgHashMap.put("common", imgList);
-                break;
+        if (requestCode == PictureResultCode.IMG_ROSETTE) {
+            if (resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
+                //查看大图页面删除了图片
+                ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
+                imgList.clear();
+                imgList.addAll(toDeletePicList);
+                imgAdapter.notifyDataSetChanged();
+            } else {
+                refreshAdapter(PictureSelector.obtainMultipleResult(data), PictureResultCode.IMG_ROSETTE);
+            }
+            imgHashMap.put("common", imgList);
         }
     }
 
