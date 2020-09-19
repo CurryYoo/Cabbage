@@ -38,7 +38,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_FLOWERING;
@@ -49,6 +48,7 @@ import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_ROSETTE;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEEDLING;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEED_HARVEST;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_STORAGE;
+import static com.example.cabbage.utils.UIUtils.getSystemTime;
 
 /**
  * Author:created by Kang on 2020/9/9
@@ -104,9 +104,12 @@ public class SurveyActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         intent = getIntent();
-        materialId=intent.getStringExtra("materialId");
-        materialType=intent.getStringExtra("materialType");
+        materialId = intent.getStringExtra("materialId");
+        materialType = intent.getStringExtra("materialType");
         surveyPeriod = intent.getStringExtra("surveyPeriod");
+
+        sp = getSharedPreferences("userInfo", MODE_PRIVATE);
+        editor = sp.edit();
 
         mTitleDataList = new ArrayList<String>() {{
             add(getResources().getString(R.string.title_germination_period));
@@ -121,38 +124,48 @@ public class SurveyActivity extends BaseActivity {
 
         initToolbar();
         initViewPager();
-        initLastMaterial();
     }
 
-    private void initLastMaterial() {
-        sp = getSharedPreferences("lastMaterial", MODE_PRIVATE);
-        editor = sp.edit();
+    public void initLastMaterial() {
         JsonObject jsonObject = new JsonObject();
 
         JsonObject jsonObjectOld = new JsonParser().parse(sp.getString("lastMaterial", jsonObject.toString())).getAsJsonObject();
-        if(jsonObjectOld.get("lastMaterialNumber1")!=null){
-            if(jsonObjectOld.get("lastMaterialNumber1").getAsString().equals(materialId)){
-                return;
-            }
-        }
         if (jsonObjectOld.get("lastMaterialNumber2") != null) {
-            if(jsonObjectOld.get("lastMaterialNumber2").getAsString().equals(materialId)){
+            if (jsonObjectOld.get("lastMaterialNumber2").getAsString().equals(materialId)) {
+                if (jsonObjectOld.get("lastMaterialNumber1") != null) {
+                    jsonObject.addProperty("lastMaterialNumber1", jsonObjectOld.get("lastMaterialNumber1").getAsString());
+                    jsonObject.addProperty("lastMaterialType1", jsonObjectOld.get("lastMaterialType1").getAsString());
+                    jsonObject.addProperty("lastMaterialTime1", jsonObjectOld.get("lastMaterialTime1").getAsString());
+                }
+                jsonObject.addProperty("lastMaterialNumber2", jsonObjectOld.get("lastMaterialNumber3").getAsString());
+                jsonObject.addProperty("lastMaterialType2", jsonObjectOld.get("lastMaterialType3").getAsString());
+                jsonObject.addProperty("lastMaterialTime2", jsonObjectOld.get("lastMaterialTime3").getAsString());
+
+                jsonObject.addProperty("lastMaterialNumber3", materialId);
+                jsonObject.addProperty("lastMaterialType3", materialType);
+                jsonObject.addProperty("lastMaterialTime3", getSystemTime());
+                editor.putString("lastMaterial", jsonObject.toString());
+                editor.apply();
                 return;
             }
             jsonObject.addProperty("lastMaterialNumber1", jsonObjectOld.get("lastMaterialNumber2").getAsString());
             jsonObject.addProperty("lastMaterialType1", jsonObjectOld.get("lastMaterialType2").getAsString());
-
+            jsonObject.addProperty("lastMaterialTime1", jsonObjectOld.get("lastMaterialTime2").getAsString());
         }
-        if (jsonObjectOld.get("lastMaterialNumber3") != null ) {
-            if(jsonObjectOld.get("lastMaterialNumber3").getAsString().equals(materialId)){
+        if (jsonObjectOld.get("lastMaterialNumber3") != null) {
+            if (jsonObjectOld.get("lastMaterialNumber3").getAsString().equals(materialId)) {
+                editor.putString("lastMaterial", jsonObjectOld.toString());
+                editor.apply();
                 return;
             }
             jsonObject.addProperty("lastMaterialNumber2", jsonObjectOld.get("lastMaterialNumber3").getAsString());
             jsonObject.addProperty("lastMaterialType2", jsonObjectOld.get("lastMaterialType3").getAsString());
+            jsonObject.addProperty("lastMaterialTime2", jsonObjectOld.get("lastMaterialTime3").getAsString());
         }
 
         jsonObject.addProperty("lastMaterialNumber3", materialId);
         jsonObject.addProperty("lastMaterialType3", materialType);
+        jsonObject.addProperty("lastMaterialTime3", getSystemTime());
         editor.putString("lastMaterial", jsonObject.toString());
         editor.apply();
     }

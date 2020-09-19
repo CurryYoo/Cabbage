@@ -3,7 +3,6 @@ package com.example.cabbage.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.cabbage.R;
@@ -46,7 +44,7 @@ public class PwdActivity extends BaseActivity implements View.OnClickListener {
     Button btnConfirm;
     @BindView(R.id.title_text)
     TextView txtTitle;
-    private Context context = this;
+    private Context self ;
 
     private String token;
     private String username;
@@ -57,11 +55,12 @@ public class PwdActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pwd);
         ButterKnife.bind(this);
-        SharedPreferences sp = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences sp = self.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         token = sp.getString("token", "");
         username = sp.getString("username", "");
         password = sp.getString("password", "");
         edtOldPwd.setText(password);
+        self=getApplicationContext();
         initView();
     }
 

@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cabbage.R;
 import com.example.cabbage.activity.PlusImageActivity;
+import com.example.cabbage.activity.SurveyActivity;
 import com.example.cabbage.adapter.ImageAdapter;
 import com.example.cabbage.adapter.SingleImageAdapter;
 import com.example.cabbage.network.HttpRequest;
@@ -165,7 +166,7 @@ public class StoragePeriodFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_storage_period, container, false);
-        self = getContext();
+        self = getActivity().getApplicationContext();
         unbinder = ButterKnife.bind(this, view);
         //验证用户
         SharedPreferences sp = self.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
@@ -268,7 +269,7 @@ public class StoragePeriodFragment extends Fragment {
 
     //弹出是否上传dialog
     private void showDialog() {
-        final SweetAlertDialog saveDialog = new SweetAlertDialog(self, SweetAlertDialog.NORMAL_TYPE)
+        final SweetAlertDialog saveDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.NORMAL_TYPE)
                 .setContentText(self.getResources().getString(R.string.upload_data_tip))
                 .setConfirmText(self.getResources().getString(R.string.confirm))
                 .setCancelText(self.getResources().getString(R.string.cancel))
@@ -288,6 +289,9 @@ public class StoragePeriodFragment extends Fragment {
                 @Override
                 public void onResponse(ResultInfo resultInfo) {
                     if (resultInfo.code == 200 && resultInfo.message.equals(getString(R.string.option_success))) {
+                        uploadPics(resultInfo.data.observationId);
+                        SurveyActivity surveyActivity= (SurveyActivity) getActivity();
+                        surveyActivity.initLastMaterial();
                         Toast.makeText(self, R.string.update_success, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(self, R.string.update_fail, Toast.LENGTH_SHORT).show();

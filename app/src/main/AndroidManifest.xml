@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".base.BaseApplication"
@@ -37,8 +38,8 @@
         <activity android:name=".activity.SurveyActivity" />
         <activity android:name=".activity.HistoryDetailActivity" />
         <activity android:name=".activity.HistoryDetailActivity2" />
-        <activity android:name=".activity.LanguageActivity"/>
-        <activity android:name=".activity.AddMaterialActivity"/>
+        <activity android:name=".activity.LanguageActivity" />
+        <activity android:name=".activity.AddMaterialActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

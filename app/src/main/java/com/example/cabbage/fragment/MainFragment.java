@@ -70,7 +70,6 @@ public class MainFragment extends Fragment {
     private String token;
     //存储最近三个材料信息
     private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
     private List<MaterialData> lastList = new ArrayList<>();
     private LastMaterialAdapter lastMaterialAdapter;
 
@@ -111,10 +110,10 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        self = getContext();
+        self = getActivity().getApplicationContext();
         unbinder = ButterKnife.bind(this, view);
 
-        SharedPreferences sp = getContext().getSharedPreferences("userInfo", MODE_PRIVATE);
+        sp = getContext().getSharedPreferences("userInfo", MODE_PRIVATE);
         token = sp.getString("token", "");
         btnPasteData.setOnClickListener(onClickListener);
         btnWebView.setOnClickListener(onClickListener);
@@ -210,8 +209,6 @@ public class MainFragment extends Fragment {
 
     private void initLastMaterial() {
         lastList.clear();
-        sp = self.getSharedPreferences("lastMaterial", MODE_PRIVATE);
-        editor = sp.edit();
         JsonObject jsonObject = new JsonObject();
 
         JsonObject jsonObjectOld = new JsonParser().parse(sp.getString("lastMaterial", jsonObject.toString())).getAsJsonObject();
@@ -219,18 +216,21 @@ public class MainFragment extends Fragment {
             MaterialData materialData = new MaterialData();
             materialData.materialNumber = jsonObjectOld.get("lastMaterialNumber1").getAsString();
             materialData.materialType = jsonObjectOld.get("lastMaterialType1").getAsString();
+            materialData.year=jsonObjectOld.get("lastMaterialTime1").getAsString();
             lastList.add(materialData);
         }
         if (jsonObjectOld.get("lastMaterialNumber2") != null) {
             MaterialData materialData = new MaterialData();
             materialData.materialNumber = jsonObjectOld.get("lastMaterialNumber2").getAsString();
             materialData.materialType = jsonObjectOld.get("lastMaterialType2").getAsString();
+            materialData.year=jsonObjectOld.get("lastMaterialTime2").getAsString();
             lastList.add(materialData);
         }
         if (jsonObjectOld.get("lastMaterialNumber3") != null) {
             MaterialData materialData = new MaterialData();
             materialData.materialNumber = jsonObjectOld.get("lastMaterialNumber3").getAsString();
             materialData.materialType = jsonObjectOld.get("lastMaterialType3").getAsString();
+            materialData.year=jsonObjectOld.get("lastMaterialTime3").getAsString();
             lastList.add(materialData);
         }
         Collections.reverse(lastList);

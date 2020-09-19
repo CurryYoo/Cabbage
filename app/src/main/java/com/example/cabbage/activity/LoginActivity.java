@@ -2,7 +2,6 @@ package com.example.cabbage.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +10,6 @@ import android.widget.EditText;
 import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -34,7 +31,7 @@ import butterknife.OnClick;
  */
 @Route(path = ARouterPaths.LOGIN_ACTIVITY)
 public class LoginActivity extends BaseActivity {
-    private Context context = this;
+    private Context self;
 
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
@@ -63,6 +60,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        self = getApplicationContext();
 
         sp = getSharedPreferences("userInfo", MODE_PRIVATE);
     }
@@ -89,22 +87,22 @@ public class LoginActivity extends BaseActivity {
                     editor = sp.edit();
                     editor.putInt("userId", userInfo.getId());
                     editor.putString("nickname", userInfo.getNickname());
-                    editor.putString("username",userInfo.getUsername());
-                    editor.putString("password",userInfo.getPassword());
+                    editor.putString("username", userInfo.getUsername());
+                    editor.putString("password", userInfo.getPassword());
                     editor.putString("headImgUrl", userInfo.getHeadImgUrl());
                     editor.putString("token", userInfo.getToken());
                     editor.apply();
                     ARouter.getInstance().build(ARouterPaths.MAIN_ACTIVITY).navigation();
-                    Toast.makeText(context, getString(R.string.log_in_success), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(self, getString(R.string.log_in_success), Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(context, getString(R.string.log_in_fail), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(self, getString(R.string.log_in_fail), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure() {
-                Toast.makeText(context, getString(R.string.log_in_fail), Toast.LENGTH_SHORT).show();
+                Toast.makeText(self, getString(R.string.log_in_fail), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -60,7 +60,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_user, container, false);
-        self = getContext();
+        self = getActivity().getApplicationContext();
         unbinder = ButterKnife.bind(this, view);
         initView();
         return view;

@@ -19,23 +19,31 @@ import java.util.List;
  */
 public class LastMaterialAdapter extends BaseQuickAdapter<MaterialData, BaseViewHolder> {
     private Context mContext;
-    public LastMaterialAdapter(Context context,int layoutResId, @Nullable List<MaterialData> data) {
+
+    public LastMaterialAdapter(Context context, int layoutResId, @Nullable List<MaterialData> data) {
         super(layoutResId, data);
-        mContext=context;
+        mContext = context;
     }
 
-    public LastMaterialAdapter(Context context,@Nullable List<MaterialData> data) {
+    public LastMaterialAdapter(Context context, @Nullable List<MaterialData> data) {
         super(data);
-        mContext=context;
+        mContext = context;
     }
 
-    public LastMaterialAdapter(Context context,int layoutResId) {
+    public LastMaterialAdapter(Context context, int layoutResId) {
         super(layoutResId);
-        mContext=context;
+        mContext = context;
     }
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, MaterialData item) {
-        helper.setText(R.id.txt_materialNumber,mContext.getResources().getString(R.string.material_number)+item.materialNumber+"   "+mContext.getResources().getString(R.string.material_type)+item.materialType);
+        helper.setText(R.id.txt_materialNumber, mContext.getResources().getString(R.string.material_number)
+                + item.materialNumber
+                + "   "
+                + mContext.getResources().getString(R.string.material_type)
+                + item.materialType
+                + "   "
+                + mContext.getResources().getString(R.string.investigating_time)
+                + item.year);
     }
 }
