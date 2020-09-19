@@ -4,6 +4,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
@@ -12,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -133,7 +136,7 @@ public class MainFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(self, RecyclerView.VERTICAL, false);
         recyclerViewLast.setLayoutManager(linearLayoutManager);
         recyclerViewLast.setAdapter(lastMaterialAdapter);
-
+        searchView.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.bg_float_search,null));
 
         searchView.setOnQueryChangeListener((oldQuery, newQuery) -> {
             if (!oldQuery.equals("") && newQuery.equals("")) {
@@ -164,6 +167,39 @@ public class MainFragment extends Fragment {
             }
         });
 
+        //获取焦点时弹出搜索建议
+        searchView.setOnFocusChangeListener(new FloatingSearchView.OnFocusChangeListener() {
+            @Override
+            public void onFocus() {
+                // 网络请求数据
+                if (NetworkUtils.isNetworkConnected(getContext())) {
+                    HttpRequest.requestSearch(token, searchView.getQuery(), new HttpRequest.IMaterialCallback() {
+                        @Override
+                        public void onResponse(MaterialInfo materialInfo) {
+                            searchView.hideProgress();
+                            if (materialInfo.code == 200 && materialInfo.message.equals(getString(R.string.option_success))) {
+                                List<MaterialSuggestion> newSuggestion = DataHelper.toSuggestionList(materialInfo.data.list);
+                                searchView.swapSuggestions(newSuggestion);
+                            } else {
+                                Toast.makeText(getContext(), R.string.query_success, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Toast.makeText(getContext(), R.string.query_fail, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getContext(), getResources().getString(R.string.network_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFocusCleared() {
+
+            }
+        });
         searchView.setOnBindSuggestionCallback((suggestionView, leftIcon, textView, item, itemPosition) -> {
             if (item instanceof MaterialSuggestion) {
                 MaterialSuggestion materialSuggestion = (MaterialSuggestion) item;
@@ -196,7 +232,6 @@ public class MainFragment extends Fragment {
 
             @Override
             public void onSearchAction(String currentQuery) {
-
             }
         });
     }

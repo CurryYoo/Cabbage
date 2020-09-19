@@ -31,7 +31,8 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".activity.HistoryActivity" />
         <activity android:name=".activity.PwdActivity" />
         <activity android:name=".activity.PlusImageActivity" />
