@@ -1,8 +1,6 @@
 package com.example.cabbage.network;
 
-import android.text.TextUtils;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.io.File;
 import java.util.HashMap;
@@ -12,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -98,7 +95,7 @@ public class HttpRequest {
 
     // 查询材料
     public static void requestSearch(String token, String searchKeyword, IMaterialCallback callback) {
-        requestSearch(token, searchKeyword, 1, 5, callback);
+        requestSearch(token, searchKeyword, 1, 20, callback);
     }
 
     public static void requestSearch(String token, String searchKeyword, int pageNum, int pageSize, IMaterialCallback callback) {
@@ -309,6 +306,21 @@ public class HttpRequest {
         });
     }
 
+    //上传材料类型
+    public static void uploadMaterial(String token, String json, IMaterialCallback callback) {
+        getApi.uploadMaterial(token, json).enqueue(new Callback<MaterialInfo>() {
+            @Override
+            public void onResponse(Call<MaterialInfo> call, Response<MaterialInfo> response) {
+                callback.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<MaterialInfo> call, Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
     public interface IUserInfoCallback {
         void onResponse(UserInfo userInfo);
 
@@ -362,5 +374,4 @@ public class HttpRequest {
 
         void onFailure();
     }
-
 }

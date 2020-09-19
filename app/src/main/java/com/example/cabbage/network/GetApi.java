@@ -65,4 +65,7 @@ public interface GetApi {
     @POST("/qiNiuContent")
     Call<NormalInfo> uploadPicture(@Header("token") String token, @QueryMap Map<String, String> params, @Part MultipartBody.Part file);
 
+    //新增材料类型
+    @POST("/material/addMaterial")
+    Call<MaterialInfo> uploadMaterial(@Header("token") String token,@Query("json") String json);
 }

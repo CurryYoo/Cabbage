@@ -168,7 +168,7 @@ public class GerminationPeriodFragment extends Fragment {
         SharedPreferences sp = self.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         token = sp.getString("token", "");
         userId = sp.getInt("userId", 1);
-        nickname = sp.getString("nickname", "");
+        nickname = sp.getString("username", "");
 
         //newInstance传递必需数据
         Bundle bundle = getArguments();

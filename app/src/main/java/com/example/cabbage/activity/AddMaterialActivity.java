@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
  * Description:
  */
 @Route(path = ARouterPaths.WEB_VIEW_ACTIVITY)
-public class WebViewActivity extends BaseActivity {
+public class AddMaterialActivity extends BaseActivity {
 
     @BindView(R.id.left_one_button)
     ImageView leftOneButton;
@@ -38,10 +38,6 @@ public class WebViewActivity extends BaseActivity {
     LinearLayout leftOneLayout;
     @BindView(R.id.title_text)
     TextView titleText;
-    @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
-    @BindView(R.id.web_view)
-    WebView webView;
 
     private java.lang.String mUrl = "http://47.93.117.9/";//"http://47.93.117.9/"
     View.OnClickListener toolBarOnClickListener = v -> {
@@ -56,44 +52,10 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web_view);
+        setContentView(R.layout.activity_add_material);
         ButterKnife.bind(this);
         initToolbar();
         initView();
-    }
-
-    private void initView() {
-        WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setUseWideViewPort(true);
-        settings.setLoadWithOverviewMode(true);
-        settings.setSupportZoom(true);
-
-        webView.loadUrl(mUrl);
-        progressBar.setMax(100);
-
-        webView.setWebViewClient(new WebViewClient() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                view.loadUrl(String.valueOf(request.getUrl()));
-                return true;
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-
-        webView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                progressBar.setProgress(newProgress);
-            }
-        });
     }
 
     private void initToolbar() {
@@ -102,5 +64,10 @@ public class WebViewActivity extends BaseActivity {
         titleText.setText(R.string.back_end_management_system);
         leftOneLayout.setOnClickListener(toolBarOnClickListener);
     }
+
+    private void initView() {
+
+    }
+
 
 }

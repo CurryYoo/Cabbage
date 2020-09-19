@@ -68,7 +68,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
     private void initView() {
         SharedPreferences sp = Objects.requireNonNull(getContext()).getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        String nickname = sp.getString("nickname", getString(R.string.user_role));
+        String nickname = sp.getString("username", getString(R.string.user_role));
         String headImgUrl = sp.getString("headImgUrl", ""); //暂时没有数据
 
         if (!TextUtils.isEmpty(headImgUrl)) {

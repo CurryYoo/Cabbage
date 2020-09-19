@@ -2,6 +2,7 @@
 <resources>
     <!--    幼苗期-->
     <string-array name="cotyledon_size">
+        <item>未调查</item>
         <item>小</item>
         <item>中</item>
         <item>大</item>
@@ -9,6 +10,7 @@
     </string-array>
 
     <string-array name="cotyledon_color">
+        <item>未调查</item>
         <item>黄</item>
         <item>黄绿</item>
         <item>浅绿</item>
@@ -19,18 +21,21 @@
     </string-array>
 
     <string-array name="cotyledon_count">
+        <item>未调查</item>
         <item>未知</item>
         <item>正常</item>
         <item>异常</item>
     </string-array>
 
     <string-array name="cotyledon_shape">
+        <item>未调查</item>
         <item>心形</item>
         <item>圆形</item>
         <item>其他</item>
     </string-array>
 
     <string-array name="heart_leaf_color">
+        <item>未调查</item>
         <item>白色</item>
         <item>黄色</item>
         <item>黄绿色</item>
@@ -43,6 +48,7 @@
     </string-array>
 
     <string-array name="true_leaf_color">
+        <item>未调查</item>
         <item>白色</item>
         <item>黄色</item>
         <item>黄绿色</item>
@@ -55,18 +61,19 @@
     </string-array>
 
     <string-array name="true_leaf_length">
-        <item>未知</item>
+        <item>未调查</item>
         <item>短</item>
         <item>长</item>
     </string-array>
 
     <string-array name="true_leaf_width">
-        <item>未知</item>
+        <item>未调查</item>
         <item>短</item>
         <item>长</item>
     </string-array>
 
     <string-array name="plant_shape">
+        <item>未调查</item>
         <item>直立</item>
         <item>半直立</item>
         <item>平展</item>
@@ -76,7 +83,7 @@
 
     <!--    莲座期-->
     <string-array name="plant_height">
-        <item>未知</item>
+        <item>未调查</item>
         <item>极矮</item>
         <item>矮</item>
         <item>中</item>
@@ -85,27 +92,28 @@
     </string-array>
 
     <string-array name="development_degree">
-        <item>未知</item>
+        <item>未调查</item>
         <item>小</item>
         <item>中</item>
         <item>大</item>
     </string-array>
 
     <string-array name="leaf_length">
-        <item>未知</item>
+        <item>未调查</item>
         <item>短</item>
         <item>中</item>
         <item>长</item>
     </string-array>
 
     <string-array name="leaf_width">
-        <item>未知</item>
+        <item>未调查</item>
         <item>窄</item>
         <item>中</item>
         <item>宽</item>
     </string-array>
 
     <string-array name="leaf_shape">
+        <item>未调查</item>
         <item>近圆</item>
         <item>宽倒卵</item>
         <item>倒卵</item>
@@ -115,6 +123,7 @@
     </string-array>
 
     <string-array name="leaf_color">
+        <item>未调查</item>
         <item>白</item>
         <item>黄</item>
         <item>黄绿</item>
@@ -126,6 +135,7 @@
     </string-array>
 
     <string-array name="leaf_luster">
+        <item>未调查</item>
         <item>弱</item>
         <item>中</item>
         <item>强</item>
@@ -133,6 +143,7 @@
     </string-array>
 
     <string-array name="leaf_fuzz">
+        <item>未调查</item>
         <item>无</item>
         <item>疏</item>
         <item>中</item>
@@ -141,6 +152,7 @@
     </string-array>
 
     <string-array name="leaf_margin_undulance">
+        <item>未调查</item>
         <item>无</item>
         <item>小</item>
         <item>中</item>
@@ -149,6 +161,7 @@
     </string-array>
 
     <string-array name="leaf_margin_sawtooth">
+        <item>未调查</item>
         <item>全缘（无）</item>
         <item>钝锯（圆齿）</item>
         <item>单锯（锯齿）</item>
@@ -157,6 +170,7 @@
     </string-array>
 
     <string-array name="leaf_smoothness">
+        <item>未调查</item>
         <item>平</item>
         <item>稍皱</item>
         <item>多皱</item>
@@ -166,6 +180,7 @@
     </string-array>
 
     <string-array name="leaf_protuberance">
+        <item>未调查</item>
         <item>无或极小</item>
         <item>小</item>
         <item>中</item>
@@ -174,6 +189,7 @@
     </string-array>
 
     <string-array name="leaf_vein_livingness">
+        <item>未调查</item>
         <item>粗</item>
         <item>中</item>
         <item>细</item>
@@ -181,12 +197,14 @@
     </string-array>
 
     <string-array name="leaf_keel_livingness">
+        <item>未调查</item>
         <item>不明显</item>
         <item>明显</item>
         <item>其他</item>
     </string-array>
 
     <string-array name="leaf_curliness">
+        <item>未调查</item>
         <item>内卷</item>
         <item>外翻</item>
         <item>拧生</item>
@@ -195,6 +213,7 @@
     </string-array>
 
     <string-array name="leaf_curliness_part">
+        <item>未调查</item>
         <item>叶缘</item>
         <item>叶上部</item>
         <item>叶下部</item>
@@ -203,6 +222,7 @@
     </string-array>
 
     <string-array name="leaf_texture">
+        <item>未调查</item>
         <item>软</item>
         <item>硬</item>
         <item>蜡质或革质</item>
@@ -212,6 +232,7 @@
     <!--    结球期-->
     <!--    前三个性状和莲座期相同-->
     <string-array name="is_knot">
+        <item>未调查</item>
         <item>不结球</item>
         <item>半结球</item>
         <item>结球</item>
@@ -219,19 +240,21 @@
     </string-array>
 
     <string-array name="flower_bud">
+        <item>未调查</item>
         <item>无</item>
         <item>有</item>
         <item>其他</item>
     </string-array>
 
     <string-array name="lateral_bud">
+        <item>未调查</item>
         <item>无</item>
         <item>有</item>
         <item>其他</item>
     </string-array>
 
     <string-array name="outer_leaf_length">
-        <item>未知</item>
+        <item>未调查</item>
         <item>极短</item>
         <item>短</item>
         <item>中</item>
@@ -239,7 +262,7 @@
     </string-array>
 
     <string-array name="outer_leaf_width">
-        <item>未知</item>
+        <item>未调查</item>
         <item>极窄</item>
         <item>窄</item>
         <item>中</item>
@@ -248,6 +271,7 @@
     </string-array>
 
     <string-array name="outer_leaf_shape">
+        <item>未调查</item>
         <item>近圆</item>
         <item>宽倒卵</item>
         <item>倒卵</item>
@@ -257,6 +281,7 @@
     </string-array>
 
     <string-array name="outer_leaf_keel_color">
+        <item>未调查</item>
         <item>白</item>
         <item>绿白</item>
         <item>浅绿</item>
@@ -265,13 +290,14 @@
     </string-array>
 
     <string-array name="outer_leaf_keel_thickness">
+        <item>未调查</item>
         <item>薄</item>
         <item>中</item>
         <item>厚</item>
         <item>其他</item>
     </string-array>
     <string-array name="outer_leaf_keel_length">
-        <item>未知</item>
+        <item>未调查</item>
         <item>极短</item>
         <item>短</item>
         <item>中</item>
@@ -279,13 +305,14 @@
     </string-array>
 
     <string-array name="outer_leaf_keel_width">
-        <item>未知</item>
+        <item>未调查</item>
         <item>窄</item>
         <item>中</item>
         <item>宽</item>
     </string-array>
 
     <string-array name="leaf_keel_shape">
+        <item>未调查</item>
         <item>平</item>
         <item>中</item>
         <item>鼓</item>
@@ -293,13 +320,14 @@
     </string-array>
 
     <string-array name="outer_leaf_count">
-        <item>未知</item>
+        <item>未调查</item>
         <item>少</item>
         <item>中</item>
         <item>多</item>
     </string-array>
 
     <string-array name="strobilus_head_closure_type">
+        <item>未调查</item>
         <item>开放</item>
         <item>半开放</item>
         <item>闭合</item>
@@ -307,6 +335,7 @@
     </string-array>
 
     <string-array name="strobilus_head_conjugation_type">
+        <item>未调查</item>
         <item>拧抱</item>
         <item>合抱</item>
         <item>叠抱</item>
@@ -315,6 +344,7 @@
     </string-array>
 
     <string-array name="strobilus_head_shape">
+        <item>未调查</item>
         <item>尖</item>
         <item>圆</item>
         <item>平</item>
@@ -322,6 +352,7 @@
     </string-array>
 
     <string-array name="strobilus_top_color">
+        <item>未调查</item>
         <item>白</item>
         <item>绿</item>
         <item>黄</item>
@@ -330,6 +361,7 @@
     </string-array>
 
     <string-array name="strobilus_top_green_degree">
+        <item>未调查</item>
         <item>浅绿</item>
         <item>绿</item>
         <item>深绿</item>
@@ -337,6 +369,7 @@
     </string-array>
 
     <string-array name="strobilus_shape">
+        <item>未调查</item>
         <item>球形</item>
         <item>头球形</item>
         <item>筒形</item>
@@ -346,7 +379,7 @@
     </string-array>
 
     <string-array name="strobilus_height">
-        <item>未知</item>
+        <item>未调查</item>
         <item>极矮</item>
         <item>矮</item>
         <item>中</item>
@@ -355,13 +388,14 @@
     </string-array>
 
     <string-array name="strobilus_width">
-        <item>未知</item>
+        <item>未调查</item>
         <item>小</item>
         <item>中</item>
         <item>大</item>
     </string-array>
 
     <string-array name="strobilus_compaction">
+        <item>未调查</item>
         <item>松</item>
         <item>中</item>
         <item>紧</item>
@@ -369,6 +403,7 @@
     </string-array>
 
     <string-array name="strobilus_inner_color">
+        <item>未调查</item>
         <item>白</item>
         <item>浅黄</item>
         <item>中等黄</item>
@@ -378,7 +413,7 @@
     </string-array>
 
     <string-array name="strobilus_leaf_count">
-        <item>未知</item>
+        <item>未调查</item>
         <item>极少</item>
         <item>少</item>
         <item>中</item>
@@ -386,13 +421,14 @@
     </string-array>
 
     <string-array name="soft_leaf_rate">
+        <item>未调查</item>
         <item>低</item>
         <item>中</item>
         <item>高</item>
     </string-array>
 
     <string-array name="strobilus_mass">
-        <item>未知</item>
+        <item>未调查</item>
         <item>极轻</item>
         <item>轻</item>
         <item>中</item>
@@ -400,13 +436,14 @@
     </string-array>
 
     <string-array name="clean_veg_rate">
-        <item>未知</item>
+        <item>未调查</item>
         <item>低</item>
         <item>中</item>
         <item>高</item>
     </string-array>
 
     <string-array name="center_shape">
+        <item>未调查</item>
         <item>扁圆</item>
         <item>近圆</item>
         <item>近椭圆</item>
@@ -415,13 +452,14 @@
     </string-array>
 
     <string-array name="center_length">
-        <item>未知</item>
+        <item>未调查</item>
         <item>短</item>
         <item>中</item>
         <item>长</item>
     </string-array>
 
     <string-array name="harvest_type">
+        <item>未调查</item>
         <item>极早熟</item>
         <item>早熟</item>
         <item>中熟</item>
@@ -431,6 +469,7 @@
     </string-array>
 
     <string-array name="harvest_delay_time_early">
+        <item>未调查</item>
         <item>短</item>
         <item>中</item>
         <item>长</item>
@@ -438,6 +477,7 @@
     </string-array>
 
     <string-array name="harvest_delay_time_late">
+        <item>未调查</item>
         <item>短</item>
         <item>中</item>
         <item>长</item>
@@ -446,7 +486,7 @@
 
     <!--    储藏期-->
     <string-array name="loss_rate">
-        <item>未知</item>
+        <item>未调查</item>
         <item>差</item>
         <item>中</item>
         <item>好</item>
@@ -454,13 +494,14 @@
 
     <!--    现蕾开花期-->
     <string-array name="half_plant_flower_bud">
-        <item>未知</item>
+        <item>未调查</item>
         <item>弱</item>
         <item>中</item>
         <item>强</item>
     </string-array>
 
     <string-array name="flower_bud_status">
+        <item>未调查</item>
         <item>正常</item>
         <item>花中花</item>
         <item>花瓣萼片化</item>
@@ -470,19 +511,21 @@
     </string-array>
 
     <string-array name="flower_bud_shape">
+        <item>未调查</item>
         <item>瘦长</item>
         <item>钝圆</item>
         <item>其他</item>
     </string-array>
 
     <string-array name="flower_bud_size">
-        <item>未知</item>
+        <item>未调查</item>
         <item>小</item>
         <item>中</item>
         <item>大</item>
     </string-array>
 
     <string-array name="petal_shape">
+        <item>未调查</item>
         <item>近圆</item>
         <item>倒卵</item>
         <item>长倒卵</item>
@@ -490,13 +533,14 @@
     </string-array>
 
     <string-array name="petal_size">
-        <item>未知</item>
+        <item>未调查</item>
         <item>小</item>
         <item>中</item>
         <item>大</item>
     </string-array>
 
     <string-array name="petal_color">
+        <item>未调查</item>
         <item>白色</item>
         <item>浅黄色</item>
         <item>黄色</item>
@@ -506,6 +550,7 @@
     </string-array>
 
     <string-array name="branch_ability">
+        <item>未调查</item>
         <item>弱</item>
         <item>中等</item>
         <item>强</item>
@@ -513,7 +558,7 @@
     </string-array>
 
     <string-array name="single_flower_sterile_degree">
-        <item>未知</item>
+        <item>未调查</item>
         <item>可育花</item>
         <item>低不育花</item>
         <item>半不育花</item>
@@ -522,7 +567,7 @@
     </string-array>
 
     <string-array name="single_plant_sterile_degree">
-        <item>未知</item>
+        <item>未调查</item>
         <item>全可育株</item>
         <item>低不育株</item>
         <item>半不育株</item>
@@ -532,20 +577,21 @@
     </string-array>
 
     <string-array name="group_sterile_degree">
-        <item>未知</item>
+        <item>未调查</item>
         <item>低</item>
         <item>中</item>
         <item>高</item>
     </string-array>
 
     <string-array name="group_sterile_rate">
-        <item>未知</item>
+        <item>未调查</item>
         <item>低</item>
         <item>中</item>
         <item>高</item>
     </string-array>
 
     <string-array name="male_sterile">
+        <item>未调查</item>
         <item>细胞质</item>
         <item>质核互作</item>
         <item>核基因互作</item>
@@ -556,27 +602,28 @@
 
     <!--    结荚与种子收获期期-->
     <string-array name="seed_pod_length">
-        <item>未知</item>
+        <item>未调查</item>
         <item>短</item>
         <item>中</item>
         <item>长</item>
     </string-array>
 
     <string-array name="seed_pod_beak_length">
-        <item>未知</item>
+        <item>未调查</item>
         <item>短</item>
         <item>中</item>
         <item>长</item>
     </string-array>
 
     <string-array name="seed_size">
-        <item>未知</item>
+        <item>未调查</item>
         <item>小</item>
         <item>中</item>
         <item>大</item>
     </string-array>
 
     <string-array name="seed_shape">
+        <item>未调查</item>
         <item>扁</item>
         <item>圆</item>
         <item>不规则</item>
@@ -584,6 +631,7 @@
     </string-array>
 
     <string-array name="seed_color">
+        <item>未调查</item>
         <item>黄</item>
         <item>浅褐</item>
         <item>红褐</item>
@@ -594,7 +642,7 @@
     </string-array>
 
     <string-array name="self_compatible">
-        <item>未知</item>
+        <item>未调查</item>
         <item>不亲和</item>
         <item>弱亲和</item>
         <item>中亲和</item>
