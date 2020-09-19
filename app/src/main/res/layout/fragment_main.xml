@@ -8,52 +8,88 @@
     tools:context=".fragment.MainFragment">
 
     <LinearLayout
-        android:id="@+id/btn_paste_data"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:layout_margin="12dp"
-        android:background="@drawable/selector_5_button_light"
-        android:elevation="3dp"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@string/paste"
-            android:src="@mipmap/ic_paste" />
+        <LinearLayout
+            android:id="@+id/btn_add_material"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_weight="1"
+            android:background="@drawable/selector_5_button_light"
+            android:elevation="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/copy_paste_and_create"
-            android:textSize="12sp" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:contentDescription="@string/paste"
+                android:src="@mipmap/ic_add_material" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_material"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_paste_data"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_weight="1"
+            android:background="@drawable/selector_5_button_light"
+            android:elevation="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:contentDescription="@string/paste"
+                android:src="@mipmap/ic_paste" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/copy_paste_and_create"
+                android:textSize="12sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/btn_add_material"
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:layout_margin="12dp"
-        android:background="@drawable/selector_5_button_light"
-        android:elevation="3dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:text="@string/last_material"
+        android:textSize="12sp"
+        android:textColor="@color/help_text"/>
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@string/paste"
-            android:src="@mipmap/ic_round_add" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_material"
-            android:textSize="12sp" />
-    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_last"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bg_stroke"
+        android:padding="@dimen/dp_5"/>
 
     <com.arlib.floatingsearchview.FloatingSearchView
         android:id="@+id/search_view"

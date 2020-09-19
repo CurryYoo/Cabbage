@@ -2,6 +2,7 @@ package com.example.cabbage.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -10,27 +11,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.SurveyPageAdapter;
 import com.example.cabbage.base.BaseActivity;
-import com.example.cabbage.fragment.FloweringPeriodFragment;
-import com.example.cabbage.fragment.GerminationPeriodFragment;
-import com.example.cabbage.fragment.HarvestPeriodFragment;
-import com.example.cabbage.fragment.HeadingPeriodFragment;
-import com.example.cabbage.fragment.RosettePeriodFragment;
-import com.example.cabbage.fragment.SeedHarvestPeriodFragment;
-import com.example.cabbage.fragment.SeedlingPeriodFragment;
-import com.example.cabbage.fragment.StoragePeriodFragment;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.view.ScaleTransitionPagerTitleView;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -56,7 +49,6 @@ import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_ROSETTE;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEEDLING;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_SEED_HARVEST;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_STORAGE;
-import static com.example.cabbage.utils.UIUtils.checkPeriod;
 
 /**
  * Author:created by Kang on 2020/9/9
@@ -79,6 +71,10 @@ public class SurveyActivity extends BaseActivity {
     public String surveyId;
     @Autowired(name = "surveyPeriod")
     public String surveyPeriod;
+
+    //存储最近三个材料信息
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
     @BindView(R.id.view_pager_indicator)
     MagicIndicator viewPagerIndicator;
@@ -107,9 +103,10 @@ public class SurveyActivity extends BaseActivity {
         setContentView(R.layout.activtiy_survey);
         ButterKnife.bind(this);
 
-        intent=getIntent();
-        surveyPeriod=intent.getStringExtra("surveyPeriod");
-
+        intent = getIntent();
+        materialId=intent.getStringExtra("materialId");
+        materialType=intent.getStringExtra("materialType");
+        surveyPeriod = intent.getStringExtra("surveyPeriod");
 
         mTitleDataList = new ArrayList<String>() {{
             add(getResources().getString(R.string.title_germination_period));
@@ -124,6 +121,40 @@ public class SurveyActivity extends BaseActivity {
 
         initToolbar();
         initViewPager();
+        initLastMaterial();
+    }
+
+    private void initLastMaterial() {
+        sp = getSharedPreferences("lastMaterial", MODE_PRIVATE);
+        editor = sp.edit();
+        JsonObject jsonObject = new JsonObject();
+
+        JsonObject jsonObjectOld = new JsonParser().parse(sp.getString("lastMaterial", jsonObject.toString())).getAsJsonObject();
+        if(jsonObjectOld.get("lastMaterialNumber1")!=null){
+            if(jsonObjectOld.get("lastMaterialNumber1").getAsString().equals(materialId)){
+                return;
+            }
+        }
+        if (jsonObjectOld.get("lastMaterialNumber2") != null) {
+            if(jsonObjectOld.get("lastMaterialNumber2").getAsString().equals(materialId)){
+                return;
+            }
+            jsonObject.addProperty("lastMaterialNumber1", jsonObjectOld.get("lastMaterialNumber2").getAsString());
+            jsonObject.addProperty("lastMaterialType1", jsonObjectOld.get("lastMaterialType2").getAsString());
+
+        }
+        if (jsonObjectOld.get("lastMaterialNumber3") != null ) {
+            if(jsonObjectOld.get("lastMaterialNumber3").getAsString().equals(materialId)){
+                return;
+            }
+            jsonObject.addProperty("lastMaterialNumber2", jsonObjectOld.get("lastMaterialNumber3").getAsString());
+            jsonObject.addProperty("lastMaterialType2", jsonObjectOld.get("lastMaterialType3").getAsString());
+        }
+
+        jsonObject.addProperty("lastMaterialNumber3", materialId);
+        jsonObject.addProperty("lastMaterialType3", materialType);
+        editor.putString("lastMaterial", jsonObject.toString());
+        editor.apply();
     }
 
     private void initToolbar() {

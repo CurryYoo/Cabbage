@@ -69,7 +69,7 @@ public interface GetApi {
 
     //新增材料类型
     @POST("/material/addMaterial")
-    Call<MaterialInfo> uploadMaterial(@Header("token") String token, @Body RequestBody requestBody);
+    Call<MaterialInfo> uploadMaterial(@Header("token") String token, @Body MaterialData materialData);
 
     //根据material number 精确查询
     @GET("/material/findMaterialByNumber")

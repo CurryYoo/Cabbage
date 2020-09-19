@@ -34,24 +34,4 @@ public class MaterialData {
     public String paternal;
     public String maternal;
     public int userId;
-
-    @NotNull
-    @Override
-    public String toString() {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("materialNumber", materialNumber);
-        jsonObject.addProperty("materialType", materialType);
-        jsonObject.addProperty("materialName", materialName);
-        jsonObject.addProperty("year", year);
-        jsonObject.addProperty("season", season);
-        jsonObject.addProperty("origin", origin);
-        jsonObject.addProperty("feature", feature);
-        jsonObject.addProperty("oddLeeds", oddLeeds);
-        jsonObject.addProperty("experiment", experiment);
-        jsonObject.addProperty("paternal", paternal);
-        jsonObject.addProperty("maternal", maternal);
-        jsonObject.addProperty("userId", userId);
-
-        return jsonObject.toString();
-    }
 }

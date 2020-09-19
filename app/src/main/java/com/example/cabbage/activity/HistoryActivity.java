@@ -78,18 +78,6 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 
                 historyAdapter = new HistoryAdapter(R.layout.item_history, historyInfo.data.list);
 
-//                //点击跳转旧采集页面
-//                historyAdapter.setOnItemClickListener((adapter, view, position) -> ARouter.getInstance()
-//                        .build(ARouterPaths.SURVEY_ACTIVITY2)
-//                        .withString("surveyId", historyInfo.data.list.get(position).getObservationId())
-//                        .withString("materialId", historyInfo.data.list.get(position).getMaterialNumber())
-//                        .withString("materialType", historyInfo.data.list.get(position).getMaterialType())
-//                        .withString("plantId", historyInfo.data.list.get(position).getPlantNumber())
-//                        .withString("investigatingTime", historyInfo.data.list.get(position).getInvestigatingTime())
-//                        .withString("surveyPeriod", historyInfo.data.list.get(position).getObsPeriod())
-//                        .withInt("status", STATUS_READ)
-//                        .navigation());
-
                 //点击跳转历史页面
                 historyAdapter.setOnItemClickListener((adapter, view, position) -> ARouter.getInstance()
                         .build(ARouterPaths.HISTORY_DETAIL_ACTIVITY2)
@@ -122,6 +110,7 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 
     private void initView() {
         leftOneButton.setImageResource(R.mipmap.ic_back);
+        leftOneButton.setBackgroundResource(R.drawable.selector_trans_button);
         titleText.setText(R.string.species_data_pick_history);
 
         leftOneLayout.setOnClickListener(this);

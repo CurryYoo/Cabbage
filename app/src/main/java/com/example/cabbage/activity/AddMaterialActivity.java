@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.cabbage.R;
 import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.network.HttpRequest;
@@ -25,6 +26,7 @@ import com.example.cabbage.utils.ARouterPaths;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.UIUtils.checkIsValid;
 
 /**
@@ -144,11 +146,17 @@ public class AddMaterialActivity extends BaseActivity {
             materialData.feature=edtMaterialFeature.getText().toString();
             materialData.oddLeeds=edtMaterialOddLeeds.getText().toString();
             materialData.paternal=edtMaterialPaternal.getText().toString();
-            HttpRequest.uploadMaterial(token, materialData.toString(), new HttpRequest.IMaterialCallback() {
+            HttpRequest.uploadMaterial(token, materialData, new HttpRequest.IMaterialCallback() {
                 @Override
                 public void onResponse(MaterialInfo materialInfo) {
                     if (materialInfo.code == 200) {
                         Toast.makeText(self, R.string.update_success, Toast.LENGTH_SHORT).show();
+                        ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
+                                .withString("materialId", edtMaterialNumber.getText().toString())
+                                .withString("materialType", edtMaterialType.getText().toString())
+                                .withInt("status", STATUS_NEW)
+                                .navigation();
+                        finish();
                     } else {
                         Toast.makeText(self, materialInfo.toString(), Toast.LENGTH_SHORT).show();
                     }

@@ -204,7 +204,7 @@
     <!--    app main page string-->
     <string name="copy">复制</string>
     <string name="paste">粘贴</string>
-    <string name="copy_paste_and_create">使用历史数据创建新调查数据</string>
+    <string name="copy_paste_and_create">历史数据创建</string>
     <string name="add_material">添加材料</string>
     <string name="query_material">材料搜索…</string>
 
@@ -237,4 +237,5 @@
 
     //无需翻译
     <string name="option_success">操作成功</string>
+    <string name="last_material">最近调查材料</string>
 </resources>

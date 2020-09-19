@@ -3,7 +3,6 @@ package com.example.cabbage.utils;
 public interface ARouterPaths {
 
     String LOGIN_ACTIVITY="/app/login";
-    String SURVEY_ACTIVITY2 ="/app/survey2";
     String SURVEY_ACTIVITY ="/app/survey";
     String MAIN_ACTIVITY="/app/main";
     String HISTORY_ACTIVITY="/app/history";
