@@ -486,7 +486,7 @@ public class HeadingPeriodFragment extends Fragment {
                     if (resultInfo.code == 200 && resultInfo.message.equals(getString(R.string.option_success))) {
                         uploadPics(resultInfo.data.observationId);
                         SurveyActivity surveyActivity= (SurveyActivity) getActivity();
-                        surveyActivity.initLastMaterial();
+                        surveyActivity.initLastMaterial(surveyPeriod);
                         Toast.makeText(self, R.string.update_success, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(self, R.string.update_fail, Toast.LENGTH_SHORT).show();
