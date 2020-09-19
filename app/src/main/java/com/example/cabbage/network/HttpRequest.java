@@ -307,8 +307,8 @@ public class HttpRequest {
     }
 
     //上传材料类型
-    public static void uploadMaterial(String token, String json, IMaterialCallback callback) {
-        getApi.uploadMaterial(token, json).enqueue(new Callback<MaterialInfo>() {
+    public static void uploadMaterial(String token, MaterialData materialData, IMaterialCallback callback) {
+        getApi.uploadMaterial(token, materialData).enqueue(new Callback<MaterialInfo>() {
             @Override
             public void onResponse(Call<MaterialInfo> call, Response<MaterialInfo> response) {
                 callback.onResponse(response.body());
@@ -316,6 +316,7 @@ public class HttpRequest {
 
             @Override
             public void onFailure(Call<MaterialInfo> call, Throwable t) {
+                t.printStackTrace();
                 callback.onFailure();
             }
         });
@@ -374,4 +375,6 @@ public class HttpRequest {
 
         void onFailure();
     }
+
+
 }

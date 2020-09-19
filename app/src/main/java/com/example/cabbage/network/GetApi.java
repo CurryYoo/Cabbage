@@ -67,5 +67,5 @@ public interface GetApi {
 
     //新增材料类型
     @POST("/material/addMaterial")
-    Call<MaterialInfo> uploadMaterial(@Header("token") String token,@Query("json") String json);
+    Call<MaterialInfo> uploadMaterial(@Header("token") String token,@Query("materialInfo") MaterialData materialData);
 }

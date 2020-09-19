@@ -51,7 +51,7 @@ public class MainFragment extends Fragment {
     FloatingSearchView searchView;
     @BindView(R.id.btn_paste_data)
     LinearLayout btnPasteData;
-    @BindView(R.id.btn_web_view)
+    @BindView(R.id.btn_add_material)
     LinearLayout btnWebView;
     private Context self;
     private Unbinder unbinder;
@@ -77,8 +77,8 @@ public class MainFragment extends Fragment {
                     Toast.makeText(getContext(), R.string.data_no_get, Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.btn_web_view:
-                ARouter.getInstance().build(ARouterPaths.WEB_VIEW_ACTIVITY).navigation();
+            case R.id.btn_add_material:
+                ARouter.getInstance().build(ARouterPaths.ADD_MATERIAL_ACTIVITY).navigation();
                 break;
             default:
                 break;

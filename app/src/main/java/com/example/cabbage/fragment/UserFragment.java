@@ -73,7 +73,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
         if (!TextUtils.isEmpty(headImgUrl)) {
             //加载网络图片
-
         } else {
             imgAvatar.setImageResource(R.mipmap.ic_user_avatar);
         }

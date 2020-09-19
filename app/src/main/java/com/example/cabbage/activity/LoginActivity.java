@@ -111,8 +111,8 @@ public class LoginActivity extends BaseActivity {
 
     @SuppressLint("SetTextI18n")
     public void fastLogin() {
-        etAccount.setText("admin");
-        etPassword.setText("admin");
+        etAccount.setText("kang");
+        etPassword.setText("kang");
     }
 
 

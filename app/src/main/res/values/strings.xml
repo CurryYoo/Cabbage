@@ -205,7 +205,7 @@
     <string name="copy">复制</string>
     <string name="paste">粘贴</string>
     <string name="copy_paste_and_create">使用历史数据创建新调查数据</string>
-    <string name="web_system">进入后台管理系统</string>
+    <string name="add_material">添加材料</string>
     <string name="query_material">材料搜索…</string>
 
     <!--    app user page string-->
@@ -228,4 +228,5 @@
     <string name="language_en">ENGLISH</string>
     <string name="language_auto">自动</string>
     <string name="choose_language">当前用户选择语言: %s</string>
+    <string name="limt_of_material">年份（4位数字）+季节（1个字母）-字母（0-3个）+数字（1-4位/个）</string>
 </resources>

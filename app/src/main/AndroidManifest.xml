@@ -31,7 +31,6 @@
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activity.SurveyActivity2" />
         <activity android:name=".activity.HistoryActivity" />
         <activity android:name=".activity.PwdActivity" />
         <activity android:name=".activity.PlusImageActivity" />

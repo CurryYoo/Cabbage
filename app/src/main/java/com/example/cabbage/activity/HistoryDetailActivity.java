@@ -51,7 +51,7 @@ import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_STORAGE;
 /**
  * Author:created by Kang on 2020/9/9
  * Email:zyk970512@163.com
- * Annotation:详细历史调查采集页面
+ * Annotation:详细历史调查采集页面,目前未用到
  */
 @Route(path = ARouterPaths.HISTORY_DETAIL_ACTIVITY)
 public class HistoryDetailActivity extends BaseActivity {

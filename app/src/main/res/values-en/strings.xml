@@ -204,7 +204,7 @@
     <string name="copy">copy</string>
     <string name="paste">Paste</string>
     <string name="copy_paste_and_create">Use historical data to create new survey data</string>
-    <string name="web_system">Enter the background management system</string>
+    <string name="add_material">Add Material</string>
     <string name="query_material">Material Search…</string>
 
     <!--    app user page string-->
@@ -230,4 +230,5 @@
 
     //无需翻译
     <string name="option_success">操作成功</string>
+    <string name="limt_of_material">年份（4位数字）+季节（1个字母）-字母（0-3个）+数字（1-4位/个）</string>
 </resources>
