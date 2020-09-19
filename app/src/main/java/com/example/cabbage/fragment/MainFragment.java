@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +52,7 @@ import butterknife.Unbinder;
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
+import static java.util.concurrent.Executors.newSingleThreadExecutor;
 
 /**
  * Author:created by Kang on 2020/9/9
@@ -63,6 +66,8 @@ public class MainFragment extends Fragment {
     LinearLayout btnPasteData;
     @BindView(R.id.btn_add_material)
     LinearLayout btnWebView;
+    @BindView(R.id.btn_cache_data)
+    LinearLayout btnCacheData;
     @BindView(R.id.recycler_view_last)
     RecyclerView recyclerViewLast;
     private Context self;
@@ -72,6 +77,9 @@ public class MainFragment extends Fragment {
     private SharedPreferences sp;
     private List<MaterialData> lastList = new ArrayList<>();
     private LastMaterialAdapter lastMaterialAdapter;
+
+    private static ExecutorService executorService = newSingleThreadExecutor();
+    private Handler handler = new Handler();
 
     private View.OnClickListener onClickListener = v -> {
         switch (v.getId()) {
@@ -96,6 +104,19 @@ public class MainFragment extends Fragment {
             case R.id.btn_add_material:
                 ARouter.getInstance().build(ARouterPaths.ADD_MATERIAL_ACTIVITY).navigation();
                 break;
+            case R.id.btn_cache_data:
+                boolean hasCache = sp.getBoolean("hasCache", false);
+                if (hasCache) {
+                    executorService.execute(() -> {
+                        //访问文件数据
+
+                        // ui
+                        handler.post(() -> {
+
+                        });
+                    });
+                }
+                break;
             default:
                 break;
         }
@@ -116,6 +137,7 @@ public class MainFragment extends Fragment {
         sp = getContext().getSharedPreferences("userInfo", MODE_PRIVATE);
         token = sp.getString("token", "");
         btnPasteData.setOnClickListener(onClickListener);
+        btnCacheData.setOnClickListener(onClickListener);
         btnWebView.setOnClickListener(onClickListener);
 
         initView();

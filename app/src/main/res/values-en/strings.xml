@@ -206,6 +206,7 @@
     <string name="paste">Paste</string>
     <string name="copy_paste_and_create">Historical data to create</string>
     <string name="add_material">Add Material</string>
+    <string name="cache_data_review">Review cache</string>
     <string name="query_material">Material Search…</string>
 
     <!--    app user page string-->

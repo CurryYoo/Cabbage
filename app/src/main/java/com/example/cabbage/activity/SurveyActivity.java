@@ -84,6 +84,10 @@ public class SurveyActivity extends BaseActivity {
     ImageView leftOneButton;
     @BindView(R.id.left_one_layout)
     LinearLayout leftOneLayout;
+    @BindView(R.id.right_one_button)
+    ImageView rightOneButton;
+    @BindView(R.id.right_one_layout)
+    LinearLayout rightOneLayout;
     @BindView(R.id.title_text)
     TextView titleText;
     View.OnClickListener toolBarOnClickListener = v -> {
@@ -124,6 +128,7 @@ public class SurveyActivity extends BaseActivity {
 
         initToolbar();
         initViewPager();
+
     }
 
     public void initLastMaterial() {
@@ -173,6 +178,8 @@ public class SurveyActivity extends BaseActivity {
     private void initToolbar() {
         leftOneButton.setBackgroundResource(R.mipmap.ic_back);
         leftOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
+        rightOneButton.setBackgroundResource(R.mipmap.ic_cache_save);
+        rightOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
         titleText.setText(R.string.species_data_pick);
         leftOneLayout.setOnClickListener(toolBarOnClickListener);
     }
@@ -242,6 +249,12 @@ public class SurveyActivity extends BaseActivity {
                     break;
             }
         }
+    }
+
+    private void initAction() {
+        rightOneLayout.setOnClickListener(v -> {
+
+        });
     }
 
     @Override

@@ -71,7 +71,7 @@ import static com.example.cabbage.utils.UIUtils.showBottomHelpDialog;
  * Date:2020/9/10
  * Description:现蕾开花期
  */
-public class FloweringPeriodFragment extends Fragment {
+public class FloweringPeriodFragment extends BaseSurveyFragment {
 
     @BindView(R.id.edt_material_id)
     EditText edtMaterialId;
@@ -757,5 +757,10 @@ public class FloweringPeriodFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void cacheData() {
+
     }
 }

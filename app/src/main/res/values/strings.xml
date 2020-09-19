@@ -206,6 +206,7 @@
     <string name="paste">粘贴</string>
     <string name="copy_paste_and_create">历史数据创建</string>
     <string name="add_material">添加材料</string>
+    <string name="cache_data_review">查看缓存</string>
     <string name="query_material">材料搜索…</string>
 
     <!--    app user page string-->
