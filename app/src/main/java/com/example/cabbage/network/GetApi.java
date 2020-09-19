@@ -3,7 +3,9 @@ package com.example.cabbage.network;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -67,5 +69,5 @@ public interface GetApi {
 
     //新增材料类型
     @POST("/material/addMaterial")
-    Call<MaterialInfo> uploadMaterial(@Header("token") String token,@Query("materialInfo") MaterialData materialData);
+    Call<MaterialInfo> uploadMaterial(@Header("token") String token, @Body RequestBody requestBody);
 }

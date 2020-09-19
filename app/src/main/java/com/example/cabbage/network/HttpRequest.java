@@ -307,8 +307,10 @@ public class HttpRequest {
     }
 
     //上传材料类型
-    public static void uploadMaterial(String token, MaterialData materialData, IMaterialCallback callback) {
-        getApi.uploadMaterial(token, materialData).enqueue(new Callback<MaterialInfo>() {
+    public static void uploadMaterial(String token, String materialData, IMaterialCallback callback) {
+        RequestBody requestBody = RequestBody.create(materialData, MediaType.parse("application/json"));
+
+        getApi.uploadMaterial(token, requestBody).enqueue(new Callback<MaterialInfo>() {
             @Override
             public void onResponse(Call<MaterialInfo> call, Response<MaterialInfo> response) {
                 callback.onResponse(response.body());

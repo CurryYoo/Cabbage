@@ -111,7 +111,7 @@ public class AddMaterialActivity extends BaseActivity {
             materialData.materialNumber=edtMaterialNumber.getText().toString();
             materialData.materialType=edtMaterialType.getText().toString();
             Timber.d(materialData.toString());
-            HttpRequest.uploadMaterial(token, materialData, new HttpRequest.IMaterialCallback() {
+            HttpRequest.uploadMaterial(token, materialData.toString(), new HttpRequest.IMaterialCallback() {
                 @Override
                 public void onResponse(MaterialInfo materialInfo) {
 //                    if (materialInfo.code == 200) {
