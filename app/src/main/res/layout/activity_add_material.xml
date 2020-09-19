@@ -9,53 +9,106 @@
         android:id="@+id/toolbar"
         layout="@layout/tool_bar" />
 
-    <TextView
-        android:id="@+id/txt_material_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/material_number"
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_confirm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    <EditText
-        android:id="@+id/edt_material_number"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_10_light"
-        android:padding="@dimen/dp_10"
-        android:textSize="12sp"
-        android:maxLines="1"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/txt_material_number"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        <GridLayout
+            android:id="@+id/grid_lay_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:columnCount="2">
 
-    <TextView
-        android:id="@+id/txt_material_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/material_type"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_material_number" />
+            <TextView
+                android:id="@+id/txt_material_number"
+                style="@style/style_txt_in_grid"
+                android:text="@string/material_number" />
 
-    <EditText
-        android:id="@+id/edt_material_type"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_10_light"
-        android:padding="@dimen/dp_10"
-        android:textSize="12sp"
-        android:maxLines="1"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/txt_material_type"
-        app:layout_constraintTop_toBottomOf="@id/edt_material_number" />
+            <EditText
+                android:id="@+id/edt_material_number"
+                style="@style/style_edit_in_grid"
+                android:hint="@string/must_required" />
+
+            <TextView
+                android:id="@+id/txt_material_type"
+                style="@style/style_txt_in_grid"
+                android:text="@string/material_type" />
+
+            <EditText
+                android:id="@+id/edt_material_type"
+                style="@style/style_edit_in_grid"
+                android:hint="@string/must_required" />
+
+            <TextView
+                android:id="@+id/txt_material_year"
+                style="@style/style_txt_in_grid"
+                android:text="@string/material_year" />
+
+            <EditText
+                android:id="@+id/edt_material_year"
+                style="@style/style_edit_in_grid" />
+
+            <TextView
+                android:id="@+id/txt_material_season"
+                style="@style/style_txt_in_grid"
+                android:text="@string/season" />
+
+            <EditText
+                android:id="@+id/edt_material_season"
+                style="@style/style_edit_in_grid" />
+
+            <TextView
+                android:id="@+id/txt_material_origin"
+                style="@style/style_txt_in_grid"
+                android:text="@string/origin" />
+
+            <EditText
+                android:id="@+id/edt_material_origin"
+                style="@style/style_edit_in_grid" />
+
+            <TextView
+                android:id="@+id/txt_material_feature"
+                style="@style/style_txt_in_grid"
+                android:text="@string/feature" />
+
+            <EditText
+                android:id="@+id/edt_material_feature"
+                style="@style/style_edit_in_grid" />
+
+            <TextView
+                android:id="@+id/txt_material_oddLeeds"
+                style="@style/style_txt_in_grid"
+                android:text="@string/oddLeeds" />
+
+            <EditText
+                android:id="@+id/edt_material_oddLeeds"
+                style="@style/style_edit_in_grid" />
+
+            <TextView
+                android:id="@+id/txt_material_experiment"
+                style="@style/style_txt_in_grid"
+                android:text="@string/experiment" />
+
+            <EditText
+                android:id="@+id/edt_material_experiment"
+                style="@style/style_edit_in_grid" />
+
+            <TextView
+                android:id="@+id/txt_material_paternal"
+                style="@style/style_txt_in_grid"
+                android:text="@string/paternal" />
+
+            <EditText
+                android:id="@+id/edt_material_paternal"
+                style="@style/style_edit_in_grid" />
+
+        </GridLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btn_confirm"
@@ -66,5 +119,6 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:text="@string/save_data"
-        app:layout_constraintTop_toBottomOf="@id/edt_material_type" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

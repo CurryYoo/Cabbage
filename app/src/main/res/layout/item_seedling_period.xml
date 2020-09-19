@@ -47,11 +47,13 @@
                     android:id="@+id/btn_cotyledon_size"
                     style="@style/style_basic_help_btn" />
 
-                <include layout="@layout/view_vertical_divider" />
+                <include layout="@layout/view_vertical_divider"
+                    android:visibility="gone" />
 
                 <com.example.cabbage.view.CountButton
                     android:id="@+id/btn_add_cotyledon_size"
-                    style="@style/style_btn_add_attribute" />
+                    style="@style/style_btn_add_attribute"
+                    android:visibility="gone"/>
             </LinearLayout>
     </LinearLayout>
 
@@ -358,12 +360,14 @@
                     android:id="@+id/btn_true_leaf_length"
                     style="@style/style_basic_help_btn" />
 
-                <include layout="@layout/view_vertical_divider" />
+                <include layout="@layout/view_vertical_divider"
+                    android:visibility="gone"/>
 
 
                 <com.example.cabbage.view.CountButton
                     android:id="@+id/btn_add_true_leaf_length"
-                    style="@style/style_btn_add_attribute"/>
+                    style="@style/style_btn_add_attribute"
+                    android:visibility="gone"/>
             </LinearLayout>
     </LinearLayout>
 
@@ -408,12 +412,14 @@
                     android:id="@+id/btn_true_leaf_width"
                     style="@style/style_basic_help_btn" />
 
-                <include layout="@layout/view_vertical_divider" />
+                <include layout="@layout/view_vertical_divider"
+                    android:visibility="gone"/>
 
 
                 <com.example.cabbage.view.CountButton
                     android:id="@+id/btn_add_true_leaf_width"
-                    style="@style/style_btn_add_attribute" />
+                    style="@style/style_btn_add_attribute"
+                    android:visibility="gone" />
             </LinearLayout>
     </LinearLayout>
 

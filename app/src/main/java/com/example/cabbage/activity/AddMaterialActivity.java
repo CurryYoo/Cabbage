@@ -19,12 +19,11 @@ import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.MaterialData;
 import com.example.cabbage.network.MaterialInfo;
+import com.example.cabbage.network.MaterialNumberInfo;
 import com.example.cabbage.utils.ARouterPaths;
-import com.google.gson.JsonObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 import static com.example.cabbage.utils.UIUtils.checkIsValid;
 
@@ -48,12 +47,25 @@ public class AddMaterialActivity extends BaseActivity {
     EditText edtMaterialType;
     @BindView(R.id.btn_confirm)
     Button btnConfirm;
+    @BindView(R.id.edt_material_year)
+    EditText edtMaterialYear;
+    @BindView(R.id.edt_material_season)
+    EditText edtMaterialSeason;
+    @BindView(R.id.edt_material_origin)
+    EditText edtMaterialOrigin;
+    @BindView(R.id.edt_material_feature)
+    EditText edtMaterialFeature;
+    @BindView(R.id.edt_material_oddLeeds)
+    EditText edtMaterialOddLeeds;
+    @BindView(R.id.edt_material_experiment)
+    EditText edtMaterialExperiment;
+    @BindView(R.id.edt_material_paternal)
+    EditText edtMaterialPaternal;
 
     private Context self;
     private int userId;
     private String token;
 
-    private String mUrl = "http://47.93.117.9/";//"http://47.93.117.9/"
     View.OnClickListener toolBarOnClickListener = v -> {
         switch (v.getId()) {
             case R.id.left_one_layout:
@@ -66,7 +78,7 @@ public class AddMaterialActivity extends BaseActivity {
         if (checkIsValid(edtMaterialNumber) || checkIsValid(edtMaterialType)) {
             Toast.makeText(this, R.string.check_required, Toast.LENGTH_SHORT).show();
         } else {
-            uploadMaterialNumber();
+            queryMaterialByNumber();
         }
     };
 
@@ -90,7 +102,7 @@ public class AddMaterialActivity extends BaseActivity {
     private void initToolbar() {
         leftOneButton.setBackgroundResource(R.mipmap.ic_back);
         leftOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
-        titleText.setText(R.string.back_end_management_system);
+        titleText.setText(R.string.add_material);
         leftOneLayout.setOnClickListener(toolBarOnClickListener);
     }
 
@@ -98,28 +110,48 @@ public class AddMaterialActivity extends BaseActivity {
         btnConfirm.setOnClickListener(onClickListener);
     }
 
+    private void queryMaterialByNumber() {
+        try {
+            HttpRequest.queryMaterialByNumber(token, edtMaterialNumber.getText().toString(), new HttpRequest.IMaterialNumberCallback() {
+                @Override
+                public void onResponse(MaterialNumberInfo materialNumberInfo) {
+                    if (materialNumberInfo.data == null) {
+                        uploadMaterialNumber();
+                    } else {
+                        Toast.makeText(self, R.string.material_number_repeated, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void uploadMaterialNumber() {
         try {
-
-//            JsonObject jsonObject = new JsonObject();
-////            jsonObject.addProperty("material_number", edtMaterialNumber.getText().toString());
-////            jsonObject.addProperty("material_type", edtMaterialType.getText().toString());
-////            String materialData = jsonObject.toString();
-
-            MaterialData materialData=new MaterialData();
-            materialData.userId=userId;
-            materialData.materialNumber=edtMaterialNumber.getText().toString();
-            materialData.materialType=edtMaterialType.getText().toString();
-            Timber.d(materialData.toString());
+            MaterialData materialData = new MaterialData();
+            materialData.userId = userId;
+            materialData.materialNumber = edtMaterialNumber.getText().toString();
+            materialData.materialType = edtMaterialType.getText().toString();
+            materialData.year = edtMaterialYear.getText().toString();
+            materialData.season=edtMaterialSeason.getText().toString();
+            materialData.origin=edtMaterialOrigin.getText().toString();
+            materialData.feature=edtMaterialFeature.getText().toString();
+            materialData.oddLeeds=edtMaterialOddLeeds.getText().toString();
+            materialData.paternal=edtMaterialPaternal.getText().toString();
             HttpRequest.uploadMaterial(token, materialData.toString(), new HttpRequest.IMaterialCallback() {
                 @Override
                 public void onResponse(MaterialInfo materialInfo) {
-//                    if (materialInfo.code == 200) {
-//                        Toast.makeText(self, R.string.update_success, Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(self, R.string.update_fail, Toast.LENGTH_SHORT).show();
-//                    }
-//                    Toast.makeText(self, materialInfo.toString(), Toast.LENGTH_SHORT).show();
+                    if (materialInfo.code == 200) {
+                        Toast.makeText(self, R.string.update_success, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(self, materialInfo.toString(), Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override

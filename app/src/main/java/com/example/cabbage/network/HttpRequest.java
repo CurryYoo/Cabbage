@@ -306,7 +306,7 @@ public class HttpRequest {
         });
     }
 
-    //上传材料类型
+    //新建材料类型
     public static void uploadMaterial(String token, String materialData, IMaterialCallback callback) {
         RequestBody requestBody = RequestBody.create(materialData, MediaType.parse("application/json"));
 
@@ -322,6 +322,26 @@ public class HttpRequest {
                 callback.onFailure();
             }
         });
+    }
+
+    //根据材料编号精确查询
+    public static void queryMaterialByNumber(String token,String materialNumber,IMaterialNumberCallback callback){
+
+        getApi.queryMaterialByNumber(token,materialNumber).enqueue(new Callback<MaterialNumberInfo>() {
+            @Override
+            public void onResponse(Call<MaterialNumberInfo> call, Response<MaterialNumberInfo> response) {
+                if (response != null && response.body() != null) {
+                    MaterialNumberInfo materialNumberInfo = response.body();
+                    callback.onResponse(materialNumberInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MaterialNumberInfo> call, Throwable t) {
+
+            }
+        });
+
     }
 
     public interface IUserInfoCallback {
@@ -374,6 +394,12 @@ public class HttpRequest {
 
     public interface IPhotoCallback {
         void onResponse(PhotoInfo photoInfo);
+
+        void onFailure();
+    }
+
+    public interface IMaterialNumberCallback {
+        void onResponse(MaterialNumberInfo materialNumberInfo);
 
         void onFailure();
     }

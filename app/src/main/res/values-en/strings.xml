@@ -193,12 +193,13 @@
     <string name="user_define">Customize</string>
 
     <!--    app history string -->
-    <string name="observation_period">观测时期：</string>
-    <string name="material_type">材料类型：</string>
-    <string name="material_number">材料编号：</string>
-    <string name="plant_number">单株编号：</string>
-    <string name="investigating_time">调查时间：</string>
-    <string name="investigator">调查人员：</string>
+    <string name="observation_period">Survey Period：</string>
+    <string name="material_type">Material Type：</string>
+    <string name="material_number">Material Id：</string>
+    <string name="plant_number">Plant Id：</string>
+    <string name="investigating_time">Investigate Time：</string>
+    <string name="investigator">Investigator：</string>
+    <string name="material_year">Year：</string>
 
     <!--    app main page string-->
     <string name="copy">copy</string>
@@ -216,10 +217,9 @@
     <string name="fill_account">Fill in the test account with one click</string>
     <string name="update_success">Update Completed</string>
     <string name="update_fail">Update Failed</string>
+    <string name="material_number_repeated">Duplicate material number</string>
     <string name="must_required">Required</string>
     <string name="string_null" />
-
-    <string name="back_end_management_system">Back-end management system</string>
 
     <string name="language_setting">Language Setting</string>
     <string name="language_cn">中文</string>
@@ -227,8 +227,15 @@
     <string name="language_auto">自动</string>
     <string name="choose_language">Language selected by current user: %s</string>
 
+    <string name="limt_of_material">Year (4 digits) + season (1 letter)-letters (0-3) + numbers (1-4 digits/piece)</string>
+    <string name="season">Season：</string>
+    <string name="origin">Origin：</string>
+    <string name="feature">Feature：</string>
+    <string name="oddLeeds">OddLeeds：</string>
+    <string name="experiment">Experiment：</string>
+    <string name="paternal">Paternal：</string>
+
 
     //无需翻译
     <string name="option_success">操作成功</string>
-    <string name="limt_of_material">年份（4位数字）+季节（1个字母）-字母（0-3个）+数字（1-4位/个）</string>
 </resources>

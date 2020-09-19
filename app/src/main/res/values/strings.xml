@@ -51,7 +51,6 @@
     <string name="paste_data_success">数据粘贴成功</string>
     <string name="data_no_get">未检测到复制数据</string>
 
-    <string name="option_success">操作成功</string>
     <string name="query_success">查询成功</string>
     <string name="query_fail">查询失败</string>
 
@@ -200,6 +199,7 @@
     <string name="plant_number">单株编号：</string>
     <string name="investigating_time">调查时间：</string>
     <string name="investigator">调查人员：</string>
+    <string name="material_year">年份：</string>
 
     <!--    app main page string-->
     <string name="copy">复制</string>
@@ -217,11 +217,10 @@
     <string name="fill_account">一键填入测试账号</string>
     <string name="update_success">更新成功</string>
     <string name="update_fail">更新失败</string>
+    <string name="material_number_repeated">材料编号重复</string>
     <string name="must_required">必填项</string>
     <string name="string_null" />
 
-
-    <string name="back_end_management_system">后端管理系统</string>
 
     <string name="language_setting">语言设置</string>
     <string name="language_cn">中文</string>
@@ -229,4 +228,13 @@
     <string name="language_auto">自动</string>
     <string name="choose_language">当前用户选择语言: %s</string>
     <string name="limt_of_material">年份（4位数字）+季节（1个字母）-字母（0-3个）+数字（1-4位/个）</string>
+    <string name="season">季节：</string>
+    <string name="origin">材料来源：</string>
+    <string name="feature">材料特征：</string>
+    <string name="oddLeeds">剩余种子情况：</string>
+    <string name="experiment">实验安排：</string>
+    <string name="paternal">父本：</string>
+
+    //无需翻译
+    <string name="option_success">操作成功</string>
 </resources>
