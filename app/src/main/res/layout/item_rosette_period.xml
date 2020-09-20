@@ -16,6 +16,7 @@
         android:numColumns="4"
         android:verticalSpacing="5dp"
         android:gravity="center"
+        android:layout_margin="@dimen/dp_5"
         />
 
     <LinearLayout

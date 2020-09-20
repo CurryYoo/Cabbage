@@ -234,9 +234,12 @@
     <string name="oddLeeds">剩余种子情况：</string>
     <string name="experiment">实验安排：</string>
     <string name="paternal">父本：</string>
+    <string name="maternal">母本：</string>
 
     //无需翻译
     <string name="option_success">操作成功</string>
+
+
     <string name="last_material">最近调查材料</string>
     <string name="slogan">大白菜信息采集平台</string>
     <string name="clear_cache">清除缓存</string>

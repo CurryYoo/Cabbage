@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.cabbage.R;
+import com.example.cabbage.network.HttpRequest;
+import com.example.cabbage.network.UserInfo;
 import com.example.cabbage.utils.ARouterPaths;
 
 /**
@@ -19,6 +21,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,6 +30,8 @@ public class SplashActivity extends AppCompatActivity {
 
 
         sp = getSharedPreferences("userInfo", MODE_PRIVATE);
+        editor = sp.edit();
+
 
         new Thread(() -> {
             try {
@@ -34,12 +39,43 @@ public class SplashActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (sp.getString("token", "") != null && sp.getString("token", "").length() != 0) {
-                ARouter.getInstance().build(ARouterPaths.MAIN_ACTIVITY).navigation();
-            }else {
+
+            String username = sp.getString("username", "");
+            if (username != null && username.length() != 0) {
+                login();
+            } else {
                 ARouter.getInstance().build(ARouterPaths.LOGIN_ACTIVITY).navigation();
+                finish();
             }
-            finish();
+
         }).start();
+    }
+
+
+    public void login() {
+        String username = sp.getString("username", "");
+        String password = sp.getString("passwordShort", "");
+        HttpRequest.requestLogin(username, password, new HttpRequest.IUserInfoCallback() {
+            @Override
+            public void onResponse(UserInfo userInfo) {
+                if (userInfo.getCode() == 200 && userInfo.getMessage().equals("操作成功")) {
+                    editor = sp.edit();
+                    editor.putInt("userId", userInfo.getId());
+                    editor.putString("nickname", userInfo.getNickname());
+                    editor.putString("username", userInfo.getUsername());
+                    editor.putString("password", userInfo.getPassword());
+                    editor.putString("passwordShort", password);
+                    editor.putString("headImgUrl", userInfo.getHeadImgUrl());
+                    editor.putString("token", userInfo.getToken());
+                    editor.apply();
+                    ARouter.getInstance().build(ARouterPaths.MAIN_ACTIVITY).navigation();
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
     }
 }

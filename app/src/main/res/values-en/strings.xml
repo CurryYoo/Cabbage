@@ -234,12 +234,15 @@
     <string name="oddLeeds">OddLeeds：</string>
     <string name="experiment">Experiment：</string>
     <string name="paternal">Paternal：</string>
+    <string name="maternal">Maternal：</string>
 
 
-    //无需翻译S
+    //无需翻译
     <string name="option_success">操作成功</string>
-    <string name="last_material">Last Survey Material</string>
-    <string name="slogan">Cabbage Information Collection Platform</string>
+
+
+    <string name="last_material">Last Collect Material</string>
+    <string name="slogan">Cabbage</string>
     <string name="clear_cache">Clear Cache</string>
     <string name="clear_cache_success">Success Clear Cache</string>
     <string name="quit_application">Quit Application</string>

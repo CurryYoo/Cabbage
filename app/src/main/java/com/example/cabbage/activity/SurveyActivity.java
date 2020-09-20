@@ -224,7 +224,6 @@ public class SurveyActivity extends BaseActivity {
                 jsonObject.addProperty("lastMaterialType3", materialType);
                 jsonObject.addProperty("lastMaterialTime3", getSystemTime());
                 jsonObject.addProperty("lastMaterialPeriod3", surveyPeriod);
-                Timber.tag("kang3").d(jsonObject.toString());
                 editor.putString("lastMaterial", jsonObject.toString());
                 editor.apply();
                 return;
@@ -240,7 +239,6 @@ public class SurveyActivity extends BaseActivity {
                 jsonObjectOld.addProperty("lastMaterialType3", materialType);
                 jsonObjectOld.addProperty("lastMaterialTime3", getSystemTime());
                 jsonObjectOld.addProperty("lastMaterialPeriod3", surveyPeriod);
-                Timber.tag("kang4").d(jsonObject.toString());
                 editor.putString("lastMaterial", jsonObjectOld.toString());
                 editor.apply();
                 return;
@@ -256,7 +254,6 @@ public class SurveyActivity extends BaseActivity {
         jsonObject.addProperty("lastMaterialTime3", getSystemTime());
         jsonObject.addProperty("lastMaterialPeriod3", surveyPeriod);
 
-        Timber.tag("kang2").d(jsonObject.toString());
         editor.putString("lastMaterial", jsonObject.toString());
         editor.apply();
     }

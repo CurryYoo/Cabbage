@@ -204,7 +204,6 @@ public class HeadingPeriodFragment extends Fragment {
     //图片
     private ImageAdapter imgAdapter;
     private ArrayList<String> imgList = new ArrayList<>();
-    private HashMap<String, SingleImageAdapter> imgAdapters = new HashMap<>();
     private HashMap<String, ArrayList<String>> imgHashMap = new HashMap<>();
 
     //spinner选择监听，选择其他是，显示自定义填空
@@ -372,6 +371,9 @@ public class HeadingPeriodFragment extends Fragment {
                 initBasicInfo("");
                 break;
             case STATUS_READ:
+                //清除view，防止从网络加载数据时重复加载
+                imgList.clear();
+                layoutCustomAttribute.removeAllViews();
                 initView(false);
                 initMaps();
                 initBasicInfo(plantId);
@@ -684,13 +686,9 @@ public class HeadingPeriodFragment extends Fragment {
                         Map<String, SingleImageAdapter> adapterMap;
                         ImageAdapter commonAdapter;
                         imageMap = imgHashMap;
-                        adapterMap = imgAdapters;
                         commonAdapter = imgAdapter;
                         if (imageMap.get(specCharacter) != null) {
                             imageMap.get(specCharacter).add(url);
-                        }
-                        if (adapterMap.get(specCharacter) != null) {
-                            adapterMap.get(specCharacter).notifyDataSetChanged();
                         }
                         if (commonAdapter != null) {
                             commonAdapter.notifyDataSetChanged();

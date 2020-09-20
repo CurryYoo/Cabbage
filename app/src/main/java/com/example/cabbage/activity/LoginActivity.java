@@ -89,6 +89,7 @@ public class LoginActivity extends BaseActivity {
                     editor.putString("nickname", userInfo.getNickname());
                     editor.putString("username", userInfo.getUsername());
                     editor.putString("password", userInfo.getPassword());
+                    editor.putString("passwordShort", password);
                     editor.putString("headImgUrl", userInfo.getHeadImgUrl());
                     editor.putString("token", userInfo.getToken());
                     editor.apply();
