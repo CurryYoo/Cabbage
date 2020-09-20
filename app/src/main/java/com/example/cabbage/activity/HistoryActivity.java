@@ -31,6 +31,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
+
 /**
  * Author:created by Kang on 2020/9/9
  * Email:zyk970512@163.com
@@ -86,17 +88,31 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 
                 //复制按钮
                 historyAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                    Intent dataIntent = new Intent();
-                    // 创建普通字符型ClipData
-                    dataIntent.putExtra("surveyId", historyInfo.data.list.get(position).getObservationId());
-                    dataIntent.putExtra("surveyPeriod", historyInfo.data.list.get(position).getObsPeriod());
-                    dataIntent.putExtra("materialId", historyInfo.data.list.get(position).getMaterialNumber());
-                    dataIntent.putExtra("materialType", historyInfo.data.list.get(position).getMaterialType());
-                    ClipData mClipData1 = ClipData.newIntent("copyData", dataIntent);
-                    // 将ClipData内容放到系统剪贴板里
-                    cm.setPrimaryClip(mClipData1);
-                    Toast.makeText(getApplicationContext(), R.string.copy_data_success, Toast.LENGTH_SHORT).show();
+                    switch (view.getId()) {
+                        case R.id.btn_copy:
+                            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            Intent dataIntent = new Intent();
+                            // 创建普通字符型ClipData
+                            dataIntent.putExtra("surveyId", historyInfo.data.list.get(position).getObservationId());
+                            dataIntent.putExtra("surveyPeriod", historyInfo.data.list.get(position).getObsPeriod());
+                            dataIntent.putExtra("materialId", historyInfo.data.list.get(position).getMaterialNumber());
+                            dataIntent.putExtra("materialType", historyInfo.data.list.get(position).getMaterialType());
+                            ClipData mClipData1 = ClipData.newIntent("copyData", dataIntent);
+                            // 将ClipData内容放到系统剪贴板里
+                            cm.setPrimaryClip(mClipData1);
+                            Toast.makeText(getApplicationContext(), R.string.copy_data_success, Toast.LENGTH_SHORT).show();
+                            break;
+                        case R.id.btn_create:
+                            ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
+                                    .withString("surveyId", historyInfo.data.list.get(position).getObservationId())
+                                    .withString("surveyPeriod", historyInfo.data.list.get(position).getObsPeriod())
+                                    .withString("materialId", historyInfo.data.list.get(position).getMaterialNumber())
+                                    .withString("materialType", historyInfo.data.list.get(position).getMaterialType())
+                                    .withInt("status", STATUS_COPY)
+                                    .navigation();
+
+                            break;
+                    }
                 });
                 recyclerViewHistory.setAdapter(historyAdapter);
             }

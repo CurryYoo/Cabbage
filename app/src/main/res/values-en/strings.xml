@@ -239,4 +239,8 @@
     //无需翻译S
     <string name="option_success">操作成功</string>
     <string name="last_material">Last Survey Material</string>
+    <string name="slogan">Cabbage Information Collection Platform</string>
+    <string name="clear_cache">Clear Cache</string>
+    <string name="clear_cache_success">Success Clear Cache</string>
+    <string name="quit_application">Quit Application</string>
 </resources>

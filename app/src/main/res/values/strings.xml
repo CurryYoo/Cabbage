@@ -238,4 +238,8 @@
     //无需翻译
     <string name="option_success">操作成功</string>
     <string name="last_material">最近调查材料</string>
+    <string name="slogan">大白菜信息采集平台</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="clear_cache_success">清除缓存成功</string>
+    <string name="quit_application">退出应用</string>
 </resources>
