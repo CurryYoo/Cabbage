@@ -14,13 +14,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.HistoryDetailAdapter;
 import com.example.cabbage.base.BaseActivity;
@@ -32,6 +32,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 
 /**
  * Author:created by Kang on 2020/9/9
@@ -54,6 +56,10 @@ public class HistoryDetailActivity2 extends BaseActivity {
     ImageView rightOneButton;
     @BindView(R.id.right_one_layout)
     LinearLayout rightOneLayout;
+    @BindView(R.id.right_two_button)
+    ImageView rightTwoButton;
+    @BindView(R.id.right_two_layout)
+    LinearLayout rightTwoLayout;
 
     @Autowired(name = "position")
     public int pointPosition;
@@ -111,6 +117,15 @@ public class HistoryDetailActivity2 extends BaseActivity {
                     cm.setPrimaryClip(mClipData1);
                     Toast.makeText(getApplicationContext(), R.string.copy_data_success, Toast.LENGTH_SHORT).show();
                 });
+                rightTwoLayout.setOnClickListener(v ->{
+                    ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
+                            .withString("surveyId", mHistoryInfoList.get(viewPagerHistory.getCurrentItem()).observationId)
+                            .withString("surveyPeriod", mHistoryInfoList.get(viewPagerHistory.getCurrentItem()).obsPeriod)
+                            .withString("materialId", mHistoryInfoList.get(viewPagerHistory.getCurrentItem()).materialNumber)
+                            .withString("materialType", mHistoryInfoList.get(viewPagerHistory.getCurrentItem()).materialType)
+                            .withInt("status", STATUS_COPY)
+                            .navigation();
+                });
             }
 
             @Override
@@ -125,6 +140,8 @@ public class HistoryDetailActivity2 extends BaseActivity {
         leftOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
         rightOneButton.setBackgroundResource(R.mipmap.ic_copy);
         rightOneLayout.setBackgroundResource(R.drawable.selector_trans_button);
+        rightTwoButton.setBackgroundResource(R.mipmap.ic_create);
+        rightTwoLayout.setBackgroundResource(R.drawable.selector_trans_button);
         titleText.setText(R.string.species_data_pick_history);
         leftOneLayout.setOnClickListener(toolBarOnClickListener);
     }

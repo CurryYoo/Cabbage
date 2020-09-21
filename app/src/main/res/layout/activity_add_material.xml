@@ -107,6 +107,15 @@
                 android:id="@+id/edt_material_paternal"
                 style="@style/style_edit_in_grid" />
 
+            <TextView
+                android:id="@+id/txt_material_maternal"
+                style="@style/style_txt_in_grid"
+                android:text="@string/maternal" />
+
+            <EditText
+                android:id="@+id/edt_material_maternal"
+                style="@style/style_edit_in_grid" />
+
         </GridLayout>
     </ScrollView>
 

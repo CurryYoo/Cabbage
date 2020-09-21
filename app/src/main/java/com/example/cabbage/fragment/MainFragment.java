@@ -11,22 +11,19 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.arlib.floatingsearchview.FloatingSearchView;
-import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.cabbage.R;
 import com.example.cabbage.adapter.LastMaterialAdapter;
 import com.example.cabbage.data.DataHelper;
@@ -48,6 +45,7 @@ import java.util.concurrent.ExecutorService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
@@ -75,7 +73,7 @@ public class MainFragment extends Fragment {
     private String token;
     //存储最近三个材料信息
     private SharedPreferences sp;
-    private List<MaterialData> lastList = new ArrayList<>();
+    private List<MaterialData> lastList = new ArrayList<>();//使用MaterialData仅仅作为容器，和其中变量无对应
     private LastMaterialAdapter lastMaterialAdapter;
 
     private static ExecutorService executorService = newSingleThreadExecutor();
@@ -134,7 +132,7 @@ public class MainFragment extends Fragment {
         self = getActivity().getApplicationContext();
         unbinder = ButterKnife.bind(this, view);
 
-        sp = getContext().getSharedPreferences("userInfo", MODE_PRIVATE);
+        sp = self.getSharedPreferences("userInfo", MODE_PRIVATE);
         token = sp.getString("token", "");
         btnPasteData.setOnClickListener(onClickListener);
         btnCacheData.setOnClickListener(onClickListener);
@@ -150,12 +148,13 @@ public class MainFragment extends Fragment {
         lastMaterialAdapter.setOnItemClickListener((adapter, view, position) -> ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
                 .withString("materialId", lastList.get(position).materialNumber)
                 .withString("materialType", lastList.get(position).materialType)
+                .withString("surveyPeriod", lastList.get(position).season)
                 .withInt("status", STATUS_NEW)
                 .navigation());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(self, RecyclerView.VERTICAL, false);
         recyclerViewLast.setLayoutManager(linearLayoutManager);
         recyclerViewLast.setAdapter(lastMaterialAdapter);
-
+        searchView.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.bg_float_search, null));
 
         searchView.setOnQueryChangeListener((oldQuery, newQuery) -> {
             if (!oldQuery.equals("") && newQuery.equals("")) {
@@ -186,6 +185,39 @@ public class MainFragment extends Fragment {
             }
         });
 
+        //获取焦点时弹出搜索建议
+        searchView.setOnFocusChangeListener(new FloatingSearchView.OnFocusChangeListener() {
+            @Override
+            public void onFocus() {
+                // 网络请求数据
+                if (NetworkUtils.isNetworkConnected(getContext())) {
+                    HttpRequest.requestSearch(token, searchView.getQuery(), new HttpRequest.IMaterialCallback() {
+                        @Override
+                        public void onResponse(MaterialInfo materialInfo) {
+                            searchView.hideProgress();
+                            if (materialInfo.code == 200 && materialInfo.message.equals(getString(R.string.option_success))) {
+                                List<MaterialSuggestion> newSuggestion = DataHelper.toSuggestionList(materialInfo.data.list);
+                                searchView.swapSuggestions(newSuggestion);
+                            } else {
+                                Toast.makeText(getContext(), R.string.query_success, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Toast.makeText(getContext(), R.string.query_fail, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getContext(), getResources().getString(R.string.network_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFocusCleared() {
+
+            }
+        });
         searchView.setOnBindSuggestionCallback((suggestionView, leftIcon, textView, item, itemPosition) -> {
             if (item instanceof MaterialSuggestion) {
                 MaterialSuggestion materialSuggestion = (MaterialSuggestion) item;
@@ -218,7 +250,6 @@ public class MainFragment extends Fragment {
 
             @Override
             public void onSearchAction(String currentQuery) {
-
             }
         });
     }
@@ -232,29 +263,34 @@ public class MainFragment extends Fragment {
     private void initLastMaterial() {
         lastList.clear();
         JsonObject jsonObject = new JsonObject();
+        SharedPreferences sp=self.getSharedPreferences("lastMaterial",MODE_PRIVATE);
 
         JsonObject jsonObjectOld = new JsonParser().parse(sp.getString("lastMaterial", jsonObject.toString())).getAsJsonObject();
         if (jsonObjectOld.get("lastMaterialNumber1") != null) {
             MaterialData materialData = new MaterialData();
             materialData.materialNumber = jsonObjectOld.get("lastMaterialNumber1").getAsString();
             materialData.materialType = jsonObjectOld.get("lastMaterialType1").getAsString();
-            materialData.year=jsonObjectOld.get("lastMaterialTime1").getAsString();
+            materialData.year = jsonObjectOld.get("lastMaterialTime1").getAsString();
+            materialData.season = jsonObjectOld.get("lastMaterialPeriod1").getAsString();
             lastList.add(materialData);
         }
         if (jsonObjectOld.get("lastMaterialNumber2") != null) {
             MaterialData materialData = new MaterialData();
             materialData.materialNumber = jsonObjectOld.get("lastMaterialNumber2").getAsString();
             materialData.materialType = jsonObjectOld.get("lastMaterialType2").getAsString();
-            materialData.year=jsonObjectOld.get("lastMaterialTime2").getAsString();
+            materialData.year = jsonObjectOld.get("lastMaterialTime2").getAsString();
+            materialData.season = jsonObjectOld.get("lastMaterialPeriod2").getAsString();
             lastList.add(materialData);
         }
         if (jsonObjectOld.get("lastMaterialNumber3") != null) {
             MaterialData materialData = new MaterialData();
             materialData.materialNumber = jsonObjectOld.get("lastMaterialNumber3").getAsString();
             materialData.materialType = jsonObjectOld.get("lastMaterialType3").getAsString();
-            materialData.year=jsonObjectOld.get("lastMaterialTime3").getAsString();
+            materialData.year = jsonObjectOld.get("lastMaterialTime3").getAsString();
+            materialData.season = jsonObjectOld.get("lastMaterialPeriod3").getAsString();
             lastList.add(materialData);
         }
+        Timber.tag("kang").d(jsonObjectOld.toString());
         Collections.reverse(lastList);
         lastMaterialAdapter.notifyDataSetChanged();
     }

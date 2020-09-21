@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,8 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Author:created by Kang on 2020/9/9
@@ -47,6 +50,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     TextView txtLogout;
     @BindView(R.id.txt_language)
     TextView txtLanguage;
+    @BindView(R.id.txt_clear_cache)
+    TextView txtClearCache;
+    @BindView(R.id.txt_quit)
+    TextView txtQuit;
 
     public static UserFragment newInstance() {
         return new UserFragment();
@@ -67,7 +74,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView() {
-        SharedPreferences sp = Objects.requireNonNull(getContext()).getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences sp = self.getSharedPreferences("userInfo", MODE_PRIVATE);
         String nickname = sp.getString("username", getString(R.string.user_role));
         String headImgUrl = sp.getString("headImgUrl", ""); //暂时没有数据
 
@@ -81,7 +88,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         txtHistory.setOnClickListener(this);
         txtPw.setOnClickListener(this);
         txtLanguage.setOnClickListener(this);
+        txtClearCache.setOnClickListener(this);
         txtLogout.setOnClickListener(this);
+        txtQuit.setOnClickListener(this);
     }
 
     @Override
@@ -102,10 +111,26 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             case R.id.txt_language:
                 LanguageActivity.enter(getContext());
                 break;
+            case R.id.txt_clear_cache:
+                SharedPreferences sp2 = self.getSharedPreferences("lastMaterial", MODE_PRIVATE);
+                SharedPreferences.Editor editor2 = sp2.edit();
+                editor2.clear();
+                editor2.apply();
+                Toast.makeText(self, R.string.clear_cache_success, Toast.LENGTH_SHORT).show();
+                MainActivity.reStart(self);
+                break;
             case R.id.txt_logout:
+                SharedPreferences sp = self.getSharedPreferences("userInfo", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.apply();
                 ARouter.getInstance().build(ARouterPaths.LOGIN_ACTIVITY).navigation();
+                Objects.requireNonNull(getActivity()).finish();
+                break;
+            case R.id.txt_quit:
                 Objects.requireNonNull(getActivity()).finish();
                 break;
         }
     }
+
 }

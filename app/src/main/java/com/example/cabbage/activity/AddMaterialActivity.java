@@ -63,6 +63,8 @@ public class AddMaterialActivity extends BaseActivity {
     EditText edtMaterialExperiment;
     @BindView(R.id.edt_material_paternal)
     EditText edtMaterialPaternal;
+    @BindView(R.id.edt_material_maternal)
+    EditText edtMaterialMaternal;
 
     private Context self;
     private int userId;
@@ -141,11 +143,12 @@ public class AddMaterialActivity extends BaseActivity {
             materialData.materialNumber = edtMaterialNumber.getText().toString();
             materialData.materialType = edtMaterialType.getText().toString();
             materialData.year = edtMaterialYear.getText().toString();
-            materialData.season=edtMaterialSeason.getText().toString();
-            materialData.origin=edtMaterialOrigin.getText().toString();
-            materialData.feature=edtMaterialFeature.getText().toString();
-            materialData.oddLeeds=edtMaterialOddLeeds.getText().toString();
-            materialData.paternal=edtMaterialPaternal.getText().toString();
+            materialData.season = edtMaterialSeason.getText().toString();
+            materialData.origin = edtMaterialOrigin.getText().toString();
+            materialData.feature = edtMaterialFeature.getText().toString();
+            materialData.oddLeeds = edtMaterialOddLeeds.getText().toString();
+            materialData.paternal = edtMaterialPaternal.getText().toString();
+            materialData.maternal = edtMaterialMaternal.getText().toString();
             HttpRequest.uploadMaterial(token, materialData, new HttpRequest.IMaterialCallback() {
                 @Override
                 public void onResponse(MaterialInfo materialInfo) {

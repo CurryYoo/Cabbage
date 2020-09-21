@@ -13,10 +13,10 @@
         android:id="@+id/img_grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="4"
-        android:verticalSpacing="5dp"
+        android:layout_margin="@dimen/dp_5"
         android:gravity="center"
-        />
+        android:numColumns="4"
+        android:verticalSpacing="5dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,27 +29,27 @@
             style="@style/style_item_short_text_view"
             android:text="@string/info_loss_rate" />
 
-            <LinearLayout style="@style/survey_linear_layout">
+        <LinearLayout style="@style/survey_linear_layout">
 
-                <Spinner
-                    android:id="@+id/loss_rate"
-                    style="@style/style_basic_spinner1"
-                    android:layout_width="60dp"
-                    android:entries="@array/loss_rate" />
+            <Spinner
+                android:id="@+id/loss_rate"
+                style="@style/style_basic_spinner1"
+                android:layout_width="60dp"
+                android:entries="@array/loss_rate" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <com.example.cabbage.view.AutoClearEditText
-                    android:id="@+id/edt_loss_rate"
-                    style="@style/style_number_edit_text" />
+            <com.example.cabbage.view.AutoClearEditText
+                android:id="@+id/edt_loss_rate"
+                style="@style/style_number_edit_text" />
 
-                <include layout="@layout/view_vertical_divider" />
+            <include layout="@layout/view_vertical_divider" />
 
-                <Button
-                    android:id="@+id/btn_loss_rate"
-                    style="@style/style_basic_help_btn" />
+            <Button
+                android:id="@+id/btn_loss_rate"
+                style="@style/style_basic_help_btn" />
 
-            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -69,18 +69,18 @@
             android:id="@+id/btn_add_attribute"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
             android:layout_margin="@dimen/dp_10"
+            android:layout_weight="1"
             android:background="@drawable/bg_button_red"
             android:text="@string/add_attribute"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <com.example.cabbage.view.CountButton
             android:id="@+id/btn_add_remark"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
             android:layout_margin="@dimen/dp_10"
+            android:layout_weight="1"
             android:background="@drawable/bg_button_red"
             android:text="@string/add_remark"
             android:textColor="@color/white" />
