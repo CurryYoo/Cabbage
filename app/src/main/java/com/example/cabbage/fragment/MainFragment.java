@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -55,14 +56,17 @@ import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
  * Annotation:主页
  */
 public class MainFragment extends Fragment {
+    private static String URL = "http://47.93.117.9/";
     @BindView(R.id.search_view)
     FloatingSearchView searchView;
     @BindView(R.id.btn_paste_data)
     LinearLayout btnPasteData;
     @BindView(R.id.btn_add_material)
-    LinearLayout btnWebView;
+    LinearLayout btnAddMaterial;
     @BindView(R.id.recycler_view_last)
     RecyclerView recyclerViewLast;
+    @BindView(R.id.btn_web)
+    LinearLayout btnWeb;
     private Context self;
     private Unbinder unbinder;
     private String token;
@@ -77,7 +81,7 @@ public class MainFragment extends Fragment {
                 //获取剪贴板数据
                 ClipboardManager cm = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
 
-                if (cm.getPrimaryClip().getDescription().getLabel() != null && cm.getPrimaryClip().getDescription().getLabel().toString().equals("copyData")) {
+                if (cm.getPrimaryClip() != null && cm.getPrimaryClip().getDescription().getLabel() != null && "copyData".equals(cm.getPrimaryClip().getDescription().getLabel().toString())) {
                     Intent dataIntent = Objects.requireNonNull(cm.getPrimaryClip()).getItemAt(0).getIntent();
                     Toast.makeText(getContext(), R.string.paste_data_success, Toast.LENGTH_SHORT).show();
                     ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
@@ -93,6 +97,11 @@ public class MainFragment extends Fragment {
                 break;
             case R.id.btn_add_material:
                 ARouter.getInstance().build(ARouterPaths.ADD_MATERIAL_ACTIVITY).navigation();
+                break;
+            case R.id.btn_web:
+                Uri uri = Uri.parse(URL);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -114,7 +123,8 @@ public class MainFragment extends Fragment {
         sp = self.getSharedPreferences("userInfo", MODE_PRIVATE);
         token = sp.getString("token", "");
         btnPasteData.setOnClickListener(onClickListener);
-        btnWebView.setOnClickListener(onClickListener);
+        btnAddMaterial.setOnClickListener(onClickListener);
+        btnWeb.setOnClickListener(onClickListener);
 
         initView();
         return view;
@@ -241,7 +251,7 @@ public class MainFragment extends Fragment {
     private void initLastMaterial() {
         lastList.clear();
         JsonObject jsonObject = new JsonObject();
-        SharedPreferences sp=self.getSharedPreferences("lastMaterial",MODE_PRIVATE);
+        SharedPreferences sp = self.getSharedPreferences("lastMaterial", MODE_PRIVATE);
 
         JsonObject jsonObjectOld = new JsonParser().parse(sp.getString("lastMaterial", jsonObject.toString())).getAsJsonObject();
         if (jsonObjectOld.get("lastMaterialNumber1") != null) {
