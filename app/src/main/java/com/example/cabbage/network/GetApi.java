@@ -22,7 +22,12 @@ import retrofit2.http.QueryMap;
  * Description:
  **/
 public interface GetApi {
-    // 登录
+    /**
+     * 登录
+     * @param username
+     * @param password
+     * @return
+     */
     @POST("auth/login")
     Call<UserInfo> login(@Query("username") String username, @Query("password") String password);
 

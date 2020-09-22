@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -61,15 +63,16 @@ import butterknife.Unbinder;
 import timber.log.Timber;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.text.Html.FROM_HTML_MODE_COMPACT;
 import static com.example.cabbage.utils.StaticVariable.STATUS_CACHE;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
 
 /**
- * Author:created by Kang on 2020/9/9
- * Email:zyk970512@163.com
- * Annotation:主页
+ * @author Kang
+ * @date 2020/9/22
+ * MainFragment
  */
 public class MainFragment extends Fragment {
     private static String URL = "http://47.93.117.9/";
@@ -88,9 +91,14 @@ public class MainFragment extends Fragment {
     private Context self;
     private Unbinder unbinder;
     private String token;
-    //存储最近三个材料信息
+    /**
+     * 存储最近三个材料信息
+     */
     private SharedPreferences sp;
-    private List<MaterialData> lastList = new ArrayList<>();//使用MaterialData仅仅作为容器，和其中变量无对应
+    /**
+     * 使用MaterialData仅仅作为容器，和其中变量无对应
+     */
+    private List<MaterialData> lastList = new ArrayList<>();
     private LastMaterialAdapter lastMaterialAdapter;
 
     private static ExecutorService executorService = newSingleThreadExecutor();
@@ -130,7 +138,6 @@ public class MainFragment extends Fragment {
                             FileInputStream inputStream = new FileInputStream(file);
                             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                             cacheData = reader.readLine();
-                            Log.e("cacheData read", cacheData);
                             inputStream.close();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -196,7 +203,7 @@ public class MainFragment extends Fragment {
         searchView.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.bg_float_search, null));
 
         searchView.setOnQueryChangeListener((oldQuery, newQuery) -> {
-            if (!oldQuery.equals("") && newQuery.equals("")) {
+            if (!"".equals(oldQuery) && "".equals(newQuery)) {
                 searchView.clearSuggestions();
             } else {
                 // 网络请求数据

@@ -41,12 +41,13 @@
 
         <LinearLayout
             android:id="@+id/btn_add_material"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="@dimen/dp_40"
             android:layout_weight="1"
             android:background="@drawable/selector_5_button_light"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginEnd="@dimen/dp_5">
 
             <ImageView
                 android:layout_width="30dp"
@@ -66,12 +67,13 @@
 
         <LinearLayout
             android:id="@+id/btn_paste_data"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="@dimen/dp_40"
             android:layout_weight="1"
             android:background="@drawable/selector_5_button_light"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginEnd="@dimen/dp_5">
 
             <ImageView
                 android:layout_width="30dp"
@@ -91,7 +93,7 @@
 
         <LinearLayout
             android:id="@+id/btn_cache_data"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="@dimen/dp_40"
             android:layout_weight="1"
             android:background="@drawable/selector_5_button_light"
