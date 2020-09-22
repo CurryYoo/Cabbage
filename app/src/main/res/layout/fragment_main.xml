@@ -8,19 +8,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="12dp"
         android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/btn_web"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_weight="1"
+            android:background="@drawable/selector_5_button_light"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/paste"
+                android:src="@mipmap/ic_web" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:text="@string/back_web"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btn_add_material"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="@dimen/dp_5"
-            android:layout_marginBottom="@dimen/dp_5"
             android:layout_weight="1"
             android:background="@drawable/selector_5_button_light"
-            android:elevation="3dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -28,13 +52,14 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginEnd="5dp"
                 android:contentDescription="@string/paste"
                 android:src="@mipmap/ic_add_material" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:text="@string/add_material"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -43,13 +68,8 @@
             android:id="@+id/btn_paste_data"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
-            android:layout_marginStart="@dimen/dp_5"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="@dimen/dp_5"
             android:layout_weight="1"
             android:background="@drawable/selector_5_button_light"
-            android:elevation="3dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -57,13 +77,14 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginEnd="5dp"
                 android:contentDescription="@string/paste"
                 android:src="@mipmap/ic_paste" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:text="@string/copy_paste_and_create"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -72,13 +93,8 @@
             android:id="@+id/btn_cache_data"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
-            android:layout_marginStart="@dimen/dp_5"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="@dimen/dp_5"
             android:layout_weight="1"
             android:background="@drawable/selector_5_button_light"
-            android:elevation="3dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -86,13 +102,14 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="@dimen/dp_10"
-                android:contentDescription="@string/paste"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/cache_data_review"
                 android:src="@mipmap/ic_cache_save" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:text="@string/cache_data_review"
                 android:textSize="12sp" />
         </LinearLayout>

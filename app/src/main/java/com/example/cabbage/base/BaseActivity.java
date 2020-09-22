@@ -24,4 +24,15 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    //重写，防止当前activity不在栈底时崩溃
+    @Override
+    public boolean moveTaskToBack(boolean nonRoot) {
+        if(!nonRoot){
+            if(!isTaskRoot()){
+                return false;
+            }
+        }
+        return super.moveTaskToBack(nonRoot);
+    }
 }

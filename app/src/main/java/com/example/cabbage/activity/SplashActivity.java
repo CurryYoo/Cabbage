@@ -4,10 +4,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.cabbage.R;
+import com.example.cabbage.base.BaseActivity;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.UserInfo;
 import com.example.cabbage.utils.ARouterPaths;
@@ -17,7 +17,7 @@ import com.example.cabbage.utils.ARouterPaths;
  * Date:2020/9/20
  * Description:
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
 
     private SharedPreferences sp;

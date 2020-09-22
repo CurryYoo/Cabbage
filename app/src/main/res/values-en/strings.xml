@@ -250,4 +250,5 @@
     <string name="clear_cache">Clear Cache</string>
     <string name="clear_cache_success">Success Clear Cache</string>
     <string name="quit_application">Quit Application</string>
+    <string name="back_web">To Web</string>
 </resources>

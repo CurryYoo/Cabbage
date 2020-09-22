@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -71,16 +72,19 @@ import static java.util.concurrent.Executors.newSingleThreadExecutor;
  * Annotation:主页
  */
 public class MainFragment extends Fragment {
+    private static String URL = "http://47.93.117.9/";
     @BindView(R.id.search_view)
     FloatingSearchView searchView;
     @BindView(R.id.btn_paste_data)
     LinearLayout btnPasteData;
     @BindView(R.id.btn_add_material)
-    LinearLayout btnWebView;
+    LinearLayout btnAddMaterial;
     @BindView(R.id.btn_cache_data)
     LinearLayout btnCacheData;
     @BindView(R.id.recycler_view_last)
     RecyclerView recyclerViewLast;
+    @BindView(R.id.btn_web)
+    LinearLayout btnWeb;
     private Context self;
     private Unbinder unbinder;
     private String token;
@@ -98,7 +102,7 @@ public class MainFragment extends Fragment {
                 //获取剪贴板数据
                 ClipboardManager cm = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
 
-                if (cm.getPrimaryClip().getDescription().getLabel() != null && cm.getPrimaryClip().getDescription().getLabel().toString().equals("copyData")) {
+                if (cm.getPrimaryClip() != null && cm.getPrimaryClip().getDescription().getLabel() != null && "copyData".equals(cm.getPrimaryClip().getDescription().getLabel().toString())) {
                     Intent dataIntent = Objects.requireNonNull(cm.getPrimaryClip()).getItemAt(0).getIntent();
                     Toast.makeText(getContext(), R.string.paste_data_success, Toast.LENGTH_SHORT).show();
                     ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
@@ -127,23 +131,10 @@ public class MainFragment extends Fragment {
                             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                             cacheData = reader.readLine();
                             Log.e("cacheData read", cacheData);
-//                            Object obj = inputStream.readObject();
-//                            if (obj instanceof SurveyInfo) {
-//                                cacheData = (SurveyInfo)obj;
-//                            }
                             inputStream.close();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-//                        String surveyPeriod = "";
-//                        if (!TextUtils.isEmpty(cacheData)) {
-//                            try {
-//                                JSONObject jsonObject = new JSONObject(cacheData);
-//                                surveyPeriod = jsonObject.getString("surveyPeriod");
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
                         // ui
                         String finalCacheData = cacheData;
                         handler.post(() -> {
@@ -156,6 +147,11 @@ public class MainFragment extends Fragment {
                 } else {
                     Toast.makeText(getContext(), R.string.has_no_cache, Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.btn_web:
+                Uri uri = Uri.parse(URL);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -178,7 +174,8 @@ public class MainFragment extends Fragment {
         token = sp.getString("token", "");
         btnPasteData.setOnClickListener(onClickListener);
         btnCacheData.setOnClickListener(onClickListener);
-        btnWebView.setOnClickListener(onClickListener);
+        btnAddMaterial.setOnClickListener(onClickListener);
+        btnWeb.setOnClickListener(onClickListener);
 
         initView();
         return view;
@@ -305,7 +302,7 @@ public class MainFragment extends Fragment {
     private void initLastMaterial() {
         lastList.clear();
         JsonObject jsonObject = new JsonObject();
-        SharedPreferences sp=self.getSharedPreferences("lastMaterial",MODE_PRIVATE);
+        SharedPreferences sp = self.getSharedPreferences("lastMaterial", MODE_PRIVATE);
 
         JsonObject jsonObjectOld = new JsonParser().parse(sp.getString("lastMaterial", jsonObject.toString())).getAsJsonObject();
         if (jsonObjectOld.get("lastMaterialNumber1") != null) {
