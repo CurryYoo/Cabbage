@@ -72,7 +72,7 @@ import static java.io.File.separator;
  * Date:2020/9/10
  * Description:种子收获期
  */
-public class SeedlingPeriodFragment extends Fragment {
+public class SeedlingPeriodFragment extends BaseSurveyFragment {
 
     @BindView(R.id.edt_material_id)
     EditText edtMaterialId;
@@ -682,5 +682,10 @@ public class SeedlingPeriodFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public String getCacheData() {
+        return getPeriodData();
     }
 }

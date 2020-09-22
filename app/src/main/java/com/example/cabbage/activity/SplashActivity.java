@@ -75,6 +75,8 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure() {
+                ARouter.getInstance().build(ARouterPaths.LOGIN_ACTIVITY).navigation();
+                finish();
             }
         });
     }

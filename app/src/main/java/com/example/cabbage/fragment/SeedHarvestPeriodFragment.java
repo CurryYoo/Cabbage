@@ -70,7 +70,7 @@ import static com.example.cabbage.utils.UIUtils.showBottomHelpDialog;
  * Date:2020/9/10
  * Description:结荚与种子收获期
  */
-public class SeedHarvestPeriodFragment extends Fragment {
+public class SeedHarvestPeriodFragment extends BaseSurveyFragment {
 
     @BindView(R.id.edt_material_id)
     EditText edtMaterialId;
@@ -644,5 +644,10 @@ public class SeedHarvestPeriodFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public String getCacheData() {
+        return getPeriodData();
     }
 }

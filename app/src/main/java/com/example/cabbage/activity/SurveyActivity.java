@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,11 +34,15 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.TriangularPagerIndicator;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import timber.log.Timber;
 
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
@@ -72,6 +77,7 @@ public class SurveyActivity extends BaseActivity {
     public String surveyId;
     @Autowired(name = "surveyPeriod")
     public String surveyPeriod;
+    public String cacheData;
 
     //存储最近三个材料信息
     private SharedPreferences sp;
@@ -102,6 +108,8 @@ public class SurveyActivity extends BaseActivity {
     private List<String> mTitleDataList;
     Intent intent;
 
+    SurveyPageAdapter surveyPageAdapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +120,22 @@ public class SurveyActivity extends BaseActivity {
         materialId = intent.getStringExtra("materialId");
         materialType = intent.getStringExtra("materialType");
         surveyPeriod = intent.getStringExtra("surveyPeriod");
+        cacheData = intent.getStringExtra("cacheData");
+        if (!TextUtils.isEmpty(cacheData)) {
+            try {
+                JSONObject cacheJson = new JSONObject(cacheData);
+                materialId = cacheJson.getString("materialNumber");
+                materialType = cacheJson.getString("materialType");
+                surveyPeriod = cacheJson.getString("surveyPeriod");
+                intent.putExtra("materialId", materialId);
+                intent.putExtra("materialType", materialType);
+                intent.putExtra("surveyPeriod", surveyPeriod);
+                intent.putExtra("plantId", cacheJson.getString("plantNumber"));
+                intent.putExtra("investigatingTime", cacheJson.getString("investigatingTime"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         sp = getSharedPreferences("userInfo", MODE_PRIVATE);
         editor = sp.edit();
@@ -129,6 +153,7 @@ public class SurveyActivity extends BaseActivity {
 
         initToolbar();
         initViewPager();
+        initAction();
 
     }
 
@@ -144,7 +169,7 @@ public class SurveyActivity extends BaseActivity {
 
     private void initViewPager() {
         //viewpager and fragment初始化
-        SurveyPageAdapter surveyPageAdapter = new SurveyPageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, intent);
+        surveyPageAdapter = new SurveyPageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, intent);
         viewPager.setAdapter(surveyPageAdapter);
 
         //indicator初始化
@@ -208,9 +233,10 @@ public class SurveyActivity extends BaseActivity {
             }
         }
     }
+
     public void initLastMaterial(String surveyPeriod) {
-        SharedPreferences sp=getSharedPreferences("lastMaterial",MODE_PRIVATE);
-        SharedPreferences.Editor editor=sp.edit();
+        SharedPreferences sp = getSharedPreferences("lastMaterial", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
         JsonObject jsonObject = new JsonObject();
 
         JsonObject jsonObjectOld = new JsonParser().parse(sp.getString("lastMaterial", jsonObject.toString())).getAsJsonObject();
@@ -267,7 +293,17 @@ public class SurveyActivity extends BaseActivity {
 
     private void initAction() {
         rightOneLayout.setOnClickListener(v -> {
-
+            final SweetAlertDialog saveDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
+                    .setContentText(this.getResources().getString(R.string.cache_data_tip))
+                    .setConfirmText(this.getResources().getString(R.string.confirm))
+                    .setCancelText(this.getResources().getString(R.string.cancel))
+                    .setConfirmClickListener(sweetAlertDialog -> {
+                        if (surveyPageAdapter != null) {
+                            surveyPageAdapter.cache();
+                        }
+                        sweetAlertDialog.dismissWithAnimation();
+                    }).setCancelClickListener(SweetAlertDialog::dismissWithAnimation);
+            saveDialog.show();
         });
     }
 

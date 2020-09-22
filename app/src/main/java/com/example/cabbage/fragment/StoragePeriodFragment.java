@@ -68,7 +68,7 @@ import static com.example.cabbage.utils.UIUtils.showBottomHelpDialog;
  * Date:2020/9/10
  * Description:贮藏期
  */
-public class StoragePeriodFragment extends Fragment {
+public class StoragePeriodFragment extends BaseSurveyFragment {
 
     @BindView(R.id.edt_material_id)
     EditText edtMaterialId;
@@ -514,5 +514,10 @@ public class StoragePeriodFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public String getCacheData() {
+        return getPeriodData();
     }
 }

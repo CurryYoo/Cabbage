@@ -63,6 +63,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     UserInfo userInfo = response.body();
                     callback.onResponse(userInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 
@@ -82,6 +84,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     NormalInfo normalInfo = response.body();
                     callback.onResponse(normalInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 
@@ -105,6 +109,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     MaterialInfo materialInfo = response.body();
                     callback.onResponse(materialInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 
@@ -124,6 +130,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     ResultInfo resultInfo = response.body();
                     callback.onResponse(resultInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 
@@ -143,6 +151,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     HistoryInfo historyInfo = response.body();
                     callback.onResponse(historyInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 
@@ -163,6 +173,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     SurveyInfo surveyInfo = response.body();
                     callback.onResponse(surveyInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 
@@ -182,6 +194,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     SurveyInfo surveyInfo = response.body();
                     callback.onResponse(surveyInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 
@@ -201,6 +215,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     HelpInfo helpInfo = response.body();
                     callback.onResponse(helpInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 
@@ -224,6 +240,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     PhotoListInfo photoListInfo = response.body();
                     callback.onResponse(photoListInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 
@@ -242,6 +260,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     PhotoListInfo photoInfo = response.body();
                     callback.onResponse(photoInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 
@@ -269,6 +289,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     NormalInfo normalInfo = response.body();
                     callback.onResponse(normalInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 
@@ -295,6 +317,8 @@ public class HttpRequest {
                 if (response != null && response.body() != null) {
                     NormalInfo normalInfo = response.body();
                     callback.onResponse(normalInfo);
+                } else {
+                    callback.onFailure();
                 }
             }
 

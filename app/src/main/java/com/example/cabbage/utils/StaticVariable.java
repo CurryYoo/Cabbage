@@ -7,6 +7,7 @@ public class StaticVariable {
     public static final int STATUS_READ = 1;   // 只读
     public static final int STATUS_WRITE = 2;  // 修改
     public static final int STATUS_COPY = 3;  // 复制创建
+    public static final int STATUS_CACHE = 4;  // 缓存数据
 
     // 观测时期
     public static final String SURVEY_PERIOD_GERMINATION = "发芽期";

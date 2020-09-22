@@ -36,6 +36,7 @@
     <string name="upload_data">上传数据</string>
     <string name="upload_data_tip">确认上传数据？</string>
     <string name="upload_data_ing">正在上传数据…</string>
+    <string name="cache_data_tip">确认缓存数据？</string>
     <string name="upload_data_success">保存数据成功</string>
     <string name="upload_data_content">上传数据耗时较长，请勿中途退出</string>
     <string name="pwd_old">原密码</string>
@@ -53,6 +54,8 @@
 
     <string name="query_success">查询成功</string>
     <string name="query_fail">查询失败</string>
+
+    <string name="has_no_cache">没有缓存数据</string>
 
     <string name="user_role">实验员</string>
     <string name="dialog_picture_operate">双指缩放，单击退出</string>
@@ -239,7 +242,7 @@
 
     //无需翻译
     <string name="option_success">操作成功</string>
-
+    <string name="option_fail">操作失败</string>
 
     <string name="last_material">最近调查材料</string>
     <string name="slogan">大白菜信息采集平台</string>

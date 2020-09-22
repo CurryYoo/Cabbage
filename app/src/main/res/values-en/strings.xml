@@ -36,6 +36,7 @@
     <string name="upload_data">Upload Data</string>
     <string name="upload_data_tip">Confirm upload data？</string>
     <string name="upload_data_ing">Uploading data…</string>
+    <string name="cache_data_tip">Confirm cache data？</string>
     <string name="upload_data_success">Save data successfully</string>
     <string name="upload_data_content">Uploading data takes a long time, please do not exit midway</string>
     <string name="pwd_old">Old Password</string>
@@ -53,6 +54,8 @@
 
     <string name="query_success">Query successful</string>
     <string name="query_fail">Query failed</string>
+
+    <string name="has_no_cache">no cache data</string>
 
     <string name="user_role">Experimenter</string>
     <string name="dialog_picture_operate">Two-finger zoom, click to exit</string>
@@ -240,7 +243,7 @@
 
     //无需翻译
     <string name="option_success">操作成功</string>
-
+    <string name="option_fail">操作失败</string>
 
     <string name="last_material">Last Collect Material</string>
     <string name="slogan">Cabbage</string>

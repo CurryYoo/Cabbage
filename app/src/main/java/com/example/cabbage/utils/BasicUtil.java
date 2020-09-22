@@ -24,11 +24,17 @@ import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.imagepipeline.image.ImageInfo;
 
+import org.json.JSONObject;
+
+import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
 
 import me.relex.photodraweeview.OnViewTapListener;
@@ -252,4 +258,51 @@ public class BasicUtil {
     private static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
+
+    /**
+     * 将json对象转换成Map
+     *
+     * @param jsonObject json对象
+     * @return Map对象
+     */
+    public static Map<String, String> JsonToMap(JSONObject jsonObject) {
+        Map<String, String> result = new HashMap<>();
+        Iterator<String> iterator = jsonObject.keys();
+        String key = null;
+        String value = null;
+        while (iterator.hasNext()) {
+            key = iterator.next();
+            value = jsonObject.optString(key);
+            result.put(key, value);
+        }
+        return result;
+    }
+
+    /**
+     * 将json转换成Javabean
+     *
+     * @param javabean javaBean
+     * @param data     json数据
+     */
+    public static Object toJavaBean(Object javabean, JSONObject data) {
+        Method[] methods = javabean.getClass().getDeclaredMethods();
+        for (Method method : methods) {
+            try {
+                if (method.getName().startsWith("set")) {
+                    String field = method.getName(); //setName   setPassword
+                    field = field.substring(field.indexOf("set") + 3);//Name  Password
+                    field = field.toLowerCase().charAt(0) + field.substring(1);//name  password
+                    method.invoke(javabean, new Object[]
+                            {
+                                    data.optString(field)
+                            });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return javabean;
+    }
+
 }

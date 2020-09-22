@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +33,21 @@ import com.example.cabbage.data.MaterialSuggestion;
 import com.example.cabbage.network.HttpRequest;
 import com.example.cabbage.network.MaterialData;
 import com.example.cabbage.network.MaterialInfo;
+import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.utils.NetworkUtils;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,6 +60,7 @@ import butterknife.Unbinder;
 import timber.log.Timber;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.cabbage.utils.StaticVariable.STATUS_CACHE;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
@@ -107,12 +120,41 @@ public class MainFragment extends Fragment {
                 if (hasCache) {
                     executorService.execute(() -> {
                         //访问文件数据
-
+                        File file = new File(getContext().getCacheDir(), "cache.txt");
+                        String cacheData = "";
+                        try {
+                            FileInputStream inputStream = new FileInputStream(file);
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                            cacheData = reader.readLine();
+                            Log.e("cacheData read", cacheData);
+//                            Object obj = inputStream.readObject();
+//                            if (obj instanceof SurveyInfo) {
+//                                cacheData = (SurveyInfo)obj;
+//                            }
+                            inputStream.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+//                        String surveyPeriod = "";
+//                        if (!TextUtils.isEmpty(cacheData)) {
+//                            try {
+//                                JSONObject jsonObject = new JSONObject(cacheData);
+//                                surveyPeriod = jsonObject.getString("surveyPeriod");
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
                         // ui
+                        String finalCacheData = cacheData;
                         handler.post(() -> {
-
+                            ARouter.getInstance().build(ARouterPaths.SURVEY_ACTIVITY)
+                                    .withInt("status", STATUS_CACHE)
+                                    .withString("cacheData", finalCacheData)
+                                    .navigation();
                         });
                     });
+                } else {
+                    Toast.makeText(getContext(), R.string.has_no_cache, Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:

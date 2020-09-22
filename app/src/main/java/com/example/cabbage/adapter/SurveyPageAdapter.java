@@ -1,12 +1,14 @@
 package com.example.cabbage.adapter;
 
 import android.content.Intent;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.example.cabbage.fragment.BaseSurveyFragment;
 import com.example.cabbage.fragment.FloweringPeriodFragment;
 import com.example.cabbage.fragment.GerminationPeriodFragment;
 import com.example.cabbage.fragment.HarvestPeriodFragment;
@@ -16,14 +18,13 @@ import com.example.cabbage.fragment.SeedHarvestPeriodFragment;
 import com.example.cabbage.fragment.SeedlingPeriodFragment;
 import com.example.cabbage.fragment.StoragePeriodFragment;
 
-import timber.log.Timber;
-
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.SURVEY_PERIOD_FLOWERING;
 import static com.example.cabbage.utils.UIUtils.checkPeriod;
 
 public class SurveyPageAdapter extends FragmentStatePagerAdapter {
-    private Fragment fragment;
+    private BaseSurveyFragment fragment;
+    private BaseSurveyFragment currentFragment;
     private Intent intent;
     private String materialId;
     private String materialType;
@@ -31,6 +32,7 @@ public class SurveyPageAdapter extends FragmentStatePagerAdapter {
     private String investigatingTime;
     private String surveyId;
     private String surveyPeriod;
+    private String cacheData;
     private int status = STATUS_NEW;
 
 
@@ -42,8 +44,9 @@ public class SurveyPageAdapter extends FragmentStatePagerAdapter {
         this.plantId = intent.getStringExtra("plantId");
         this.investigatingTime = intent.getStringExtra("investigatingTime");
         this.surveyId = intent.getStringExtra("surveyId");
-        this.surveyPeriod=intent.getStringExtra("surveyPeriod");
+        this.surveyPeriod = intent.getStringExtra("surveyPeriod");
         this.status = intent.getIntExtra("status", STATUS_NEW);
+        this.cacheData = intent.getStringExtra("cacheData");
     }
 
     @NonNull
@@ -69,7 +72,7 @@ public class SurveyPageAdapter extends FragmentStatePagerAdapter {
                 fragment = StoragePeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
                 break;
             case 6:
-                fragment = FloweringPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime,surveyId, status);
+                fragment = FloweringPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, cacheData, status);
                 break;
             case 7:
                 fragment = SeedHarvestPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, checkPeriod(SURVEY_PERIOD_FLOWERING, surveyPeriod, surveyId), status);
@@ -83,5 +86,15 @@ public class SurveyPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return 8;
+    }
+
+    @Override
+    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        currentFragment = (BaseSurveyFragment) object;
+        super.setPrimaryItem(container, position, object);
+    }
+
+    public void cache() {
+        currentFragment.cache();
     }
 }

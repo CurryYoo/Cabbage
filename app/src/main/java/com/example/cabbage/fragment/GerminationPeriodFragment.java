@@ -65,7 +65,7 @@ import static com.example.cabbage.utils.UIUtils.showBottomHelpDialog;
  * Date:2020/9/10
  * Description:发芽期
  */
-public class GerminationPeriodFragment extends Fragment {
+public class GerminationPeriodFragment extends BaseSurveyFragment {
 
     @BindView(R.id.edt_material_id)
     EditText edtMaterialId;
@@ -510,5 +510,10 @@ public class GerminationPeriodFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public String getCacheData() {
+        return getPeriodData();
     }
 }

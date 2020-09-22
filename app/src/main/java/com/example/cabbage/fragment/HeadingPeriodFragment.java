@@ -70,7 +70,7 @@ import static com.example.cabbage.utils.UIUtils.showBottomHelpDialog;
  * Date:2020/9/10
  * Description:结球期
  */
-public class HeadingPeriodFragment extends Fragment {
+public class HeadingPeriodFragment extends BaseSurveyFragment {
     @BindView(R.id.edt_material_id)
     EditText edtMaterialId;
     @BindView(R.id.edt_material_type)
@@ -753,4 +753,8 @@ public class HeadingPeriodFragment extends Fragment {
         unbinder.unbind();
     }
 
+    @Override
+    public String getCacheData() {
+        return getPeriodData();
+    }
 }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,9 @@ import com.google.gson.JsonObject;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -55,8 +59,10 @@ import butterknife.Unbinder;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import timber.log.Timber;
 
+import static com.example.cabbage.utils.BasicUtil.toJavaBean;
 import static com.example.cabbage.utils.StaticVariable.COUNT_EXTRA;
 import static com.example.cabbage.utils.StaticVariable.SEPARATOR;
+import static com.example.cabbage.utils.StaticVariable.STATUS_CACHE;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
@@ -200,6 +206,7 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
     private int status = STATUS_NEW;
     private String surveyId;
     private String surveyPeriod = SURVEY_PERIOD_FLOWERING;
+    private String cacheData;
     private String token;
     private int userId;
     private String nickname;
@@ -314,12 +321,15 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
         }
     };
 
-    public static FloweringPeriodFragment newInstance(String materialId
-            , String materialType
-            , String plantId
-            , String investigatingTime
-            , String surveyId
-            , int status) {
+    public static FloweringPeriodFragment newInstance(String materialId, String materialType,
+                                                      String plantId, String investigatingTime,
+                                                      String surveyId, int status) {
+        return newInstance(materialId, materialType, plantId, investigatingTime, surveyId, "", status);
+    }
+
+    public static FloweringPeriodFragment newInstance(String materialId, String materialType,
+                                                      String plantId, String investigatingTime,
+                                                      String surveyId, String cacheData, int status) {
         FloweringPeriodFragment newInstance = new FloweringPeriodFragment();
         Bundle bundle = new Bundle();
         bundle.putString("materialId", materialId);
@@ -327,6 +337,7 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
         bundle.putString("plantId", plantId);
         bundle.putString("investigatingTime", investigatingTime);
         bundle.putString("surveyId", surveyId);
+        bundle.putString("cacheData", cacheData);
         newInstance.setArguments(bundle);
         bundle.putInt("status", status);
         return newInstance;
@@ -352,7 +363,7 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
         investigatingTime = bundle.getString("investigatingTime");
         surveyId = bundle.getString("surveyId");
         status = bundle.getInt("status", STATUS_NEW);
-
+        cacheData = bundle.getString("cacheData", "");
 
         return view;
     }
@@ -385,6 +396,11 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
 //                initMaps();
                 initBasicInfo("");
                 initData();
+                break;
+            case STATUS_CACHE:
+                initView(true);
+                initBasicInfo(plantId);
+                initCacheData();
                 break;
             default:
                 break;
@@ -458,7 +474,9 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
         // 展示基本信息
         edtMaterialId.setText(materialId);
         edtMaterialType.setText(materialType);
-        edtPlantId.setText(plantId);
+        if (!TextUtils.isEmpty(plantId)) {
+            edtPlantId.setText(plantId);
+        }
         edtInvestigatingTime.setText(investigatingTime);
         edtInvestigatingTime.setOnClickListener(v -> edtInvestigatingTime.setText(getSystemTime()));
         edtInvestigator.setText(nickname);
@@ -598,6 +616,19 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
         }
     }
 
+    // 初始化缓存数据
+    private void initCacheData() {
+        try {
+            JSONObject cacheJson = new JSONObject(cacheData);
+            SurveyInfo.Data data = (SurveyInfo.Data)toJavaBean(new SurveyInfo.Data(), cacheJson);
+            SurveyInfo surveyInfo = new SurveyInfo(data);
+            Log.e("cacheData cast", surveyInfo.toString());
+            updateUI(surveyInfo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     // 初始化网络数据（文本数据）
     private void initData() {
         // 网络请求具体数据
@@ -640,6 +671,30 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
         updateExtraView(btnAddAttribute, layoutCustomAttribute, "spare1", surveyInfo.data.spare1);
         updateExtraView(btnAddRemark, layoutCustomAttribute, "spare2", surveyInfo.data.spare2);
     }
+
+//    private void updateUI(JSONObject cacheJson) {
+//        JSONObject.toBean();
+//        edtLocation.setText(cacheJson.optString("location", ""));
+//        setSelectionAndText(halfPlantFlowerBud, edtHalfPlantFlowerBud, cacheJson.optString("halfPlantBudding", ""));
+//        edtTimeOfFirstFlower.setText(cacheJson.optString("timeRequiredForTheFirstFlower", ""));
+//        setSelectionAndText(flowerBudStatus, edtFlowerBudStatus, surveyInfo.data.budState);
+//        setSelectionAndText(flowerBudShape, edtFlowerBudShape, surveyInfo.data.budShape);
+//        setSelectionAndText(flowerBudSize, edtFlowerBudSize, surveyInfo.data.budSize);
+//        setSelectionAndText(petalShape, edtPetalShape, surveyInfo.data.petalShape);
+//        setSelectionAndText(petalSize, edtPetalSize, surveyInfo.data.petalSize);
+//        setSelectionAndText(petalColor, edtPetalColor, surveyInfo.data.petalColor);
+//        edtPetalCount.setText(surveyInfo.data.petalNumber);
+//        edtGerminationRate.setText(surveyInfo.data.plantHeight);
+//        setSelectionAndText(branchAbility, edtBranchAbility, surveyInfo.data.branchingAbility);
+//        setSelectionAndText(singleFlowerSterileDegree, edtSingleFlowerSterileDegree, surveyInfo.data.sterilityOfSingleFlower);
+//        setSelectionAndText(singlePlantSterileDegree, edtSinglePlantSterileDegree, surveyInfo.data.sterilityPerPlant);
+//        setSelectionAndText(groupSterileDegree, edtGroupSterileDegree, surveyInfo.data.populationSterility);
+//        setSelectionAndText(groupSterileRate, edtGroupSterileRate, surveyInfo.data.populationSterilePlantRate);
+//        setSelectionAndText(maleSterile, edtMaleSterile, surveyInfo.data.maleSterile);
+//
+//        updateExtraView(btnAddAttribute, layoutCustomAttribute, "spare1", surveyInfo.data.spare1);
+//        updateExtraView(btnAddRemark, layoutCustomAttribute, "spare2", surveyInfo.data.spare2);
+//    }
 
     private void updateExtraView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
         if (!TextUtils.isEmpty(value)) {
@@ -760,7 +815,15 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
     }
 
     @Override
-    public void cacheData() {
-
+    public String getCacheData() {
+        String cacheData = "";
+        try {
+            JSONObject jsonObject = new JSONObject(getPeriodData());
+            jsonObject.put("surveyPeriod", SURVEY_PERIOD_FLOWERING);
+            cacheData = jsonObject.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return cacheData;
     }
 }
