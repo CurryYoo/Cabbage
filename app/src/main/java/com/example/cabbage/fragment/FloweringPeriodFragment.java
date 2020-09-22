@@ -620,6 +620,9 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
     private void initCacheData() {
         try {
             JSONObject cacheJson = new JSONObject(cacheData);
+            if (!surveyPeriod.equals(cacheJson.optString("surveyPeriod"))) {
+                return;
+            }
             SurveyInfo.Data data = (SurveyInfo.Data)toJavaBean(new SurveyInfo.Data(), cacheJson);
             SurveyInfo surveyInfo = new SurveyInfo(data);
             Log.e("cacheData cast", surveyInfo.toString());
@@ -671,30 +674,6 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
         updateExtraView(btnAddAttribute, layoutCustomAttribute, "spare1", surveyInfo.data.spare1);
         updateExtraView(btnAddRemark, layoutCustomAttribute, "spare2", surveyInfo.data.spare2);
     }
-
-//    private void updateUI(JSONObject cacheJson) {
-//        JSONObject.toBean();
-//        edtLocation.setText(cacheJson.optString("location", ""));
-//        setSelectionAndText(halfPlantFlowerBud, edtHalfPlantFlowerBud, cacheJson.optString("halfPlantBudding", ""));
-//        edtTimeOfFirstFlower.setText(cacheJson.optString("timeRequiredForTheFirstFlower", ""));
-//        setSelectionAndText(flowerBudStatus, edtFlowerBudStatus, surveyInfo.data.budState);
-//        setSelectionAndText(flowerBudShape, edtFlowerBudShape, surveyInfo.data.budShape);
-//        setSelectionAndText(flowerBudSize, edtFlowerBudSize, surveyInfo.data.budSize);
-//        setSelectionAndText(petalShape, edtPetalShape, surveyInfo.data.petalShape);
-//        setSelectionAndText(petalSize, edtPetalSize, surveyInfo.data.petalSize);
-//        setSelectionAndText(petalColor, edtPetalColor, surveyInfo.data.petalColor);
-//        edtPetalCount.setText(surveyInfo.data.petalNumber);
-//        edtGerminationRate.setText(surveyInfo.data.plantHeight);
-//        setSelectionAndText(branchAbility, edtBranchAbility, surveyInfo.data.branchingAbility);
-//        setSelectionAndText(singleFlowerSterileDegree, edtSingleFlowerSterileDegree, surveyInfo.data.sterilityOfSingleFlower);
-//        setSelectionAndText(singlePlantSterileDegree, edtSinglePlantSterileDegree, surveyInfo.data.sterilityPerPlant);
-//        setSelectionAndText(groupSterileDegree, edtGroupSterileDegree, surveyInfo.data.populationSterility);
-//        setSelectionAndText(groupSterileRate, edtGroupSterileRate, surveyInfo.data.populationSterilePlantRate);
-//        setSelectionAndText(maleSterile, edtMaleSterile, surveyInfo.data.maleSterile);
-//
-//        updateExtraView(btnAddAttribute, layoutCustomAttribute, "spare1", surveyInfo.data.spare1);
-//        updateExtraView(btnAddRemark, layoutCustomAttribute, "spare2", surveyInfo.data.spare2);
-//    }
 
     private void updateExtraView(CountButton btnAdd, LinearLayout layout, String keyName, String value) {
         if (!TextUtils.isEmpty(value)) {
@@ -819,7 +798,7 @@ public class FloweringPeriodFragment extends BaseSurveyFragment {
         String cacheData = "";
         try {
             JSONObject jsonObject = new JSONObject(getPeriodData());
-            jsonObject.put("surveyPeriod", SURVEY_PERIOD_FLOWERING);
+            jsonObject.put("surveyPeriod", surveyPeriod);
             cacheData = jsonObject.toString();
         } catch (JSONException e) {
             e.printStackTrace();

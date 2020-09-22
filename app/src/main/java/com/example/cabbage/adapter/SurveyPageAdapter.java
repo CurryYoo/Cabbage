@@ -54,28 +54,28 @@ public class SurveyPageAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                fragment = GerminationPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
+                fragment = GerminationPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, cacheData, status);
                 break;
             case 1:
-                fragment = SeedlingPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
+                fragment = SeedlingPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, cacheData, status);
                 break;
             case 2:
-                fragment = RosettePeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
+                fragment = RosettePeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, cacheData, status);
                 break;
             case 3:
-                fragment = HeadingPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
+                fragment = HeadingPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, cacheData, status);
                 break;
             case 4:
-                fragment = HarvestPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
+                fragment = HarvestPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, cacheData, status);
                 break;
             case 5:
-                fragment = StoragePeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, status);
+                fragment = StoragePeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, cacheData, status);
                 break;
             case 6:
                 fragment = FloweringPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, surveyId, cacheData, status);
                 break;
             case 7:
-                fragment = SeedHarvestPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, checkPeriod(SURVEY_PERIOD_FLOWERING, surveyPeriod, surveyId), status);
+                fragment = SeedHarvestPeriodFragment.newInstance(materialId, materialType, plantId, investigatingTime, checkPeriod(SURVEY_PERIOD_FLOWERING, surveyPeriod, surveyId), cacheData, status);
                 break;
             default:
                 break;

@@ -70,6 +70,9 @@ public class SplashActivity extends AppCompatActivity {
                     editor.apply();
                     ARouter.getInstance().build(ARouterPaths.MAIN_ACTIVITY).navigation();
                     finish();
+                } else {
+                    ARouter.getInstance().build(ARouterPaths.LOGIN_ACTIVITY).navigation();
+                    finish();
                 }
             }
 

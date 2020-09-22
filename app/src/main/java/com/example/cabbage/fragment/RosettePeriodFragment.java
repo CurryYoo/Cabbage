@@ -40,6 +40,9 @@ import com.google.gson.JsonObject;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,7 +55,9 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.example.cabbage.utils.BasicUtil.toJavaBean;
 import static com.example.cabbage.utils.StaticVariable.COUNT_EXTRA;
+import static com.example.cabbage.utils.StaticVariable.STATUS_CACHE;
 import static com.example.cabbage.utils.StaticVariable.STATUS_COPY;
 import static com.example.cabbage.utils.StaticVariable.STATUS_NEW;
 import static com.example.cabbage.utils.StaticVariable.STATUS_READ;
@@ -225,6 +230,7 @@ public class RosettePeriodFragment extends BaseSurveyFragment {
     private int status = STATUS_NEW;
     private String surveyId;
     private String surveyPeriod = SURVEY_PERIOD_ROSETTE;
+    private String cacheData;
     private String token;
     private int userId;
     private String nickname;
@@ -376,12 +382,15 @@ public class RosettePeriodFragment extends BaseSurveyFragment {
         }
     };
 
-    public static RosettePeriodFragment newInstance(String materialId
-            , String materialType
-            , String plantId
-            , String investigatingTime
-            , String surveyId
-            , int status) {
+    public static RosettePeriodFragment newInstance(String materialId, String materialType,
+                                                        String plantId, String investigatingTime,
+                                                        String surveyId, int status) {
+        return newInstance(materialId, materialType, plantId, investigatingTime, surveyId, "", status);
+    }
+
+    public static RosettePeriodFragment newInstance(String materialId, String materialType,
+                                                        String plantId, String investigatingTime,
+                                                        String surveyId, String cacheData, int status) {
         RosettePeriodFragment newInstance = new RosettePeriodFragment();
         Bundle bundle = new Bundle();
         bundle.putString("materialId", materialId);
@@ -389,6 +398,7 @@ public class RosettePeriodFragment extends BaseSurveyFragment {
         bundle.putString("plantId", plantId);
         bundle.putString("investigatingTime", investigatingTime);
         bundle.putString("surveyId", surveyId);
+        bundle.putString("cacheData", cacheData);
         newInstance.setArguments(bundle);
         bundle.putInt("status", status);
         return newInstance;
@@ -414,6 +424,7 @@ public class RosettePeriodFragment extends BaseSurveyFragment {
         investigatingTime = bundle.getString("investigatingTime");
         surveyId = bundle.getString("surveyId");
         status = bundle.getInt("status", STATUS_NEW);
+        cacheData = bundle.getString("cacheData", "");
 
         return view;
     }
@@ -450,6 +461,11 @@ public class RosettePeriodFragment extends BaseSurveyFragment {
                 initBasicInfo("");
                 initData();
                 break;
+            case STATUS_CACHE:
+                initView(true);
+                initBasicInfo(plantId);
+                initCacheData();
+                break;
             default:
                 break;
         }
@@ -460,7 +476,9 @@ public class RosettePeriodFragment extends BaseSurveyFragment {
         // 展示基本信息
         edtMaterialId.setText(materialId);
         edtMaterialType.setText(materialType);
-        edtPlantId.setText(plantId);
+        if (!TextUtils.isEmpty(plantId)) {
+            edtPlantId.setText(plantId);
+        }
         edtInvestigatingTime.setText(investigatingTime);
         edtInvestigatingTime.setOnClickListener(v -> edtInvestigatingTime.setText(getSystemTime()));
         edtInvestigator.setText(nickname);
@@ -684,6 +702,21 @@ public class RosettePeriodFragment extends BaseSurveyFragment {
         }
     }
 
+    // 初始化缓存数据
+    private void initCacheData() {
+        try {
+            JSONObject cacheJson = new JSONObject(cacheData);
+            if (!surveyPeriod.equals(cacheJson.optString("surveyPeriod"))) {
+                return;
+            }
+            SurveyInfo.Data data = (SurveyInfo.Data)toJavaBean(new SurveyInfo.Data(), cacheJson);
+            SurveyInfo surveyInfo = new SurveyInfo(data);
+            updateUI(surveyInfo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     // 初始化网络数据（文本数据）
     private void initData() {
         // 网络请求具体数据
@@ -853,6 +886,14 @@ public class RosettePeriodFragment extends BaseSurveyFragment {
 
     @Override
     public String getCacheData() {
-        return getPeriodData();
+        String cacheData = "";
+        try {
+            JSONObject jsonObject = new JSONObject(getPeriodData());
+            jsonObject.put("surveyPeriod", surveyPeriod);
+            cacheData = jsonObject.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return cacheData;
     }
 }
