@@ -148,4 +148,11 @@
         app:floatingSearch_showOverFlowMenu="true"
         app:floatingSearch_showSearchKey="false" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_analysis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_add_photos"
+        android:layout_gravity="end|bottom" />
+
 </LinearLayout>

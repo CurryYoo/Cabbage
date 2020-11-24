@@ -39,6 +39,8 @@ import com.example.cabbage.network.MaterialInfo;
 import com.example.cabbage.network.SurveyInfo;
 import com.example.cabbage.utils.ARouterPaths;
 import com.example.cabbage.utils.NetworkUtils;
+import com.example.plant_analysis.AnalysisActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -59,6 +61,7 @@ import java.util.concurrent.ExecutorService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import timber.log.Timber;
 
@@ -88,6 +91,13 @@ public class MainFragment extends Fragment {
     RecyclerView recyclerViewLast;
     @BindView(R.id.btn_web)
     LinearLayout btnWeb;
+    @BindView(R.id.btn_analysis)
+    FloatingActionButton btnAnalysis;
+    @OnClick(R.id.btn_analysis)
+    void analyse() {
+        startActivity(new Intent(getContext(), AnalysisActivity.class));
+    }
+
     private Context self;
     private Unbinder unbinder;
     private String token;

@@ -6,7 +6,8 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+        // 设置仓库
+        maven { url "https://chaquo.com/maven" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
@@ -14,6 +15,9 @@ buildscript {
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
 
         classpath 'com.github.jokar:multi-languages.plugin:0.1.1'
+
+        // 导入Chaquopy框架的包
+        classpath "com.chaquo.python:gradle:8.0.1"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
